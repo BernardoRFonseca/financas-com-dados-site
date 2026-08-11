@@ -1,8 +1,8 @@
 name: IG Stats
 on:
   schedule:
-    - cron: "0 21 * * *"   # 22h00 Lisboa (21h UTC)
-  workflow_dispatch: {}      # botão de teste manual
+    - cron: "0 * * * *"   # de 1 em 1 horas
+  workflow_dispatch: {}
 permissions:
   contents: write
 jobs:
@@ -21,6 +21,7 @@ jobs:
         run: |
           git config user.name "ig-stats-bot"
           git config user.email "bot@financascomdados"
+          git pull --rebase
           git add performance.json
-          git diff --cached --quiet || git commit -m "stats: sync diario"
+          git diff --cached --quiet || git commit -m "stats: sync 2h"
           git push
