@@ -77,6 +77,15 @@ main{max-width:1180px;margin:0 auto;padding:8px 24px}
 .acommon{margin-top:18px;padding-top:14px;border-top:1px dashed var(--line);font-size:13.5px}
 .acommon a{color:var(--green);font-weight:600}
 .noprod{background:var(--paper);border:1px dashed var(--line);border-radius:12px;padding:16px 18px;color:var(--ink-soft);font-size:13.5px}
+.chartbox{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 16px 10px;margin-top:12px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;padding:8px 4px 6px}
+.lgd{font-size:12px;color:var(--ink-soft);display:flex;align-items:center;gap:6px}
+.lgd b{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:11.5px}
+.ldot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.chartctl{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px}
+.ctlg{display:flex;gap:4px;background:#EFEDE3;border-radius:999px;padding:3px}
+.cbt{border:0;background:none;font:inherit;font-size:12.5px;color:var(--ink-soft);padding:6px 13px;border-radius:999px;cursor:pointer;font-family:'IBM Plex Mono',monospace}
+.cbt.on{background:#101714;color:#7FE3B4}
 .statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
 .stat{background:#101714;border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
 .stat .k{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8FA89B;letter-spacing:.08em}
@@ -135,6 +144,7 @@ main{max-width:1180px;margin:0 auto;padding:8px 24px}
 .mainnav{display:flex;gap:2px;margin-left:12px}
 .nv{border:0;background:none;padding:7px 14px;border-radius:999px;font:inherit;font-size:14px;color:var(--ink-soft);cursor:pointer}
 .nv.on{background:#101714;color:#7FE3B4}
+.tbx{padding:6px 12px;font-size:12px;font-family:'IBM Plex Mono',monospace}
 .sync{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#2AA971;white-space:nowrap}
 .intent{margin-top:9px;font-size:12px;color:var(--ink-soft);line-height:1.5;border-left:2px solid #2AA971;padding-left:9px}
 .spark{display:flex;align-items:center;gap:8px;margin-top:8px}
@@ -188,6 +198,7 @@ main{max-width:1180px;margin:0 auto;padding:8px 24px}
     <button data-v="banco" class="nv">Banco</button>
   </span>
   <span class="spacer"></span>
+  <button class="exportbtn tbx" id="btnExport" title="Descarrega o performance.json">⬇ json</button>
   <span class="sync" id="syncDot">● sync —</span>
 </div></nav>
 
@@ -197,7 +208,7 @@ main{max-width:1180px;margin:0 auto;padding:8px 24px}
     <div class="chips" id="tagChips"></div>
     <div class="chips" id="estadoChips"></div>
     <span class="spacer"></span>
-    <button class="exportbtn" id="btnExport" title="Descarrega o performance.json para fazeres commit no repo">⬇ performance.json</button>
+    
     <span class="count" id="count"></span>
     <div class="viewtog" role="group" aria-label="Perfil de score">
       <button id="profCresc" class="on">Score: Crescimento</button>
@@ -535,6 +546,60 @@ function sorted(list){
   return l;
 }
 function fmtN(n){return (n===null||n===undefined)?'—':Number(n).toLocaleString('pt-PT');}
+let chartAxis='rel', chartMetric='views';
+function setChartAxis(a){chartAxis=a;render();}
+function setChartMetric(m){chartMetric=m;render();}
+function fmtK(n){return n>=1000?((n/1000).toFixed(n>=10000?0:1)+'k'):String(Math.round(n));}
+const CHART_COLORS=['#2AA971','#101714','#D98E32','#C6564F','#5B7FBF','#8A63B8','#3E9AA0','#B5652F'];
+function lineChart(series,mode){
+  series=series.filter(sr=>sr.pts.length>=2);
+  if(!series.length) return '<div class="chartbox"><div class="empty" style="padding:26px 0">O histórico horário começou agora — volta daqui a umas horas e as curvas aparecem aqui sozinhas.</div></div>';
+  let x0=Infinity,x1=-Infinity,y1=0;
+  series.forEach(sr=>sr.pts.forEach(p=>{x0=Math.min(x0,p.x);x1=Math.max(x1,p.x);y1=Math.max(y1,p.y);}));
+  if(x1===x0)x1=x0+1; if(!y1)y1=1;
+  const W=720,H=250,L=52,R=14,T=12,B=26;
+  const xs=v=>L+(v-x0)/(x1-x0)*(W-L-R), ys=v=>T+(1-v/y1)*(H-T-B);
+  let g='';
+  for(let i=0;i<=3;i++){const yv=y1*i/3, y=ys(yv);
+    g+=`<line x1="${L}" y1="${y}" x2="${W-R}" y2="${y}" stroke="#E9E6DC" stroke-width="1"/><text x="${L-8}" y="${y+3.5}" text-anchor="end" font-size="10" fill="#8A9088" font-family="IBM Plex Mono">${fmtK(yv)}</text>`;}
+  for(let i=0;i<=3;i++){const xv=x0+(x1-x0)*i/3, x=xs(xv);
+    const lbl=mode==='rel'?Math.round(xv)+'h':new Date(xv).toLocaleDateString('pt-PT',{day:'2-digit',month:'2-digit'});
+    g+=`<text x="${x}" y="${H-8}" text-anchor="middle" font-size="10" fill="#8A9088" font-family="IBM Plex Mono">${lbl}</text>`;}
+  const lines=series.map((sr,i)=>{
+    const c=sr.color||CHART_COLORS[i%CHART_COLORS.length];
+    const path=sr.pts.map(p=>xs(p.x).toFixed(1)+','+ys(p.y).toFixed(1)).join(' ');
+    const last=sr.pts[sr.pts.length-1];
+    return `<polyline points="${path}" fill="none" stroke="${c}" stroke-width="2.2"/><circle cx="${xs(last.x).toFixed(1)}" cy="${ys(last.y).toFixed(1)}" r="3.4" fill="${c}"/>`;
+  }).join('');
+  const legend=series.map((sr,i)=>{const c=sr.color||CHART_COLORS[i%CHART_COLORS.length];const last=sr.pts[sr.pts.length-1];
+    return `<span class="lgd"><span class="ldot" style="background:${c}"></span>${sr.label} <b>${fmtK(last.y)}</b></span>`;}).join('');
+  return `<div class="chartbox"><svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto">${g}${lines}</svg><div class="legend">${legend}</div></div>`;
+}
+function videoSeries(metric,mode){
+  const pubs=V.filter(d=>perf[d.id]&&perf[d.id].historico&&perf[d.id].historico.length>=2).sort((a,b)=>(a.ord??999)-(b.ord??999));
+  return pubs.map((d,i)=>{
+    const h=perf[d.id].historico.filter(p=>p[metric]!=null);
+    if(h.length<2) return {label:'',pts:[]};
+    const t0=Date.parse(perf[d.id].publicado_em||h[0].t);
+    const pts=h.map(p=>({x:mode==='rel'?(Date.parse(p.t)-t0)/3600000:Date.parse(p.t), y:p[metric]||0})).filter(p=>p.x>=0||mode!=='rel');
+    return {label:`PUB #${String(d.ord??0).padStart(2,'0')} ${d.t.length>26?d.t.slice(0,26)+'…':d.t}`, pts, color:CHART_COLORS[i%CHART_COLORS.length]};
+  });
+}
+function evolutionSection(){
+  const mets=[['views','views'],['alcance','alcance'],['partilhas','partilhas'],['seguidores','seguidores']];
+  const ctl=`<div class="chartctl">
+    <span class="ctlg">${[['rel','horas desde publicação'],['abs','datas reais']].map(x=>`<button class="cbt ${chartAxis===x[0]?'on':''}" onclick="setChartAxis('${x[0]}')">${x[1]}</button>`).join('')}</span>
+    <span class="ctlg">${mets.map(x=>`<button class="cbt ${chartMetric===x[0]?'on':''}" onclick="setChartMetric('${x[0]}')">${x[1]}</button>`).join('')}</span>
+  </div>`;
+  return `<div class="phase-head" style="margin-top:30px"><h2>📈 Evolução por vídeo</h2><span class="meta">histórico horário · ${chartAxis==='rel'?'alinhado ao minuto zero de cada vídeo':'no calendário'}</span></div>${ctl}${lineChart(videoSeries(chartMetric,chartAxis),chartAxis)}`;
+}
+function canalSection(){
+  const h=((perfMeta.canal||{}).historico||[]).filter(p=>p.seguidores!=null);
+  const extra=h.length?Object.keys(h[h.length-1]).filter(k=>!['t','seguidores','a_seguir','publicacoes'].includes(k)):[];
+  const chart=h.length>=2?lineChart([{label:'seguidores',pts:h.map(p=>({x:Date.parse(p.t),y:p.seguidores})),color:'#2AA971'}],'abs')
+    :'<div class="chartbox"><div class="empty" style="padding:26px 0">A curva do canal nasce quando o robô v3 fizer as primeiras leituras dos seguidores totais.</div></div>';
+  return `<div class="phase-head" style="margin-top:30px"><h2>📈 Canal</h2><span class="meta">seguidores totais${extra.length?' · a capturar também: '+extra.join(', '):''}</span></div>${chart}`;
+}
 function renderStats(){
   const pubs=V.filter(d=>perf[d.id]&&perf[d.id].metricas&&Object.keys(perf[d.id].metricas).length).sort((a,b)=>(a.ord??999)-(b.ord??999));
   if(!pubs.length) return '<div class="empty">Sem métricas ainda — o robô escreve aqui todas as noites às 22h00.</div>';
@@ -556,6 +621,9 @@ function renderStats(){
     <div class="stat"><span class="k">LIKES</span><span class="v">${fmtN(tot.likes)}</span></div>
     <div class="stat"><span class="k">SEGUIDORES GANHOS</span><span class="v mint">${fmtN(tot.seg)}</span></div>
   </div>
+  ${evolutionSection()}
+  ${canalSection()}
+  <div class="phase-head" style="margin-top:30px"><h2>Tabela</h2><span class="meta">acumulados por vídeo</span></div>
   <div class="stattablewrap"><table class="stattable"><thead><tr><th></th><th class="tl">vídeo</th><th>views</th><th>alcance</th><th>likes</th><th>coment.</th><th>partilhas</th><th>saves</th><th>seguid.</th><th>t. médio</th><th>tx partilha</th><th>conversão</th></tr></thead><tbody>${rows}</tbody></table></div>
   <div class="statnotes">🏆 mais views: <b>${best('views').t}</b> · 📤 mais partilhado: <b>${best('partilhas').t}</b> · clica numa linha para abrir o cartão · tx partilha = partilhas/alcance · conversão = seguidores/alcance</div></section>`;
 }
@@ -723,7 +791,7 @@ function tog(){
   document.getElementById('btnStats').classList.toggle('on',view==='stats');
   const navmap={crono:'videos',lista:'videos',stats:'stats',cal:'cal',docs:'docs',banco:'banco'};
   document.querySelectorAll('.nv').forEach(b=>b.classList.toggle('on',b.dataset.v===navmap[view]));
-  const tb=document.querySelector('.toolbar'); if(tb) tb.style.display=(view==='crono'||view==='lista'||view==='banco')?'':'none';
+  const tb=document.querySelector('.toolbar'); if(tb) tb.style.display=(view==='banco')?'':'none';
 }
 function setEstado(id, est){ perfOf(id).estado = est; openModal(id); render();
   const m=document.getElementById('modal');
