@@ -1,7 +1,7 @@
 name: IG Stats
 on:
   schedule:
-    - cron: "0 * * * *" 
+    - cron: "0 * * * *"   # de hora a hora
   workflow_dispatch: {}
 permissions:
   contents: write
@@ -21,7 +21,7 @@ jobs:
         run: |
           git config user.name "ig-stats-bot"
           git config user.email "bot@financascomdados"
-          git pull --rebase
           git add performance.json
-          git diff --cached --quiet || git commit -m "stats: sync 2h"
+          git diff --cached --quiet || git commit -m "stats: sync"
+          git pull --rebase origin main
           git push
