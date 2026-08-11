@@ -1,0 +1,336 @@
+{
+ "updated": "2026-08-06",
+ "videos": {
+  "1": {
+   "estado": "publicado",
+   "publicado": "",
+   "metricas": {
+    "views": 3027,
+    "alcance": 2373,
+    "likes": 74,
+    "comentarios": 1,
+    "partilhas": 25,
+    "saves": 9,
+    "seguidores": 9,
+    "tempo_medio_s": 21
+   },
+   "nota": "Publicado sex 7/ago 22h30 · 1:12 · aos 4 dias ainda a subir (2x baseline) · partilhas = motor"
+  },
+  "2": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "4": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "6": {
+   "estado": "guiao",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "7": {
+   "estado": "guiao",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "8": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "9": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "10": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "11": {
+   "estado": "guiao",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "12": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "13": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "14": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "15": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "16": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "17": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "19": {
+   "estado": "guiao",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "20": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "21": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "23": {
+   "estado": "guiao",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "24": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "27": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "28": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "30": {
+   "estado": "guiao",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "31": {
+   "estado": "guiao",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "32": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "35": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "36": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "37": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "38": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "39": {
+   "estado": "publicado",
+   "publicado": "",
+   "metricas": {
+    "views": 1405,
+    "alcance": 998,
+    "likes": 37,
+    "comentarios": 1,
+    "partilhas": 8,
+    "saves": 2,
+    "seguidores": 2,
+    "tempo_medio_s": 20
+   },
+   "nota": "Publicado dom 9/ago 18h30 · 0:58 · ~55-60% do ritmo do #1 à mesma idade; retenção RELATIVA melhor (34% vs 29%); perdeu no hook (pergunta abstrata) e na partilhabilidade (tema-sociedade)"
+  },
+  "40": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "41": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "42": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "43": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "44": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "46": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "47": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "48": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "49": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "50": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "51": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "52": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "53": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "54": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "55": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "57": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "58": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "59": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "60": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "61": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "62": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  },
+  "64": {
+   "estado": "ideia",
+   "publicado": "",
+   "metricas": {},
+   "nota": ""
+  }
+ },
+ "_leia-me": "Editado via dashboard (botão Exportar) ou à mão. IAs: este ficheiro é o estado operacional do pipeline — estados, datas de publicação, métricas e aprendizagens por vídeo."
+}
