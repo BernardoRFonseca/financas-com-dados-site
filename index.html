@@ -77,6 +77,19 @@ main{max-width:1180px;margin:0 auto;padding:8px 24px}
 .acommon{margin-top:18px;padding-top:14px;border-top:1px dashed var(--line);font-size:13.5px}
 .acommon a{color:var(--green);font-weight:600}
 .noprod{background:var(--paper);border:1px dashed var(--line);border-radius:12px;padding:16px 18px;color:var(--ink-soft);font-size:13.5px}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.stat{background:#101714;border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.stat .k{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8FA89B;letter-spacing:.08em}
+.stat .v{font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:600;color:#EDEAE2}
+.stat .v.mint{color:#7FE3B4}
+.stattablewrap{overflow-x:auto;background:#fff;border-radius:14px;border:1px solid #E3E0D5}
+.stattable{width:100%;border-collapse:collapse}
+.stattable th{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6B7A72;text-align:right;padding:10px;border-bottom:1px solid #E3E0D5}
+.stattable td{padding:9px 10px;text-align:right;border-bottom:1px solid #EFEDE4;font-family:'IBM Plex Mono',monospace;font-size:12px;white-space:nowrap}
+.stattable .tl{text-align:left;font-family:'Instrument Sans',sans-serif;font-weight:600;max-width:280px;white-space:normal}
+.stattable tbody tr{cursor:pointer}
+.stattable tbody tr:hover{background:#F6F4EC}
+.statnotes{margin-top:10px;font-size:12.5px;color:#6B7A72}
 .agenda{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;background:#101714;color:#7FE3B4;border-radius:8px;padding:3px 8px;margin-top:7px}
 .asset.capa{outline:2px solid #7FE3B4;outline-offset:-2px;position:relative;border-radius:10px}
 .capatag{position:absolute;top:6px;left:6px;background:#7FE3B4;color:#101714;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;z-index:2}
@@ -163,6 +176,7 @@ main{max-width:1180px;margin:0 auto;padding:8px 24px}
     <div class="viewtog" role="group" aria-label="Vista">
       <button id="btnCrono" class="on">Cronograma</button>
       <button id="btnLista">Lista</button>
+      <button id="btnStats">📊 Stats</button>
     </div>
   </div>
 </div>
@@ -207,6 +221,7 @@ main{max-width:1180px;margin:0 auto;padding:8px 24px}
 const ESTADOS = {ideia:'Ideia', guiao:'Guião', gravado:'Gravado', editado:'Editado', publicado:'Publicado'};
 const METRICAS = [['ret3s','Retenção 3s (%)'],['retMedia','Retenção média (%)'],['saves','Saves'],['partilhas','Partilhas'],['comentarios','Comentários'],['seguidores','Seguidores ganhos']];
 let perf = {}; // id -> {estado, publicado, metricas:{}, nota}
+let perfMeta = {};
 function estadoOf(d){ return (perf[d.id] && perf[d.id].estado) || (d.script ? 'guiao' : 'ideia'); }
 function perfOf(id){ if(!perf[id]) perf[id] = {estado:null, publicado:'', metricas:{}, nota:''}; return perf[id]; }
 const LVL = {3:'Alto',2:'Médio',1:'Baixo'};
@@ -479,8 +494,34 @@ function sorted(list){
   else if(sortBy==='rdesc') l.sort((a,b)=>b.r-a.r||b.v-a.v);
   return l;
 }
+function fmtN(n){return (n===null||n===undefined)?'—':Number(n).toLocaleString('pt-PT');}
+function renderStats(){
+  const pubs=V.filter(d=>perf[d.id]&&perf[d.id].metricas&&Object.keys(perf[d.id].metricas).length).sort((a,b)=>(a.ord??999)-(b.ord??999));
+  if(!pubs.length) return '<div class="empty">Sem métricas ainda — o robô escreve aqui todas as noites às 22h00.</div>';
+  const T=k=>pubs.reduce((sm,d)=>sm+(perf[d.id].metricas[k]||0),0);
+  const tot={views:T('views'),alc:T('alcance'),likes:T('likes'),com:T('comentarios'),part:T('partilhas'),saves:T('saves'),seg:T('seguidores')};
+  const best=k=>pubs.reduce((a,b)=>((perf[b.id].metricas[k]||0)>(perf[a.id].metricas[k]||0)?b:a),pubs[0]);
+  const rows=pubs.map(d=>{const m=perf[d.id].metricas;
+    const tp=m.alcance?100*(m.partilhas||0)/m.alcance:null;
+    const cv=m.alcance?100*(m.seguidores||0)/m.alcance:null;
+    return `<tr onclick="openModal(${d.id})"><td>PUB #${String(d.ord??0).padStart(2,'0')}</td><td class="tl">${d.t}</td><td>${fmtN(m.views)}</td><td>${fmtN(m.alcance)}</td><td>${fmtN(m.likes)}</td><td>${fmtN(m.comentarios)}</td><td>${fmtN(m.partilhas)}</td><td>${fmtN(m.saves)}</td><td>${fmtN(m.seguidores)}</td><td>${m.tempo_medio_s!=null?m.tempo_medio_s+'s':'—'}</td><td>${tp!=null?tp.toFixed(1)+'%':'—'}</td><td>${cv!=null?cv.toFixed(1)+'%':'—'}</td></tr>`;
+  }).join('');
+  const sync=perfMeta.ultima_sincronizacao?('última sincronização: '+perfMeta.ultima_sincronizacao.replace('T',' · ')):'sincronização automática às 22h00';
+  return `<section class="phase"><div class="phase-head"><h2>📊 Stats do canal</h2><span class="meta">${pubs.length} vídeos com métricas · ${sync}</span></div>
+  <div class="statgrid">
+    <div class="stat"><span class="k">VIEWS</span><span class="v">${fmtN(tot.views)}</span></div>
+    <div class="stat"><span class="k">CONTAS ALCANÇADAS</span><span class="v">${fmtN(tot.alc)}</span></div>
+    <div class="stat"><span class="k">PARTILHAS</span><span class="v mint">${fmtN(tot.part)}</span></div>
+    <div class="stat"><span class="k">SAVES</span><span class="v">${fmtN(tot.saves)}</span></div>
+    <div class="stat"><span class="k">LIKES</span><span class="v">${fmtN(tot.likes)}</span></div>
+    <div class="stat"><span class="k">SEGUIDORES GANHOS</span><span class="v mint">${fmtN(tot.seg)}</span></div>
+  </div>
+  <div class="stattablewrap"><table class="stattable"><thead><tr><th></th><th class="tl">vídeo</th><th>views</th><th>alcance</th><th>likes</th><th>coment.</th><th>partilhas</th><th>saves</th><th>seguid.</th><th>t. médio</th><th>tx partilha</th><th>conversão</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <div class="statnotes">🏆 mais views: <b>${best('views').t}</b> · 📤 mais partilhado: <b>${best('partilhas').t}</b> · clica numa linha para abrir o cartão · tx partilha = partilhas/alcance · conversão = seguidores/alcance</div></section>`;
+}
 function render(){
   const app=document.getElementById('app');
+  if(view==='stats'){app.innerHTML=renderStats();document.getElementById('count').textContent='';return;}
   const list=filtered();
   document.getElementById('count').textContent=`${list.length}/${V.length} vídeos`;
   if(!list.length){app.innerHTML='<div class="empty">Nenhum vídeo com estes filtros. Limpa uma etiqueta para veres mais.</div>';return;}
@@ -582,9 +623,11 @@ document.getElementById('profCresc').addEventListener('click',()=>{profile='cres
 document.getElementById('profMarca').addEventListener('click',()=>{profile='marca';ptog();render();});
 document.getElementById('btnCrono').addEventListener('click',()=>{view='crono';sortBy='plan';document.getElementById('sortSel').value='plan';tog();render();});
 document.getElementById('btnLista').addEventListener('click',()=>{view='lista';tog();render();});
+document.getElementById('btnStats').addEventListener('click',()=>{view='stats';tog();render();});
 function tog(){
   document.getElementById('btnCrono').classList.toggle('on',view==='crono');
   document.getElementById('btnLista').classList.toggle('on',view==='lista');
+  document.getElementById('btnStats').classList.toggle('on',view==='stats');
 }
 function setEstado(id, est){ perfOf(id).estado = est; openModal(id); render();
   const m=document.getElementById('modal');
@@ -610,7 +653,7 @@ ec.addEventListener('click', e=>{
   ec.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c===b));
   render();
 });
-fetch('performance.json').then(r=>r.ok?r.json():null).then(j=>{ if(j&&j.videos) perf=j.videos; render(); }).catch(()=>render());
+fetch('performance.json').then(r=>r.ok?r.json():null).then(j=>{ if(j&&j.videos){perf=j.videos; perfMeta=j;} render(); }).catch(()=>render());
 render();
 </script>
 </body>
