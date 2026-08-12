@@ -20,3 +20,11 @@
 - **LIÇÃO 2 — temas-"EU" > temas-"sociedade":** partilhas 25 vs 8. As pessoas partilham o que as posiciona (IRS, salário, depósitos), não o que as informa (economia paralela). Semana 2 já está alinhada com isto
 - **LIÇÃO 3 — capa: a linha branca é o TEMA pesquisável** (matriz v2); número = gancho, sub = twist. Capa do #39 trocada pós-publicação
 - Ressalva: n=2 — hipóteses fortes, não leis
+
+## Dia 5 · análise do arranque do #31 (12/ago) + upgrades
+- Padrão DUAS ONDAS: pico 22h30-23h30 (~117 views/h) + reaceleração ao pequeno-almoço → hipótese: 19h planta, 22h-23h colhe; validar nos próximos lançamentos
+- Vídeos MORREM ao dia 4 (#1: +6 views/10h; #39: +9) → cadência 2-em-2 dias é o mínimo vital
+- Funil: alcance→visita perfil 8,8% (bom) · visita→follow ~1,25% (fraco) ⚠️ ressalva: API não separa visitas de seguidores vs não-seguidores → tratado como hipótese; perfil corrigido 12/ago (nome pesquisável + bio + capas) — medir o delta
+- Comentários: contar só EXTERNOS (nota fixada e respostas próprias inflacionam)
+- Score REAL 0-100 no dashboard (velocidade 25 · partilhas 30 · retenção 20 · interação 15 · conversão 10): #1=82 vs ★80 · #39=63 vs ★86 (gap = tema-sociedade) · #31≈70 parcial vs ★78
+- #66 rerigor: mediana GEP 1.017€ (privado out/23) substitui 1.240€ não confirmado — regra: mediana só de fonte primária
