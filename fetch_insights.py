@@ -29,11 +29,17 @@ def main():
     now=datetime.datetime.now().isoformat(timespec="minutes")
 
     # ---- por vídeo ----
-    medias=get(f"{API}/{IG_USER}/media",{"fields":"id,permalink,timestamp","limit":"50"}).get("data",[])
+    medias=get(f"{API}/{IG_USER}/media",{"fields":"id,permalink,timestamp,caption","limit":"50"}).get("data",[])
+    import re as _re
     for m in medias:
         code=m.get("permalink","").rstrip("/").split("/")[-1]
-        if code not in mapping: continue
-        vid=str(mapping[code]); vals={}
+        vid=None
+        if code in mapping: vid=str(mapping[code])              # override manual vence
+        else:
+            tag=_re.search(r"#fcd(\d+)", m.get("caption") or "")  # auto: hashtag-codigo na descricao
+            if tag: vid=tag.group(1)
+        if not vid: continue
+        vals={}
         for met in METRICS:
             try:
                 d=get(f"{API}/{m['id']}/insights",{"metric":met})
@@ -70,6 +76,19 @@ def main():
                     vs=item.get("values",[{}]); v=vs[0].get("value") if vs else None
                 if isinstance(v,(int,float)): ponto[{"reach":"alcance_dia","profile_views":"visitas_perfil","accounts_engaged":"contas_interagiram","total_interactions":"interacoes","website_clicks":"cliques_bio"}.get(item["name"],item["name"])]=v
         except Exception: pass
+    # demografia (snapshot, nao-historico: muda devagar)
+    demo={}
+    for met,brk in [("follower_demographics","country"),("follower_demographics","age"),("engaged_audience_demographics","country"),("engaged_audience_demographics","age")]:
+        try:
+            d=get(f"{API}/{IG_USER}/insights",{"metric":met,"period":"lifetime","metric_type":"total_value","breakdown":brk,"timeframe":"this_month"})
+            for item in d.get("data",[]):
+                res=(item.get("total_value") or {}).get("breakdowns",[{}])[0].get("results",[])
+                top=sorted(res,key=lambda r:-(r.get("value") or 0))[:6]
+                demo[f"{item['name']}_{brk}"]={ (r.get("dimension_values") or ["?"])[0]: r.get("value") for r in top }
+        except Exception: pass
+    if demo:
+        demo["atualizado"]=now
+        canal["demografia"]=demo
     hist=canal.setdefault("historico",[])
     hist.append(ponto)
     if len(hist)>HIST_MAX: del hist[:len(hist)-HIST_MAX]
