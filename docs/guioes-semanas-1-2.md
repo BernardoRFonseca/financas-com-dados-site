@@ -85,9 +85,9 @@ Réplica de todos os masters em TikTok + YouTube Shorts no dia da publicação.
 **Rigor:** FGV 97% / 1,1% > mínimo / 0,4% > caixa (nota fixada); B&O 66.465 contas −6,5pp. Enquadramento não-alarmista deliberado.
 ---
 
-# S2·V2 — "Metade de Portugal ganha menos do que isto" (#66) · ter 18 · ~52s · 123 palavras (v8 APROVADA — QC total, 7 verificações)
+# S2·V2 — "Metade de Portugal ganha menos do que isto" (#66) · ter 18 · ~61s · 140 palavras (v9 APROVADA — tendência 25/26 + aposta pública ~1.050€)
 
-0-7s **HOOK (frase do Bernardo): "Metade dos trabalhadores em Portugal levava para casa menos de 980€ por mês"** `v66-8`+`fonte-ine` (universo fino na etiqueta do ecrã) · 7-14s objeção ("mas a média não é bem mais alta? É — 1.142, em líquido. E mesmo essa… mente") `v66-2` · 14-24s eixo (jovens 820 = mínimo de então · mediana 980 · média 1.142) `v66-7` · 24-36s pictograma `v66-10` · 36-44s atraso como conteúdo `v66-11` · 44-52s reframe+CTA `v66-6`
+0-7s **HOOK (frase do Bernardo): "Metade dos trabalhadores em Portugal levava para casa menos de 980€ por mês"** `v66-8`+`fonte-ine` (universo fino na etiqueta do ecrã) · 7-14s objeção ("mas a média não é bem mais alta? É — 1.142, em líquido. E mesmo essa… mente") `v66-2` · 14-24s eixo (jovens 820 = mínimo de então · mediana 980 · média 1.142) `v66-7` · 24-36s pictograma `v66-10` · **36-51s atraso + TENDÊNCIA + APOSTA ("média já vai nos 1.300; mediana ninguém contou — nas minhas contas, ~1.050") `v66-11→v66-12`** · 51-61s "quando o INE publicar, volto aqui" + CTA `v66-6`
 **Rigor (FECHADO):** INE Inquérito ao Emprego 2024, líquido, TCO. 1.611 BRUTO removido do vídeo (evita subtração armadilhada bruto/líquido/anos — explicada na nota fixada, com a cunha ~25%). Mediana de 2025/2026 NÃO existe (Santander, mai/2026, ainda usa 2024). Pepitas na nota: fosso género >200€; trabalhadoras não qualificadas 633€.
 ---
 
