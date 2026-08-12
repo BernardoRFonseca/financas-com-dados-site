@@ -79,16 +79,16 @@ Réplica de todos os masters em TikTok + YouTube Shorts no dia da publicação.
 
 ---
 
-# S2·V1 — "O pior inimigo do teu dinheiro" (#19) · dom 16 · ~55s · 132 palavras (v3, juízo do Bernardo 12/ago)
+# S2·V1 — "O pior inimigo do teu dinheiro" (#19) · dom 16 · ~58s · 138 palavras (v4: contraste deixar-estar)
 
-0-9s FGV c/ tradução embutida («viver de trading — comprar e vender na bolsa todos os dias») `v19-7`+`fonte-estudos` · 9-16s "só 1% > salário mínimo; não é inteligência — é o cérebro" · 16-20s "o teu faz o mesmo" `v19-1` · 20-30s psicologia nomeada (FOMO topo / medo>plano fundo) `v19-2` · 30-42s B&O + TESE: "o problema não é investir — é MEXER por emoção" `v19-6` · 42-51s defesa ("tu defines as regras a frio; o plano cumpre-as") `v19-4` · 51-55s CTA `v19-5`
+0-9s FGV c/ tradução embutida («viver de trading — comprar e vender na bolsa todos os dias») `v19-7`+`fonte-estudos` · 9-16s "só 1% > salário mínimo; não é inteligência — é o cérebro" · 16-20s "o teu faz o mesmo" `v19-1` · 20-30s psicologia nomeada (FOMO topo / medo>plano fundo) `v19-2` · **30-45s B&O c/ CONTRASTE: "quem deixou estar ganhou o mercado — 17,9%/ano, naqueles anos loucos; quem mais mexia, 11,4" + tese "mexer por emoção"** `v19-6 v2` · 42-51s defesa ("tu defines as regras a frio; o plano cumpre-as") `v19-4` · 51-55s CTA `v19-5`
 **Rigor:** FGV 97% / 1,1% > mínimo / 0,4% > caixa (nota fixada); B&O 66.465 contas −6,5pp. Enquadramento não-alarmista deliberado.
 ---
 
-# S2·V2 — "Metade de Portugal ganha menos do que isto" (#66) · ter 18 · ~57s · 129 palavras (v4: frase-bomba no hook + pictograma)
+# S2·V2 — "Metade de Portugal ganha menos do que isto" (#66) · ter 18 · ~52s · 123 palavras (v8 APROVADA — QC total, 7 verificações)
 
-0-7s **HOOK-BOMBA: "Metade de quem trabalha em Portugal ganha menos de 1.020€ brutos"** `v66-8-hero-mediana`+`fonte-mtsss` · 7-16s objeção respondida ("mas o médio não era 1.611? Era — e também é verdade") `v66-1`+`fonte-ine` · 16-20s "a média mente" `v66-2` · 20-30s eixo GEP c/ datas `v66-7` · **30-41s PICTOGRAMA: fila de 10, a mediana vive aqui + 1 em 5 no mínimo** `v66-10-pessoas` · 41-48s porquê `v66-4` · 48-57s reframe+CTA `v66-6`
-**Rigor (FECHADO):** GEP/MTSSS QP out/2023, privado (excl. função pública), universo na fala e na nota; média INE 1.611 (1T26, todos). Pictograma = ideia do Bernardo (isotype).
+0-7s **HOOK (frase do Bernardo): "Metade dos trabalhadores em Portugal levava para casa menos de 980€ por mês"** `v66-8`+`fonte-ine` (universo fino na etiqueta do ecrã) · 7-14s objeção ("mas a média não é bem mais alta? É — 1.142, em líquido. E mesmo essa… mente") `v66-2` · 14-24s eixo (jovens 820 = mínimo de então · mediana 980 · média 1.142) `v66-7` · 24-36s pictograma `v66-10` · 36-44s atraso como conteúdo `v66-11` · 44-52s reframe+CTA `v66-6`
+**Rigor (FECHADO):** INE Inquérito ao Emprego 2024, líquido, TCO. 1.611 BRUTO removido do vídeo (evita subtração armadilhada bruto/líquido/anos — explicada na nota fixada, com a cunha ~25%). Mediana de 2025/2026 NÃO existe (Santander, mai/2026, ainda usa 2024). Pepitas na nota: fosso género >200€; trabalhadoras não qualificadas 633€.
 ---
 
 # S2·V3 — "Big Mac: o hambúrguer económico" (#11) · qui 20 · ~34s (inalterado; preços/minutos confirmados no dia)
