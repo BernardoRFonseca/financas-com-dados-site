@@ -79,16 +79,16 @@ Réplica de todos os masters em TikTok + YouTube Shorts no dia da publicação.
 
 ---
 
-# S2·V1 — "O pior inimigo do teu dinheiro" (#19) · dom 16 · ~53s · 122 palavras (hook FGV Brasil, 8/ago)
+# S2·V1 — "O pior inimigo do teu dinheiro" (#19) · dom 16 · ~55s · 132 palavras (v3, juízo do Bernardo 12/ago)
 
-0-9s **HOOK FGV: "97% de quem tentou viver de day trading perdeu dinheiro. É o maior estudo do mundo — feito no Brasil."** `v19-7-fgv`+`fonte-estudos` · 9-14s "quase ninguém ganhou mais que um caixa de banco" *(manter cartão)* · 14-19s "E não é só o day trading. És tu. Somos todos." `v19-1` · 19-29s ciclo `v19-2` · 29-41s Barber & Odean −6,5pp `v19-6`+`fonte-estudos` · 41-49s defesa automática `v19-4` · 49-53s CTA confissão `v19-5`
-**Rigor (QC 8/ago ✓):** FGV/CVM (Chague, De-Losso & Giovannetti): 97% dos persistentes 300+ sessões perderam; 0,4% > caixa de banco; melhor ~US$310/dia; sem aprendizagem. B&O: 66.465 contas, ~11,4% vs ~17,9%. Ponte BR deliberada: vídeo universal (tag PT-BR).
+0-9s FGV c/ tradução embutida («viver de trading — comprar e vender na bolsa todos os dias») `v19-7`+`fonte-estudos` · 9-16s "só 1% > salário mínimo; não é inteligência — é o cérebro" · 16-20s "o teu faz o mesmo" `v19-1` · 20-30s psicologia nomeada (FOMO topo / medo>plano fundo) `v19-2` · 30-42s B&O + TESE: "o problema não é investir — é MEXER por emoção" `v19-6` · 42-51s defesa ("tu defines as regras a frio; o plano cumpre-as") `v19-4` · 51-55s CTA `v19-5`
+**Rigor:** FGV 97% / 1,1% > mínimo / 0,4% > caixa (nota fixada); B&O 66.465 contas −6,5pp. Enquadramento não-alarmista deliberado.
 ---
 
-# S2·V2 — "Metade de Portugal ganha menos do que isto" (#66 · estreia Salários) · ter 18 · ~51s · 121 palavras (eixo salarial, tudo em BRUTO)
+# S2·V2 — "Metade de Portugal ganha menos do que isto" (#66) · ter 18 · ~57s · 129 palavras (v4: frase-bomba no hook + pictograma)
 
-0-7s "média 1.611€ — e provavelmente não é o teu" `v66-1`+`fonte-ine` · 7-12s "a média mente" `v66-2` · **12-27s EIXO: mediana ~1.240€ brutos (menos de mil líquidos), metade abaixo** `v66-7-eixo`+`fonte-ine` · 27-34s "o chão: 1 em 5 no mínimo, 920€" *(manter eixo)* · 34-42s porquê `v66-4` · 42-47s reframe `v66-5` · 47-51s CTA "acima ou abaixo da linha do meio?" `v66-6`
-**Rigor (⚠️ QC antes de gravar):** tudo BRUTO, base 14 meses (dito na nota fixada). Média 1.611€ (INE 1T26) ✓ · mínimo 920€ + 1-em-5 (MTSSS) ✓ · mediana bruta ~1.240€ — CONFIRMAR no INE/GEP (Quadros de Pessoal) e regenerar o eixo se mudar.
+0-7s **HOOK-BOMBA: "Metade de quem trabalha em Portugal ganha menos de 1.020€ brutos"** `v66-8-hero-mediana`+`fonte-mtsss` · 7-16s objeção respondida ("mas o médio não era 1.611? Era — e também é verdade") `v66-1`+`fonte-ine` · 16-20s "a média mente" `v66-2` · 20-30s eixo GEP c/ datas `v66-7` · **30-41s PICTOGRAMA: fila de 10, a mediana vive aqui + 1 em 5 no mínimo** `v66-10-pessoas` · 41-48s porquê `v66-4` · 48-57s reframe+CTA `v66-6`
+**Rigor (FECHADO):** GEP/MTSSS QP out/2023, privado (excl. função pública), universo na fala e na nota; média INE 1.611 (1T26, todos). Pictograma = ideia do Bernardo (isotype).
 ---
 
 # S2·V3 — "Big Mac: o hambúrguer económico" (#11) · qui 20 · ~34s (inalterado; preços/minutos confirmados no dia)
