@@ -79,10 +79,10 @@ Réplica de todos os masters em TikTok + YouTube Shorts no dia da publicação.
 
 ---
 
-# S2·V1 — "O pior inimigo do teu dinheiro" (#19) · dom 16 · ~58s · 138 palavras (v4: contraste deixar-estar)
+# S2·V1 — "O pior inimigo do teu dinheiro" (#19) · dom 16 · ~59s · 140 palavras (v7 APROVADA — 3 provas em escada, voz de cético)
 
-0-9s FGV c/ tradução embutida («viver de trading — comprar e vender na bolsa todos os dias») `v19-7`+`fonte-estudos` · 9-16s "só 1% > salário mínimo; não é inteligência — é o cérebro" · 16-20s "o teu faz o mesmo" `v19-1` · 20-30s psicologia nomeada (FOMO topo / medo>plano fundo) `v19-2` · **30-45s B&O c/ CONTRASTE: "quem deixou estar ganhou o mercado — 17,9%/ano, naqueles anos loucos; quem mais mexia, 11,4" + tese "mexer por emoção"** `v19-6 v2` · 42-51s defesa ("tu defines as regras a frio; o plano cumpre-as") `v19-4` · 51-55s CTA `v19-5`
-**Rigor:** FGV 97% / 1,1% > mínimo / 0,4% > caixa (nota fixada); B&O 66.465 contas −6,5pp. Enquadramento não-alarmista deliberado.
+0-9s FGV c/ tradução embutida `v19-7`+`fonte-estudos` · 9-18s "só 1% > mínimo; não é burrice — é o cérebro; o teu faz o mesmo" `v19-1` · 18-25s ciclo (FOMO topo / medo>plano fundo) `v19-2` · **25-40s «Mas isso era antigamente…» [VOZ DE CÉTICO] → era das apps: mexe-se +, ação da moda −5% no mês seguinte, "tiraram o atrito — a última defesa contra a emoção"** `v19-8 NOVO`+`fonte-estudos` · **40-50s letra pequena obrigatória (70-80% perdem — verificável em 10s)** `v19-10 NOVO` · 50-55s defesa `v19-4` · 55-59s CTA `v19-5`
+**Rigor:** FGV/CVM ✓ · Barber-Huang-Odean-Schwarz JF 2022 (herding Robinhood ~−5%/mês seguinte) ✓ · avisos ESMA 65-85% ✓ · B&O 2000 clássico desceu à nota fixada c/ disclaimer da década.
 ---
 
 # S2·V2 — "Metade de Portugal ganha menos do que isto" (#66) · ter 18 · ~61s · 140 palavras (v9 APROVADA — tendência 25/26 + aposta pública ~1.050€)
