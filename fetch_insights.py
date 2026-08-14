@@ -89,6 +89,14 @@ def main():
     if demo:
         demo["atualizado"]=now
         canal["demografia"]=demo
+        # série temporal da demografia: 1 snapshot por dia (muda devagar; poupa espaço)
+        histd=canal.setdefault("demografia_historico",[])
+        hoje=now[:10]
+        if not histd or histd[-1]["t"][:10]!=hoje:
+            ponto_d={"t":now}
+            ponto_d.update({k:v for k,v in demo.items() if k!="atualizado"})
+            histd.append(ponto_d)
+            if len(histd)>400: del histd[:len(histd)-400]
     hist=canal.setdefault("historico",[])
     hist.append(ponto)
     if len(hist)>HIST_MAX: del hist[:len(hist)-HIST_MAX]
