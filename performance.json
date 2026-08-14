@@ -5,17 +5,17 @@
    "estado": "publicado",
    "publicado": "",
    "metricas": {
-    "views": 3124,
+    "views": 3125,
     "alcance": 2298,
     "likes": 79,
     "comentarios": 1,
     "partilhas": 25,
     "saves": 9,
     "seguidores": 9,
-    "tempo_medio_s": 21.1
+    "tempo_medio_s": 21.0
    },
    "nota": "Publicado sex 7/ago 22h30 · 1:12 · aos 4 dias ainda a subir (2x baseline) · partilhas = motor",
-   "atualizado": "2026-08-14T21:15",
+   "atualizado": "2026-08-14T22:12",
    "historico": [
     {
      "t": "2026-08-11T17:04",
@@ -635,6 +635,16 @@
      "partilhas": 25,
      "saves": 9,
      "seguidores": 9
+    },
+    {
+     "t": "2026-08-14T22:12",
+     "views": 3125,
+     "alcance": 2298,
+     "likes": 79,
+     "comentarios": 1,
+     "partilhas": 25,
+     "saves": 9,
+     "seguidores": 9
     }
    ],
    "publicado_em": "2026-08-07T21:46:30+0000"
@@ -775,8 +785,8 @@
    "estado": "guiao",
    "publicado": "",
    "metricas": {
-    "views": 1268,
-    "alcance": 909,
+    "views": 1270,
+    "alcance": 910,
     "likes": 45,
     "comentarios": 4,
     "partilhas": 8,
@@ -785,7 +795,7 @@
    },
    "nota": "",
    "publicado_em": "2026-08-11T18:00:08+0000",
-   "atualizado": "2026-08-14T21:15",
+   "atualizado": "2026-08-14T22:12",
    "historico": [
     {
      "t": "2026-08-11T21:04",
@@ -1299,6 +1309,15 @@
      "comentarios": 4,
      "partilhas": 8,
      "saves": 1
+    },
+    {
+     "t": "2026-08-14T22:12",
+     "views": 1270,
+     "alcance": 910,
+     "likes": 45,
+     "comentarios": 4,
+     "partilhas": 8,
+     "saves": 1
     }
    ]
   },
@@ -1336,8 +1355,8 @@
    "estado": "publicado",
    "publicado": "",
    "metricas": {
-    "views": 1502,
-    "alcance": 1016,
+    "views": 1503,
+    "alcance": 1018,
     "likes": 40,
     "comentarios": 1,
     "partilhas": 8,
@@ -1346,7 +1365,7 @@
     "tempo_medio_s": 19.9
    },
    "nota": "Publicado dom 9/ago 18h30 · 0:58 · ~55-60% do ritmo do #1 à mesma idade; retenção RELATIVA melhor (34% vs 29%); perdeu no hook (pergunta abstrata) e na partilhabilidade (tema-sociedade)",
-   "atualizado": "2026-08-14T21:15",
+   "atualizado": "2026-08-14T22:12",
    "historico": [
     {
      "t": "2026-08-11T17:04",
@@ -1966,6 +1985,16 @@
      "partilhas": 8,
      "saves": 2,
      "seguidores": 2
+    },
+    {
+     "t": "2026-08-14T22:12",
+     "views": 1503,
+     "alcance": 1018,
+     "likes": 40,
+     "comentarios": 1,
+     "partilhas": 8,
+     "saves": 2,
+     "seguidores": 2
     }
    ],
    "publicado_em": "2026-08-09T17:30:04+0000"
@@ -2104,16 +2133,16 @@
   },
   "65": {
    "metricas": {
-    "views": 750,
-    "alcance": 423,
-    "likes": 19,
+    "views": 765,
+    "alcance": 431,
+    "likes": 20,
     "comentarios": 1,
     "partilhas": 12,
     "saves": 1,
     "tempo_medio_s": 10.8
    },
    "publicado_em": "2026-08-13T18:00:05+0000",
-   "atualizado": "2026-08-14T21:15",
+   "atualizado": "2026-08-14T22:12",
    "historico": [
     {
      "t": "2026-08-13T18:48",
@@ -2321,12 +2350,21 @@
      "comentarios": 1,
      "partilhas": 12,
      "saves": 1
+    },
+    {
+     "t": "2026-08-14T22:12",
+     "views": 765,
+     "alcance": 431,
+     "likes": 20,
+     "comentarios": 1,
+     "partilhas": 12,
+     "saves": 1
     }
    ]
   }
  },
  "_leia-me": "Editado via dashboard (botão Exportar) ou à mão. IAs: este ficheiro é o estado operacional do pipeline — estados, datas de publicação, métricas e aprendizagens por vídeo.",
- "ultima_sincronizacao": "2026-08-14T21:15",
+ "ultima_sincronizacao": "2026-08-14T22:12",
  "canal": {
   "historico": [
    {
@@ -2999,6 +3037,17 @@
     "contas_interagiram": 31,
     "interacoes": 62,
     "cliques_bio": 0
+   },
+   {
+    "t": "2026-08-14T22:12",
+    "seguidores": 216,
+    "a_seguir": 228,
+    "publicacoes": 27,
+    "alcance_dia": 443,
+    "visitas_perfil": 65,
+    "contas_interagiram": 32,
+    "interacoes": 63,
+    "cliques_bio": 0
    }
   ],
   "demografia": {
@@ -3034,7 +3083,7 @@
     "13-17": 6,
     "55-64": 4
    },
-   "atualizado": "2026-08-14T21:15"
+   "atualizado": "2026-08-14T22:12"
   },
   "demografia_historico": [
    {
