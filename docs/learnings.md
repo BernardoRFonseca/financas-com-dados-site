@@ -28,3 +28,10 @@
 - Comentários: contar só EXTERNOS (nota fixada e respostas próprias inflacionam)
 - Score REAL 0-100 no dashboard (velocidade 25 · partilhas 30 · retenção 20 · interação 15 · conversão 10): #1=82 vs ★80 · #39=63 vs ★86 (gap = tema-sociedade) · #31≈70 parcial vs ★78
 - #66 rerigor: mediana GEP 1.017€ (privado out/23) substitui 1.240€ não confirmado — regra: mediana só de fonte primária
+
+## Dia 7 · veredito final #65 (14/ago, 15h de vida) — Lições 4 e 5 REGISTADAS
+- **LIÇÃO 4 (confirmada c/ dados completos):** hook de sequela auto-referencial ("No último vídeo mostrei…") mata o arranque a frio — 19-21% retenção relativa (vs 29-35% históricos), sem 2.ª onda noturna, partilhas paradas nas 3 há 10h, zero saves/comentários externos, 65% do ritmo do #31 às 15h (fosso a alargar). **REGRA: hook autónomo obrigatório mesmo em séries; a ligação ao episódio anterior entra DEPOIS do gancho, nunca como gancho.**
+- **LIÇÃO 5:** partilhas altas não compensam retenção fraca — o #31 (melhor taxa de partilha do canal, 1,45%) vai fechar ABAIXO do #39; o algoritmo distribui pelo produto partilha×retenção. **RETENÇÃO = prioridade nº 1** (primeiros 3s + densidade de payoffs).
+- Efeito-arrasto: dia 13 (lançamento do #65) alcançou ~600 contas < dia 12 sem lançamento (~950) — um vídeo fraco trava o canal inteiro por 24h.
+- Ranking em fecho: #1 3,1k > #39 1,5k > #31 ~1,26k > #65 ~0,8k (proj. dia 4).
+- Manhãs confirmam padrão: velocidade matinal do #65 ≈ #31 (~29/h) — o vídeo perdeu a NOITE de lançamento, não a audiência global.
