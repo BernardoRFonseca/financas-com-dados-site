@@ -15,7 +15,7 @@
     "tempo_medio_s": 21.0
    },
    "nota": "Publicado sex 7/ago 22h30 · 1:12 · aos 4 dias ainda a subir (2x baseline) · partilhas = motor",
-   "atualizado": "2026-08-15T22:10",
+   "atualizado": "2026-08-15T23:10",
    "historico": [
     {
      "t": "2026-08-11T17:04",
@@ -875,6 +875,16 @@
      "partilhas": 25,
      "saves": 9,
      "seguidores": 9
+    },
+    {
+     "t": "2026-08-15T23:10",
+     "views": 3133,
+     "alcance": 2298,
+     "likes": 79,
+     "comentarios": 1,
+     "partilhas": 25,
+     "saves": 9,
+     "seguidores": 9
     }
    ],
    "publicado_em": "2026-08-07T21:46:30+0000"
@@ -895,17 +905,17 @@
    "estado": "guiao",
    "publicado": "",
    "metricas": {
-    "views": 1335,
-    "alcance": 1081,
-    "likes": 25,
+    "views": 1388,
+    "alcance": 1126,
+    "likes": 26,
     "comentarios": 1,
     "partilhas": 3,
     "saves": 3,
-    "tempo_medio_s": 12.7
+    "tempo_medio_s": 12.6
    },
    "nota": "",
    "publicado_em": "2026-08-15T10:21:50+0000",
-   "atualizado": "2026-08-15T22:10",
+   "atualizado": "2026-08-15T23:10",
    "historico": [
     {
      "t": "2026-08-15T11:10",
@@ -1011,6 +1021,15 @@
      "views": 1335,
      "alcance": 1081,
      "likes": 25,
+     "comentarios": 1,
+     "partilhas": 3,
+     "saves": 3
+    },
+    {
+     "t": "2026-08-15T23:10",
+     "views": 1388,
+     "alcance": 1126,
+     "likes": 26,
      "comentarios": 1,
      "partilhas": 3,
      "saves": 3
@@ -1145,7 +1164,7 @@
    },
    "nota": "",
    "publicado_em": "2026-08-11T18:00:08+0000",
-   "atualizado": "2026-08-15T22:10",
+   "atualizado": "2026-08-15T23:10",
    "historico": [
     {
      "t": "2026-08-11T21:04",
@@ -1875,6 +1894,15 @@
      "comentarios": 4,
      "partilhas": 8,
      "saves": 1
+    },
+    {
+     "t": "2026-08-15T23:10",
+     "views": 1289,
+     "alcance": 915,
+     "likes": 45,
+     "comentarios": 4,
+     "partilhas": 8,
+     "saves": 1
     }
    ]
   },
@@ -1922,7 +1950,7 @@
     "tempo_medio_s": 19.8
    },
    "nota": "Publicado dom 9/ago 18h30 · 0:58 · ~55-60% do ritmo do #1 à mesma idade; retenção RELATIVA melhor (34% vs 29%); perdeu no hook (pergunta abstrata) e na partilhabilidade (tema-sociedade)",
-   "atualizado": "2026-08-15T22:10",
+   "atualizado": "2026-08-15T23:10",
    "historico": [
     {
      "t": "2026-08-11T17:04",
@@ -2782,6 +2810,16 @@
      "partilhas": 8,
      "saves": 2,
      "seguidores": 2
+    },
+    {
+     "t": "2026-08-15T23:10",
+     "views": 1513,
+     "alcance": 1018,
+     "likes": 40,
+     "comentarios": 1,
+     "partilhas": 8,
+     "saves": 2,
+     "seguidores": 2
     }
    ],
    "publicado_em": "2026-08-09T17:30:04+0000"
@@ -2920,7 +2958,7 @@
   },
   "65": {
    "metricas": {
-    "views": 815,
+    "views": 817,
     "alcance": 457,
     "likes": 22,
     "comentarios": 1,
@@ -2929,7 +2967,7 @@
     "tempo_medio_s": 10.7
    },
    "publicado_em": "2026-08-13T18:00:05+0000",
-   "atualizado": "2026-08-15T22:10",
+   "atualizado": "2026-08-15T23:10",
    "historico": [
     {
      "t": "2026-08-13T18:48",
@@ -3353,12 +3391,21 @@
      "comentarios": 1,
      "partilhas": 12,
      "saves": 1
+    },
+    {
+     "t": "2026-08-15T23:10",
+     "views": 817,
+     "alcance": 457,
+     "likes": 22,
+     "comentarios": 1,
+     "partilhas": 12,
+     "saves": 1
     }
    ]
   }
  },
  "_leia-me": "Editado via dashboard (botão Exportar) ou à mão. IAs: este ficheiro é o estado operacional do pipeline — estados, datas de publicação, métricas e aprendizagens por vídeo.",
- "ultima_sincronizacao": "2026-08-15T22:10",
+ "ultima_sincronizacao": "2026-08-15T23:10",
  "canal": {
   "historico": [
    {
@@ -4295,6 +4342,17 @@
     "contas_interagiram": 39,
     "interacoes": 69,
     "cliques_bio": 0
+   },
+   {
+    "t": "2026-08-15T23:10",
+    "seguidores": 216,
+    "a_seguir": 228,
+    "publicacoes": 28,
+    "alcance_dia": 1253,
+    "visitas_perfil": 70,
+    "contas_interagiram": 40,
+    "interacoes": 70,
+    "cliques_bio": 0
    }
   ],
   "demografia": {
@@ -4330,7 +4388,7 @@
     "13-17": 6,
     "55-64": 4
    },
-   "atualizado": "2026-08-15T22:10"
+   "atualizado": "2026-08-15T23:10"
   },
   "demografia_historico": [
    {
