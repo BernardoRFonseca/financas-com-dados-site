@@ -15,7 +15,7 @@
     "tempo_medio_s": 21.0
    },
    "nota": "Publicado sex 7/ago 22h30 · 1:12 · aos 4 dias ainda a subir (2x baseline) · partilhas = motor",
-   "atualizado": "2026-08-16T16:12",
+   "atualizado": "2026-08-16T17:11",
    "historico": [
     {
      "t": "2026-08-11T17:04",
@@ -1045,6 +1045,16 @@
      "partilhas": 25,
      "saves": 9,
      "seguidores": 9
+    },
+    {
+     "t": "2026-08-16T17:11",
+     "views": 3137,
+     "alcance": 2301,
+     "likes": 79,
+     "comentarios": 1,
+     "partilhas": 25,
+     "saves": 9,
+     "seguidores": 9
     }
    ],
    "publicado_em": "2026-08-07T21:46:30+0000"
@@ -1065,7 +1075,7 @@
    "estado": "guiao",
    "publicado": "",
    "metricas": {
-    "views": 1498,
+    "views": 1501,
     "alcance": 1227,
     "likes": 27,
     "comentarios": 1,
@@ -1075,7 +1085,7 @@
    },
    "nota": "",
    "publicado_em": "2026-08-15T10:21:50+0000",
-   "atualizado": "2026-08-16T16:12",
+   "atualizado": "2026-08-16T17:11",
    "historico": [
     {
      "t": "2026-08-15T11:10",
@@ -1337,6 +1347,15 @@
      "comentarios": 1,
      "partilhas": 3,
      "saves": 3
+    },
+    {
+     "t": "2026-08-16T17:11",
+     "views": 1501,
+     "alcance": 1227,
+     "likes": 27,
+     "comentarios": 1,
+     "partilhas": 3,
+     "saves": 3
     }
    ]
   },
@@ -1468,7 +1487,7 @@
    },
    "nota": "",
    "publicado_em": "2026-08-11T18:00:08+0000",
-   "atualizado": "2026-08-16T16:12",
+   "atualizado": "2026-08-16T17:11",
    "historico": [
     {
      "t": "2026-08-11T21:04",
@@ -2351,6 +2370,15 @@
      "comentarios": 4,
      "partilhas": 8,
      "saves": 1
+    },
+    {
+     "t": "2026-08-16T17:11",
+     "views": 1300,
+     "alcance": 917,
+     "likes": 45,
+     "comentarios": 4,
+     "partilhas": 8,
+     "saves": 1
     }
    ]
   },
@@ -2388,7 +2416,7 @@
    "estado": "publicado",
    "publicado": "",
    "metricas": {
-    "views": 1522,
+    "views": 1523,
     "alcance": 1019,
     "likes": 40,
     "comentarios": 1,
@@ -2398,7 +2426,7 @@
     "tempo_medio_s": 19.8
    },
    "nota": "Publicado dom 9/ago 18h30 · 0:58 · ~55-60% do ritmo do #1 à mesma idade; retenção RELATIVA melhor (34% vs 29%); perdeu no hook (pergunta abstrata) e na partilhabilidade (tema-sociedade)",
-   "atualizado": "2026-08-16T16:12",
+   "atualizado": "2026-08-16T17:11",
    "historico": [
     {
      "t": "2026-08-11T17:04",
@@ -3428,6 +3456,16 @@
      "partilhas": 8,
      "saves": 2,
      "seguidores": 2
+    },
+    {
+     "t": "2026-08-16T17:11",
+     "views": 1523,
+     "alcance": 1019,
+     "likes": 40,
+     "comentarios": 1,
+     "partilhas": 8,
+     "saves": 2,
+     "seguidores": 2
     }
    ],
    "publicado_em": "2026-08-09T17:30:04+0000"
@@ -3575,7 +3613,7 @@
     "tempo_medio_s": 10.7
    },
    "publicado_em": "2026-08-13T18:00:05+0000",
-   "atualizado": "2026-08-16T16:12",
+   "atualizado": "2026-08-16T17:11",
    "historico": [
     {
      "t": "2026-08-13T18:48",
@@ -4152,12 +4190,21 @@
      "comentarios": 1,
      "partilhas": 12,
      "saves": 1
+    },
+    {
+     "t": "2026-08-16T17:11",
+     "views": 838,
+     "alcance": 461,
+     "likes": 22,
+     "comentarios": 1,
+     "partilhas": 12,
+     "saves": 1
     }
    ]
   }
  },
  "_leia-me": "Editado via dashboard (botão Exportar) ou à mão. IAs: este ficheiro é o estado operacional do pipeline — estados, datas de publicação, métricas e aprendizagens por vídeo.",
- "ultima_sincronizacao": "2026-08-16T16:12",
+ "ultima_sincronizacao": "2026-08-16T17:11",
  "canal": {
   "historico": [
    {
@@ -5281,6 +5328,17 @@
     "contas_interagiram": 37,
     "interacoes": 49,
     "cliques_bio": 0
+   },
+   {
+    "t": "2026-08-16T17:11",
+    "seguidores": 217,
+    "a_seguir": 229,
+    "publicacoes": 28,
+    "alcance_dia": 1535,
+    "visitas_perfil": 74,
+    "contas_interagiram": 38,
+    "interacoes": 50,
+    "cliques_bio": 0
    }
   ],
   "demografia": {
@@ -5316,7 +5374,7 @@
     "13-17": 6,
     "55-64": 4
    },
-   "atualizado": "2026-08-16T16:12"
+   "atualizado": "2026-08-16T17:11"
   },
   "demografia_historico": [
    {
