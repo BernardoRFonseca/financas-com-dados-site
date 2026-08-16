@@ -794,7 +794,7 @@ function openModal(id){
     <div class="tabpane" id="p-assets">
       ${hasAssets?`<div class="assetgrid">${[...d.prod.files].sort((a,b)=>(b.includes('-capa')?1:0)-(a.includes('-capa')?1:0)).map(f=>`<div class="asset${f.includes('-capa')?' capa':''}">${f.includes('-capa')?`<span class="capatag">CAPA</span>`:``}<img loading="lazy" src="${d.prod.dir}${f}" alt="${f}"><a href="${d.prod.dir}${f}" download>${f}</a></div>`).join('')}</div>`
       :`<div class="noprod">Overlays por gerar — criam-se com o guião, na semana de produção.</div>`}
-      <div class="acommon"><b>Assets comuns a todos os vídeos:</b> <a href="producao/assets/etiquetas-fonte/" target="_blank">etiquetas de fonte</a> · <a href="producao/capcut-pack-4k.zip" download>pacote CapCut completo (.zip)</a> · <a href="producao/README-capcut.md" target="_blank">guia do projeto-molde</a></div>
+      <div class="acommon"><b>Assets comuns a todos os vídeos:</b> <a href="producao/assets/etiquetas-fonte/" target="_blank">etiquetas de fonte</a> · <a href="producao/capcut-pack-b3-4k.zip" download>pacote CapCut completo (.zip)</a> · <a href="producao/README-capcut.md" target="_blank">guia do projeto-molde</a></div>
     </div>
     <div class="tabpane" id="p-gest">
       <div class="gest" style="margin-top:0;border-top:0;padding-top:0"><h4>Gestão · estado e métricas</h4>
