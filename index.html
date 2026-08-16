@@ -15,7 +15,7 @@
   --line:#223028;
   --green:#7FE3B4;
   --green-soft:#16241D;
-  --marker:#F6E14D;
+  --marker:rgba(246,225,77,.14);
   --red:#B3382C;
   --red-soft:#2E1B18;
   --amber:#8A6D1E;
@@ -29,7 +29,7 @@ body{background:var(--paper);color:var(--ink);font-family:'Instrument Sans',syst
 header{padding:34px 24px 8px;max-width:1180px;margin:0 auto}
 .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:10px}
 h1{font-family:'Archivo',sans-serif;font-weight:900;font-stretch:110%;font-size:clamp(26px,4.5vw,42px);line-height:1.05;letter-spacing:-.01em}
-h1 .hl{background:linear-gradient(transparent 55%, var(--marker) 55%, var(--marker) 92%, transparent 92%);padding:0 .08em;color:#132A21}
+h1 .hl{background:linear-gradient(transparent 55%, var(--marker) 55%, var(--marker) 92%, transparent 92%);padding:0 .08em;color:#F6E14D}
 .sub{color:var(--ink-soft);margin-top:8px;max-width:620px}
 
 .toolbar{position:sticky;top:0;z-index:40;background:color-mix(in srgb, var(--paper) 88%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);margin-top:22px}
@@ -58,7 +58,7 @@ main{max-width:1180px;margin:0 auto;padding:8px 24px}
 .vcard:focus-visible{outline:3px solid var(--green);outline-offset:2px}
 .vcard .pilar{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
 .bignum{font-family:'Archivo',sans-serif;font-weight:900;font-stretch:115%;font-size:34px;line-height:1;letter-spacing:-.02em}
-.bignum span{background:linear-gradient(transparent 52%, var(--marker) 52%, var(--marker) 94%, transparent 94%);padding:0 .06em;color:#132A21}
+.bignum span{background:linear-gradient(transparent 52%, var(--marker) 52%, var(--marker) 94%, transparent 94%);padding:0 .06em;color:#F6E14D}
 .vtitle{font-weight:600;font-size:14.5px;line-height:1.35}
 .ratings{display:flex;flex-wrap:wrap;gap:5px;margin-top:auto}
 .pill{font-family:'IBM Plex Mono',monospace;font-size:10px;border-radius:6px;padding:3px 7px;background:var(--green-soft);color:var(--green);font-weight:500}
@@ -67,7 +67,7 @@ main{max-width:1180px;margin:0 auto;padding:8px 24px}
 .pill.neutral{background:#1A241F;color:var(--ink-soft)}
 .mtabs{display:flex;gap:6px;margin:14px 0 18px;border-bottom:2px solid var(--ink);flex-wrap:wrap}
 .mtabs button{border:1px solid var(--line);border-bottom:0;background:var(--paper);border-radius:10px 10px 0 0;padding:8px 16px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink-soft)}
-.mtabs button.on{background:var(--ink);border-color:#132A21;color:var(--marker)}
+.mtabs button.on{background:#1D2A23;border-color:#26362E;color:#7FE3B4}
 .tabpane{display:none}.tabpane.on{display:block}
 .sbframe{width:100%;height:70vh;border:1px solid var(--line);border-radius:12px;background:var(--card)}
 .assetgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px;margin-top:12px}
@@ -103,7 +103,7 @@ main{max-width:1180px;margin:0 auto;padding:8px 24px}
 .asset.capa{outline:2px solid #7FE3B4;outline-offset:-2px;position:relative;border-radius:10px}
 .capatag{position:absolute;top:6px;left:6px;background:#7FE3B4;color:#1D2A23;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;z-index:2}
 .agenda.done{color:#8FA89B}
-.pill.scorepill{background:var(--ink);color:#132A21;font-weight:600;font-size:10.5px}
+.pill.scorepill{background:var(--ink);color:#F6E14D;font-weight:600;font-size:10.5px}
 .tags{display:flex;flex-wrap:wrap;gap:5px}
 .tag{font-size:10.5px;font-weight:600;color:var(--ink-soft);border:1px dashed var(--line);border-radius:6px;padding:2px 7px}
 .stateflag{position:absolute;top:14px;right:14px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.08em;border-radius:6px;padding:3px 7px}
@@ -133,7 +133,7 @@ main{max-width:1180px;margin:0 auto;padding:8px 24px}
 .modal .close{position:absolute;top:16px;right:16px;border:1px solid var(--line);background:var(--paper);border-radius:8px;width:34px;height:34px;font-size:16px;cursor:pointer;color:var(--ink)}
 .modal .pilar{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:8px}
 .modal h3{font-family:'Archivo',sans-serif;font-weight:800;font-size:24px;line-height:1.15;letter-spacing:-.01em;padding-right:36px}
-.modal .hook{margin:16px 0;border-left:4px solid var(--marker);padding:10px 16px;background:var(--paper);border-radius:0 10px 10px 0;font-size:15px;font-style:italic;color:#132A21}
+.modal .hook{margin:16px 0;border-left:4px solid #F6E14D;padding:10px 16px;background:#0F1613;border-radius:0 10px 10px 0;font-size:15px;font-style:italic;color:#E8E3D5}
 .mratings{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0}
 .mnotes{margin-top:14px}
 .phase-head.clickable{cursor:pointer;user-select:none}
@@ -151,7 +151,7 @@ main{max-width:1180px;margin:0 auto;padding:8px 24px}
 .kpi{display:flex;flex-direction:column;gap:3px;padding:4px 6px}
 .kk{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--ink-soft)}
 .kv{font-size:24px;font-weight:600;color:var(--ink)}
-.kv.kgreen{color:#7FE3B4}
+.kv.kgreen{color:#7FE3B4;font-size:15px;line-height:1.35;padding-top:5px}
 .ks{font-size:12px;color:var(--ink-soft)}
 .hero{background:#182420;border:1px solid #26362E;border-radius:20px;padding:24px 26px;display:grid;grid-template-columns:1.05fr 1.15fr .8fr;gap:26px}
 .h-tag{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink-soft);letter-spacing:.04em}
@@ -670,7 +670,7 @@ let canalMetric='seguidores';
 function setCanalMetric(m){canalMetric=m;render();}
 function trendVerdict(rows){
   const full=rows.slice(1,-1);
-  if(full.length<6) return 'a acumular dias para o veredito (precisa de 6 completos)…';
+  if(full.length<6) return '➡️ a acumular dias…';
   const a=full.slice(-3), b=full.slice(-6,-3);
   const avg=(arr,k)=>arr.reduce((sm,r)=>sm+(r[k]||0),0)/arr.length;
   const ra=avg(a,'alc'), rb=avg(b,'alc')||1, va=avg(a,'views'), vb=avg(b,'views')||1;
@@ -835,7 +835,7 @@ function heroAgora(){
  const durv=DUR[live.id]||50; const ret=m.tempo_medio_s?Math.round(100*m.tempo_medio_s/durv):null;
  const t0=Date.parse(p.publicado_em);
  const mine=(p.historico||[]).map(pt=>({x:(Date.parse(pt.t)-t0)/3600000,y:pt.views||0})).filter(q=>q.x>=0);
- let refId=null,refV=0;V.forEach(v=>{const q=perf[v.id];if(v.id!==live.id&&q&&q.metricas&&(q.metricas.views||0)>refV){refV=q.metricas.views;refId=v.id;}});
+ let refId=null,refV=0;V.forEach(v=>{const q=perf[v.id];if(v.id===live.id||!q||!q.publicado_em||!q.historico||!q.historico.length)return;const f=(Date.parse(q.historico[0].t)-Date.parse(q.publicado_em))/3600000;if(f>3)return;if((q.metricas&&q.metricas.views||0)>refV){refV=q.metricas.views;refId=v.id;}});
  let ref=[];const lim=Math.max(6, mine.length?mine[mine.length-1].x:6);
  if(refId&&perf[refId].historico&&perf[refId].publicado_em){const rt0=Date.parse(perf[refId].publicado_em);ref=perf[refId].historico.map(pt=>({x:(Date.parse(pt.t)-rt0)/3600000,y:pt.views||0})).filter(q=>q.x>=0&&q.x<=lim);}
  const nx=V.filter(dd=>dd.ord&&dd.ord<50&&estadoOf(dd)!=='publicado').sort((a,b)=>a.ord-b.ord)[0];
@@ -853,18 +853,21 @@ function heroAgora(){
 function kpiRuler(){
  const ch=(perfMeta.canal||{}).historico||[]; if(!ch.length) return '';
  const today=dkey(new Date().toISOString());
- const tp=ch.filter(p=>dkey(p.t)===today);
+ const refDay=dkey(ch[ch.length-1].t);
+ const tp=ch.filter(p=>dkey(p.t)===refDay);
  const seg=ch[ch.length-1].seguidores;
  const seg0=tp.length?tp[0].seguidores:seg;
  const alcHoje=tp.reduce((mx,p)=>Math.max(mx,p.alcance_dia||0),0);
- const alcPrev=ch.filter(p=>dkey(p.t)!==today).reduce((mx,p)=>Math.max(mx,p.alcance_dia||0),0);
+ const alcPrev=ch.filter(p=>dkey(p.t)!==refDay).reduce((mx,p)=>Math.max(mx,p.alcance_dia||0),0);
+ const alcLbl=refDay===today?'ALCANCE HOJE':'ALCANCE ONTEM';
+ const segLbl=refDay===today?'hoje':'ontem';
  const rows=dailyRows(); const tv=trendVerdict(rows);
  const short=tv.split('—')[0].trim(); const det=tv.indexOf('—')>-1?tv.split('—')[1].split('·')[0].trim():'';
  const pubs=V.filter(d=>perf[d.id]&&perf[d.id].publicado_em);
  const wk=weekDays(); const wkP=pubs.filter(d=>wk.indexOf(dkey(perf[d.id].publicado_em))>-1);
  return `<div class="kpis">
-  <div class="kpi"><span class="kk">SEGUIDORES</span><span class="kv">${fmtN(seg)}</span><span class="ks">${seg-seg0>=0?'+':''}${seg-seg0} hoje</span></div>
-  <div class="kpi"><span class="kk">ALCANCE HOJE</span><span class="kv">${fmtN(alcHoje)}</span><span class="ks">${alcHoje>alcPrev&&alcPrev>0?'🏆 recorde do canal':'máx. anterior '+fmtN(alcPrev)}</span></div>
+  <div class="kpi"><span class="kk">SEGUIDORES</span><span class="kv">${fmtN(seg)}</span><span class="ks">${seg-seg0>=0?'+':''}${seg-seg0} ${segLbl}</span></div>
+  <div class="kpi"><span class="kk">${alcLbl}</span><span class="kv">${fmtN(alcHoje)}</span><span class="ks">${alcHoje>alcPrev&&alcPrev>0?'🏆 recorde do canal':'máx. anterior '+fmtN(alcPrev)}</span></div>
   <div class="kpi"><span class="kk">CANAL · 3 DIAS</span><span class="kv kgreen">${short}</span><span class="ks">${det}</span></div>
   <div class="kpi"><span class="kk">NO AR</span><span class="kv">${pubs.length} vídeos</span><span class="ks">${wkP.length} esta semana</span></div>
  </div>`;
@@ -905,6 +908,7 @@ function renderCockpit(){
  ${depthPanels()}`;
 }
 function render(){
+  tog();
   const app=document.getElementById('app');
   if(view==='cockpit'){app.innerHTML=renderCockpit();document.getElementById('count').textContent='';return;}
   if(view==='stats'){app.innerHTML=renderStats();document.getElementById('count').textContent='';return;}
