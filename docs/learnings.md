@@ -35,3 +35,10 @@
 - Efeito-arrasto: dia 13 (lançamento do #65) alcançou ~600 contas < dia 12 sem lançamento (~950) — um vídeo fraco trava o canal inteiro por 24h.
 - Ranking em fecho: #1 3,1k > #39 1,5k > #31 ~1,26k > #65 ~0,8k (proj. dia 4).
 - Manhãs confirmam padrão: velocidade matinal do #65 ≈ #31 (~29/h) — o vídeo perdeu a NOITE de lançamento, não a audiência global.
+
+## Dia 9 · fim de semana do #6 + reviravolta do #65 (16/ago)
+- **LIÇÃO 6:** o TEMA decide quantos entram; o hook e o conteúdo decidem o que fica. #6 (reembolso IRS, sazonal): 2.º melhor arranque do canal (1.464 views/21h, ~140% do ritmo do #31) e DIA RECORDE de alcance do canal (1.316) — mas likes 2,2%, partilhas 0,25%, retenção 24%, score real ~38 (o pior). Alavancas independentes: o vídeo perfeito puxa nas duas.
+- **Padrão sábado:** publicação às 11h → manhã morna, aceleração TODA a tarde (pico +173 views/h às 18-19h) sustentada até às 22h. Slot validado.
+- **Plot twist #65:** ao dia 3, salto de 3→12 partilhas num intervalo (grupos!) → taxa 2,6% = A MELHOR do canal. O tema (imposto inflacionário) é um MÍSSIL de partilha; morreu no hook, não no payload → refazer um dia com hook autónomo (banco).
+- **Funil visita→follow AINDA partido:** dia recorde de alcance → +1 seguidor líquido (215→217→216). A bio sozinha não chega; o #30 fixado é a aposta seguinte.
+- Backtest do modelo v2 no #6: acertou na fraqueza qualitativa (hook sem número), subestimou o puxão sazonal do tema → considerar modificador "tema sazonal/quente +X" na recalibração do vídeo 8.
