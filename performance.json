@@ -15,7 +15,7 @@
     "tempo_medio_s": 21.0
    },
    "nota": "Publicado sex 7/ago 22h30 · 1:12 · aos 4 dias ainda a subir (2x baseline) · partilhas = motor",
-   "atualizado": "2026-08-16T14:13",
+   "atualizado": "2026-08-16T15:11",
    "historico": [
     {
      "t": "2026-08-11T17:04",
@@ -1025,6 +1025,16 @@
      "partilhas": 25,
      "saves": 9,
      "seguidores": 9
+    },
+    {
+     "t": "2026-08-16T15:11",
+     "views": 3136,
+     "alcance": 2301,
+     "likes": 79,
+     "comentarios": 1,
+     "partilhas": 25,
+     "saves": 9,
+     "seguidores": 9
     }
    ],
    "publicado_em": "2026-08-07T21:46:30+0000"
@@ -1045,8 +1055,8 @@
    "estado": "guiao",
    "publicado": "",
    "metricas": {
-    "views": 1493,
-    "alcance": 1223,
+    "views": 1495,
+    "alcance": 1225,
     "likes": 27,
     "comentarios": 1,
     "partilhas": 3,
@@ -1055,7 +1065,7 @@
    },
    "nota": "",
    "publicado_em": "2026-08-15T10:21:50+0000",
-   "atualizado": "2026-08-16T14:13",
+   "atualizado": "2026-08-16T15:11",
    "historico": [
     {
      "t": "2026-08-15T11:10",
@@ -1299,6 +1309,15 @@
      "comentarios": 1,
      "partilhas": 3,
      "saves": 3
+    },
+    {
+     "t": "2026-08-16T15:11",
+     "views": 1495,
+     "alcance": 1225,
+     "likes": 27,
+     "comentarios": 1,
+     "partilhas": 3,
+     "saves": 3
     }
    ]
   },
@@ -1430,7 +1449,7 @@
    },
    "nota": "",
    "publicado_em": "2026-08-11T18:00:08+0000",
-   "atualizado": "2026-08-16T14:13",
+   "atualizado": "2026-08-16T15:11",
    "historico": [
     {
      "t": "2026-08-11T21:04",
@@ -2295,6 +2314,15 @@
      "comentarios": 4,
      "partilhas": 8,
      "saves": 1
+    },
+    {
+     "t": "2026-08-16T15:11",
+     "views": 1297,
+     "alcance": 917,
+     "likes": 45,
+     "comentarios": 4,
+     "partilhas": 8,
+     "saves": 1
     }
    ]
   },
@@ -2342,7 +2370,7 @@
     "tempo_medio_s": 19.8
    },
    "nota": "Publicado dom 9/ago 18h30 · 0:58 · ~55-60% do ritmo do #1 à mesma idade; retenção RELATIVA melhor (34% vs 29%); perdeu no hook (pergunta abstrata) e na partilhabilidade (tema-sociedade)",
-   "atualizado": "2026-08-16T14:13",
+   "atualizado": "2026-08-16T15:11",
    "historico": [
     {
      "t": "2026-08-11T17:04",
@@ -3352,6 +3380,16 @@
      "partilhas": 8,
      "saves": 2,
      "seguidores": 2
+    },
+    {
+     "t": "2026-08-16T15:11",
+     "views": 1521,
+     "alcance": 1019,
+     "likes": 40,
+     "comentarios": 1,
+     "partilhas": 8,
+     "saves": 2,
+     "seguidores": 2
     }
    ],
    "publicado_em": "2026-08-09T17:30:04+0000"
@@ -3499,7 +3537,7 @@
     "tempo_medio_s": 10.7
    },
    "publicado_em": "2026-08-13T18:00:05+0000",
-   "atualizado": "2026-08-16T14:13",
+   "atualizado": "2026-08-16T15:11",
    "historico": [
     {
      "t": "2026-08-13T18:48",
@@ -4058,12 +4096,21 @@
      "comentarios": 1,
      "partilhas": 12,
      "saves": 1
+    },
+    {
+     "t": "2026-08-16T15:11",
+     "views": 834,
+     "alcance": 461,
+     "likes": 22,
+     "comentarios": 1,
+     "partilhas": 12,
+     "saves": 1
     }
    ]
   }
  },
  "_leia-me": "Editado via dashboard (botão Exportar) ou à mão. IAs: este ficheiro é o estado operacional do pipeline — estados, datas de publicação, métricas e aprendizagens por vídeo.",
- "ultima_sincronizacao": "2026-08-16T14:13",
+ "ultima_sincronizacao": "2026-08-16T15:11",
  "canal": {
   "historico": [
    {
@@ -5165,6 +5212,17 @@
     "contas_interagiram": 37,
     "interacoes": 48,
     "cliques_bio": 0
+   },
+   {
+    "t": "2026-08-16T15:11",
+    "seguidores": 217,
+    "a_seguir": 229,
+    "publicacoes": 28,
+    "alcance_dia": 1491,
+    "visitas_perfil": 69,
+    "contas_interagiram": 37,
+    "interacoes": 49,
+    "cliques_bio": 0
    }
   ],
   "demografia": {
@@ -5200,7 +5258,7 @@
     "13-17": 6,
     "55-64": 4
    },
-   "atualizado": "2026-08-16T14:13"
+   "atualizado": "2026-08-16T15:11"
   },
   "demografia_historico": [
    {
