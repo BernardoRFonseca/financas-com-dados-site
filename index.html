@@ -93,7 +93,7 @@ main{max-width:1180px;margin:0 auto;padding:8px 24px}
 .stat .v.mint{color:#7FE3B4}
 .stattablewrap{overflow-x:auto;background:#fff;border-radius:14px;border:1px solid #E3E0D5}
 .stattable{width:100%;border-collapse:collapse}
-.stattable th{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6B7A72;text-align:right;padding:10px;border-bottom:1px solid #E3E0D5}
+.stattable th{cursor:pointer;user-select:none;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#6B7A72;text-align:right;padding:10px;border-bottom:1px solid #E3E0D5}
 .stattable td{padding:9px 10px;text-align:right;border-bottom:1px solid #EFEDE4;font-family:'IBM Plex Mono',monospace;font-size:12px;white-space:nowrap}
 .stattable .tl{text-align:left;font-family:'Instrument Sans',sans-serif;font-weight:600;max-width:280px;white-space:normal}
 .stattable tbody tr{cursor:pointer}
@@ -136,6 +136,17 @@ main{max-width:1180px;margin:0 auto;padding:8px 24px}
 .modal .hook{margin:16px 0;border-left:4px solid var(--marker);padding:10px 16px;background:var(--paper);border-radius:0 10px 10px 0;font-size:15px;font-style:italic}
 .mratings{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0}
 .mnotes{margin-top:14px}
+.phase-head.clickable{cursor:pointer;user-select:none}
+.phase .chev{font-size:14px;color:var(--ink-soft);transition:transform .15s;display:inline-block}
+.phase.closed .chev{transform:rotate(-90deg)}
+.phase.closed .phase-body{display:none}
+.livepill{background:#C6564F !important;color:#fff !important}
+.gloss{display:none;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-top:10px}
+.gloss.open{display:block}
+.grow{display:flex;gap:12px;padding:5px 0;font-size:12.5px;border-bottom:1px solid #F1EFE6}
+.grow:last-child{border-bottom:0}
+.grow b{font-family:'IBM Plex Mono',monospace;min-width:110px;color:#2AA971;font-size:11px;text-transform:uppercase;letter-spacing:.05em;padding-top:1px}
+.grow span{color:var(--ink)}
 .topbar{position:sticky;top:0;z-index:60;background:rgba(249,247,240,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .topbar-in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:12px 28px}
 .logo{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13.5px;letter-spacing:.07em;color:var(--ink);display:flex;align-items:center;gap:9px;white-space:nowrap}
@@ -277,7 +288,7 @@ const ESTADOS = {ideia:'Ideia', guiao:'Guião', gravado:'Gravado', editado:'Edit
 const METRICAS = [['ret3s','Retenção 3s (%)'],['retMedia','Retenção média (%)'],['saves','Saves'],['partilhas','Partilhas'],['comentarios','Comentários'],['seguidores','Seguidores ganhos']];
 let perf = {}; // id -> {estado, publicado, metricas:{}, nota}
 let perfMeta = {};
-function estadoOf(d){ return (perf[d.id] && perf[d.id].estado) || (d.script ? 'guiao' : 'ideia'); }
+function estadoOf(d){ if(perf[d.id] && perf[d.id].publicado_em) return 'publicado'; return (perf[d.id] && perf[d.id].estado) || (d.script ? 'guiao' : 'ideia'); }
 function perfOf(id){ if(!perf[id]) perf[id] = {estado:null, publicado:'', metricas:{}, nota:''}; return perf[id]; }
 const LVL = {3:'Alto',2:'Médio',1:'Baixo'};
 const LVLF = {3:'Alta',2:'Média',1:'Baixa'};
@@ -534,7 +545,7 @@ function card(d){
     ${d.agenda?`<span class="agenda ${d.agenda.startsWith('✓')?'done':''}">📅 ${d.agenda}</span>`:''}
     ${d.intencao?`<div class="intent">🎯 ${d.intencao}</div>`:''}
     ${d.tags.length?`<div class="tags">${d.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>`:''}
-    <div class="ratings"><span class="pill scorepill">★ ${scoreOf(d)}</span>${v2Pill(d)}${realPill(d)}${pills(d)}</div>${publine}${spark(d.id)}
+    <div class="ratings"><span class="pill scorepill">★ ${scoreOf(d)}</span>${v2Pill(d)}${realPill(d)}${ritmoPill(d)}${pills(d)}</div>${publine}${spark(d.id)}
   </div>`;
 }
 function filtered(){
@@ -599,12 +610,36 @@ function evolutionSection(){
   return `<div class="phase-head" style="margin-top:30px"><h2>📈 Evolução por vídeo</h2><span class="meta">histórico horário · ${chartAxis==='rel'?'alinhado ao minuto zero de cada vídeo':'no calendário'}</span></div>${ctl}${lineChart(videoSeries(chartMetric,chartAxis),chartAxis)}`;
 }
 function canalSection(){
-  const h=((perfMeta.canal||{}).historico||[]).filter(p=>p.seguidores!=null);
+  const CM={seguidores:'seguidores',alcance_dia:'alcance/dia',visitas_perfil:'visitas perfil',interacoes:'interações',contas_interagiram:'contas c/ interação'};
+  const h=((perfMeta.canal||{}).historico||[]).filter(p=>p[canalMetric]!=null);
   const extra=h.length?Object.keys(h[h.length-1]).filter(k=>!['t','seguidores','a_seguir','publicacoes'].includes(k)):[];
-  const chart=h.length>=2?lineChart([{label:'seguidores',pts:h.map(p=>({x:Date.parse(p.t),y:p.seguidores})),color:'#2AA971'}],'abs')
+  const ctl=`<div class="chartctl"><span class="ctlg">${Object.keys(CM).map(k=>`<button class="cbt ${canalMetric===k?'on':''}" onclick="setCanalMetric('${k}')">${CM[k]}</button>`).join('')}</span></div>`;
+  const chart=h.length>=2?lineChart([{label:CM[canalMetric],pts:h.map(p=>({x:Date.parse(p.t),y:p[canalMetric]})),color:'#2AA971'}],'abs')
     :'<div class="chartbox"><div class="empty" style="padding:26px 0">A curva do canal nasce quando o robô v3 fizer as primeiras leituras dos seguidores totais.</div></div>';
-  return `<div class="phase-head" style="margin-top:30px"><h2>📈 Canal</h2><span class="meta">seguidores totais${extra.length?' · a capturar também: '+extra.join(', '):''}</span></div>${chart}`;
+  return `<div class="phase-head" style="margin-top:30px"><h2>📈 Canal</h2><span class="meta">histórico horário da conta${extra.length?' · também capturado: '+extra.join(', '):''}</span></div>${ctl}${chart}`;
 }
+function glossario(){
+  const T=[["views","reproduções do vídeo — a mesma pessoa a rever conta outra vez"],["alcance","contas únicas que viram — pessoas, não reproduções"],["partilhas","envios por DM ou stories — O MOTOR: é o sinal que mais faz o Instagram distribuir"],["saves","guardados para ver depois — sinal de valor de referência"],["tempo médio","segundos médios de visualização; ÷ duração = retenção relativa (alvo ≥35%)"],["interações","likes + comentários + partilhas + saves somados"],["visitas perfil","quantos foram do vídeo ao teu perfil — o topo do funil de conversão"],["tx partilha","partilhas ÷ alcance — o indicador de outlier (alvo >1,5%)"],["conversão","seguidores ganhos ÷ alcance — mede o funil (alvo >0,5%)"],["score real","0-100 dos dados: velocidade 25 · partilhas 30 · retenção 20 · interação 15 · conversão 10"],["★ / ★v2","expectativa original (nunca se reescreve) / expectativa com as Lições 1-6"],["🔴 % ritmo","views vs o MELHOR vídeo do canal à mesma idade — o farol das primeiras 72h"]];
+  return `<button class="cbt" style="margin-top:10px" onclick="document.getElementById('gloss').classList.toggle('open')">ⓘ o que significam as métricas</button>
+  <div id="gloss" class="gloss">${T.map(x=>`<div class="grow"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')}</div>`;
+}
+let canalMetric='seguidores';
+function setCanalMetric(m){canalMetric=m;render();}
+function trendVerdict(rows){
+  const full=rows.slice(1,-1);
+  if(full.length<6) return 'a acumular dias para o veredito (precisa de 6 completos)…';
+  const a=full.slice(-3), b=full.slice(-6,-3);
+  const avg=(arr,k)=>arr.reduce((sm,r)=>sm+(r[k]||0),0)/arr.length;
+  const ra=avg(a,'alc'), rb=avg(b,'alc')||1, va=avg(a,'views'), vb=avg(b,'views')||1;
+  const sa=a.reduce((sm,r)=>sm+(r.segDelta||0),0);
+  const ratio=ra/rb;
+  const emo=ratio>1.15?'📈 A SUBIR':(ratio<0.85?'📉 A DESCER':'➡️ ESTÁVEL');
+  return `${emo} — alcance/dia ×${ratio.toFixed(1)} vs os 3 dias anteriores · views ${va>=vb?'+':''}${Math.round(100*(va-vb)/vb)}% · seguidores ${sa>=0?'+':''}${sa} em 3 dias`;
+}
+function sortTable(th){const table=th.closest('table');const idx=Array.prototype.indexOf.call(th.parentNode.children,th);const tb=table.tBodies[0];const rows=Array.prototype.slice.call(tb.rows);const dir=th.dataset.d=(th.dataset.d==='a'?'d':'a');
+  const val=r=>{const raw=r.cells[idx].innerText;const cl=raw.replace(/[^0-9,.\-]/g,'').replace(/\./g,'').replace(',','.');const n=parseFloat(cl);return isNaN(n)?raw.toLowerCase():n;};
+  rows.sort((r1,r2)=>{const a=val(r1),b=val(r2);return (a<b?-1:a>b?1:0)*(dir==='a'?1:-1);});
+  rows.forEach(r=>tb.appendChild(r));}
 function dailyRows(){
   const dk=t=>{const d=new Date(Date.parse(t)+3600000);return d.toISOString().slice(0,10);};
   const days={};
@@ -629,8 +664,8 @@ function dailySection(){
     const seg=r.segDelta==null?'—':(r.segDelta>0?'+'+r.segDelta:String(r.segDelta));
     return `<tr><td class="tl" style="font-family:'IBM Plex Mono',monospace">${lbl} ${r.lanc?`<span class="pill" style="background:#101714;color:#7FE3B4;font-size:10px;padding:2px 7px">🎬 ${r.lanc.join(' ')}</span>`:''}</td><td>${fmtN(r.views)}</td><td>${fmtN(r.alc)}</td><td>${fmtN(r.inter)}</td><td>${fmtN(r.part)}</td><td>${fmtN(r.vis)}</td><td>${seg}</td></tr>`;
   }).join('');
-  return `<div class="phase-head" style="margin-top:30px"><h2>📅 O canal, dia a dia</h2><span class="meta">a linha que interessa: está a subir?</span></div>
-  <div class="stattablewrap"><table class="stattable"><thead><tr><th class="tl">dia</th><th>views</th><th>alcance</th><th>interações</th><th>partilhas</th><th>visitas perfil</th><th>+seg</th></tr></thead><tbody>${trs}</tbody></table></div>
+  return `<div class="phase-head" style="margin-top:30px"><h2>📅 O canal, dia a dia</h2><span class="meta">${trendVerdict(rows)}</span></div>
+  <div class="stattablewrap"><table class="stattable"><thead><tr><th class="tl">dia</th><th onclick="sortTable(this)">views</th><th onclick="sortTable(this)">alcance</th><th onclick="sortTable(this)">interações</th><th onclick="sortTable(this)">partilhas</th><th onclick="sortTable(this)">visitas perfil</th><th onclick="sortTable(this)">+seg</th></tr></thead><tbody>${trs}</tbody></table></div>
   <div class="statnotes">views/partilhas = soma dos ganhos diários dos vídeos monitorizados · alcance/interações/visitas = contadores diários do Instagram (o "dia" da API vira ~8h de Lisboa) · primeiro e último dia podem estar incompletos</div>`;
 }
 function renderStats(){
@@ -646,6 +681,7 @@ function renderStats(){
   }).join('');
   const sync=perfMeta.ultima_sincronizacao?('última sincronização: '+perfMeta.ultima_sincronizacao.replace('T',' · ')):'sincronização automática às 22h00';
   return `<section class="phase"><div class="phase-head"><h2>📊 Stats do canal</h2><span class="meta">${pubs.length} vídeos com métricas · ${sync}</span></div>
+  ${glossario()}
   <div class="statgrid">
     <div class="stat"><span class="k">VIEWS</span><span class="v">${fmtN(tot.views)}</span></div>
     <div class="stat"><span class="k">CONTAS ALCANÇADAS</span><span class="v">${fmtN(tot.alc)}</span></div>
@@ -658,7 +694,7 @@ function renderStats(){
   ${canalSection()}
   ${dailySection()}
   <div class="phase-head" style="margin-top:30px"><h2>Tabela</h2><span class="meta">acumulados por vídeo</span></div>
-  <div class="stattablewrap"><table class="stattable"><thead><tr><th></th><th class="tl">vídeo</th><th>★ orig</th><th>★ v2</th><th>real</th><th>views</th><th>alcance</th><th>likes</th><th>coment.</th><th>partilhas</th><th>saves</th><th>seguid.</th><th>t. médio</th><th>tx partilha</th><th>conversão</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <div class="stattablewrap"><table class="stattable"><thead><tr><th onclick="sortTable(this)"></th><th class="tl">vídeo</th><th onclick="sortTable(this)">★ orig</th><th onclick="sortTable(this)">★ v2</th><th onclick="sortTable(this)">real</th><th onclick="sortTable(this)">views</th><th onclick="sortTable(this)">alcance</th><th onclick="sortTable(this)">likes</th><th onclick="sortTable(this)">coment.</th><th onclick="sortTable(this)">partilhas</th><th onclick="sortTable(this)">saves</th><th onclick="sortTable(this)">seguid.</th><th onclick="sortTable(this)">t. médio</th><th onclick="sortTable(this)">tx partilha</th><th onclick="sortTable(this)">conversão</th></tr></thead><tbody>${rows}</tbody></table></div>
   <div class="statnotes">🏆 mais views: <b>${best('views').t}</b> · 📤 mais partilhado: <b>${best('partilhas').t}</b> · clica numa linha para abrir o cartão · tx partilha = partilhas/alcance · conversão = seguidores/alcance</div></section>`;
 }
 const DUR={1:72,39:58,31:52,65:49,6:52,19:53,66:52,11:34,67:46,30:45};
@@ -698,7 +734,14 @@ function spark(id){
   const path=pts.map((v,i)=>((i/(pts.length-1))*W).toFixed(1)+','+(Hh-3-(mx>mn?(v-mn)/(mx-mn):0.5)*(Hh-6)).toFixed(1)).join(' ');
   return `<div class="spark"><svg width="${W}" height="${Hh}" viewBox="0 0 ${W} ${Hh}"><polyline points="${path}" fill="none" stroke="#2AA971" stroke-width="2"/></svg><span>${pts[pts.length-1].toLocaleString('pt-PT')} views</span></div>`;
 }
+function viewsAtAge(id,hours){const p=perf[id];if(!p||!p.publicado_em||!p.historico)return null;const t0=Date.parse(p.publicado_em);let best=null;p.historico.forEach(pt=>{if(Date.parse(pt.t)-t0<=hours*3600000&&pt.views!=null)best=pt.views;});return best;}
+function ritmo(id){const p=perf[id];if(!p||!p.publicado_em)return null;const age=(Date.now()-Date.parse(p.publicado_em))/3600000;if(age>72||age<0.5)return null;const mine=(p.metricas||{}).views;if(!mine)return null;let ref=0;V.forEach(v=>{if(v.id===id)return;const b=viewsAtAge(v.id,age);if(b&&b>ref)ref=b;});if(!ref)return null;return Math.round(100*mine/ref);}
+function ritmoPill(d){const r=ritmo(d.id);return r==null?'':`<span class="pill livepill" title="views vs o melhor vídeo do canal à mesma idade">🔴 ${r}% ritmo</span>`;}
 function nextAction(){
+  const nowt=Date.now();
+  const live=V.filter(d=>{const p=perf[d.id];return p&&p.publicado_em&&(nowt-Date.parse(p.publicado_em))<24*3600000;}).sort((a,b)=>Date.parse(perf[b.id].publicado_em)-Date.parse(perf[a.id].publicado_em))[0];
+  if(live){const p=perf[live.id];const age=(nowt-Date.parse(p.publicado_em))/3600000;const m=p.metricas||{};const r=ritmo(live.id);
+    return `<div class="nextbar"><span class="nk">🔴 AO VIVO</span><span class="nt"><b>PUB #${String(live.ord||0).padStart(2,'0')} · ${live.t}</b> — ${age.toFixed(1)}h de vida · ${fmtN(m.views||0)} views · ${fmtN(m.partilhas||0)} partilhas${r!=null?` · ${r}% do ritmo do melhor à mesma idade`:''}</span></div>`;}
   const nx=V.filter(d=>d.ord&&d.ord<50&&estadoOf(d)!=='publicado').sort((a,b)=>a.ord-b.ord)[0];
   if(!nx) return '';
   return `<div class="nextbar"><span class="nk">⏭ PRÓXIMA AÇÃO</span><span class="nt"><b>PUB #${String(nx.ord).padStart(2,'0')} · ${nx.t}</b> — ${nx.agenda||''} · abre o cartão para guião, capa e nota fixada</span></div>`;
@@ -751,7 +794,8 @@ function render(){
     app.innerHTML=nextAction()+FASES.map(f=>{
       const vids=list.filter(d=>d.fase===f.id).sort((a,b)=>(a.ord??999)-(b.ord??999));
       if(!vids.length) return '';
-      return `<section class="phase"><div class="phase-head"><h2>${f.nome}</h2><span class="meta">${f.meta}</span></div><div class="grid">${vids.map(card).join('')}</div></section>`;
+      const done=vids.every(d=>estadoOf(d)==='publicado');
+      return `<section class="phase ${done?'closed':''}"><div class="phase-head clickable" onclick="this.parentElement.classList.toggle('closed')"><h2>${f.nome} <span class="chev">▾</span></h2><span class="meta">${f.meta}${done?' · ✓ concluída':''}</span></div><div class="phase-body"><div class="grid">${vids.map(card).join('')}</div></div></section>`;
     }).join('');
   } else {
     const l=sorted(list);
@@ -774,7 +818,7 @@ function openModal(id){
     </div>
     <div class="tabpane on" id="p-ideia">
       <div class="hook">${d.hook}</div>
-      <div class="mratings"><span class="pill scorepill">★ ${scoreOf(d)}/100 esperado</span>${v2Pill(d)}${realPill(d)}${pills(d)}${d.tags.map(t=>`<span class="pill neutral">${t}</span>`).join('')}</div>
+      <div class="mratings"><span class="pill scorepill">★ ${scoreOf(d)}/100 esperado</span>${v2Pill(d)}${realPill(d)}${ritmoPill(d)}${pills(d)}${d.tags.map(t=>`<span class="pill neutral">${t}</span>`).join('')}</div>
       <div class="mono" style="font-size:11px;color:var(--ink-soft);margin:-4px 0 8px">Score no perfil ativo (${profile==='cresc'?'Crescimento':'Marca'}) · Crescimento: ${scoreOf(d,'cresc')} · Marca: ${scoreOf(d,'marca')}</div>
       ${d.ideia?`<div class="ideia">
         <div class="irow"><h4>A ideia</h4><p>${d.ideia.resumo}</p></div>
