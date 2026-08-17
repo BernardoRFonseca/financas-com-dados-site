@@ -275,6 +275,7 @@ main{max-width:1180px;margin:0 auto;padding:8px 24px}
   <span class="tagline">terminal de conteúdo</span>
   <span class="mainnav">
     <button data-v="cockpit" class="nv on">Cockpit</button>
+    <button data-v="crono" class="nv">Vídeos</button>
     <button data-v="stats" class="nv">Stats</button>
         <button data-v="docs" class="nv">Docs</button>
     <button data-v="banco" class="nv">Banco</button>
@@ -1191,9 +1192,9 @@ function tog(){
   document.getElementById('btnCrono').classList.toggle('on',view==='crono');
   document.getElementById('btnLista').classList.toggle('on',view==='lista');
   document.getElementById('btnStats').classList.toggle('on',view==='stats');
-  const navmap={cockpit:'cockpit',crono:'cockpit',lista:'cockpit',cal:'cockpit',stats:'stats',docs:'docs',banco:'banco'};
+  const navmap={cockpit:'cockpit',crono:'crono',lista:'crono',cal:'crono',stats:'stats',docs:'docs',banco:'banco'};
   document.querySelectorAll('.nv').forEach(b=>b.classList.toggle('on',b.dataset.v===navmap[view]));
-  const tb=document.querySelector('.toolbar'); if(tb) tb.style.display=(view==='banco')?'':'none';
+  const tb=document.querySelector('.toolbar'); if(tb) tb.style.display=(view==='banco'||view==='crono'||view==='lista')?'':'none';
 }
 function setEstado(id, est){ perfOf(id).estado = est; openModal(id); render();
   const m=document.getElementById('modal');
