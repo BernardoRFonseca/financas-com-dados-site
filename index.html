@@ -191,6 +191,29 @@ main{max-width:1180px;margin:0 auto;padding:8px 24px}
 .brow:last-of-type{border-bottom:0}
 .bsc{font-family:'IBM Plex Mono',monospace;font-size:11.5px;background:#1E2A24;border-radius:7px;padding:4px 8px;color:var(--ink)}
 @media (max-width:900px){.hero{grid-template-columns:1fr}.h-r{border-left:0;padding-left:0;border-top:1px solid #26362E;padding-top:16px}.depth{grid-template-columns:1fr}.wrib{grid-template-columns:repeat(4,1fr)}}
+.kvs{font-size:14px;color:var(--ink-soft);font-weight:400}
+.kv.kfun{font-size:17px;padding-top:4px}
+.t-ok{color:#7FE3B4}.t-bad{color:#FF8C7A}
+.h-proj{margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#CBD6CE}
+.h-proj b{color:#F6E14D}
+.h-diag{margin-top:8px;font-size:13px;color:#E4E9E3}
+.h-obj{margin-top:8px;font-size:12.5px;color:#9FB1A5}
+.h-obj b{font-family:'IBM Plex Mono',monospace}
+.objpill.o-ok{background:#16241D !important;color:#7FE3B4 !important}
+.objpill.o-bad{background:#2E1B18 !important;color:#FF8C7A !important}
+.objpill.o-mid{background:#2A2312 !important;color:#F6E14D !important}
+.objbox{background:#0F1613;border:1px solid #223028;border-radius:12px;padding:12px 16px;margin:12px 0}
+.objh{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--ink-soft);margin-bottom:8px;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.objv{font-size:11px;padding:3px 9px;border-radius:8px}
+.objv.o-ok{background:#16241D;color:#7FE3B4}.objv.o-bad{background:#2E1B18;color:#FF8C7A}.objv.o-mid{background:#2A2312;color:#F6E14D}
+.objrow{display:flex;justify-content:space-between;gap:14px;padding:5px 0;border-bottom:1px solid #1A241F;font-size:13px}
+.objrow:last-child{border-bottom:0}
+.objrow b{font-family:'IBM Plex Mono',monospace;font-size:12.5px}
+.tstrip{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.titem{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;display:flex;flex-direction:column;gap:6px}
+.tspark{width:100%;max-width:280px}
+.tvals{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft)}
+@media (max-width:900px){.tstrip{grid-template-columns:1fr}}
 .topbar{position:sticky;top:0;z-index:60;background:rgba(12,18,16,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .topbar-in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:12px 28px}
 .logo{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13.5px;letter-spacing:.07em;color:var(--ink);display:flex;align-items:center;gap:9px;white-space:nowrap}
@@ -588,7 +611,7 @@ function card(d){
     ${d.agenda?`<span class="agenda ${d.agenda.startsWith('✓')?'done':''}">📅 ${d.agenda}</span>`:''}
     ${d.intencao?`<div class="intent">🎯 ${d.intencao}</div>`:''}
     ${d.tags.length?`<div class="tags">${d.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>`:''}
-    <div class="ratings"><span class="pill scorepill">★ ${scoreOf(d)}</span>${v2Pill(d)}${realPill(d)}${ritmoPill(d)}${pills(d)}</div>${publine}${spark(d.id)}
+    <div class="ratings"><span class="pill scorepill">★ ${scoreOf(d)}</span>${v2Pill(d)}${realPill(d)}${ritmoPill(d)}${objPill(d)}${pills(d)}</div>${publine}${spark(d.id)}
   </div>`;
 }
 function filtered(){
@@ -819,9 +842,89 @@ function renderDocs(){
   ].map(x=>`<a class="docitem" href="${x[3]}" target="_blank"><span class="dk">${x[0]}</span><h3>${x[1]}</h3><p>${x[2]}</p></a>`).join('');
   return `<section class="phase"><div class="phase-head"><h2>📁 Docs</h2><span class="meta">a biblioteca do canal</span></div><div class="docsgrid">${items}</div></section>`;
 }
+const META={seguidores:1000, ate:'2026-12-31'};
+const OBJ={
+ 1:[{m:'tx_partilha',v:1.0,label:'partilhas ≥1,0% do alcance'},{m:'retencao',v:30,label:'retenção ≥30%'}],
+ 39:[{m:'tx_partilha',v:1.0,label:'tema-sociedade: partilhas ≥1,0%'}],
+ 31:[{m:'tx_partilha',v:1.9,label:'tema-EU: partilhas ≥1,9%'}],
+ 65:[{m:'ritmo_ref',v:100,label:'herança da série: ritmo ≥100% do anterior'},{m:'tx_partilha',v:1.5,label:'partilhas ≥1,5%'}],
+ 6:[{m:'alc_recorde',v:1,label:'janela sazonal: dia recorde de alcance do canal'},{m:'comentarios',v:3,label:'debate nos comentários (≥3, inclui o fixado)'}],
+ 19:[{m:'br_delta',v:2,label:'ponte BR: quota BR no engagement +2pp'},{m:'tx_partilha',v:1.0,label:'partilhas ≥1,0%'},{m:'comentarios',v:3,label:'confissões nos comentários (≥3)'}],
+ 66:[{m:'saves',v:5,label:'tabela de referência: ≥5 saves'},{m:'tx_partilha',v:1.5,label:'partilhas ≥1,5%'}],
+ 30:[{m:'conv_dia',v:5,label:'manifesto: +5 seguidores no dia do lançamento'}],
+ 67:[{m:'tx_partilha',v:1.5,label:'fofoca boa: partilhas ≥1,5%'}],
+ 11:[{m:'retencao',v:35,label:'formato curto 34s: retenção ≥35%'}],
+};
+function demoBR(){
+ const dh=((perfMeta.canal||{}).demografia_historico)||[];
+ const cur=(perfMeta.canal||{}).demografia;
+ const share=snap=>{const c=(snap.engaged_audience_demographics_country)||{};const tot=Object.values(c).reduce((a,b)=>a+b,0);return tot?100*(c.BR||0)/tot:null;};
+ const now=cur?share(cur):(dh.length?share(dh[dh.length-1]):null);
+ const first=dh.length?share(dh[0]):now;
+ return {now,first,delta:(now!=null&&first!=null)?now-first:null,since:dh.length?dh[0].t.slice(5,10):''};
+}
+function brAt(t0){
+ const dh=((perfMeta.canal||{}).demografia_historico)||[];
+ const share=snap=>{const c=(snap.engaged_audience_demographics_country)||{};const tot=Object.values(c).reduce((a,b)=>a+b,0);return tot?100*(c.BR||0)/tot:null;};
+ let base=null; dh.forEach(sn=>{if(Date.parse(sn.t)<=t0) base=share(sn);});
+ if(base==null&&dh.length) base=share(dh[0]);
+ return base;
+}
+function getM(d,key){
+ const p=perf[d.id]; if(!p||!p.publicado_em) return null;
+ const m=p.metricas||{}; const alc=m.alcance||0;
+ if(key==='tx_partilha') return alc?+(100*(m.partilhas||0)/alc).toFixed(2):null;
+ if(key==='retencao'){const dur=DUR[d.id]||50;return m.tempo_medio_s?Math.round(100*m.tempo_medio_s/dur):null;}
+ if(key==='comentarios') return m.comentarios??null;
+ if(key==='saves') return m.saves??null;
+ if(key==='ritmo_ref') return ritmo(d.id);
+ if(key==='conv_dia'){const rows=dailyRows();const dk2=dkey(p.publicado_em);const r=rows.find(x=>x.dia===dk2);return r?r.segDelta:null;}
+ if(key==='alc_recorde'){const rows=dailyRows();const dk2=dkey(p.publicado_em);let rec=0,val=null;rows.forEach(x=>{if(x.dia<dk2)rec=Math.max(rec,x.alc||0);if(x.dia===dk2)val=x.alc||0;});return val==null?null:(val>rec?1:0);}
+ if(key==='br_delta'){const now=demoBR().now;const base=brAt(Date.parse(p.publicado_em));return (now!=null&&base!=null)?+(now-base).toFixed(1):null;}
+ return null;
+}
+function fmtM(key,val){
+ if(val==null) return '—';
+ if(key==='tx_partilha') return val.toFixed(2).replace('.',',')+'%';
+ if(key==='retencao') return val+'%';
+ if(key==='ritmo_ref') return val+'%';
+ if(key==='br_delta') return (val>=0?'+':'')+String(val).replace('.',',')+'pp';
+ if(key==='alc_recorde') return val?'sim 🏆':'não';
+ if(key==='conv_dia') return (val>=0?'+':'')+val+' seg';
+ return String(val);
+}
+function evalObj(d){
+ const crit=OBJ[d.id]; const p=perf[d.id];
+ if(!crit||!p||!p.publicado_em) return null;
+ const age=(Date.now()-Date.parse(p.publicado_em))/3600000;
+ const items=crit.map(c=>{const real=getM(d,c.m);const ok=real==null?null:(real>=c.v);return {label:c.label,key:c.m,real,ok};});
+ const pend=items.some(i=>i.ok===null);
+ const oks=items.filter(i=>i.ok===true).length;
+ let verdict, cls;
+ if(age<48&&(pend||true)&&age<48){verdict='⏱ EM MEDIÇÃO';cls='mid';}
+ if(age>=48||!pend){
+   if(oks===items.length){verdict='✓ CUMPRIDO';cls='ok';}
+   else if(oks>0){verdict='~ PARCIAL';cls='mid';}
+   else {verdict='✗ FALHOU';cls='bad';}
+   if(age<48){verdict='⏱ '+verdict.slice(2)+' (parcial, <48h)';cls='mid';}
+ }
+ return {items,verdict,cls,age};
+}
+function objPill(d){
+ const e=evalObj(d); if(!e) return '';
+ const sym=e.cls==='ok'?'🎯✓':(e.cls==='bad'?'🎯✗':'🎯⏱');
+ return `<span class="pill objpill o-${e.cls}" title="objetivo vs realidade — abre o cartão › Gestão">${sym}</span>`;
+}
+function objPanel(d){
+ const e=evalObj(d);
+ if(!e){const crit=OBJ[d.id];if(!crit)return '';return `<div class="objbox"><div class="objh">🎯 OBJETIVO (por medir — ainda não publicado)</div>${crit.map(c=>`<div class="objrow"><span>${c.label}</span><b>—</b></div>`).join('')}</div>`;}
+ return `<div class="objbox"><div class="objh">🎯 OBJETIVO vs REALIDADE <span class="objv o-${e.cls}">${e.verdict}</span></div>
+ ${e.items.map(i=>`<div class="objrow"><span>${i.label}</span><b class="${i.ok===true?'t-ok':(i.ok===false?'t-bad':'')}">${fmtM(i.key,i.real)} ${i.ok===true?'✓':(i.ok===false?'✗':'')}</b></div>`).join('')}
+ </div>`;
+}
 function weekDays(){const now=new Date(Date.now()+3600000);const dow=(now.getUTCDay()+6)%7;const mon=new Date(now);mon.setUTCDate(now.getUTCDate()-dow);const arr=[];for(let i=0;i<7;i++){const dd=new Date(mon);dd.setUTCDate(mon.getUTCDate()+i);arr.push(dd.toISOString().slice(0,10));}return arr;}
 function dkey(t){const dd=new Date(Date.parse(t)+3600000);return dd.toISOString().slice(0,10);}
-function heroSpark(mine,ref){const W=520,Hh=190,P=8;const mx=Math.max(1,...mine.map(p=>p.x),...ref.map(p=>p.x));const my=Math.max(1,...mine.map(p=>p.y),...ref.map(p=>p.y));const path=a=>a.map(p=>((P+(p.x/mx)*(W-2*P))).toFixed(1)+','+((Hh-P-(p.y/my)*(Hh-2*P))).toFixed(1)).join(' ');
+function heroSpark(mine,ref){const W=520,Hh=170,P=8;const mx=Math.max(1,...mine.map(p=>p.x),...ref.map(p=>p.x));const my=Math.max(1,...mine.map(p=>p.y),...ref.map(p=>p.y));const path=a=>a.map(p=>((P+(p.x/mx)*(W-2*P))).toFixed(1)+','+((Hh-P-(p.y/my)*(Hh-2*P))).toFixed(1)).join(' ');
  return `<svg viewBox="0 0 ${W} ${Hh}" style="width:100%;height:auto">${ref.length>1?`<polyline points="${path(ref)}" fill="none" stroke="#3D5247" stroke-width="2.5"/>`:''}${mine.length>1?`<polyline points="${path(mine)}" fill="none" stroke="#7FE3B4" stroke-width="3"/><circle cx="${(P+(mine[mine.length-1].x/mx)*(W-2*P)).toFixed(1)}" cy="${(Hh-P-(mine[mine.length-1].y/my)*(Hh-2*P)).toFixed(1)}" r="4" fill="#7FE3B4"/>`:''}</svg>`;}
 function heroAgora(){
  const nowt=Date.now();
@@ -833,19 +936,41 @@ function heroAgora(){
  const isLive=age<24;
  const r=ritmo(live.id);
  const durv=DUR[live.id]||50; const ret=m.tempo_medio_s?Math.round(100*m.tempo_medio_s/durv):null;
+ const txp=(m.alcance? +(100*(m.partilhas||0)/m.alcance).toFixed(2):null);
  const t0=Date.parse(p.publicado_em);
  const mine=(p.historico||[]).map(pt=>({x:(Date.parse(pt.t)-t0)/3600000,y:pt.views||0})).filter(q=>q.x>=0);
  let refId=null,refV=0;V.forEach(v=>{const q=perf[v.id];if(v.id===live.id||!q||!q.publicado_em||!q.historico||!q.historico.length)return;const f=(Date.parse(q.historico[0].t)-Date.parse(q.publicado_em))/3600000;if(f>3)return;if((q.metricas&&q.metricas.views||0)>refV){refV=q.metricas.views;refId=v.id;}});
  let ref=[];const lim=Math.max(6, mine.length?mine[mine.length-1].x:6);
- if(refId&&perf[refId].historico&&perf[refId].publicado_em){const rt0=Date.parse(perf[refId].publicado_em);ref=perf[refId].historico.map(pt=>({x:(Date.parse(pt.t)-rt0)/3600000,y:pt.views||0})).filter(q=>q.x>=0&&q.x<=lim);}
+ if(refId&&perf[refId].historico){const rt0=Date.parse(perf[refId].publicado_em);ref=perf[refId].historico.map(pt=>({x:(Date.parse(pt.t)-rt0)/3600000,y:pt.views||0})).filter(q=>q.x>=0&&q.x<=lim);}
+ // projeção dia 4 pela curva de referência
+ let proj=null, projPlace=null;
+ if(refId&&age>2&&age<96){const refNow=viewsAtAge(refId,age), ref96=viewsAtAge(refId,96)||refV;
+   if(refNow&&(m.views||0)>0){proj=Math.round((m.views||0)*ref96/refNow/10)*10;
+     projPlace=1+pubs.filter(d=>d.id!==live.id&&((perf[d.id].metricas||{}).views||0)>proj).length;}}
+ // marco: ultrapassar o vídeo imediatamente acima
+ let marco='';
+ if(isLive||age<72){const above=pubs.map(d=>({id:d.id,v:(perf[d.id].metricas||{}).views||0})).filter(x=>x.id!==live.id&&x.v>(m.views||0)).sort((a,b)=>a.v-b.v)[0];
+   const h=p.historico||[];
+   if(above&&h.length>=3){const a=h[h.length-3],b=h[h.length-1];const vel=((b.views||0)-(a.views||0))/Math.max(0.5,(Date.parse(b.t)-Date.parse(a.t))/3600000);
+     if(vel>1){const eta=(above.v-(m.views||0))/vel; if(eta>0&&eta<200) marco=`ultrapassa o #${above.id} em ~${Math.round(eta)}h`;}}}
+ // diagnóstico automático
+ let diag='';
+ if(ret!=null&&txp!=null&&age>3){const rOK=ret>=28, sOK=txp>=1.0;
+   diag=rOK&&sOK?'✅ prende e move — tema a escalar':(rOK&&!sOK?'🟡 prende mas não move — trabalhar CTA/partilhável':(!rOK&&sOK?'🟠 tema-míssil com hook partido — refazer gancho':'🔴 não prende nem move — hook/tema errados'));}
+ // objetivo em direto
+ const e=evalObj(live);
+ const objLine=e?`<div class="h-obj">🎯 ${e.items.slice(0,2).map(i=>`${i.label.split(':')[0]}: <b class="${i.ok===true?'t-ok':(i.ok===false?'t-bad':'')}">${fmtM(i.key,i.real)}${i.ok===true?' ✓':(i.ok===false?' ✗':'')}</b>`).join(' · ')}</div>`:'';
  const nx=V.filter(dd=>dd.ord&&dd.ord<50&&estadoOf(dd)!=='publicado').sort((a,b)=>a.ord-b.ord)[0];
  const acao=isLive?'Responder aos comentários — janela de ouro das primeiras 24h':'Preparar o próximo lançamento';
  return `<div class="hero"><div class="h-l">
    <div class="h-tag ${isLive?'live':''}">${isLive?'🔴 AO VIVO':'ÚLTIMO LANÇAMENTO'} · PUB #${String(live.ord||0).padStart(2,'0')} · ${(live.t||'').toUpperCase().slice(0,40)}</div>
    <div class="h-big">${fmtN(m.views||0)}<span> views · ${age<48?age.toFixed(1)+'h':Math.round(age/24)+'d'} de vida</span></div>
-   <div class="h-sub">${r!=null?r+'% do ritmo do melhor à mesma idade · ':''}${fmtN(m.partilhas||0)} partilhas${ret!=null?` · retenção ${ret}%${ret<28?' ⚠':''}`:''}</div>
+   <div class="h-sub">${r!=null?r+'% do ritmo do melhor · ':''}${txp!=null?('partilhas '+String(txp).replace('.',',')+'% · '):''}${ret!=null?`retenção ${ret}%${ret<28?' ⚠':''}`:''}</div>
+   ${proj?`<div class="h-proj">projeção dia 4: <b>~${fmtN(proj)}</b>${projPlace?` · ${projPlace}.º do canal`:''}${marco?` · ${marco}`:''}</div>`:(marco?`<div class="h-proj">${marco}</div>`:'')}
+   ${diag?`<div class="h-diag">${diag}</div>`:''}
+   ${objLine}
  </div>
- <div class="h-c"><div class="h-k">ARRANQUE vs O MELHOR À MESMA IDADE</div>${heroSpark(mine,ref)}<div class="h-leg"><span style="color:#7FE3B4">— este</span>&nbsp;&nbsp;<span style="color:#6B7F73">— melhor</span></div></div>
+ <div class="h-c"><div class="h-k">ARRANQUE vs O MELHOR À MESMA IDADE</div>${heroSpark(mine,ref)}<div class="h-leg"><span style="color:#7FE3B4">— este</span>&nbsp;&nbsp;<span style="color:#6B7F73">— ${refId?'#'+refId:'melhor'}</span></div></div>
  <div class="h-r"><div class="h-k">⏭ A SEGUIR</div><div class="h-t">${acao}</div>
    ${nx?`<div class="h-k" style="margin-top:16px">PRÓXIMO LANÇAMENTO</div><div class="h-t">${nx.agenda||''}<br>${nx.t}</div><button class="h-btn" onclick="openModal(${nx.id})">abrir guião + capa →</button>`:''}
  </div></div>`;
@@ -856,20 +981,52 @@ function kpiRuler(){
  const refDay=dkey(ch[ch.length-1].t);
  const tp=ch.filter(p=>dkey(p.t)===refDay);
  const seg=ch[ch.length-1].seguidores;
- const seg0=tp.length?tp[0].seguidores:seg;
  const alcHoje=tp.reduce((mx,p)=>Math.max(mx,p.alcance_dia||0),0);
- const alcPrev=ch.filter(p=>dkey(p.t)!==refDay).reduce((mx,p)=>Math.max(mx,p.alcance_dia||0),0);
- const alcLbl=refDay===today?'ALCANCE HOJE':'ALCANCE ONTEM';
- const segLbl=refDay===today?'hoje':'ontem';
- const rows=dailyRows(); const tv=trendVerdict(rows);
- const short=tv.split('—')[0].trim(); const det=tv.indexOf('—')>-1?tv.split('—')[1].split('·')[0].trim():'';
- const pubs=V.filter(d=>perf[d.id]&&perf[d.id].publicado_em);
- const wk=weekDays(); const wkP=pubs.filter(d=>wk.indexOf(dkey(perf[d.id].publicado_em))>-1);
+ const visHoje=tp.reduce((mx,p)=>Math.max(mx,p.visitas_perfil||0),0);
+ const segIni=tp.length?tp[0].seguidores:seg;
+ const rows=dailyRows(); const full=rows.slice(1,-1);
+ const dLbl=refDay===today?'hoje':'ontem';
+ // META & RITMO
+ const alvo=META.seguidores;
+ const diasRest=Math.max(1,Math.round((Date.parse(META.ate)-Date.now())/86400000));
+ const precisa=(alvo-seg)/diasRest;
+ const j=full.slice(-7); const corrente=j.length?j.reduce((s2,r)=>s2+(r.segDelta||0),0)/j.length:0;
+ let ritmoTxt, ritmoCls;
+ if(corrente<=0){ritmoTxt='📉 parado';ritmoCls='t-bad';}
+ else{const ratio=corrente/precisa;
+   ritmoTxt=ratio>=1?('🚀 '+(ratio>=1.5?'acima do ritmo':'no ritmo')):('📉 '+(precisa/corrente).toFixed(1).replace('.',',')+'× abaixo');
+   ritmoCls=ratio>=1?'t-ok':'t-bad';}
+ // FUNIL do dia (vs média 7d)
+ const prev=full.slice(-8,-1);
+ const avg=(arr,f)=>{const xs=arr.map(f).filter(x=>x!=null&&isFinite(x));return xs.length?xs.reduce((a,b)=>a+b,0)/xs.length:null;};
+ const visRateAvg=avg(prev,r=>r.alc?100*(r.vis||0)/r.alc:null);
+ const convAvg=avg(prev,r=>r.vis?100*(r.segDelta||0)/r.vis:null);
+ const visRate=alcHoje?100*visHoje/alcHoje:null;
+ const conv=visHoje?100*(seg-segIni)/visHoje:null;
+ const cmp=(v,a)=>v==null||a==null?'':(v>a*1.15?' 📈':(v<a*0.85?' 📉':''));
+ // veredito 3 dias
+ const tv=trendVerdict(rows); const short=tv.split('—')[0].trim(); const det=tv.indexOf('—')>-1?tv.split('—')[1].split('·')[0].trim():'';
+ // BR
+ const br=demoBR();
  return `<div class="kpis">
-  <div class="kpi"><span class="kk">SEGUIDORES</span><span class="kv">${fmtN(seg)}</span><span class="ks">${seg-seg0>=0?'+':''}${seg-seg0} ${segLbl}</span></div>
-  <div class="kpi"><span class="kk">${alcLbl}</span><span class="kv">${fmtN(alcHoje)}</span><span class="ks">${alcHoje>alcPrev&&alcPrev>0?'🏆 recorde do canal':'máx. anterior '+fmtN(alcPrev)}</span></div>
+  <div class="kpi"><span class="kk">META · ${fmtN(alvo)} SEGUIDORES</span><span class="kv">${fmtN(seg)}<span class="kvs">/${fmtN(alvo)}</span></span><span class="ks">precisa +${precisa.toFixed(1).replace('.',',')}/dia · corrente +${corrente.toFixed(1).replace('.',',')}/dia · <b class="${ritmoCls}">${ritmoTxt}</b></span></div>
+  <div class="kpi"><span class="kk">FUNIL · ${dLbl.toUpperCase()}</span><span class="kv kfun">${fmtN(alcHoje)} → ${fmtN(visHoje)} → ${seg-segIni>=0?'+':''}${seg-segIni}</span><span class="ks">visitas ${visRate!=null?visRate.toFixed(1).replace('.',',')+'%':'—'}${visRateAvg!=null?' (méd '+visRateAvg.toFixed(1).replace('.',',')+'%)':''}${cmp(visRate,visRateAvg)} · conv ${conv!=null?conv.toFixed(1).replace('.',',')+'%':'—'}${convAvg!=null?' (méd '+convAvg.toFixed(1).replace('.',',')+'%)':''}${cmp(conv,convAvg)}</span></div>
   <div class="kpi"><span class="kk">CANAL · 3 DIAS</span><span class="kv kgreen">${short}</span><span class="ks">${det}</span></div>
-  <div class="kpi"><span class="kk">NO AR</span><span class="kv">${pubs.length} vídeos</span><span class="ks">${wkP.length} esta semana</span></div>
+  <div class="kpi"><span class="kk">BR NO ENGAGEMENT</span><span class="kv">${br.now!=null?br.now.toFixed(0)+'%':'—'}</span><span class="ks">${br.delta!=null?((br.delta>=0?'+':'')+br.delta.toFixed(1).replace('.',',')+'pp desde '+br.since):'a acumular série'}</span></div>
+ </div>`;
+}
+function trendStrip(){
+ const pubs=V.filter(d=>perf[d.id]&&perf[d.id].publicado_em).sort((a,b)=>Date.parse(perf[a.id].publicado_em)-Date.parse(perf[b.id].publicado_em));
+ if(pubs.length<2) return '';
+ const rets=pubs.map(d=>({id:d.id,v:getM(d,'retencao')})).filter(x=>x.v!=null);
+ const shs=pubs.map(d=>({id:d.id,v:getM(d,'tx_partilha')})).filter(x=>x.v!=null);
+ const spark=(arr,unit)=>{if(arr.length<2)return '';const W=160,H=36,P=4;const mx=Math.max(...arr.map(x=>x.v)),mn=Math.min(...arr.map(x=>x.v));
+   const pts=arr.map((x,i)=>((P+i*(W-2*P)/(arr.length-1))).toFixed(1)+','+((H-P-((x.v-mn)/Math.max(0.001,mx-mn))*(H-2*P))).toFixed(1)).join(' ');
+   return `<svg viewBox="0 0 ${W} ${H}" class="tspark"><polyline points="${pts}" fill="none" stroke="#7FE3B4" stroke-width="2"/></svg>`;};
+ const fmt=(arr,dec)=>arr.map(x=>`<span title="#${x.id}">${dec?String(x.v.toFixed(1)).replace('.',','):x.v}</span>`).join('·');
+ return `<div class="tstrip">
+  <div class="titem"><span class="kk">RETENÇÃO POR LANÇAMENTO (prioridade nº1)</span>${spark(rets)}<span class="tvals">${fmt(rets,false)}%</span></div>
+  <div class="titem"><span class="kk">TAXA DE PARTILHA POR LANÇAMENTO (o motor)</span>${spark(shs)}<span class="tvals">${fmt(shs,true)}%</span></div>
  </div>`;
 }
 let weekMode='linha';
@@ -902,7 +1059,7 @@ function depthPanels(){
  </div>`;
 }
 function renderCockpit(){
- return kpiRuler()+heroAgora()+`
+ return kpiRuler()+heroAgora()+trendStrip()+`
  <div class="phase-head" style="margin-top:28px"><h2>Esta semana</h2><span class="meta"><span class="wtog ${weekMode==='linha'?'on':''}" onclick="setWeekMode('linha')">linha</span> · <span class="wtog ${weekMode==='kanban'?'on':''}" onclick="setWeekMode('kanban')">kanban</span> &nbsp;·&nbsp; <a class="mlink" href="#" onclick="view='cal';tog();render();return false;">mês →</a> · <a class="mlink" href="#" onclick="view='crono';tog();render();return false;">plano completo →</a></span></div>
  ${weekMode==='linha'?weekRibbon():kanbanView()}
  ${depthPanels()}`;
@@ -949,9 +1106,9 @@ function openModal(id){
       <button onclick="mtab(this,'p-assets')">Assets</button>
       <button onclick="mtab(this,'p-gest')">Gestão</button>
     </div>
-    <div class="tabpane on" id="p-ideia">
+    <div class="tabpane on" id="p-ideia">${objPanel(d)}
       <div class="hook">${d.hook}</div>
-      <div class="mratings"><span class="pill scorepill">★ ${scoreOf(d)}/100 esperado</span>${v2Pill(d)}${realPill(d)}${ritmoPill(d)}${pills(d)}${d.tags.map(t=>`<span class="pill neutral">${t}</span>`).join('')}</div>
+      <div class="mratings"><span class="pill scorepill">★ ${scoreOf(d)}/100 esperado</span>${v2Pill(d)}${realPill(d)}${ritmoPill(d)}${objPill(d)}${pills(d)}${d.tags.map(t=>`<span class="pill neutral">${t}</span>`).join('')}</div>
       <div class="mono" style="font-size:11px;color:var(--ink-soft);margin:-4px 0 8px">Score no perfil ativo (${profile==='cresc'?'Crescimento':'Marca'}) · Crescimento: ${scoreOf(d,'cresc')} · Marca: ${scoreOf(d,'marca')}</div>
       ${d.ideia?`<div class="ideia">
         <div class="irow"><h4>A ideia</h4><p>${d.ideia.resumo}</p></div>
