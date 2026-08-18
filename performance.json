@@ -15,7 +15,7 @@
     "tempo_medio_s": 20.9
    },
    "nota": "Publicado sex 7/ago 22h30 · 1:12 · aos 4 dias ainda a subir (2x baseline) · partilhas = motor",
-   "atualizado": "2026-08-18T04:25",
+   "atualizado": "2026-08-18T05:19",
    "historico": [
     {
      "t": "2026-08-11T17:04",
@@ -1385,6 +1385,16 @@
      "partilhas": 25,
      "saves": 9,
      "seguidores": 9
+    },
+    {
+     "t": "2026-08-18T05:19",
+     "views": 3152,
+     "alcance": 2301,
+     "likes": 79,
+     "comentarios": 1,
+     "partilhas": 25,
+     "saves": 9,
+     "seguidores": 9
     }
    ],
    "publicado_em": "2026-08-07T21:46:30+0000"
@@ -1415,7 +1425,7 @@
    },
    "nota": "",
    "publicado_em": "2026-08-15T10:21:50+0000",
-   "atualizado": "2026-08-18T04:25",
+   "atualizado": "2026-08-18T05:19",
    "historico": [
     {
      "t": "2026-08-15T11:10",
@@ -1983,6 +1993,15 @@
      "comentarios": 1,
      "partilhas": 3,
      "saves": 3
+    },
+    {
+     "t": "2026-08-18T05:19",
+     "views": 1568,
+     "alcance": 1267,
+     "likes": 30,
+     "comentarios": 1,
+     "partilhas": 3,
+     "saves": 3
     }
    ]
   },
@@ -2056,7 +2075,7 @@
    "estado": "guiao",
    "publicado": "",
    "metricas": {
-    "views": 1385,
+    "views": 1387,
     "alcance": 1029,
     "likes": 30,
     "comentarios": 0,
@@ -2066,7 +2085,7 @@
    },
    "nota": "",
    "publicado_em": "2026-08-16T17:35:07+0000",
-   "atualizado": "2026-08-18T04:25",
+   "atualizado": "2026-08-18T05:19",
    "historico": [
     {
      "t": "2026-08-16T18:14",
@@ -2364,6 +2383,15 @@
      "comentarios": 0,
      "partilhas": 6,
      "saves": 1
+    },
+    {
+     "t": "2026-08-18T05:19",
+     "views": 1387,
+     "alcance": 1029,
+     "likes": 30,
+     "comentarios": 0,
+     "partilhas": 6,
+     "saves": 1
     }
    ]
   },
@@ -2423,7 +2451,7 @@
    },
    "nota": "",
    "publicado_em": "2026-08-11T18:00:08+0000",
-   "atualizado": "2026-08-18T04:25",
+   "atualizado": "2026-08-18T05:19",
    "historico": [
     {
      "t": "2026-08-11T21:04",
@@ -3612,6 +3640,15 @@
      "comentarios": 4,
      "partilhas": 8,
      "saves": 1
+    },
+    {
+     "t": "2026-08-18T05:19",
+     "views": 1323,
+     "alcance": 921,
+     "likes": 46,
+     "comentarios": 4,
+     "partilhas": 8,
+     "saves": 1
     }
    ]
   },
@@ -3659,7 +3696,7 @@
     "tempo_medio_s": 19.6
    },
    "nota": "Publicado dom 9/ago 18h30 · 0:58 · ~55-60% do ritmo do #1 à mesma idade; retenção RELATIVA melhor (34% vs 29%); perdeu no hook (pergunta abstrata) e na partilhabilidade (tema-sociedade)",
-   "atualizado": "2026-08-18T04:25",
+   "atualizado": "2026-08-18T05:19",
    "historico": [
     {
      "t": "2026-08-11T17:04",
@@ -5029,6 +5066,16 @@
      "partilhas": 8,
      "saves": 2,
      "seguidores": 2
+    },
+    {
+     "t": "2026-08-18T05:19",
+     "views": 1542,
+     "alcance": 1023,
+     "likes": 40,
+     "comentarios": 1,
+     "partilhas": 8,
+     "saves": 2,
+     "seguidores": 2
     }
    ],
    "publicado_em": "2026-08-09T17:30:04+0000"
@@ -5176,7 +5223,7 @@
     "tempo_medio_s": 10.4
    },
    "publicado_em": "2026-08-13T18:00:05+0000",
-   "atualizado": "2026-08-18T04:25",
+   "atualizado": "2026-08-18T05:19",
    "historico": [
     {
      "t": "2026-08-13T18:48",
@@ -6059,12 +6106,21 @@
      "comentarios": 1,
      "partilhas": 12,
      "saves": 1
+    },
+    {
+     "t": "2026-08-18T05:19",
+     "views": 867,
+     "alcance": 466,
+     "likes": 22,
+     "comentarios": 1,
+     "partilhas": 12,
+     "saves": 1
     }
    ]
   }
  },
  "_leia-me": "Editado via dashboard (botão Exportar) ou à mão. IAs: este ficheiro é o estado operacional do pipeline — estados, datas de publicação, métricas e aprendizagens por vídeo.",
- "ultima_sincronizacao": "2026-08-18T04:25",
+ "ultima_sincronizacao": "2026-08-18T05:19",
  "canal": {
   "historico": [
    {
@@ -7562,6 +7618,17 @@
     "contas_interagiram": 41,
     "interacoes": 71,
     "cliques_bio": 0
+   },
+   {
+    "t": "2026-08-18T05:19",
+    "seguidores": 217,
+    "a_seguir": 228,
+    "publicacoes": 29,
+    "alcance_dia": 1501,
+    "visitas_perfil": 104,
+    "contas_interagiram": 41,
+    "interacoes": 71,
+    "cliques_bio": 0
    }
   ],
   "demografia": {
@@ -7597,7 +7664,7 @@
     "13-17": 6,
     "55-64": 4
    },
-   "atualizado": "2026-08-18T04:25"
+   "atualizado": "2026-08-18T05:19"
   },
   "demografia_historico": [
    {
