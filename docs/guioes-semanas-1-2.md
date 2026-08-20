@@ -110,3 +110,19 @@ Réplica de todos os masters em TikTok + YouTube Shorts no dia da publicação.
 
 ### 🗄 Saíram da semana 2 (8/ago): #7 escalões → banco (regressa na época de IRS ou com o OE2027) · #23 proteína → banco (crossover a redesenhar)
 
+
+
+# S2·V4 — "Quanto ganha um deputado?" (#67) · sáb 22 · ~50s · 128 palavras (v2 CORRIGIDA 19/ago)
+
+0-5s hook declarativo (sem pergunta) `v67-1`+`fonte-parlamento` · 5-19s escada oficial 4.600→7.600→8.800→11.700, 14 meses `v67-2` · 19-26s comparação c/ mínimos `v67-3` · **26-38s twist CORRIGIDO: eurodeputado 11.255€ bruto (era mito "20 mil", já desmentido pelo Polígrafo)** `v67-4b NOVO` · 38-42s neutralidade `v67-4` · 42-46s porta aberta (regalias, sem números não verificáveis) `v67-5` · 46-50s CTA
+**Rigor:** 4 salários nacionais confirmados (Instituto +Liberdade, fonte 2025) · eurodeputado confirmado no site oficial do Parlamento Europeu (11.255€ bruto / 8.773€ líquido) · 14 meses confirmado (site AR) · bug de assets corrigido (apontava para ficheiros do #66).
+
+# S2·V5 — "Manifesto" (#30) · qui 20 (moveu de dom 23) · ~44s · 100 palavras (v2 CORRIGIDA 19/ago)
+
+0-5s hook `v30-1`+`fonte-ocde` · 5-15s OCDE 63/100, médias explicadas (OCDE 63, participantes 60) `v30-2` · 15-27s atitudes 63 vs 56 / conhecimento 61 vs 63 `v30-2` · 27-34s "conhecimento ensina-se" (cortada comparação c/ carácter) `v30-3` · 34-40s missão do canal `v30-4` · 40-44s CTA fixar `v30-5`
+**Rigor:** score OCDE/INFE 2023 reconfirmado na fonte. **Muda de slot com o #11** — grava-se hoje.
+
+# S2·V6 — "Índice Big Mac" (#11) · dom 23 (moveu de qui 20) · ~43s · 108 palavras (v3 FINAL 19/ago)
+
+0-5s Big Mac físico na mão · 5-13s conceito Economist `v11-1`+`fonte-economist` · 13-24s EUA/Suíça/zona euro(PT)/Brasil `v11-6 NOVO` · 24-33s Índia — Maharaja Mac de frango, mais barato do mundo `v11-6` · 33-40s reframe poder de compra `v11-4` · 40-43s CTA "diz um país, digo o valor" `v11-5`
+**Rigor:** só dados Economist (removido UBS/minutos, fonte errada e desatualizada) · Portugal correto como "zona euro" (Economist não separa) · Índia confirmada (Maharaja Mac, $2,51, jan 2026). **Aguarda:** foto real do Bernardo antes de gravar.
