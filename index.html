@@ -712,7 +712,22 @@ function evolutionSection(){
   return `<div class="phase-head" style="margin-top:30px"><h2>📈 Evolução por vídeo</h2><span class="meta">histórico horário · ${chartAxis==='rel'?'alinhado ao minuto zero de cada vídeo':'no calendário'}</span></div>${ctl}${lineChart(videoSeries(chartMetric,chartAxis),chartAxis)}`;
 }
 function canalSection(){
-  const CM={seguidores:'seguidores',alcance_dia:'alcance/dia',visitas_perfil:'visitas perfil',interacoes:'interações',contas_interagiram:'contas c/ interação'};
+  const CM={seguidores:'seguidores',alcance_dia:'alcance/dia',visitas_perfil:'visitas perfil',interacoes:'interações',contas_interagiram:'contas c/ interação',seguidores_tt:'seguidores TT',seguidores_ambos:'seguidores IG+TT'};
+  const hTT=((perfTT.canal||{}).historico||[]).filter(p=>p.seguidores!=null);
+  if(canalMetric==='seguidores_tt'){
+    const chart=hTT.length>=2?lineChart([{label:'seguidores TikTok',pts:hTT.map(p=>({x:Date.parse(p.t),y:p.seguidores})),color:'#101714'}],'abs'):'<div class="empty">Sem série TikTok ainda — o robô começa a escrevê-la de hora a hora.</div>';
+    const ctl=`<div class="chartctl"><span class="ctlg">${Object.keys(CM).map(k=>`<button class="cbt ${canalMetric===k?'on':''}" onclick="setCanalMetric('${k}')">${CM[k]}</button>`).join('')}</span></div>`;
+    return `<div class="phase-head" style="margin-top:30px"><h2>📈 Canal</h2><span class="meta">histórico da conta TikTok</span></div>${ctl}${chart}`;
+  }
+  if(canalMetric==='seguidores_ambos'){
+    const hIG=((perfMeta.canal||{}).historico||[]).filter(p=>p.seguidores!=null);
+    const series=[];
+    if(hIG.length>=2) series.push({label:'Instagram',pts:hIG.map(p=>({x:Date.parse(p.t),y:p.seguidores})),color:'#2AA971'});
+    if(hTT.length>=2) series.push({label:'TikTok',pts:hTT.map(p=>({x:Date.parse(p.t),y:p.seguidores})),color:'#101714'});
+    const chart=series.length?lineChart(series,'abs'):'<div class="empty">A acumular séries…</div>';
+    const ctl=`<div class="chartctl"><span class="ctlg">${Object.keys(CM).map(k=>`<button class="cbt ${canalMetric===k?'on':''}" onclick="setCanalMetric('${k}')">${CM[k]}</button>`).join('')}</span></div>`;
+    return `<div class="phase-head" style="margin-top:30px"><h2>📈 Canal</h2><span class="meta">seguidores por plataforma, lado a lado</span></div>${ctl}${chart}`;
+  }
   const h=((perfMeta.canal||{}).historico||[]).filter(p=>p[canalMetric]!=null);
   const extra=h.length?Object.keys(h[h.length-1]).filter(k=>!['t','seguidores','a_seguir','publicacoes'].includes(k)):[];
   const ctl=`<div class="chartctl"><span class="ctlg">${Object.keys(CM).map(k=>`<button class="cbt ${canalMetric===k?'on':''}" onclick="setCanalMetric('${k}')">${CM[k]}</button>`).join('')}</span></div>`;
@@ -721,7 +736,7 @@ function canalSection(){
   return `<div class="phase-head" style="margin-top:30px"><h2>📈 Canal</h2><span class="meta">histórico horário da conta${extra.length?' · também capturado: '+extra.join(', '):''}</span></div>${ctl}${chart}`;
 }
 function glossario(){
-  const T=[["views","reproduções do vídeo — a mesma pessoa a rever conta outra vez"],["alcance","contas únicas que viram — pessoas, não reproduções"],["partilhas","envios por DM ou stories — O MOTOR: é o sinal que mais faz o Instagram distribuir"],["saves","guardados para ver depois — sinal de valor de referência"],["tempo médio","segundos médios de visualização; ÷ duração = retenção relativa (alvo ≥35%)"],["interações","likes + comentários + partilhas + saves somados"],["visitas perfil","quantos foram do vídeo ao teu perfil — o topo do funil de conversão"],["tx partilha","partilhas ÷ alcance — o indicador de outlier (alvo >1,5%)"],["conversão","seguidores ganhos ÷ alcance — mede o funil (alvo >0,5%)"],["score real","0-100 dos dados: velocidade 25 · partilhas 30 · retenção 20 · interação 15 · conversão 10"],["★ / ★v2","expectativa original (nunca se reescreve) / expectativa com as Lições 1-6"],["🔴 % ritmo","views vs o MELHOR vídeo do canal à mesma idade — o farol das primeiras 72h"]];
+  const T=[["views","reproduções do vídeo — a mesma pessoa a rever conta outra vez"],["alcance","contas únicas que viram — pessoas, não reproduções"],["partilhas","envios por DM ou stories — O MOTOR: é o sinal que mais faz o Instagram distribuir"],["saves","guardados para ver depois — sinal de valor de referência"],["tempo médio","segundos médios de visualização; ÷ duração = retenção relativa (alvo ≥35%)"],["interações","likes + comentários + partilhas + saves somados"],["visitas perfil","quantos foram do vídeo ao teu perfil — o topo do funil de conversão"],["tx partilha","partilhas ÷ alcance — o indicador de outlier (alvo >1,5%)"],["conversão","seguidores ganhos ÷ alcance — mede o funil (alvo >0,5%)"],["score real","0-100 dos dados: velocidade 25 · partilhas 30 · retenção 20 · interação 15 · conversão 10"],["★ / ★v2","expectativa original (nunca se reescreve) / expectativa com as Lições 1-6"],["🔴 % ritmo","views vs o MELHOR vídeo do canal à mesma idade — o farol das primeiras 72h"],["% completo (TT)","percentagem que viu o vídeo até ao fim — só TikTok fornece isto"],["ER (TT)","engagement rate: (likes+coment.+partilhas+saves)/views — as marcas olham para ≥5%"],["dominância","em que plataforma o vídeo rendeu mais (≥1,5× declara vencedor) — IG premeia dinheiro-pessoal, TT premeia curiosidade"]];
   return `<button class="cbt" style="margin-top:10px" onclick="document.getElementById('gloss').classList.toggle('open')">ⓘ o que significam as métricas</button>
   <div id="gloss" class="gloss">${T.map(x=>`<div class="grow"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')}</div>`;
 }
@@ -742,6 +757,15 @@ function sortTable(th){const table=th.closest('table');const idx=Array.prototype
   const val=r=>{const raw=r.cells[idx].innerText;const cl=raw.replace(/[^0-9,.\-]/g,'').replace(/\./g,'').replace(',','.');const n=parseFloat(cl);return isNaN(n)?raw.toLowerCase():n;};
   rows.sort((r1,r2)=>{const a=val(r1),b=val(r2);return (a<b?-1:a>b?1:0)*(dir==='a'?1:-1);});
   rows.forEach(r=>tb.appendChild(r));}
+function ttDailyViews(){
+  const days={};
+  const dk=t=>{const d=new Date(Date.parse(t)+3600000);return d.toISOString().slice(0,10);};
+  Object.values(perfTT.videos||{}).forEach(v=>{let prev=null;
+    (v.historico||[]).forEach(pt=>{const k=dk(pt.t);
+      if(prev&&pt.views!=null&&prev.views!=null){days[k]=(days[k]||0)+Math.max(0,pt.views-prev.views);}
+      prev=pt;});});
+  return days;
+}
 function dailyRows(){
   const dk=t=>{const d=new Date(Date.parse(t)+3600000);return d.toISOString().slice(0,10);};
   const days={};
@@ -764,11 +788,56 @@ function dailySection(){
     const dt=new Date(r.dia+'T12:00:00');
     const lbl=WD[dt.getDay()]+' '+r.dia.slice(8,10)+'/'+r.dia.slice(5,7);
     const seg=r.segDelta==null?'—':(r.segDelta>0?'+'+r.segDelta:String(r.segDelta));
-    return `<tr><td class="tl" style="font-family:'IBM Plex Mono',monospace">${lbl} ${r.lanc?`<span class="pill" style="background:#101714;color:#2AA971;font-size:10px;padding:2px 7px">🎬 ${r.lanc.join(' ')}</span>`:''}</td><td>${fmtN(r.views)}</td><td>${fmtN(r.alc)}</td><td>${fmtN(r.inter)}</td><td>${fmtN(r.part)}</td><td>${fmtN(r.vis)}</td><td>${seg}</td></tr>`;
+    const ttd=ttDailyViews()[r.dia];return `<tr><td class="tl" style="font-family:'IBM Plex Mono',monospace">${lbl} ${r.lanc?`<span class="pill" style="background:#101714;color:#2AA971;font-size:10px;padding:2px 7px">🎬 ${r.lanc.join(' ')}</span>`:''}</td><td>${fmtN(r.views)}</td><td>${ttd!=null?fmtN(ttd):'—'}</td><td>${fmtN(r.alc)}</td><td>${fmtN(r.inter)}</td><td>${fmtN(r.part)}</td><td>${fmtN(r.vis)}</td><td>${seg}</td></tr>`;
   }).join('');
   return `<div class="phase-head" style="margin-top:30px"><h2>📅 O canal, dia a dia</h2><span class="meta">${trendVerdict(rows)}</span></div>
-  <div class="stattablewrap"><table class="stattable"><thead><tr><th class="tl">dia</th><th onclick="sortTable(this)">views</th><th onclick="sortTable(this)">alcance</th><th onclick="sortTable(this)">interações</th><th onclick="sortTable(this)">partilhas</th><th onclick="sortTable(this)">visitas perfil</th><th onclick="sortTable(this)">+seg</th></tr></thead><tbody>${trs}</tbody></table></div>
+  <div class="stattablewrap"><table class="stattable"><thead><tr><th class="tl">dia</th><th onclick="sortTable(this)">views IG</th><th onclick="sortTable(this)">views TT</th><th onclick="sortTable(this)">alcance IG</th><th onclick="sortTable(this)">interações</th><th onclick="sortTable(this)">partilhas</th><th onclick="sortTable(this)">visitas perfil</th><th onclick="sortTable(this)">+seg</th></tr></thead><tbody>${trs}</tbody></table></div>
   <div class="statnotes">views/partilhas = soma dos ganhos diários dos vídeos monitorizados · alcance/interações/visitas = contadores diários do Instagram (o "dia" da API vira ~8h de Lisboa) · primeiro e último dia podem estar incompletos</div>`;
+}
+let statPlat='ig';
+function setStatPlat(p){statPlat=p;render();}
+function ttM(id){const v=(perfTT.videos||{})[String(id)];return v?(v.metricas||{}):null;}
+function ttDur(id){const v=(perfTT.videos||{})[String(id)];return v?(v.duracao_s||null):null;}
+function platSelector(){
+ const B=(k,l)=>`<button class="cbt ${statPlat===k?'on':''}" onclick="setStatPlat('${k}')">${l}</button>`;
+ return `<div class="chartctl" style="margin:14px 0 4px"><span class="ctlg">${B('ig','Instagram')}${B('tt','TikTok')}${B('cmp','IG vs TT')}</span></div>`;
+}
+function statTableIG(pubs){
+  const rows=pubs.map(d=>{const m=perf[d.id].metricas;
+    const tp=m.alcance?100*(m.partilhas||0)/m.alcance:null;
+    const cv=m.alcance?100*(m.seguidores||0)/m.alcance:null;
+    return `<tr onclick="openModal(${d.id})"><td>PUB #${String(d.ord??0).padStart(2,'0')}</td><td class="tl">${d.t}</td><td>${scoreOf(d)}</td><td>${score2Of(d)??'—'}</td><td>${scoreReal(d)??'—'}</td><td>${fmtN(m.views)}</td><td>${fmtN(m.alcance)}</td><td>${fmtN(m.likes)}</td><td>${fmtN(m.comentarios)}</td><td>${fmtN(m.partilhas)}</td><td>${fmtN(m.saves)}</td><td>${fmtN(m.seguidores)}</td><td>${m.tempo_medio_s!=null?m.tempo_medio_s+'s':'—'}</td><td>${tp!=null?tp.toFixed(1)+'%':'—'}</td><td>${cv!=null?cv.toFixed(1)+'%':'—'}</td></tr>`;
+  }).join('');
+  return `<div class="stattablewrap"><table class="stattable"><thead><tr><th onclick="sortTable(this)"></th><th class="tl">vídeo</th><th onclick="sortTable(this)">★ orig</th><th onclick="sortTable(this)">★ v2</th><th onclick="sortTable(this)">real</th><th onclick="sortTable(this)">views</th><th onclick="sortTable(this)">alcance</th><th onclick="sortTable(this)">likes</th><th onclick="sortTable(this)">coment.</th><th onclick="sortTable(this)">partilhas</th><th onclick="sortTable(this)">saves</th><th onclick="sortTable(this)">seguid.</th><th onclick="sortTable(this)">t. médio</th><th onclick="sortTable(this)">tx partilha</th><th onclick="sortTable(this)">conversão</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+function statTableTT(){
+  const ids=Object.keys(perfTT.videos||{});
+  if(!ids.length) return '<div class="empty">Sem dados TikTok ainda — o robô (ou a carga manual) escreve aqui.</div>';
+  const items=ids.map(id=>({id,v:V.find(x=>String(x.id)===id),m:(perfTT.videos[id].metricas||{}),pub:perfTT.videos[id].publicado_em||''})).filter(x=>x.v).sort((a,b)=>(a.pub<b.pub?-1:1));
+  const rows=items.map(x=>{
+    const dur=ttDur(x.id); const ret=(x.m.tempo_medio_s&&dur)?Math.round(100*x.m.tempo_medio_s/dur):null;
+    const inter=(x.m.likes||0)+(x.m.comentarios||0)+(x.m.partilhas||0)+(x.m.saves||0);
+    const er=x.m.views?100*inter/x.m.views:null;
+    return `<tr onclick="openModal(${x.v.id})"><td class="tl">${x.v.t}</td><td>${fmtN(x.m.views)}</td><td>${fmtN(x.m.likes)}</td><td>${fmtN(x.m.comentarios)}</td><td>${fmtN(x.m.partilhas)}</td><td>${fmtN(x.m.saves)}</td><td>${x.m.tempo_medio_s!=null?x.m.tempo_medio_s+'s':'—'}</td><td>${x.m.pct_completo!=null?x.m.pct_completo+'%':'—'}</td><td>${ret!=null?ret+'%':'—'}</td><td>${er!=null?er.toFixed(1)+'%':'—'}</td><td>${x.m.novos_seguidores!=null?'+'+x.m.novos_seguidores:'—'}</td></tr>`;
+  }).join('');
+  return `<div class="stattablewrap"><table class="stattable"><thead><tr><th class="tl">vídeo</th><th onclick="sortTable(this)">views</th><th onclick="sortTable(this)">likes</th><th onclick="sortTable(this)">coment.</th><th onclick="sortTable(this)">partilhas</th><th onclick="sortTable(this)">saves</th><th onclick="sortTable(this)">t. médio</th><th onclick="sortTable(this)">% completo</th><th onclick="sortTable(this)">retenção</th><th onclick="sortTable(this)">ER</th><th onclick="sortTable(this)">+seg</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <div class="statnotes">ER = (likes+coment.+partilhas+saves)/views · retenção = t.médio/duração · % completo e t.médio vêm do TikTok Studio (manual) ou ficam por preencher</div>`;
+}
+function statTableCMP(){
+  const items=V.filter(d=>(perf[d.id]&&perf[d.id].metricas&&perf[d.id].metricas.views)||ttM(d.id)).map(d=>{
+    const ig=(perf[d.id]&&perf[d.id].metricas)||{}; const tt=ttM(d.id)||{};
+    const vi=ig.views||0, vt=tt.views||0;
+    const ii=(ig.likes||0)+(ig.comentarios||0)+(ig.partilhas||0)+(ig.saves||0);
+    const it=(tt.likes||0)+(tt.comentarios||0)+(tt.partilhas||0)+(tt.saves||0);
+    let dom='—';
+    if(vi&&vt){const r=vt/vi; dom=r>=1.5?('TT '+r.toFixed(1)+'×'):(r<=0.67?('IG '+(1/r).toFixed(1)+'×'):'equilibrado');}
+    else if(vt&&!vi) dom='só TT'; else if(vi&&!vt) dom='só IG';
+    return {d,vi,vt,ii,it,dom,pub:(perf[d.id]&&perf[d.id].publicado_em)||''};
+  }).sort((a,b)=>(b.vi+b.vt)-(a.vi+a.vt));
+  if(!items.length) return '<div class="empty">Sem dados ainda.</div>';
+  const rows=items.map(x=>`<tr onclick="openModal(${x.d.id})"><td class="tl">${x.d.t}</td><td>${fmtN(x.vi)}</td><td>${fmtN(x.vt)}</td><td><b>${fmtN(x.vi+x.vt)}</b></td><td>${fmtN(x.ii)}</td><td>${fmtN(x.it)}</td><td>${x.dom}</td></tr>`).join('');
+  return `<div class="stattablewrap"><table class="stattable"><thead><tr><th class="tl">vídeo</th><th onclick="sortTable(this)">views IG</th><th onclick="sortTable(this)">views TT</th><th onclick="sortTable(this)">TOTAL</th><th onclick="sortTable(this)">inter. IG</th><th onclick="sortTable(this)">inter. TT</th><th onclick="sortTable(this)">dominância</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <div class="statnotes">dominância = onde o vídeo rendeu mais views (≥1,5× para declarar vencedor) · a leitura estratégica: IG premeia dinheiro-pessoal, TT premeia curiosidade/debate — confirma-o aqui vídeo a vídeo</div>`;
 }
 function renderStats(){
   const pubs=V.filter(d=>perf[d.id]&&perf[d.id].metricas&&Object.keys(perf[d.id].metricas).length).sort((a,b)=>(a.ord??999)-(b.ord??999));
@@ -795,9 +864,10 @@ function renderStats(){
   ${evolutionSection()}
   ${canalSection()}
   ${dailySection()}
-  <div class="phase-head" style="margin-top:30px"><h2>Tabela</h2><span class="meta">acumulados por vídeo</span></div>
-  <div class="stattablewrap"><table class="stattable"><thead><tr><th onclick="sortTable(this)"></th><th class="tl">vídeo</th><th onclick="sortTable(this)">★ orig</th><th onclick="sortTable(this)">★ v2</th><th onclick="sortTable(this)">real</th><th onclick="sortTable(this)">views</th><th onclick="sortTable(this)">alcance</th><th onclick="sortTable(this)">likes</th><th onclick="sortTable(this)">coment.</th><th onclick="sortTable(this)">partilhas</th><th onclick="sortTable(this)">saves</th><th onclick="sortTable(this)">seguid.</th><th onclick="sortTable(this)">t. médio</th><th onclick="sortTable(this)">tx partilha</th><th onclick="sortTable(this)">conversão</th></tr></thead><tbody>${rows}</tbody></table></div>
-  <div class="statnotes">🏆 mais views: <b>${best('views').t}</b> · 📤 mais partilhado: <b>${best('partilhas').t}</b> · clica numa linha para abrir o cartão · tx partilha = partilhas/alcance · conversão = seguidores/alcance</div></section>`;
+  <div class="phase-head" style="margin-top:30px"><h2>Tabela</h2><span class="meta">acumulados por vídeo · escolhe a plataforma</span></div>
+  ${platSelector()}
+  ${statPlat==='ig'?statTableIG(pubs):(statPlat==='tt'?statTableTT():statTableCMP())}
+  <div class="statnotes" style="${statPlat!=='ig'?'display:none':''}">🏆 mais views: <b>${best('views').t}</b> · 📤 mais partilhado: <b>${best('partilhas').t}</b> · clica numa linha para abrir o cartão · tx partilha = partilhas/alcance · conversão = seguidores/alcance</div></section>`;
 }
 const DUR={1:72,39:58,31:52,65:49,6:52,19:53,66:52,11:34,67:46,30:45};
 function scoreReal(d){
@@ -1002,6 +1072,7 @@ function heroAgora(){
    <div class="h-tag ${isLive?'live':''}">${isLive?'🔴 AO VIVO':'ÚLTIMO LANÇAMENTO'} · PUB #${String(live.ord||0).padStart(2,'0')} · ${(live.t||'').toUpperCase().slice(0,40)}</div>
    <div class="h-big">${fmtN(m.views||0)}<span> views · ${age<48?age.toFixed(1)+'h':Math.round(age/24)+'d'} de vida</span></div>
    <div class="h-sub">${r!=null?r+'% do ritmo do melhor · ':''}${txp!=null?('partilhas '+String(txp).replace('.',',')+'% · '):''}${ret!=null?`retenção ${ret}%${ret<28?' ⚠':''}`:''}</div>
+   ${(()=>{const t=ttM(live.id);return t&&t.views?`<div class="h-sub" style="margin-top:4px">TikTok: ${fmtN(t.views)} views · ${fmtN((t.likes||0)+(t.comentarios||0)+(t.partilhas||0)+(t.saves||0))} interações</div>`:'';})()}
    ${proj?`<div class="h-proj">projeção dia 4: <b>~${fmtN(proj)}</b>${projPlace?` · ${projPlace}.º do canal`:''}${marco?` · ${marco}`:''}</div>`:(marco?`<div class="h-proj">${marco}</div>`:'')}
    ${diag?`<div class="h-diag">${diag}</div>`:''}
    ${objLine}
@@ -1324,7 +1395,7 @@ function tog(){
   document.getElementById('btnStats').classList.toggle('on',view==='stats');
   const navmap={cockpit:'cockpit',crono:'crono',lista:'crono',cal:'crono',stats:'stats',docs:'docs',banco:'banco'};
   document.querySelectorAll('.nv').forEach(b=>b.classList.toggle('on',b.dataset.v===navmap[view]));
-  const tb=document.querySelector('.toolbar'); if(tb) tb.style.display=(view==='banco'||view==='crono'||view==='lista')?'':'none';
+  const tb=document.querySelector('.toolbar'); if(tb) tb.style.display=(view==='banco')?'':'none';
 }
 function setEstado(id, est){ perfOf(id).estado = est; openModal(id); render();
   const m=document.getElementById('modal');
