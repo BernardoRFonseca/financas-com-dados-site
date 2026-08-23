@@ -42,7 +42,10 @@ def main():
         open("new_refresh_token.txt","w").write(new_rt)
         print("refresh token rodou — será persistido pelo workflow")
 
-    # 2) carregar JSON existente (preserva dados manuais)
+    # 2) carregar JSON existente (preserva dados manuais) + mapping manual
+    mapping={}
+    if os.path.exists("mapping_tiktok.json"):
+        mapping={k:v for k,v in json.load(open("mapping_tiktok.json")).items() if not k.startswith("_")}
     perf=json.load(open("performance_tiktok.json")) if os.path.exists("performance_tiktok.json") else {"plataforma":"tiktok","videos":{}}
     perf.setdefault("videos",{})
     perf["modo"]="api+manual"
@@ -59,9 +62,13 @@ def main():
 
     n=0
     for v in vids:
-        m=re.search(r"#fcd(\d+)", v.get("video_description") or "")
-        if not m: continue
-        vid=m.group(1)
+        vid=None
+        tid=str(v.get("id",""))
+        if tid in mapping: vid=str(mapping[tid])          # override manual vence
+        else:
+            m=re.search(r"#fcd(\d+)", v.get("video_description") or "")
+            if m: vid=m.group(1)                            # auto: hashtag-codigo
+        if not vid: continue
         slot=perf["videos"].setdefault(vid,{})
         met=slot.setdefault("metricas",{})
         met["views"]=v.get("view_count",met.get("views"))
