@@ -1,0 +1,43 @@
+name: tiktok robo
+
+on:
+  schedule:
+    - cron: '23 */2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Buscar dados TikTok
+        env:
+          TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
+          TIKTOK_CLIENT_SECRET: ${{ secrets.TIKTOK_CLIENT_SECRET }}
+          TIKTOK_REFRESH_TOKEN: ${{ vars.TIKTOK_REFRESH_TOKEN }}
+        run: python3 fetch_tiktok.py
+
+      - name: Persistir refresh token se rodou
+        if: ${{ hashFiles('new_refresh_token.txt') != '' }}
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          NEW=$(cat new_refresh_token.txt)
+          echo "::add-mask::$NEW"
+          gh variable set TIKTOK_REFRESH_TOKEN --body "$NEW" -R "$GITHUB_REPOSITORY"
+          rm new_refresh_token.txt
+          echo "refresh token atualizado"
+
+      - name: Commit e push
+        run: |
+          git config user.name "tiktok-robo"
+          git config user.email "bot@financascomdados.local"
+          git add performance_tiktok.json
+          git diff --cached --quiet && echo "sem mudanças" && exit 0
+          git commit -m "tiktok: atualização automática"
+          git pull --rebase origin main
+          git push
