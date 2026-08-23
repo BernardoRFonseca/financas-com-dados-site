@@ -1,0 +1,17 @@
+{
+ "plataforma": "tiktok",
+ "modo": "manual",
+ "ultima_atualizacao": "2026-08-23T15:44",
+ "nota": "Atualização manual semanal via TikTok Studio (screenshots). Views/likes/etc são acumulados de vida. tempo_medio_s e pct_completo do Analytics nativo.",
+ "videos": {
+  "39": {"publicado_em": "2026-08-09T19:29", "duracao_s": 58.9, "metricas": {"views": 461, "likes": 16, "comentarios": 2, "partilhas": 3, "saves": 1, "tempo_medio_s": 7.2, "pct_completo": 3.31, "novos_seguidores": 0}, "historico": [{"t": "2026-08-23T15:44", "views": 461, "likes": 16, "comentarios": 2, "partilhas": 3, "saves": 1}]},
+  "31": {"publicado_em": "2026-08-11T19:11", "duracao_s": 52.0, "metricas": {"views": 443, "likes": 9, "comentarios": 1, "partilhas": 1, "saves": 2, "tempo_medio_s": 8.8, "pct_completo": 2.23, "novos_seguidores": 1}, "historico": [{"t": "2026-08-23T15:44", "views": 443, "likes": 9, "comentarios": 1, "partilhas": 1, "saves": 2}]},
+  "65": {"publicado_em": "2026-08-13T19:21", "duracao_s": 44.1, "metricas": {"views": 595, "likes": 19, "comentarios": 0, "partilhas": 0, "saves": 2, "tempo_medio_s": 10.2, "pct_completo": 7.84, "novos_seguidores": 1}, "historico": [{"t": "2026-08-23T15:44", "views": 595, "likes": 19, "comentarios": 0, "partilhas": 0, "saves": 2}]},
+  "6": {"publicado_em": "2026-08-15T13:04", "duracao_s": 55.6, "metricas": {"views": 1635, "likes": 23, "comentarios": 0, "partilhas": 3, "saves": 5, "tempo_medio_s": 9.9, "pct_completo": 2.61, "novos_seguidores": 2}, "historico": [{"t": "2026-08-23T15:44", "views": 1635, "likes": 23, "comentarios": 0, "partilhas": 3, "saves": 5}]},
+  "19": {"publicado_em": "2026-08-16T18:07", "duracao_s": 64.7, "metricas": {"views": 1405, "likes": 14, "comentarios": 0, "partilhas": 2, "saves": 0, "tempo_medio_s": 14.8, "pct_completo": 7.19, "novos_seguidores": 5}, "historico": [{"t": "2026-08-23T15:44", "views": 1405, "likes": 14, "comentarios": 0, "partilhas": 2, "saves": 0}]},
+  "66": {"publicado_em": "2026-08-18T19:04", "duracao_s": 65.5, "metricas": {"views": 310, "likes": 16, "comentarios": 4, "partilhas": 0, "saves": 1, "tempo_medio_s": 13.7, "pct_completo": 4.19, "novos_seguidores": 1}, "historico": [{"t": "2026-08-23T15:44", "views": 310, "likes": 16, "comentarios": 4, "partilhas": 0, "saves": 1}]},
+  "30": {"publicado_em": "2026-08-20T19:12", "duracao_s": 56.1, "metricas": {"views": 527, "likes": 18, "comentarios": 0, "partilhas": 0, "saves": 1, "tempo_medio_s": 12.5, "pct_completo": 3.35, "novos_seguidores": 0}, "historico": [{"t": "2026-08-23T15:44", "views": 527, "likes": 18, "comentarios": 0, "partilhas": 0, "saves": 1}]},
+  "67": {"publicado_em": "2026-08-22T11:30", "duracao_s": 55.6, "metricas": {"views": 7174, "likes": 175, "comentarios": 24, "partilhas": 22, "saves": 17, "tempo_medio_s": 17.6, "pct_completo": 7.92, "novos_seguidores": 5}, "historico": [{"t": "2026-08-23T15:44", "views": 7174, "likes": 175, "comentarios": 24, "partilhas": 22, "saves": 17}]},
+  "11": {"publicado_em": "2026-08-23T10:55", "duracao_s": 39.4, "metricas": {"views": 384, "likes": 21, "comentarios": 1, "partilhas": 1, "saves": 2, "tempo_medio_s": 12.5, "pct_completo": 15.68, "novos_seguidores": 0}, "historico": [{"t": "2026-08-23T15:44", "views": 384, "likes": 21, "comentarios": 1, "partilhas": 1, "saves": 2}]}
+ }
+}
