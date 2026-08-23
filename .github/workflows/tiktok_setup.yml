@@ -19,7 +19,7 @@ jobs:
           CODE: ${{ github.event.inputs.auth_code }}
           CK: ${{ secrets.TIKTOK_CLIENT_KEY }}
           CS: ${{ secrets.TIKTOK_CLIENT_SECRET }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           RESP=$(curl -s -X POST 'https://open.tiktokapis.com/v2/oauth/token/' \
             -H 'Content-Type: application/x-www-form-urlencoded' \
