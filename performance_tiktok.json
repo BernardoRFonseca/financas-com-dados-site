@@ -1,7 +1,7 @@
 {
  "plataforma": "tiktok",
  "modo": "api+manual",
- "ultima_atualizacao": "2026-08-24T04:23",
+ "ultima_atualizacao": "2026-08-24T05:20",
  "nota": "Atualização manual semanal via TikTok Studio (screenshots). Views/likes/etc são acumulados de vida. tempo_medio_s e pct_completo do Analytics nativo.",
  "videos": {
   "39": {
@@ -265,6 +265,11 @@
    },
    {
     "t": "2026-08-24T04:23",
+    "seguidores": 19,
+    "publicacoes": 10
+   },
+   {
+    "t": "2026-08-24T05:20",
     "seguidores": 19,
     "publicacoes": 10
    }
