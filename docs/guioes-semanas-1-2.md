@@ -126,3 +126,28 @@ Réplica de todos os masters em TikTok + YouTube Shorts no dia da publicação.
 
 0-5s Big Mac físico na mão · 5-13s conceito Economist `v11-1`+`fonte-economist` · 13-24s EUA/Suíça/zona euro(PT)/Brasil `v11-6 NOVO` · 24-33s Índia — Maharaja Mac de frango, mais barato do mundo `v11-6` · 33-40s reframe poder de compra `v11-4` · 40-43s CTA "diz um país, digo o valor" `v11-5`
 **Rigor:** só dados Economist (removido UBS/minutos, fonte errada e desatualizada) · Portugal correto como "zona euro" (Economist não separa) · Índia confirmada (Maharaja Mac, $2,51, jan 2026). **Aguarda:** foto real do Bernardo antes de gravar.
+
+
+# S3·V1 — "A regra dos 25x: o teu número de liberdade" (#49) · ter 25/ago · ~45s · 90 palavras
+
+0-6s hook declarativo "gastos anuais × 25" `v49-1`+fonte-trinity · 6-14s exemplo 1.500€/mês→450k `v49-2` · 14-25s porquê (Trinity Study, regra 4%) `v49-3` · 25-33s Bengen reviu p/ cima `v49-4` · 33-40s reframe (quanto ganho→quanto falta) `v49-5` · 40-45s CTA "assustou ou motivou?" `v49-6`
+**Rigor:** Bengen 1994/Trinity 1998/revisão 2024-25 p/ 4,7%/Morningstar 3,7-3,9%/Pfau 4-14 países — tudo no comentário fixado. **OBJ:** saves≥8, comentários≥5.
+
+# S3·V2 — "Quantos ANOS de salário custa uma casa" (#17) · qui 27/ago · ~48s · 105 palavras
+
+0-7s hook 102% Lisboa `v17-1`+fonte-bdp · 7-16s família 76%/82% `v17-2` · 16-26s fosso 92% vs 43% `v17-3` · 26-36s Europa +17,8%/+180% `v17-4`+fonte-eurostat · 36-43s reframe `v17-5` · 43-48s CTA cidade `v17-6`
+**Rigor:** BdP mar/2026 (fact-check Verdadeiro) + idealista 2T2026 + INE/Eurostat, tudo verificado multi-fonte. **OBJ:** tx partilha≥1,0%, saves≥8.
+
+# S3·V3 — "Quanto ganha um CEO do PSI?" (#68, NOVO) · sáb 29/ago · ~50s · 130 palavras
+
+0-6s hook 416 mil€/mês `v68-1`+fonte-cmvm · 6-15s escada JM/EDP/Galp `v68-2` · 15-26s twist p/ cima: S&P 500 $17,7M `v68-3`+fonte-equilar · 26-36s anatomia do pacote `v68-4` · 36-44s neutralidade `v68-5` · 44-50s CTA palpite banqueiro `v68-6`
+**Rigor:** relatórios CMVM (ECO/JN) + Equilar/AP S&P 500. Comparação deliberadamente PARA CIMA (não com mínimos) — decisão editorial do Bernardo. **OBJ:** tx partilha TT≥1,5%, comentários≥8. 2.ª experiência da série fofoca.
+
+# S3·V4 — "Quantos MINUTOS trabalhas para pagar isto?" (#10) · dom 30/ago · ~50s · 110 palavras
+
+0-6s hook iPhone=1 mês [físico na mão] · 6-14s conta base 11min/€ `v10-2`+fonte-ine · 14-28s volta ao mundo (Suíça 4d→Turquia 73d) `v10-3`+fonte-picodi · 28-39s citação Mujica `v10-4` · 39-50s CTA pessoal `v10-5`
+**Rigor:** INE mediana 2024 + Picodi iPhone Index (bases distintas identificadas). **OBJ:** comentários≥5, saves≥5.
+
+# Banco — 3 ideias novas adicionadas 24/ago
+
+#70 "Quanto ganha um professor/enfermeiro/polícia" (herdeiro do #67) · #71 "Público vs privado: quem ganha mais" (sensível, tratamento neutro) · #72 "O Estado gasta quanto contigo/dia" (precisa QC de fonte OE antes de guião)
