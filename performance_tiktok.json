@@ -1,7 +1,7 @@
 {
  "plataforma": "tiktok",
  "modo": "api+manual",
- "ultima_atualizacao": "2026-08-27T11:55",
+ "ultima_atualizacao": "2026-08-27T19:01",
  "nota": "Atualização manual semanal via TikTok Studio (screenshots). Views/likes/etc são acumulados de vida. tempo_medio_s e pct_completo do Analytics nativo.",
  "videos": {
   "39": {
@@ -222,14 +222,14 @@
   },
   "49": {
    "metricas": {
-    "views": 1172,
-    "likes": 27,
+    "views": 1210,
+    "likes": 29,
     "comentarios": 0,
-    "partilhas": 0
+    "partilhas": 1
    },
    "publicado_em": "2026-08-25T17:58",
    "duracao_s": 47,
-   "atualizado": "2026-08-27T11:55",
+   "atualizado": "2026-08-27T19:01",
    "historico": [
     {
      "t": "2026-08-25T19:09",
@@ -389,6 +389,33 @@
      "t": "2026-08-27T11:55",
      "views": 1172,
      "likes": 27,
+     "comentarios": 0,
+     "partilhas": 0
+    },
+    {
+     "t": "2026-08-27T19:01",
+     "views": 1210,
+     "likes": 29,
+     "comentarios": 0,
+     "partilhas": 1
+    }
+   ]
+  },
+  "17": {
+   "metricas": {
+    "views": 42,
+    "likes": 3,
+    "comentarios": 0,
+    "partilhas": 0
+   },
+   "publicado_em": "2026-08-27T18:30",
+   "duracao_s": 49,
+   "atualizado": "2026-08-27T19:01",
+   "historico": [
+    {
+     "t": "2026-08-27T19:01",
+     "views": 42,
+     "likes": 3,
      "comentarios": 0,
      "partilhas": 0
     }
@@ -736,6 +763,11 @@
     "t": "2026-08-27T11:55",
     "seguidores": 23,
     "publicacoes": 11
+   },
+   {
+    "t": "2026-08-27T19:01",
+    "seguidores": 23,
+    "publicacoes": 12
    }
   ]
  }
