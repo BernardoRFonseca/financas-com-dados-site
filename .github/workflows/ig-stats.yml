@@ -1,7 +1,7 @@
 name: IG Stats
 on:
   schedule:
-    - cron: "0 * * * *"   # de hora a hora
+    - cron: "4 * * * *"   # de hora a hora
   workflow_dispatch: {}
 permissions:
   contents: write
