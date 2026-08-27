@@ -2,7 +2,7 @@ name: tiktok robo
 
 on:
   schedule:
-    - cron: '37 * * * *'
+    - cron: '14 * * * *'
   workflow_dispatch:
 
 permissions:
