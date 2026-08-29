@@ -1,7 +1,7 @@
 {
  "plataforma": "tiktok",
  "modo": "api+manual",
- "ultima_atualizacao": "2026-08-29T10:47",
+ "ultima_atualizacao": "2026-08-29T14:25",
  "nota": "Atualização manual semanal via TikTok Studio (screenshots). Views/likes/etc são acumulados de vida. tempo_medio_s e pct_completo do Analytics nativo.",
  "videos": {
   "39": {
@@ -222,14 +222,14 @@
   },
   "49": {
    "metricas": {
-    "views": 1341,
+    "views": 1344,
     "likes": 32,
     "comentarios": 0,
     "partilhas": 1
    },
    "publicado_em": "2026-08-25T17:58",
    "duracao_s": 47,
-   "atualizado": "2026-08-29T10:47",
+   "atualizado": "2026-08-29T14:25",
    "historico": [
     {
      "t": "2026-08-25T19:09",
@@ -440,19 +440,26 @@
      "likes": 32,
      "comentarios": 0,
      "partilhas": 1
+    },
+    {
+     "t": "2026-08-29T14:25",
+     "views": 1344,
+     "likes": 32,
+     "comentarios": 0,
+     "partilhas": 1
     }
    ]
   },
   "17": {
    "metricas": {
-    "views": 563,
-    "likes": 9,
+    "views": 570,
+    "likes": 10,
     "comentarios": 0,
     "partilhas": 1
    },
    "publicado_em": "2026-08-27T18:30",
    "duracao_s": 49,
-   "atualizado": "2026-08-29T10:47",
+   "atualizado": "2026-08-29T14:25",
    "historico": [
     {
      "t": "2026-08-27T19:01",
@@ -502,19 +509,26 @@
      "likes": 9,
      "comentarios": 0,
      "partilhas": 1
+    },
+    {
+     "t": "2026-08-29T14:25",
+     "views": 570,
+     "likes": 10,
+     "comentarios": 0,
+     "partilhas": 1
     }
    ]
   },
   "68": {
    "metricas": {
-    "views": 83,
-    "likes": 7,
+    "views": 213,
+    "likes": 18,
     "comentarios": 0,
-    "partilhas": 0
+    "partilhas": 4
    },
    "publicado_em": "2026-08-29T10:01",
    "duracao_s": 61,
-   "atualizado": "2026-08-29T10:47",
+   "atualizado": "2026-08-29T14:25",
    "historico": [
     {
      "t": "2026-08-29T10:47",
@@ -522,6 +536,13 @@
      "likes": 7,
      "comentarios": 0,
      "partilhas": 0
+    },
+    {
+     "t": "2026-08-29T14:25",
+     "views": 213,
+     "likes": 18,
+     "comentarios": 0,
+     "partilhas": 4
     }
    ]
   }
@@ -901,6 +922,11 @@
    {
     "t": "2026-08-29T10:47",
     "seguidores": 25,
+    "publicacoes": 13
+   },
+   {
+    "t": "2026-08-29T14:25",
+    "seguidores": 26,
     "publicacoes": 13
    }
   ]
