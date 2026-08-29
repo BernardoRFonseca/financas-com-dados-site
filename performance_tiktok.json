@@ -1,7 +1,7 @@
 {
  "plataforma": "tiktok",
  "modo": "api+manual",
- "ultima_atualizacao": "2026-08-29T08:59",
+ "ultima_atualizacao": "2026-08-29T10:47",
  "nota": "Atualização manual semanal via TikTok Studio (screenshots). Views/likes/etc são acumulados de vida. tempo_medio_s e pct_completo do Analytics nativo.",
  "videos": {
   "39": {
@@ -222,14 +222,14 @@
   },
   "49": {
    "metricas": {
-    "views": 1340,
+    "views": 1341,
     "likes": 32,
     "comentarios": 0,
     "partilhas": 1
    },
    "publicado_em": "2026-08-25T17:58",
    "duracao_s": 47,
-   "atualizado": "2026-08-29T08:59",
+   "atualizado": "2026-08-29T10:47",
    "historico": [
     {
      "t": "2026-08-25T19:09",
@@ -433,19 +433,26 @@
      "likes": 32,
      "comentarios": 0,
      "partilhas": 1
+    },
+    {
+     "t": "2026-08-29T10:47",
+     "views": 1341,
+     "likes": 32,
+     "comentarios": 0,
+     "partilhas": 1
     }
    ]
   },
   "17": {
    "metricas": {
-    "views": 557,
+    "views": 563,
     "likes": 9,
     "comentarios": 0,
     "partilhas": 1
    },
    "publicado_em": "2026-08-27T18:30",
    "duracao_s": 49,
-   "atualizado": "2026-08-29T08:59",
+   "atualizado": "2026-08-29T10:47",
    "historico": [
     {
      "t": "2026-08-27T19:01",
@@ -488,6 +495,33 @@
      "likes": 9,
      "comentarios": 0,
      "partilhas": 1
+    },
+    {
+     "t": "2026-08-29T10:47",
+     "views": 563,
+     "likes": 9,
+     "comentarios": 0,
+     "partilhas": 1
+    }
+   ]
+  },
+  "68": {
+   "metricas": {
+    "views": 83,
+    "likes": 7,
+    "comentarios": 0,
+    "partilhas": 0
+   },
+   "publicado_em": "2026-08-29T10:01",
+   "duracao_s": 61,
+   "atualizado": "2026-08-29T10:47",
+   "historico": [
+    {
+     "t": "2026-08-29T10:47",
+     "views": 83,
+     "likes": 7,
+     "comentarios": 0,
+     "partilhas": 0
     }
    ]
   }
@@ -863,6 +897,11 @@
     "t": "2026-08-29T08:59",
     "seguidores": 24,
     "publicacoes": 12
+   },
+   {
+    "t": "2026-08-29T10:47",
+    "seguidores": 25,
+    "publicacoes": 13
    }
   ]
  }
