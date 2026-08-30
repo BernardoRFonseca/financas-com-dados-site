@@ -222,7 +222,7 @@
   },
   "49": {
    "metricas": {
-    "views": 1573,
+    "views": 1574,
     "likes": 36,
     "comentarios": 0,
     "partilhas": 1
@@ -552,6 +552,13 @@
      "likes": 36,
      "comentarios": 0,
      "partilhas": 1
+    },
+    {
+     "t": "2026-08-30T21:00",
+     "views": 1574,
+     "likes": 36,
+     "comentarios": 0,
+     "partilhas": 1
     }
    ]
   },
@@ -726,6 +733,13 @@
      "likes": 12,
      "comentarios": 0,
      "partilhas": 1
+    },
+    {
+     "t": "2026-08-30T21:00",
+     "views": 640,
+     "likes": 12,
+     "comentarios": 0,
+     "partilhas": 1
     }
    ]
   },
@@ -858,6 +872,13 @@
      "likes": 190,
      "comentarios": 7,
      "partilhas": 26
+    },
+    {
+     "t": "2026-08-30T21:00",
+     "views": 8449,
+     "likes": 190,
+     "comentarios": 7,
+     "partilhas": 26
     }
    ]
   },
@@ -939,6 +960,13 @@
      "t": "2026-08-30T20:00",
      "views": 1046,
      "likes": 68,
+     "comentarios": 2,
+     "partilhas": 1
+    },
+    {
+     "t": "2026-08-30T21:00",
+     "views": 1083,
+     "likes": 72,
      "comentarios": 2,
      "partilhas": 1
     },
@@ -1401,6 +1429,11 @@
    },
    {
     "t": "2026-08-30T20:00",
+    "seguidores": 49,
+    "publicacoes": 14
+   },
+   {
+    "t": "2026-08-30T21:00",
     "seguidores": 49,
     "publicacoes": 14
    },
