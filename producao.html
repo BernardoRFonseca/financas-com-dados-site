@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Produção · Finanças com Dados — Dashboard de Conteúdo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F6F7F4;
+  --card:#FFFFFF;
+  --ink:#132A21;
+  --ink-soft:#4A5F55;
+  --line:#DDE3DC;
+  --green:#0E5B3A;
+  --green-soft:#E4F0E8;
+  --marker:#FFE45C;
+  --red:#B3382C;
+  --red-soft:#F7E4E1;
+  --amber:#8A6D1E;
+  --amber-soft:#F6EFD7;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'Instrument Sans',system-ui,sans-serif;font-size:15px;line-height:1.5;padding-bottom:80px}
+.mono{font-family:'IBM Plex Mono',monospace}
+
+header{padding:34px 24px 8px;max-width:1180px;margin:0 auto}
+.eyebrow{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:10px}
+h1{font-family:'Archivo',sans-serif;font-weight:900;font-stretch:110%;font-size:clamp(26px,4.5vw,42px);line-height:1.05;letter-spacing:-.01em}
+h1 .hl{background:linear-gradient(transparent 55%, var(--marker) 55%, var(--marker) 92%, transparent 92%);padding:0 .08em;color:#132A21}
+.sub{color:var(--ink-soft);margin-top:8px;max-width:620px}
+
+.toolbar{position:sticky;top:0;z-index:40;background:color-mix(in srgb, var(--paper) 88%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);margin-top:22px}
+.toolbar-in{max-width:1180px;margin:0 auto;padding:12px 24px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:5px 13px;font-size:12.5px;font-weight:600;cursor:pointer;color:var(--ink-soft);transition:all .15s}
+.chip:hover{border-color:var(--green)}
+.chip.on{background:var(--green);border-color:var(--green);color:#fff}
+.chip.tagchip.on{background:var(--ink);border-color:var(--ink)}
+.spacer{flex:1}
+select{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:6px 10px;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--ink);cursor:pointer}
+.viewtog{display:flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.viewtog button{border:0;background:var(--card);padding:6px 14px;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--ink-soft);cursor:pointer}
+.viewtog button.on{background:var(--ink);color:#fff}
+.count{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft)}
+
+main{max-width:1180px;margin:0 auto;padding:8px 24px}
+.phase{margin-top:34px}
+.phase-head{display:flex;align-items:baseline;gap:14px;border-bottom:2px solid var(--ink);padding-bottom:8px;margin-bottom:16px}
+.phase-head h2{font-family:'Archivo',sans-serif;font-weight:800;font-size:19px;letter-spacing:-.01em}
+.phase-head .meta{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);letter-spacing:.08em;text-transform:uppercase}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:14px}
+
+.vcard{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 18px 14px;cursor:pointer;display:flex;flex-direction:column;gap:10px;transition:transform .15s, box-shadow .15s, border-color .15s;position:relative}
+.vcard:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(19,42,33,.10);border-color:var(--green)}
+.vcard:focus-visible{outline:3px solid var(--green);outline-offset:2px}
+.vcard .pilar{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft)}
+.bignum{font-family:'Archivo',sans-serif;font-weight:900;font-stretch:115%;font-size:34px;line-height:1;letter-spacing:-.02em}
+.bignum span{background:linear-gradient(transparent 52%, var(--marker) 52%, var(--marker) 94%, transparent 94%);padding:0 .06em;color:#132A21}
+.vtitle{font-weight:600;font-size:14.5px;line-height:1.35}
+.ratings{display:flex;flex-wrap:wrap;gap:5px;margin-top:auto}
+.pill{font-family:'IBM Plex Mono',monospace;font-size:10px;border-radius:6px;padding:3px 7px;background:var(--green-soft);color:var(--green);font-weight:500}
+.pill.warn{background:var(--amber-soft);color:var(--amber)}
+.pill.bad{background:var(--red-soft);color:var(--red)}
+.pill.neutral{background:#EEF0ED;color:var(--ink-soft)}
+.mtabs{display:flex;gap:6px;margin:14px 0 18px;border-bottom:2px solid var(--ink);flex-wrap:wrap}
+.mtabs button{border:1px solid var(--line);border-bottom:0;background:var(--paper);border-radius:10px 10px 0 0;padding:8px 16px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer;color:var(--ink-soft)}
+.mtabs button.on{background:#101714;border-color:#E3E0D5;color:#2AA971}
+.tabpane{display:none}.tabpane.on{display:block}
+.sbframe{width:100%;height:70vh;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+.assetgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:14px;margin-top:12px}
+.asset{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:repeating-conic-gradient(#EEF0ED 0 25%,#fff 0 50%) 0 0/16px 16px;text-align:center}
+.asset img{width:100%;aspect-ratio:9/16;object-fit:contain;display:block}
+.asset a{display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;padding:7px 6px;background:var(--card);color:var(--green);text-decoration:none;font-weight:600;word-break:break-all}
+.acommon{margin-top:18px;padding-top:14px;border-top:1px dashed var(--line);font-size:13.5px}
+.acommon a{color:var(--green);font-weight:600}
+.noprod{background:var(--paper);border:1px dashed var(--line);border-radius:12px;padding:16px 18px;color:var(--ink-soft);font-size:13.5px}
+.chartbox{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 16px 10px;margin-top:12px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;padding:8px 4px 6px}
+.lgd{font-size:12px;color:var(--ink-soft);display:flex;align-items:center;gap:6px}
+.lgd b{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:11.5px}
+.ldot{width:9px;height:9px;border-radius:50%;display:inline-block}
+.chartctl{display:flex;gap:18px;flex-wrap:wrap;margin-top:10px}
+.ctlg{display:flex;gap:4px;background:#EEF0ED;border-radius:999px;padding:3px}
+.cbt{border:0;background:none;font:inherit;font-size:12.5px;color:var(--ink-soft);padding:6px 13px;border-radius:999px;cursor:pointer;font-family:'IBM Plex Mono',monospace}
+.cbt.on{background:#101714;color:#2AA971}
+.statgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0}
+.stat{background:#101714;border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.stat .k{font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8FA89B;letter-spacing:.08em}
+.stat .v{font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:600;color:#EDEAE2}
+.stat .v.mint{color:#2AA971}
+.stattablewrap{overflow-x:auto;background:var(--card);border-radius:14px;border:1px solid #E3E0D5}
+.stattable{width:100%;border-collapse:collapse}
+.stattable th{cursor:pointer;user-select:none;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#8FA89B;text-align:right;padding:10px;border-bottom:1px solid #E3E0D5}
+.stattable td{padding:9px 10px;text-align:right;border-bottom:1px solid #F1EFE6;font-family:'IBM Plex Mono',monospace;font-size:12px;white-space:nowrap}
+.stattable .tl{text-align:left;font-family:'Instrument Sans',sans-serif;font-weight:600;max-width:280px;white-space:normal}
+.stattable tbody tr{cursor:pointer}
+.stattable tbody tr:hover{background:#F6F4EC}
+.statnotes{margin-top:10px;font-size:12.5px;color:#8FA89B}
+.agenda{display:inline-block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;background:#101714;color:#2AA971;border-radius:8px;padding:3px 8px;margin-top:7px}
+.asset.capa{outline:2px solid #2AA971;outline-offset:-2px;position:relative;border-radius:10px}
+.capatag{position:absolute;top:6px;left:6px;background:#2AA971;color:#101714;font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;padding:2px 7px;border-radius:6px;z-index:2}
+.agenda.done{color:#8FA89B}
+.pill.scorepill{background:var(--ink);color:#132A21;font-weight:600;font-size:10.5px}
+.tags{display:flex;flex-wrap:wrap;gap:5px}
+.tag{font-size:10.5px;font-weight:600;color:var(--ink-soft);border:1px dashed var(--line);border-radius:6px;padding:2px 7px}
+.stateflag{position:absolute;top:14px;right:14px;font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.08em;border-radius:6px;padding:3px 7px}
+.st-ideia{background:#EEF0ED;color:var(--ink-soft)}
+.st-guiao{background:#E3ECF6;color:#2B5B8A}
+.st-gravado{background:var(--amber-soft);color:var(--amber)}
+.st-editado{background:#EDE4F6;color:#6B3FA0}
+.st-publicado{background:var(--green);color:#fff}
+.gest{margin-top:20px;border-top:1px dashed var(--line);padding-top:16px}
+.gest h4{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:10px}
+.estbtns{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.estbtns button{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:6px 12px;font-family:inherit;font-size:12px;font-weight:600;cursor:pointer;color:var(--ink-soft)}
+.estbtns button.on{background:var(--ink);border-color:var(--ink);color:#fff}
+.metgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:10px}
+.metgrid label{display:flex;flex-direction:column;gap:3px;font-size:11px;font-weight:600;color:var(--ink-soft)}
+.metgrid input, .gest textarea, .gest input[type=date]{border:1px solid var(--line);border-radius:8px;padding:7px 9px;font-family:inherit;font-size:13px;width:100%;box-sizing:border-box}
+.gest textarea{resize:vertical;min-height:52px}
+.gest .apply{margin-top:10px;border:0;background:var(--green);color:#fff;border-radius:8px;padding:8px 16px;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.gest .hint{font-size:11px;color:var(--ink-soft);margin-top:8px;font-family:'IBM Plex Mono',monospace}
+.exportbtn{border:1px solid var(--green);background:var(--green-soft);color:var(--green);border-radius:8px;padding:6px 12px;font-family:inherit;font-size:12.5px;font-weight:600;cursor:pointer}
+.cardmet{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--green);font-weight:500}
+
+/* modal */
+.overlay{position:fixed;inset:0;background:rgba(19,42,33,.45);display:none;align-items:flex-start;justify-content:center;z-index:100;padding:4vh 16px;overflow-y:auto}
+.overlay.open{display:flex}
+.modal{background:var(--card);border-radius:18px;max-width:760px;width:100%;padding:30px 32px 34px;position:relative;box-shadow:0 30px 80px rgba(19,42,33,.3)}
+.modal .close{position:absolute;top:16px;right:16px;border:1px solid var(--line);background:var(--paper);border-radius:8px;width:34px;height:34px;font-size:16px;cursor:pointer;color:var(--ink)}
+.modal .pilar{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);margin-bottom:8px}
+.modal h3{font-family:'Archivo',sans-serif;font-weight:800;font-size:24px;line-height:1.15;letter-spacing:-.01em;padding-right:36px}
+.modal .hook{margin:16px 0;border-left:4px solid #F6E14D;padding:10px 16px;background:#F6F4EC;border-radius:0 10px 10px 0;font-size:15px;font-style:italic;color:#E8E3D5}
+.mratings{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0}
+.mnotes{margin-top:14px}
+.phase-head.clickable{cursor:pointer;user-select:none}
+.phase .chev{font-size:14px;color:var(--ink-soft);transition:transform .15s;display:inline-block}
+.phase.closed .chev{transform:rotate(-90deg)}
+.phase.closed .phase-body{display:none}
+.livepill{background:#C6564F !important;color:#fff !important}
+.gloss{display:none;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-top:10px}
+.gloss.open{display:block}
+.grow{display:flex;gap:12px;padding:5px 0;font-size:12.5px;border-bottom:1px solid #F1EFE6}
+.grow:last-child{border-bottom:0}
+.grow b{font-family:'IBM Plex Mono',monospace;min-width:110px;color:#2AA971;font-size:11px;text-transform:uppercase;letter-spacing:.05em;padding-top:1px}
+.grow span{color:var(--ink)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:16px 0 18px}
+.kpi{display:flex;flex-direction:column;gap:3px;padding:4px 6px}
+.kk{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--ink-soft)}
+.kv{font-size:24px;font-weight:600;color:var(--ink)}
+.kv.kgreen{color:#2AA971;font-size:15px;line-height:1.35;padding-top:5px}
+.ks{font-size:12px;color:var(--ink-soft)}
+.hero{background:#F6F4EC;border:1px solid #E3E0D5;border-radius:20px;padding:24px 26px;display:grid;grid-template-columns:1.05fr 1.15fr .8fr;gap:26px}
+.h-tag{font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--ink-soft);letter-spacing:.04em}
+.h-tag.live{color:#FF8C7A}
+.h-big{font-family:'IBM Plex Mono',monospace;font-size:62px;font-weight:600;color:#2AA971;line-height:1.05;margin-top:10px}
+.h-big span{font-family:'Instrument Sans',sans-serif;font-size:17px;font-weight:400;color:#B9C6BD}
+.h-sub{margin-top:12px;font-size:14px;color:#9FB1A5;line-height:1.5}
+.h-k{font-family:'IBM Plex Mono',monospace;font-size:11px;color:#2AA971;letter-spacing:.08em}
+.h-c .h-k{color:var(--ink-soft)}
+.h-t{margin-top:6px;font-size:14.5px;color:#E4E9E3;line-height:1.5}
+.h-leg{font-size:12px;margin-top:4px}
+.h-btn{margin-top:14px;background:#1F2E27;border:0;border-radius:10px;padding:10px 14px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#2AA971;cursor:pointer}
+.h-r{border-left:1px solid #E3E0D5;padding-left:24px}
+.wrib{display:grid;grid-template-columns:repeat(7,1fr);gap:10px;margin-top:14px;border-top:2px solid var(--line);padding-top:14px}
+.wday{display:flex;flex-direction:column;gap:6px;min-height:70px}
+.wday.today .wlbl{color:#2AA971}
+.wdot{width:10px;height:10px;border-radius:50%;background:#2C3B32;margin:0 auto}
+.wdot.on{background:#2AA971}
+.wlbl{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);text-align:center}
+.wcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 10px;cursor:pointer;text-align:left}
+.wcard b{display:block;font-size:13px;color:var(--ink)}
+.wcard span{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-soft)}
+.wcard.done{border-color:#2E4A3B}
+.wcard.done span{color:#2AA971}
+.wtog{cursor:pointer;color:var(--ink-soft)}
+.wtog.on{color:var(--ink);font-weight:600}
+.mlink{color:#2AA971;text-decoration:none}
+.kan{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin-top:14px}
+.kcol{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px}
+.kh{font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--ink-soft);letter-spacing:.06em;margin-bottom:8px;text-transform:uppercase}
+.kcard{background:#F6F4EC;border:1px solid #E3E0D5;border-radius:8px;padding:8px;font-size:12px;margin-bottom:6px;cursor:pointer;color:var(--ink)}
+.depth{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:26px}
+.dpanel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.dh{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink);letter-spacing:.05em;margin-bottom:10px}
+.dlink{display:inline-block;margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#2AA971;text-decoration:none}
+.brow{display:flex;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid #F1EFE6;cursor:pointer}
+.brow:last-of-type{border-bottom:0}
+.bsc{font-family:'IBM Plex Mono',monospace;font-size:11.5px;background:#F1EFE6;border-radius:7px;padding:4px 8px;color:var(--ink)}
+@media (max-width:900px){.hero{grid-template-columns:1fr}.h-r{border-left:0;padding-left:0;border-top:1px solid #E3E0D5;padding-top:16px}.depth{grid-template-columns:1fr}.wrib{grid-template-columns:repeat(4,1fr)}}
+.kvs{font-size:14px;color:var(--ink-soft);font-weight:400}
+.kv.kfun{font-size:17px;padding-top:4px}
+.t-ok{color:#2AA971}.t-bad{color:#FF8C7A}
+.h-proj{margin-top:10px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:#CBD6CE}
+.h-proj b{color:#132A21}
+.h-diag{margin-top:8px;font-size:13px;color:#E4E9E3}
+.h-obj{margin-top:8px;font-size:12.5px;color:#9FB1A5}
+.h-obj b{font-family:'IBM Plex Mono',monospace}
+.objpill.o-ok{background:#16241D !important;color:#2AA971 !important}
+.objpill.o-bad{background:#F7E4E1 !important;color:#FF8C7A !important}
+.objpill.o-mid{background:#F6EFD7 !important;color:#132A21 !important}
+.objbox{background:#F6F4EC;border:1px solid #E3E0D5;border-radius:12px;padding:12px 16px;margin:12px 0}
+.objh{font-family:'IBM Plex Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--ink-soft);margin-bottom:8px;display:flex;justify-content:space-between;gap:10px;align-items:center}
+.objv{font-size:11px;padding:3px 9px;border-radius:8px}
+.objv.o-ok{background:#16241D;color:#2AA971}.objv.o-bad{background:#F7E4E1;color:#FF8C7A}.objv.o-mid{background:#F6EFD7;color:#132A21}
+.objrow{display:flex;justify-content:space-between;gap:14px;padding:5px 0;border-bottom:1px solid #EEF0ED;font-size:13px}
+.objrow:last-child{border-bottom:0}
+.objrow b{font-family:'IBM Plex Mono',monospace;font-size:12.5px}
+.tstrip{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+.titem{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;display:flex;flex-direction:column;gap:6px}
+.tspark{width:100%;max-width:280px}
+.tvals{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-soft)}
+@media (max-width:900px){.tstrip{grid-template-columns:1fr}}
+.topbar{position:sticky;top:0;z-index:60;background:rgba(249,247,240,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:1240px;margin:0 auto;display:flex;align-items:center;gap:12px;padding:12px 28px}
+.logo{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:13.5px;letter-spacing:.07em;color:var(--ink);display:flex;align-items:center;gap:9px;white-space:nowrap}
+.logo .dot{width:10px;height:10px;border-radius:50%;background:#2AA971;display:inline-block}
+.tagline{color:var(--ink-soft);font-size:12.5px;white-space:nowrap}
+.mainnav{display:flex;gap:2px;margin-left:12px}
+.nv{border:0;background:none;padding:7px 14px;border-radius:999px;font:inherit;font-size:14px;color:var(--ink-soft);cursor:pointer}
+.nv.on{background:#101714;color:#2AA971}
+.tbx{padding:6px 12px;font-size:12px;font-family:'IBM Plex Mono',monospace}
+.sync{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:#2AA971;white-space:nowrap}
+.intent{margin-top:9px;font-size:12px;color:var(--ink-soft);line-height:1.5;border-left:2px solid #2AA971;padding-left:9px}
+.spark{display:flex;align-items:center;gap:8px;margin-top:8px}
+.spark span{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft)}
+.nextbar{background:#101714;border-radius:14px;padding:14px 20px;margin:0 0 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.nextbar .nk{font-family:'IBM Plex Mono',monospace;font-size:12px;color:#2AA971;letter-spacing:.08em;white-space:nowrap}
+.nextbar .nt{color:#EDEAE2;font-size:14.5px}
+.nextbar .nt b{color:#fff}
+.calgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin-top:14px}
+.calhead{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:var(--ink-soft);text-align:center;text-transform:uppercase}
+.calcell{background:var(--card);border:1px solid var(--line);border-radius:12px;min-height:86px;padding:8px}
+.calcell.off{background:transparent;border:0}
+.calcell .dnum{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft)}
+.calev{display:block;margin-top:6px;background:#101714;color:#2AA971;border-radius:8px;padding:4px 7px;font-family:'IBM Plex Mono',monospace;font-size:10px;line-height:1.4;cursor:pointer}
+.calev.done{color:#8FA89B}
+.calev.wire{background:#F6EFD7;color:#E8C468}
+.docsgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:16px}
+.docitem{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;text-decoration:none;color:var(--ink);display:block}
+.docitem:hover{border-color:#2AA971}
+.docitem .dk{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;color:#2AA971;text-transform:uppercase}
+.docitem h3{font-size:16px;margin:6px 0 4px}
+.docitem p{font-size:12.5px;color:var(--ink-soft);line-height:1.5}
+@media (max-width:640px){.tagline{display:none}.mainnav{overflow-x:auto;-webkit-overflow-scrolling:touch}.topbar-in{padding:10px 14px;gap:8px}}
+.ideia .irow{margin:0 0 14px}
+.ideia h4{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:#2AA971;margin:0 0 4px}
+.ideia p{margin:0;font-size:14px;line-height:1.6;color:var(--ink)}
+.realpill{background:#2AA971 !important;color:#fff !important}
+.v2pill{background:#F1EFE6 !important;color:#5A665E !important;border:1px dashed #B8C2BB}
+.mnotes h4, .mscript h4{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:8px}
+.mnotes ul{padding-left:18px;display:flex;flex-direction:column;gap:6px;color:var(--ink)}
+.mscript{margin-top:20px}
+.mscript pre{background:#10231B;color:#E8F1EA;border-radius:12px;padding:20px;font-family:'IBM Plex Mono',monospace;font-size:12.5px;line-height:1.65;white-space:pre-wrap;word-wrap:break-word}
+.noscript{margin-top:20px;border:1px dashed var(--line);border-radius:12px;padding:14px 16px;color:var(--ink-soft);font-size:13.5px}
+.empty{padding:60px 0;text-align:center;color:var(--ink-soft)}
+@media (max-width:640px){
+  header{padding:24px 16px 4px}
+  .toolbar-in, main{padding-left:16px;padding-right:16px}
+  .modal{padding:24px 18px 28px}
+}
+@media (prefers-reduced-motion: reduce){
+  .vcard, .vcard:hover{transition:none;transform:none}
+  html{scroll-behavior:auto}
+}
+
+/* ===== ILHA ESCURA: hero B3 sobre página creme (design aprovado no mockup original) ===== */
+.hero{background:#101714 !important;border:1px solid #1D2A23 !important}
+.hero .h-tag{color:#8FA89B !important}
+.hero .h-tag.live{color:#FF8C7A !important}
+.hero .h-big{color:#7FE3B4 !important}
+.hero .h-big span{color:#B9C6BD !important}
+.hero .h-sub{color:#9FA89B !important;color:#9FB1A5 !important}
+.hero .h-k{color:#7FE3B4 !important}
+.hero .h-c .h-k{color:#8FA89B !important}
+.hero .h-t{color:#E4E9E3 !important}
+.hero .h-proj{color:#CBD6CE !important}
+.hero .h-proj b{color:#F6E14D !important}
+.hero .h-diag,.hero .h-obj{color:#C9D4CC !important}
+.hero .h-btn{background:#1F2E27 !important;color:#7FE3B4 !important}
+.hero .h-r{border-left:1px solid #26362E !important}
+@media (max-width:900px){.hero .h-r{border-left:0 !important;border-top:1px solid #26362E !important}}
+/* ===== RUMO ===== */
+.rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin-top:12px}
+.rcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px}
+.rk{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.08em;color:var(--ink-soft)}
+.rv{font-size:26px;font-weight:700;color:var(--ink);margin-top:6px}
+.rplat{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-soft);margin-top:4px}
+.rd{font-size:13px;margin-top:8px;color:var(--ink)}
+.rt{font-size:11.5px;color:var(--ink-soft);margin-top:6px;font-family:'IBM Plex Mono',monospace}
+.t-ok{color:#0E5B3A}.t-bad{color:#B3382C}
+.rumoacao{background:#101714;border-radius:14px;padding:14px 18px;margin-top:14px;color:#E4E9E3;font-size:14px;line-height:1.6}
+.rumoacao .rk{color:#7FE3B4;margin-right:10px}
+.rumoacao b{color:#F6E14D}
+</style>
+</head>
+<body>
+
+<nav class="topbar"><div class="topbar-in"><a class="tbx" href="index.html" style="text-decoration:none;border:1px solid var(--line);padding:4px 10px;border-radius:6px;font-size:12px">← métricas (FCD-1)</a>
+  <span class="logo"><span class="dot"></span>FINANÇAS COM DADOS</span>
+  <span class="tagline">terminal de conteúdo</span>
+  <span class="mainnav">
+    <button data-v="cockpit" class="nv on">Cockpit</button>
+    <button data-v="crono" class="nv">Vídeos</button>
+    <button data-v="stats" class="nv">Stats</button>
+        <button data-v="docs" class="nv">Docs</button>
+    <button data-v="banco" class="nv">Banco</button>
+  </span>
+  <span class="spacer"></span>
+  <button class="exportbtn tbx" id="btnExport" title="Descarrega o performance.json">⬇ json</button>
+  <span class="sync" id="syncDot">● sync —</span>
+</div></nav>
+
+<div class="toolbar">
+  <div class="toolbar-in">
+    <div class="chips" id="pilarChips"></div>
+    <div class="chips" id="tagChips"></div>
+    <div class="chips" id="estadoChips"></div>
+    <span class="spacer"></span>
+    
+    <span class="count" id="count"></span>
+    <div class="viewtog" role="group" aria-label="Perfil de score">
+      <button id="profCresc" class="on">Score: Crescimento</button>
+      <button id="profMarca">Marca</button>
+    </div>
+    <select id="sortSel" aria-label="Ordenar por">
+      <option value="plan">Ordem do plano</option>
+      <option value="score">Score (perfil ativo) ↓</option>
+      <option value="i">Interesse ↓</option>
+      <option value="v">Viralidade ↓</option>
+      <option value="p">Produção (fácil primeiro)</option>
+      <option value="r">Risco (baixo primeiro)</option>
+      <option value="rdesc">Risco (alto primeiro)</option>
+    </select>
+    <div class="viewtog" role="group" aria-label="Vista">
+      <button id="btnCrono" class="on">Cronograma</button>
+      <button id="btnLista">Lista</button>
+      <button id="btnStats" style="display:none">📊 Stats</button>
+    </div>
+  </div>
+</div>
+
+<main id="app"></main>
+
+<section style="max-width:1180px;margin:40px auto 0;padding:0 24px">
+  <div class="phase-head"><h2 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:19px">Parking lot — ideias em bruto, por avaliar</h2><span class="meta" style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-soft);letter-spacing:.08em;text-transform:uppercase">promovem-se a cartão quando avaliadas</span></div>
+  <ul style="columns:2;column-gap:28px;padding-left:18px;color:var(--ink);font-size:14px;line-height:1.9;max-width:1000px">
+    <li>Índice de miséria (inflação + desemprego) — índice pouco conhecido com efeito-uau</li>
+    <li>"Quanto ganha o Estado com um litro de gasolina" (ISP + IVA)</li>
+    <li>PPR: vale a pena ou é só benefício fiscal?</li>
+    <li>Bootstrapping radical: vender o carro para fundar a empresa (empresário PT, sem nome)</li>
+    <li>"O negócio não liberta cash suficiente": cash flow como sinal vital</li>
+    <li>O superpoder do "não sei": experimentação vs. manuais</li>
+    <li>Verticalização: porque algumas empresas produzem tudo o que vendem</li>
+    <li>Arrendar vs. comprar casa em PT — a conta completa, sem dogmas</li>
+    <li>Riqueza das famílias PT: ISFF 2024 (INE, mai. 2026) — média vs. mediana da riqueza líquida</li>
+  </ul>
+</section>
+
+<section style="max-width:1180px;margin:36px auto 0;padding:18px 24px;border-top:1px solid var(--line)">
+  <div class="phase-head"><h2 style="font-family:'Archivo',sans-serif;font-weight:800;font-size:19px">Contexto do projeto (humanos e IAs)</h2></div>
+  <ul style="padding-left:18px;font-size:14px;line-height:2">
+    <li><a href="contexto.md" style="color:var(--green);font-weight:600">contexto.md — briefing completo para IA (estado, regras, decisões)</a></li>
+    <li><a href="performance.json" style="color:var(--green);font-weight:600">performance.json — pipeline e métricas por vídeo</a></li>
+    <li><a href="docs/estrategia-instagram-financas.md" style="color:var(--green);font-weight:600">docs/estrategia-instagram-financas.md — documento-mestre</a></li>
+    <li><a href="docs/guioes-semana-1.md" style="color:var(--green);font-weight:600">docs/guioes-semana-1.md — guiões da semana 1</a></li>
+    <li><a href="docs/guioes-semanas-1-2.md" style="color:var(--green);font-weight:600">docs/guioes-semanas-1-2.md — guiões v5 dos 6 vídeos (identidade B3)</a></li>
+    <li><a href="docs/learnings.md" style="color:var(--green);font-weight:600">docs/learnings.md — diário de aprendizagens</a></li>
+    <li><a href="producao/video-01/storyboard.html" style="color:var(--green);font-weight:600">producao/video-01/storyboard.html — storyboard completo do vídeo #1 (frames, tempos, descrição, 1.º comentário)</a></li>
+    <li><a href="producao/capcut-pack-b3-4k.zip" style="color:var(--green);font-weight:600">producao/capcut-pack-b3-4k.zip — pacote CapCut B3 (37 overlays 4K dos 6 vídeos + fontes + guia)</a></li>
+    <li><a href="producao/README-capcut.md" style="color:var(--green);font-weight:600">producao/README-capcut.md — guia do projeto-molde no CapCut</a></li>
+  </ul>
+</section>
+
+<div class="overlay" id="overlay">
+  <div class="modal" role="dialog" aria-modal="true" id="modal"></div>
+</div>
+
+<script>
+const ESTADOS = {ideia:'Ideia', guiao:'Guião', gravado:'Gravado', editado:'Editado', publicado:'Publicado'};
+const METRICAS = [['ret3s','Retenção 3s (%)'],['retMedia','Retenção média (%)'],['saves','Saves'],['partilhas','Partilhas'],['comentarios','Comentários'],['seguidores','Seguidores ganhos']];
+let perf = {}; // id -> {estado, publicado, metricas:{}, nota}
+let perfMeta = {};
+function estadoOf(d){ if(perf[d.id] && perf[d.id].publicado_em) return 'publicado'; return (perf[d.id] && perf[d.id].estado) || (d.script ? 'guiao' : 'ideia'); }
+function perfOf(id){ if(!perf[id]) perf[id] = {estado:null, publicado:'', metricas:{}, nota:''}; return perf[id]; }
+const LVL = {3:'Alto',2:'Médio',1:'Baixo'};
+const LVLF = {3:'Alta',2:'Média',1:'Baixa'};
+const PROD = {1:'Fácil',2:'Média',3:'Exigente'};
+const RISCO = {1:'Baixo',2:'Médio',3:'Alto'};
+
+const VIDA_PTS = v => v.startsWith('Evergreen') ? 100 : v.startsWith('Datado') ? 60 : 35;
+const PESOS = {
+  cresc:{v:.40, i:.25, vida:.20, guard:8, serie:5, ptbr:4, pos:2,  prodM:-4, prodE:-8, rM:5, rA:-12},
+  marca:{v:.20, i:.25, vida:.25, guard:5, serie:4, ptbr:2, pos:12, prodM:-4, prodE:-8, rM:3, rA:-5}
+};
+const MAXRAW = {}; // máximo teórico por perfil: vídeo perfeito = 100, sem corte artificial
+for (const k in PESOS){ const w=PESOS[k]; MAXRAW[k] = w.v*100 + w.i*100 + w.vida*100 + w.guard + w.serie + w.ptbr + w.pos + w.rM; }
+function scoreOf(d, prof){
+  prof = prof || profile;
+  const w = PESOS[prof];
+  let sc = w.v*((d.v-1)*50) + w.i*((d.i-1)*50) + w.vida*VIDA_PTS(d.vida);
+  if(d.tags.includes('Guardável')) sc += w.guard;
+  if(d.tags.includes('Série')) sc += w.serie;
+  if(d.tags.includes('PT-BR')) sc += w.ptbr;
+  if(d.tags.includes('Posicionamento')) sc += w.pos;
+  if(d.p===2) sc += w.prodM; if(d.p===3) sc += w.prodE;
+  if(d.r===2) sc += w.rM; if(d.r===3) sc += w.rA;
+  return Math.max(0, Math.round(sc / MAXRAW[prof] * 100)); // v1.1: reescalado, não cortado
+}
+const FASES = [
+  {id:'s1', nome:'Semana 1 · 7-15 ago (5 vídeos)', meta:'publicar por esta ordem: #1 (ESTREIA) → #39 (cumpre a promessa) → #31 (fecha a semana)'},
+  {id:'s2', nome:'Semana 2 · 16-23 ago (5 vídeos)', meta:'#7 (a conta que quase ninguém fez) · psicologia · treino×finanças'},
+  {id:'s3', nome:'Batch seguinte', meta:'3 vídeos · partilha em DM + efeito-uau + manifesto ⭐'},
+  {id:'f2', nome:'Fase 2 — Após a base', meta:'semanas 4-8 · dobrar a aposta no que performar'},
+  {id:'g',  nome:'Guardar — Posicionamento', meta:'a partir do vídeo ~12-15 · exigem credibilidade estabelecida'},
+  {id:'saz',nome:'Sazonal', meta:'publicar na janela certa'}
+];
+
+const V = [
+{prod:{sb:'producao/video-01/storyboard.html',dir:'producao/video-01/overlays/',files:["v01-1-hook.png", "v01-2-tensao.png", "v01-3-funil.png", "v01-4-causa1.png", "v01-5-causa2.png", "v01-6-causa3.png", "v01-7-reframe.png", "v01-8-cta.png", "v01-9-capa.png"]}, agenda:'✓ publicado sex 7/ago 22h30', ord:1, intencao:'testou hook número-choque · partilhas = motor (validado: 1,9% Superior)', ideia:{resumo:'Quase metade dos agregados nao pagou IRS em 2024 — o numero oficial que ninguem espera.',porque:'Choque + identidade: quem paga sente injustica, quem nao paga sente surpresa — ambos partilham para se posicionar.',alinha:'Pilar Impostos e video-fundacao da tese «numeros oficiais contra intuicoes».',risco:'Leitura politica — neutralizado com fonte AT no ecra e tom estritamente factual.'}, hookNum:true, dep:false, tema:'eu', dur:72, id:1,t:'Quase metade de Portugal não paga IRS',big:'44,7%',pilar:'Impostos',fase:'s1',i:3,v:3,p:1,vida:'Datado (2026)',r:2,tags:['Série'],
+ hook:'"44,7% dos agregados que entregaram declaração não pagaram IRS em 2024. E não é bem o que parece."',
+ script:`PUBLICADO 7/ago - referencia do plano calmo: ~52s (real gravado: 72s - licao da regra do ritmo)\n0-7s: Quase metade dos agregados que entregaram IRS nao pagou um centimo em 2024. [v01-1-hook + fonte-at]\n7-16s: E nao e boa noticia - alias, e o valor mais alto dos ultimos tres anos. Tambem nao e o que parece. [v01-2]\n16-23s: 6,2 milhoes de declaracoes. So 3,4 milhoes pagaram. Os outros 2,8 milhoes em tres grupos. [v01-3-funil + fonte-at]\n23-31s: Um: rendimentos baixos - 1 em cada 5 no salario minimo, 1 em 3 ate 920 euros. [v01-4 + fonte-segsocial]\n31-37s: Dois: deducoes e beneficios anulam o imposto. E o sistema a zerar a conta. [v01-5]\n37-43s: Tres: rendimento que nao chega a declaracao. O minimo na folha, o resto por fora. [v01-6]\n43-48s: E a AT nao publica quanto pesa cada grupo. Ninguem sabe. [v01-7 entra aos 45s]\n48-52s: Qual pesa mais? No proximo video: o terceiro. [v01-8]`, notas:['Dados verificados (AT): 6,2M declarações, 3,4M pagaram.','Versão honesta em duas partes: rendimentos baixos + rendimento não declarado. Nunca afirmar que "ninguém foge".','CTA-debate: "salários baixos ou dinheiro por fora?" — teaser do vídeo #39.'],
+ },
+
+{id:4,t:'A cunha fiscal completa (fundido com #5)',big:'1.900→1.100€',pilar:'Impostos',fase:'f2',i:3,v:3,p:1,vida:'Evergreen',r:2,tags:['Guardável','PT-BR','Datado (OE2027)'],
+ hook:'"A tua empresa gasta 1.900€ contigo. Tu recebes 1.100€. Vou mostrar-te para onde vão os outros 800."',
+ notas:['Versão elevada do bruto vs. líquido: o conceito isolado é básico demais — a conta de ponta a ponta (custo empresa → conta bancária) surpreende até quem domina o básico.','REGRESSA na época do OE2027/IRS (set-out) — saiu do plano 24/ago a favor do #17 (habitação). Substitui os antigos #4 e #5. ⚠️ Confirmar cunha fiscal na OCDE (Taxing Wages).','Visual físico: bolo/notas fatiado em direto.']},
+
+{id:28,t:'Tipos de pessoas quando chega o reembolso',big:'😂',pilar:'Humor',fase:'f2',i:3,v:3,p:1,vida:'Sazonal (abr-ago)',r:1,tags:[],
+ hook:'Sketch: os arquétipos quando cai o reembolso do IRS — o que gasta tudo, o que nem repara, o que faz folha de Excel...',
+ notas:['Adiado: sketches exigem confiança de câmara e audiência — entra quando houver ritmo (Fase 2+) e dentro da janela sazonal (abr.-ago.).','Até lá, humor = tempero dentro dos vídeos de dados (uma frase seca por vídeo).','Par estratégico com o #6: humor primeiro, dados a seguir, na mesma semana.']},
+
+{prod:{sb:'producao/video-06/storyboard.html',dir:'producao/video-06/overlays/',files:["v06-1-hook.png", "v06-2-tensao.png", "v06-3-mecanica.png", "v06-4-payload.png", "v06-5-reframe.png", "v06-6-cta.png", "v06-7-duodecimos.png", "v06-8-decisao.png", "v06-9-capa.png"]}, agenda:'sáb 15/ago · 11h00', ord:5, intencao:'TESTOU janela sazonal → Lição 6: o TEMA puxou a distribuição (2.º melhor arranque; dia recorde de alcance do canal) mas a ressonância falhou — likes 2,2%, partilhas 0,25%, score real ~38. Hook sem número custou a conversão da atenção', ideia:{resumo:'O reembolso do IRS e um emprestimo sem juros ao Estado — e os subsidios ao bolo sao o mesmo mecanismo.',porque:'Inverte um prazer nacional (receber reembolso): dissonancia cognitiva prende ate ao fim.',alinha:'Impostos + honestidade comportamental — instruir sem culpar e a voz da casa.',risco:'Janela sazonal: so faz sentido em agosto, com os reembolsos frescos na memoria.'}, hookNum:false, dep:false, tema:'eu', dur:52, id:6,t:'O reembolso do IRS não é um presente',big:'0% juros',pilar:'Impostos',fase:'s1',i:3,v:3,p:1,vida:'Evergreen',r:2,tags:['Guardável'],
+ hook:'"Recebeste reembolso? Parabéns: emprestaste dinheiro ao Estado durante um ano, a juro zero, enquanto a inflação o comia."',
+ script:`~120 palavras = ~52s reais - PONTE com duodecimos adicionada (8/ago) - JANELA SAZONAL: publicar em agosto\n0-5s: Recebeste reembolso do IRS? Emprestaste dinheiro ao Estado. A juro zero. [v06-1-hook + fonte-at]\n5-7s: E nao e um presente. [v06-2]\n7-17s: Todos os meses retem-te por tabelas gerais. Se retem a mais, o Estado usa o teu dinheiro o ano inteiro - e devolve sem juros. [v06-3 + fonte-at]\n17-21s: E devolve mais magro: a inflacao comeu no caminho. [v06-4 + fonte-ine]\n21-33s: E nos fazemos o mesmo a nos proprios: subsidios de ferias e de Natal. Receber em duodecimos ou ao bolo? E o mesmo dinheiro - so muda quem o guarda por ti. [v06-7-duodecimos NOVO]\n33-43s: A matematica prefere receber antes. Mas se o bolo e a unica poupanca que consegues fazer... ele tem valor. So decide isso conscientemente - nao por defeito. [v06-8-decisao NOVO]\n43-49s: Reembolso grande e retencao desajustada. Confirma na empresa: dependentes, estado civil, titularidade. [v06-5]\n49-52s: Este ano: grande ou pequeno? E os subsidios - bolo ou duodecimos? [v06-6]`, notas:['Versão rigorosa da ideia dos 14 meses — a retenção na fonte excessiva é o mecanismo real e factualmente blindado.','Bónus prático no fim: como ajustar a retenção para receber mais todos os meses.']},
+
+{prod:{sb:'producao/video-66/storyboard.html',dir:'producao/video-66/overlays/',files:["v66-1-hook.png", "v66-2-mente.png", "v66-3-medias.png", "v66-4-porque.png", "v66-5-reframe.png", "v66-6-cta.png"]}, agenda:'ter 18/ago · 19h00', ord:7, intencao:'estreia pilar Salários (fofoca c/ dados) · vigiar comentários acima/abaixo + saves', ideia:{resumo:'INE 2024, em liquido: metade leva para casa menos de 980€/mes (media liquida 1.142) — e a media bruta das noticias (1.611) esconde-o.',porque:'Auto-posicionamento instantaneo: toda a gente se compara sem precisar de revelar o salario.',alinha:'Estreia do pilar Salarios — a «fofoca com dados» pedida pela estrategia.',risco:'Universos diferentes (privado vs total): datas e fontes declaradas NO eixo e na nota fixada.'}, hookNum:true, dep:false, tema:'eu', dur:61, id:66,t:'Metade de Portugal ganha menos do que isto',big:'~980€',pilar:'Salários',fase:'s2',i:3,v:3,p:1,vida:'Datado',r:2,tags:['Guardável'],
+ hook:'"Metade dos trabalhadores em Portugal levava para casa menos de 980€/mês. E a média das notícias esconde-o."',
+ script:`~140 palavras = ~61s - v11 CORRIGIDA 18/ago (erro factual resolvido: 1.298 media liquida trimestral NAO EXISTE - substituido por 1.835 bruto jun/26 rotulado corretamente; aposta recalculada ~1.040; hook REVERTIDO ao declarativo puro - apanhado do Bernardo: nenhum video do canal abre com pergunta, e o tema salario ja e auto-relevante sem precisar de convite)
+0-7s: Metade dos trabalhadores em Portugal levava para casa menos de novecentos e oitenta euros por mes. [v66-8-hero + fonte-ine]
+8-15s: Mas a media nao e bem mais alta? E - mil cento e quarenta e dois nesse ano, em liquido. E mesmo essa... mente. [v66-2]
+15-25s: A media, puxada para cima pelos salarios altos. A mediana - a linha que divide os trabalhadores ao meio - 980. E nos jovens? Metade ganhava o minimo. Ou menos. [v66-7-eixo]
+25-37s: Poe dez trabalhadores em fila, do que leva menos ao que leva mais: o do meio leva novecentos e oitenta. E um em cada cinco... ganha o salario minimo. [v66-10-pessoas]
+37-53s: Estes numeros sao de 2024. Sabemos a media - mas so a bruta, e so trimestral: em junho ja ia nos mil oitocentos e trinta e cinco, e sobe todos os trimestres. A mediana liquida? Essa so sai uma vez por ano. E ainda nao saiu. Nas minhas contas: deve andar a volta dos mil e quarenta. [v66-11 -> v66-12-aposta CORRIGIDO aos ~46s]
+53-63s: Quando o INE a publicar, volto aqui - e vemos se acertei. Ate la: acima ou abaixo da linha do meio? Nao precisas de dizer o numero. [v66-6-cta]`, notas:['Fofoca com dados: auto-posicionamento instantâneo — o CTA não pede o número, pede acima/abaixo','Média vs mediana = literacia estatística disfarçada de voyeurismo salarial','⚠️ bruto vs líquido: dizer os qualificativos em voz alta; nota fixada explica','Estreia do pilar Salários — se funcionar, é série (por profissão, por setor, por idade)']}, {prod:{sb:'producao/video-67/storyboard.html',dir:'producao/video-67/overlays/',files:["v67-1-hook.png", "v67-2-escada.png", "v67-3-minimos.png", "v67-4b-eurodeputado.png", "v67-4-twist.png", "v67-5-cta.png"]}, agenda:'sáb 22/ago · 11h00', ord:9, intencao:'fofoca c/ tabela pública · vigiar partilhas + alcance não-seguidores', ideia:{resumo:'Quanto ganha um deputado: a escada oficial ate ao Presidente, e o twist do eurodeputado.',porque:'Fofoca maxima com tabela publica — verificavel ao centimo, impossivel de desmentir.',alinha:'Serie Salarios; sabado de manha e horario de curiosidade partilhavel.',risco:'Leitura partidaria — o twist europeu desarma os dois lados; zero adjetivos.'}, hookNum:true, dep:false, tema:'eu', dur:46, id:67,t:'Quanto ganha um deputado?',big:'4.600€',pilar:'Salários',fase:'s2',i:3,v:3,p:1,vida:'Datado',r:2,tags:['Guardável'],
+ hook:'"Quanto ganha um deputado? A tabela é pública — e o twist não é o que esperas."',
+ script:`~128 palavras = ~50s - v2 CORRIGIDA 19/ago (QC total feito): hook revertido a declarativo (sem pergunta) + numeros nacionais confirmados na fonte (rotulados 2025) + TWIST CORRIGIDO (eurodeputado 11.255 bruto - o \"20 mil\" era mito ja desmentido pelo Poligrafo) + confirmado 14 meses + porta aberta sobre regalias (sem numeros nao verificaveis)\n0-5s: Isto e o que um deputado ganha, ao centimo. A tabela e publica. [v67-1-hook + fonte-parlamento]\n5-19s: Deputado em exclusividade: uns 4.600 brutos, com despesas de representacao - a 14 meses, como o resto do pais. Ministro: 7.600. Primeiro-ministro: 8.800. Presidente da Republica: 11.700 - o salario de referencia de todos os outros. [v67-2-escada]\n19-26s: Comparando com quem trabalha: um deputado ganha cinco salarios minimos. O Presidente, quase treze. [v67-3-minimos]\n26-38s: E o twist: um eurodeputado ganha mais do dobro de um deputado portugues - onze mil e duzentos e cinquenta e cinco brutos. Mas nem chega ao que o nosso Presidente ganha. [v67-4b-eurodeputado NOVO + fonte-europarl]\n38-42s: O debate certo nao e o valor: e o que recebemos em troca. [v67-4-twist]\n42-46s: E isto e so o vencimento base - ha ajudas de custo e abonos por cima, que nao vou tentar somar aqui. [v67-5-cta]\n46-50s: Achas justo? Diz-me porque - com numeros, claro.`, notas:['A fofoca máxima: salários públicos por lei — verificável ao cêntimo','Neutralidade blindada: o vídeo não julga; o twist europeu (eurodeputado 21,4 mil€) desarma os dois lados','Comparação limpa bruto-bruto: 5 salários mínimos (4.600/920) · PR quase 13','⚠️ confirmar tabela 2026 no Parlamento.pt (valores atuais: compilação +Liberdade 2025)']},
+{prod:{sb:'producao/video-68/storyboard.html',dir:'producao/video-68/overlays/',files:["v68-9-capa.png","v68-1-hook.png","v68-2-escada.png","v68-3-global.png","v68-4-pacote.png","v68-5-reframe.png","v68-6-cta.png"]}, agenda:'sáb 29/ago · 11h00', ord:13, intencao:'2.ª experiencia da serie fofoca (o #67 validou c/ 7,2k views TT) · comparar para cima, nao para baixo', ideia:{resumo:'Quanto ganha o CEO mais bem pago do PSI — e comparacao com o CEO mediano do S&P 500 (EUA).',porque:'Sequela direta do breakout do #67; angulo motivacional (compara com os melhores, nao com os piores) em vez de indignacao.',alinha:'Serie Salarios/fofoca; sabado 11h = a janela do breakout.',risco:'Podia ler-se como ataque a gananciosos — resolvido: zero comparacao com trabalhadores/minimos, so comparacao para cima (EUA) + pergunta neutra sobre desempenho.'}, hookNum:true, dep:false, tema:'eu', dur:50, id:68,t:'Quanto ganha um CEO do PSI?',big:'416 mil€/mês',pilar:'Salários',fase:'s3',i:3,v:3,p:1,vida:'Datado (2026)',r:1,tags:['Série','PT-BR'],
+ hook:'"O CEO mais bem pago da bolsa portuguesa ganha 416 mil euros. Por mês."',
+ script:`~130 palavras = ~50s - NOVO 24/ago, v2 apos feedback (comparar para cima, nao para baixo; CTA vira palpite p/ serie)\n0-6s: O CEO mais bem pago da bolsa portuguesa ganha quatrocentos e dezasseis mil euros. Por mes. [v68-1-hook + fonte-cmvm]\n6-15s: Pedro Soares dos Santos, Jeronimo Martins - a dona do Pingo Doce: cinco milhoes brutos num ano. A escada: EDP, dois virgula um milhoes. Galp, um virgula quatro - a dobrar, porque tem dois CEOs. [v68-2-escada]\n15-26s: E o twist: a escala global, isto ate e pouco. O CEO mediano das quinhentas maiores empresas americanas ganhou dezassete virgula sete milhoes de dolares no ano passado - mais do triplo do nosso numero um. [v68-3-global + fonte-equilar]\n26-36s: Como se constroi um pacote destes? Fixo - pago a catorze meses, como o resto do pais. Variavel, ligado a resultados. Acoes da empresa. E regalias: carro, seguros, plano de reforma. [v68-4-pacote]\n36-44s: Quem decide estes valores? Nao e o Estado - sao os acionistas. E o debate certo nao e o numero: e se o desempenho o justifica. [v68-5-reframe]\n44-50s: E para a semana: quanto ganha o CEO de um banco? Deixa o teu palpite nos comentarios - eu revelo no proximo video. [v68-6-cta]`,
+ notas:['Pedro Soares dos Santos 5,0M€/2025 (ECO/JN, relatórios CMVM); EDP 2,1M€; Galp 1,4M€ cada co-CEO.','Twist: CEO mediano S&P 500 = $17,7M/2025 (Equilar/AP) — mais do triplo. Zero comparação com trabalhadores/mínimos por decisão editorial (evitar tom de acusação).']},
+ {prod:{sb:'producao/video-19/storyboard.html',dir:'producao/video-19/overlays/',files:["v19-1-hook.png", "v19-2-ciclo.png", "v19-3-payload.png", "v19-4-reframe.png", "v19-5-cta.png"]}, agenda:'dom 16/ago · 18h30', ord:6, intencao:'testa hook FGV + ponte BR · vigiar % público Brasil e partilhas', ideia:{resumo:'O pior inimigo do teu dinheiro es tu: 97% dos day traders perderam (FGV) e quem mais mexe fica 6,5pp atras (Barber & Odean).',porque:'Hook-numero brutal + autoridade academica; confissao no CTA abre a secao de comentarios.',alinha:'Estreia do pilar Mentalidade + primeira ponte deliberada ao publico do Brasil.',risco:'Numeros tem de estar exatos — QC feito as fontes academicas (fechado).'}, hookNum:true, dep:false, tema:'cur', dur:59, id:19,t:'Psicologia do investimento (piloto)',big:'topo↑ fundo↓',pilar:'Mentalidade',fase:'s2',i:3,v:3,p:1,vida:'Evergreen',r:1,tags:['Série','Guardável','PT-BR'],
+ hook:'"O teu cérebro está programado para te fazer perder dinheiro. Prova: compras no topo e vendes no fundo."',
+ script:`~140 palavras = ~59s - v7 APROVADA 12/ago: 3 atos (FGV -> cerebro/ciclo -> era das apps c/ VOZ DE CETICO + letra pequena) - B&O classico desce a nota fixada\n0-9s: 97% de quem tentou viver de trading - comprar e vender na bolsa todos os dias - perdeu dinheiro. Estudo gigante, feito no Brasil. [v19-7-fgv + fonte-estudos]\n9-18s: So 1% ganhou mais que um salario minimo. Nao e burrice - e o cerebro. E o teu faz o mesmo, sem nunca teres feito trading. [v19-1]\n18-25s: Sobe - medo de ficar de fora, compras no topo. Cai - o medo grita mais alto que o plano, vendes no fundo. [v19-2]\n25-40s: Mas isso era antigamente... [VOZ DE CETICO] Os cientistas voltaram a medir, na era das apps: comissoes zero, tudo mais facil - e o resultado foi mexer ainda mais. Milhares a comprar a mesma acao da moda, ao mesmo tempo. Um mes depois? Valia menos 5%. Tiraram o atrito - e o atrito era a ultima defesa contra a emocao. [v19-8-apps NOVO + fonte-estudos]\n40-50s: A prova de hoje? Por lei, as corretoras de trading rapido tem de escrever no site: 70 a 80% dos clientes perdem. Esta la. Na letra pequena. [v19-10-letra NOVO]\n50-55s: A defesa: estrategia decidida a frio, automatica. As regras defines tu - antes. [v19-4]\n55-59s: Ja te apanhaste a decidir com o medo? Eu ja. [v19-5]`, notas:['Candidata a melhor série de fundo: um viés por episódio (aversão à perda, FOMO, ancoragem, manada, custo afundado).','Dado-uau para episódios: behavior gap (Dalbar/Morningstar) ⚠️ confirmar.','Funciona PT e BR sem adaptação.']},
+
+{prod:{sb:'producao/video-23/storyboard.html',dir:'producao/video-23/overlays/',files:["v19-9-capa.png", "v19-7-fgv.png", "v19-1-hook.png", "v19-2-ciclo.png", "v19-8-apps.png", "v19-10-letra.png", "v19-4-reframe.png", "v19-5-cta.png", "v19-6-estudo.png", "v19-3-payload.png"]}, agenda:'banco · crossover a redesenhar', ord:91, id:23,t:'Proteína por euro: ranking do supermercado',big:'€/g',pilar:'Treino×Finanças',fase:'s3',i:3,v:3,p:2,vida:'Evergreen',r:1,tags:['Guardável'],
+ hook:'"O ranking de proteína mais barata do Continente. O #1 vai surpreender-te."',
+ script:`~81 palavras = ~35s reais - PNG do ranking regenera-se com precos reais do dia\n0-4s: Estas a pagar ate tres vezes mais pela mesma proteina. [v23-1-hook + fonte-precos]\n4-8s: O marketing grita na capa. A matematica esta atras. [virar o produto]\n8-20s: A conta que interessa: custo por 20 gramas de proteina. Ovos: centimos. Whey - sim, o suplemento - mais barato que muita comida. Barritas? Ate quatro vezes os ovos. [v23-2-ranking + fonte-precos]\n20-24s: Quanto mais a embalagem grita PROTEIN, mais pagas pelo grito. [v23-3]\n24-30s: Le o rotulo como les um extrato: ignora a capa, procura o numero. [v23-4]\n30-34s: Qual e a tua fonte habitual? Digo-te se pagas o justo. [v23-5]`, notas:['Cruza os dois pilares na perfeição — identidade do canal.','Formato: ranking com preços reais fotografados.']},
+
+{prod:{sb:'producao/video-11/storyboard.html',dir:'producao/video-11/overlays/',files:["v11-1-hook.png", "v11-2-minutos.png", "v11-3-payload.png", "v11-4-reframe.png", "v11-5-cta.png", "v11-6-eixo.png"]}, agenda:'dom 23/ago · 11h00', ord:10, intencao:'testa formato adereço físico · vigiar replays no corte final', ideia:{resumo:'Quantos minutos de trabalho custa um Big Mac em Portugal vs o mundo.',porque:'Unidade universal (tempo) + adereco fisico — novidade de formato que quebra o padrao da grelha.',alinha:'Humor/curiosidade: variedade de textura entre dois videos pesados de salarios.',risco:'Tema-curiosidade partilha menos (licao 2) — aceite como teste de formato, nao de viralidade.'}, hookNum:true, dep:false, tema:'cur', dur:34, id:11,t:'O Índice Big Mac explicado',big:'🍔 PPP',pilar:'Salários',fase:'s2',i:3,v:3,p:1,vida:'Evergreen',r:1,tags:['Guardável','PT-BR'],
+ hook:'"A The Economist mede a economia mundial com... um hambúrguer. E Portugal fica mal na fotografia."',
+ script:`~108 palavras = ~43s - v3 FINAL 19/ago: so dados reais da Economist (sem UBS/minutos) + Portugal dentro de \"zona euro\" honesto (Economist nao separa) + Brasil incluido (ponte PT-BR) + INDIA como wow factor (Maharaja Mac de frango, mais barato do mundo)\n0-5s: Isto e um instrumento de analise economica. A serio - desde 1986. [Big Mac fisico na mao]\n5-13s: O Indice Big Mac, da The Economist: o mesmo hamburguer, em dezenas de paises, para revelar o poder de compra real de cada moeda. [v11-1-hook + fonte-economist]\n13-24s: Nos EUA, seis dolares. Na Suica, nove. Na zona euro - a mesma moeda em todo o lado, Portugal incluido - sete. E no Brasil? Quatro e meio. [v11-6-eixo NOVO]\n24-33s: E o mais barato do mundo? Nem e feito de vaca: na India, e sagrada - o \"Big Mac\" de la e de frango, e custa dois dolares e meio. [v11-6-eixo]\n33-40s: Por isso, um euro em Lisboa nao rende o mesmo que em Zurique - mesmo sendo o mesmo euro. [v11-4-reframe]\n40-43s: Diz-me um pais nos comentarios - eu digo-te o valor. [v11-5-cta]`, notas:['Quase ninguém em PT conhece; toda a gente entende em 10 segundos.','Adereço físico: gravar de Big Mac na mão.','⚠️ Confirmar valores atuais (The Economist, 2x/ano).']},
+
+{prod:{sb:'producao/video-30/storyboard.html',dir:'producao/video-30/overlays/',files:["v30-1-hook.png", "v30-2-retrato.png", "v30-3-manifesto.png", "v30-4-reframe.png", "v30-5-cta.png"]}, agenda:'qui 20/ago · 19h00 → fixar', ord:8, intencao:'manifesto → fixar no perfil · vigiar conversão perfil→seguidor', ideia:{resumo:'O manifesto: os portugueses nao sao maus com dinheiro — ninguem lhes ensinou.',porque:'Absolvicao emocional: o video que se guarda, se envia e define o canal.',alinha:'Fixado no perfil = maquina de conversao visita→seguidor (ataca o elo partido do funil).',risco:'Score OCDE 63/100 por confirmar a fonte antes de gravar.'}, hookNum:false, dep:false, tema:'soc', dur:45, id:30,t:'Manifesto: "Não é preguiça. É falta de quem explique."',big:'13.º/39',pilar:'Mentalidade',fase:'s2',i:3,v:3,p:1,vida:'Evergreen',r:1,tags:['Posicionamento','Guardável'],
+ hook:'"A OCDE testou 39 países. Portugal ficou ACIMA da média em atitudes e comportamentos financeiros... e ABAIXO em conhecimentos. Percebes o que isto significa?"',
+ script:`~100 palavras = ~44s - v2 CORRIGIDA 19/ago: adicionado contexto numerico (media de comparacao a cada valor) + cortada frase do carater (pedido do Bernardo)\n0-5s: Os portugueses nao sao maus com dinheiro por preguica. Esta medido. [v30-1-hook + fonte-ocde]\n5-15s: A OCDE testou 39 paises num indice de literacia financeira, de zero a cem. Portugal: 63 pontos - empatado com a media da OCDE, acima da media de todos os paises testados, que foi 60. [v30-2-retrato]\n15-27s: O resultado divide-se em duas partes. Nas atitudes - a vontade de fazer bem - Portugal tem 63, acima da media de 56. No conhecimento, 61 - abaixo da media de 63. [v30-2-retrato]\n27-34s: As pessoas querem. Falta quem explique. E conhecimento ensina-se. [v30-3-manifesto]\n34-40s: E para isso que este canal existe: numeros, fontes, traducao. [v30-4-reframe]\n40-44s: Envia a quem precisa de ouvir isto. [v30-5-cta]`, notas:['Verificado: OCDE/INFE 2023 via Banco de Portugal — 13.º em 39, 63/100.','Valida a audiência ("tu não és o problema") + declara a missão.','Fixar no perfil como "começa aqui"; usar como reply-with-reel a comentários "as pessoas não querem saber".']},
+
+{id:2,t:'O mapa do IRS: quem paga — e onde estás tu',big:'22%→42%',pilar:'Impostos',fase:'f2',i:3,v:3,p:2,vida:'Datado (2026)',r:2,tags:['Série','Guardável'],
+ hook:'"22% dos contribuintes pagam 42% de todo o IRS. Deixa-me mostrar-te quem são."',
+ notas:['Verificado: classe 40k-100k€ = 22% dos pagadores, 41,67% do imposto.','É AQUI que entra o "3% mais ricos pagam 30%" — depois de confirmado nas tabelas por escalão da AT.','FUNDIDO com o antigo #3: a mesma pirâmide responde às duas perguntas — quem paga (22% pagam 42%) e onde estás tu (só ~2% das declarações >100k€). Fecho interativo: "pausa o vídeo e vê onde estás" — gera partilhas em DM.','Visual: pirâmide de escalões no quadro branco.']},
+
+{prod:{sb:'producao/video-39/storyboard.html',dir:'producao/video-39/overlays/',files:["v39-1-hook.png", "v39-2-tensao.png", "v39-3-estimativas.png", "v39-4-payload2.png", "v39-5-reframe.png", "v39-6-cta.png", "v39-7-causas.png", "v39-9-capa.png"]}, agenda:'dom 9/ago · 18h30', ord:2, intencao:'testou tema-sociedade · lição: o hook precisa de número nos 2s', ideia:{resumo:'Ninguem sabe o tamanho real da economia paralela: quatro estudos serios, quatro numeros (9% a 36%).',porque:'Misterio + honestidade cientifica — admitir «nao se sabe» constroi a credibilidade da casa.',alinha:'Assinatura de rigor: mostrar incerteza e diferenciacao num nicho de certezas baratas.',risco:'Tema-sociedade partilha menos (licao 2, confirmada nos dados) — custo aceite pela credibilidade.'}, hookNum:false, dep:false, tema:'soc', dur:58, id:39,t:'Economia paralela: o número que ninguém sabe',big:'9-36%?',pilar:'Impostos',fase:'s1',i:3,v:3,p:2,vida:'Evergreen',r:2,tags:['Guardável'],
+ hook:'"Quanto vale a economia por fora? A EY diz 9%. Schneider diz 17%. O CEPR diz 24%. A U.Porto diz 34%. E o facto de NINGUÉM saber é o dado mais interessante de todos."',
+ script:`~124 palavras = ~53s reais - definicao + causas adicionadas (8/ago)\n0-5s: Quanto vale a economia paralela em Portugal? Ninguem sabe. A serio. [v39-1-hook + fonte-estudos]\n5-17s: E nao e so crime: e o biscate pago em dinheiro, a obra sem fatura, o arrendamento por fora - tudo o que cria valor mas nunca chega ao radar do Estado. [v39-5]\n17-21s: Fui ver os estudos: quatro estudos serios, quatro respostas. [v39-2]\n21-34s: A EY diz 9%. Schneider, a referencia internacional: 17% - uns 44 mil milhoes. O CEPR: 24% - podio europeu. E a Universidade do Porto: 34% - mais de 80 mil milhoes. [v39-3-estimativas + fonte-estudos]\n34-39s: Mesmo a estimativa mais baixa sao 25 mil milhoes por ano fora do radar. [v39-4]\n39-49s: Porque? Os estudos apontam tres suspeitos: impostos pesados, muito dinheiro vivo, e setores onde a fatura e opcional - construcao, restauracao. Mas isso merece um video proprio. [v39-7-causas NOVO]\n49-53s: Qual te parece real? Diz-me nos comentarios. [v39-6]`, notas:['Vídeo 2 da SEMANA 1 — cumpre literalmente a promessa do CTA do #1.','O uau é a variância: apresentar TODAS as estimativas com fonte, nunca escolher uma como "a verdadeira".','Tom sem culpa: distinguir biscate de sobrevivência de fraude organizada.'],
+ },
+
+{prod:{sb:'producao/video-07/storyboard.html',dir:'producao/video-07/overlays/',files:["v07-1-hook.png", "v07-2-tensao.png", "v07-3-fatias.png", "v07-4-resultado.png", "v07-5-reframe.png", "v07-6-cta.png"]}, agenda:'banco · regressa na época de IRS ou com o OE2027', ord:90, hookNum:true, dep:false, tema:'eu', dur:50, id:7,t:'A conta que quase ninguém fez (escalões de IRS)',big:'35%→21%',pilar:'Impostos',fase:'s3',i:3,v:2,p:1,vida:'Evergreen',r:1,tags:['Guardável'],
+ hook:'"Se estás no escalão dos 35%... provavelmente pagas 21%. A diferença explica-se em 20 segundos, com a tabela das Finanças."',
+ script:`ATENCAO: NAO GRAVAR ate validar taxas 2026 (art. 68 CIRS) - ~81 palavras = ~35s reais\n0-4s: Se estas no escalao dos 35%... provavelmente pagas 21. [v07-1-hook + fonte-at]\n4-7s: A diferenca explica-se em vinte segundos. [v07-2]\n7-20s: O teu rendimento e cortado em fatias - nove. A primeira paga sempre a taxa mais baixa. Quando sobes de escalao, so o dinheiro acima da linha paga a taxa nova. [v07-3-fatias + fonte-at]\n20-29s: Com 30 mil euros coletaveis - depois das deducoes - o escalao assusta, mas a efetiva anda nos vinte e poucos. [numeros exatos apos validacao] [v07-4 + fonte-at]\n29-32s: Um aumento nunca reduz o teu liquido. Nunca. [v07-5]\n32-35s: Ja tinhas feito esta conta? [v07-6]`, notas:['FATOR UAU: escalão dos 34,9% → taxa efetiva ~21% (30.000€ coletável).','Reformulado: ensinar a conta, não desmontar um espantalho — a recusa de aumentos fica numa linha do reframe.','Vale para quem acredita no mito e para quem não acredita.'],
+ },
+
+{id:8,t:'IRS Jovem e benefícios que ninguém usa',big:'<35 anos',pilar:'Impostos',fase:'f2',i:3,v:2,p:1,vida:'Evergreen',r:1,tags:['Guardável'],
+ hook:'"Tens menos de 35 anos e estás a pagar IRS a mais. A sério."',
+ notas:['Público jovem = público do Instagram. ⚠️ Rever regras em vigor no ano da gravação.']},
+
+{prod:{sb:'producao/video-10/storyboard.html',dir:'producao/video-10/overlays/',files:["v10-9-capa.png","v10-1-hook.png","v10-2-conta.png","v10-3-mundo.png","v10-4-mujica.png","v10-5-cta.png"]}, agenda:'dom 30/ago · 11h00', ord:14, intencao:'formato guardavel + serie de conversao preco->tempo; CTA convida comentarios pessoais', ideia:{resumo:'Quanto tempo de trabalho custa o que compras — mediana PT + volta ao mundo do iPhone + Mujica.',porque:'Converte precos em tempo, a moeda universal; auto-relevante sem precisar de convite (L7).',alinha:'Salarios; Serie (pode repetir-se com itens diferentes).',risco:'Nenhum de maior — dados verificados de duas fontes independentes.'}, hookNum:true, dep:false, tema:'eu', dur:50, id:10,t:'Quantos MINUTOS trabalhas para pagar isto?',big:'1 iPhone = 1 mês',pilar:'Salários',fase:'s3',i:3,v:3,p:2,vida:'Evergreen',r:1,tags:['Série','Guardável','PT-BR'],
+ hook:'"Um iPhone não custa mil euros. Custa um mês inteiro da tua vida."',
+ script:`~110 palavras = ~50s - FINAL 24/ago, v3 com volta ao mundo do iPhone + citacao de Mujica\n0-6s: Um iPhone nao custa mil euros. Custa um mes inteiro da tua vida. [iPhone fisico na mao]\n6-14s: A conta: para metade dos portugueses, cada euro custa onze minutos de trabalho. Um cafe? Treze minutos. [v10-2-conta + fonte-ine]\n14-28s: E o mesmo iPhone custa tempos muito diferentes no mundo: na Suica, quatro dias de trabalho. Na Alemanha, nove. Em Portugal, vinte e dois. No Brasil? Sessenta e sete - mais de tres meses. E o pior do estudo, a Turquia: setenta e tres dias. [v10-3-mundo + fonte-picodi]\n28-39s: Ou, como dizia Jose Mujica: quando compras algo, nao pagas com dinheiro. Pagas com o tempo de vida que gastaste para ganhar esse dinheiro. [v10-4-mujica]\n39-50s: Diz-me algo que compraste esta semana - eu digo-te quantas horas de trabalho custou. E guarda isto para a proxima vez que estiveres com o cartao na mao. [v10-5-cta]`,
+ notas:['Base: mediana líquida 980€/2024 (INE), 22 dias×8h → 1€≈11min.','Comparação mundial: Picodi iPhone Index (bases diferentes — médias, não medianas — identificado na nota fixada).']},
+
+{id:12,t:'Quanto sobra: a única métrica que importa',big:'sobram 87€',pilar:'Salários',fase:'f2',i:3,v:2,p:2,vida:'Evergreen',r:2,tags:['Série','Posicionamento'],
+ hook:'"Uma família com 2.000€ líquidos gasta assim. No fim do mês sobram... 87€. E é esse número — não o preço do café — que mede tudo."',
+ notas:['FUNDIDO com o antigo #22: o caso concreto (orçamento de família tipo, ⚠️ inquérito às despesas do INE) é o hook; a taxa de poupança das famílias (⚠️ INE/BdP vs. zona euro) é o macro do reframe.','"Não interessa o que custa — interessa o que sobra": frase-assinatura do canal.']},
+
+{id:13,t:'Lisboa vs. Braga vs. Castelo Branco',big:'1.200>1.800€',pilar:'Salários',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:1,tags:['Série','Guardável'],
+ hook:'"Ganhar 1.200€ em Castelo Branco vale mais do que 1.800€ em Lisboa. As contas:"',
+ notas:['Ninguém compara DENTRO de Portugal.','Rendimento disponível após habitação = o verdadeiro salário. ⚠️ INE/Pordata.']},
+
+{id:14,t:'Lisboa vs. Salvador vs. São Paulo',big:'2.000€ =',pilar:'Salários',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:1,tags:['PT-BR'],
+ hook:'"Com 2.000€ vives assim em Lisboa. No Brasil, vives assim."',
+ notas:['Abre explicitamente a audiência brasileira.','Usar a métrica "quanto sobra" (#12) em vez de listas de preços.']},
+
+{id:15,t:'Trabalhar remoto para empresa estrangeira',big:'🌍 remoto',pilar:'Salários',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:2,tags:['Série','PT-BR'],
+ hook:'"Trabalho em Portugal para uma empresa estrangeira. Isto é o que ninguém te explica."',
+ notas:['Autoridade genuína — vives isto.','Episódios: contrato vs. contractor; segurança social; IRS; como conseguir a primeira oportunidade.']},
+
+{id:16,t:'Para onde foi o aumento da tua prestação',big:'+200€/mês',pilar:'Casa & Dívida',fase:'f2',i:3,v:3,p:2,vida:'Datado (juros)',r:2,tags:['Série','Guardável'],
+ hook:'"A tua prestação subiu 200€/mês. Deixa-me mostrar-te exatamente para onde foi esse dinheiro."',
+ notas:['O tema mais sentido no bolso agora. Visual: capital vs. juros com blocos.','Episódios: amortizar compensa?; fixa vs. variável; renegociar spread; contexto: crédito habitação 111 mil M€ (BdP 2025, maior subida desde 2005). ⚠️ Euribor/BdP.']},
+
+{prod:{sb:'producao/video-17/storyboard.html',dir:'producao/video-17/overlays/',files:["v17-9-capa.png","v17-1-hook.png","v17-2-familia.png","v17-3-fosso.png","v17-4-europa.png","v17-5-reframe.png","v17-6-cta.png"]}, agenda:'qui 27/ago · 19h00', ord:12, intencao:'tema habitacao, ansiedade financeira n.1 do pais · vigiar partilhas', ideia:{resumo:'Quantos anos de salario custa uma casa - taxa de esforco Lisboa/nacional + evolucao 2019-2025 + comparacao europeia.',porque:'Habitacao e o tema mais quente de Portugal agora; nenhum video do canal lhe tocou ainda.',alinha:'Casa & Divida; tema-EU visceral, partilhavel entre geracoes.',risco:'Pode ler-se como so queixa — resolvido: e retrato objetivo, sem culpados apontados.'}, hookNum:true, dep:false, tema:'eu', dur:48, id:17,t:'Quantos ANOS de salário custa uma casa',big:'102%',pilar:'Casa & Dívida',fase:'s3',i:3,v:3,p:2,vida:'Evergreen',r:2,tags:['Guardável','PT-BR'],
+ hook:'"Em Lisboa, a prestação de uma casa mediana custa 102% do salário mediano. Não sobra pouco — não chega."',
+ script:`~105 palavras = ~48s - FINAL 24/ago, aprovado apos 2 rondas de feedback + verificacao final multi-fonte\n0-7s: Em Lisboa, a prestacao de uma casa mediana custa cento e dois por cento do salario mediano. Nao sobra pouco - nao chega. [v17-1-hook + fonte-bdp]\n7-16s: E nao e so quem compra sozinho: para uma familia, comprar leva setenta e seis por cento do rendimento do casal. Arrendar? Oitenta e dois. [v17-2-familia]\n16-26s: E o fosso esta a abrir: desde dois mil e dezanove, as casas subiram noventa e dois por cento. Os salarios? Quarenta e tres. [v17-3-fosso]\n26-36s: E na Europa? Somos o pais da Uniao onde os precos mais sobem - dezassete virgula oito por cento num ano, primeiro lugar. Numa decada: quase o triplo. [v17-4-europa + fonte-eurostat]\n36-43s: Isto nao e um video de solucoes - e o retrato, com numeros oficiais. O que se mede, deixa de se poder negar. [v17-5-reframe]\n43-48s: Quantos anos do teu salario custa a casa que queres? Faz a conta - e diz-me a cidade nos comentarios. [v17-6-cta]`,
+ notas:['102% Lisboa = Banco de Portugal, Boletim Económico mar/2026 — fact-check Público: Verdadeiro.','76%/82% = idealista 2T2026 (família). +92% vs +43% (2019-25) = INE/Jornal Económico. +17,8%/ano = Eurostat, 1.º da UE. +180%/década = Eurostat.']},
+
+{id:20,t:'Juro composto: a força que torna as pessoas ricas',big:'8.ª maravilha',pilar:'Mentalidade',fase:'f2',i:3,v:2,p:1,vida:'Evergreen',r:1,tags:['Série','Guardável','PT-BR'],
+ hook:'"100€/mês desde os 25. Aos 60, tens mais de 100 mil — e a maior parte não foi dinheiro teu. Foi tempo."',
+ notas:['Episódios: o custo de esperar; o juro composto ao contrário (crédito); regra dos 72; "o teu maior ativo é o tempo".','⚠️ Calcular exemplos com taxa assumida DITA no vídeo — rigor.']},
+
+{prod:{sb:'producao/video-65/storyboard.html',dir:'producao/video-65/overlays/',files:["v65-1-hook.png", "v65-2-transfere.png", "v65-3-quem.png", "v65-4-imposto.png", "v65-5-reframe.png", "v65-6-cta.png", "v65-9-capa.png"]}, agenda:'qui 13/ago · 19h00', ord:4, intencao:'TESTOU a sequela encadeada → FALHOU (Lição 4): hook dependente = 19-21% retenção (pior do canal), sem 2.ª onda, 65% do ritmo do #31 às 15h · regra nova: hook autónomo sempre · PLOT TWIST dia 3: saltou para 12 partilhas (2,6% — melhor taxa do canal): tema-míssil, merece 2.ª vida com hook autónomo', ideia:{resumo:'A sequela: para onde foram os 4,4 mil milhoes — o imposto inflacionario.',porque:'Pergunta plantada no #31 + vilao surpreendente (o maior devedor ganha) = twist memoravel.',alinha:'Testa a mecanica de serie encadeada — reter audiencia de video para video.',risco:'Tom anti-Estado — blindado com mecanica aritmetica neutra e nota fixada honesta.'}, hookNum:true, dep:true, tema:'eu', dur:49, id:65,t:'Alguém encontrou os 4,4 mil milhões?',big:'4,4 mil M€',pilar:'Dinheiro Parado',fase:'s1',i:3,v:3,p:2,vida:'Datado',r:2,tags:['Guardável','Série'],
+ hook:'"Os teus depósitos perderam 4,4 mil milhões. Alguém os encontrou? Encontrou — e talvez te surpreenda quem."',
+ script:`~102 palavras = ~48s reais - SEQUELA do #31 - QC pendente: confirmar 4,4 apos inflacao definitiva (12/ago) e dados HFCS antes de afirmacoes distributivas mais fortes\n0-7s: No ultimo video mostrei 4,4 mil milhoes a evaporar dos depositos. Pergunta: alguem os encontrou? [v65-1-hook + fonte-bdp]\n7-12s: Encontrou. A inflacao nao destroi poder de compra - transfere-o. [v65-2-transfere]\n12-24s: Quem perde: quem poupa em euros parados. Quem ganha: quem deve. E o maior devedor do pais e o Estado - cada ponto de inflacao encolhe a divida real. [v65-3-quem]\n24-30s: Isto tem nome: imposto inflacionario. O unico que nao passa no Parlamento. [v65-4-imposto]\n30-36s: E a banca? Paga-te 1% e aplica acima - a margem agradece. [SEM overlay - sobrancelha]\n36-44s: O detalhe desconfortavel: quem so tem depositos paga a conta inteira. Quem tem ativos reais tende a proteger-se. [v65-5-reframe]\n44-49s: Sabias que pagavas este imposto? Diz-me nos comentarios. [v65-6]`, notas:['Sequela direta do #31 — herda a audiência e responde à pergunta plantada pelo «sem ninguém roubar nada»','Conceito-âncora: imposto inflacionário (repressão financeira) — ninguém explica isto em PT','Neutralidade: mecânica aritmética, não acusação — o Estado «ganha» por ser o maior devedor, facto, não opinião','⚠️ QC pré-gravação: 4,5 depende da inflação definitiva (12/ago); afirmações distributivas fortes (pobres→ricos) só após verificar HFCS/BCE','Parte da inflação importada sai do país — dizer na nota fixada para honestidade completa']}, {prod:{sb:'producao/video-31/storyboard.html',dir:'producao/video-31/overlays/',files:["v31-1-hook.png", "v31-2-tensao.png", "v31-3-depositos.png", "v31-4-perdas.png", "v31-5-resultado.png", "v31-6-reframe.png", "v31-7-cta.png", "v31-9-capa.png"]}, agenda:'ter 11/ago · 19h00', ord:3, intencao:'testa tema-EU + arranque 1.ª hora · vigiar partilhas >1,9%', ideia:{resumo:'205 mil milhoes parados no banco a perder ~4,4 mil milhoes de poder de compra por ano.',porque:'Tema-EU (o dinheiro de quem ve) + conta simples de refazer de cabeca — partilha-se como aviso a familia.',alinha:'Dinheiro Parado e a tese central do canal: dados que mudam decisoes reais.',risco:'Parecer conselho de investimento — resolvido com «fica para outro video» e zero produtos.'}, hookNum:true, dep:false, tema:'eu', dur:52, id:31,t:'200 mil milhões a derreter',big:'205 mil M€',pilar:'Dinheiro Parado',fase:'s1',i:3,v:3,p:1,vida:'Datado',r:1,tags:['Guardável'],
+ hook:'"As famílias portuguesas têm 205 MIL MILHÕES no banco — recorde histórico. E esse dinheiro perde valor todos os dias."',
+ script:`~121 palavras = ~52s reais - QC 8/ago com dados de JUNHO (BdP 27 e 31/jul; INE 31/jul; definitivo da inflacao sai 12/ago)\n0-6s: As familias portuguesas tem 205 mil milhoes de euros parados no banco. Recorde historico. [v31-1-hook + fonte-bdp]\n6-11s: Parece bom. Vamos fazer a conta que os bancos nao fazem. [v31-2]\n11-24s: Dados de junho, publicados pelo Banco de Portugal ha duas semanas: uns 90 mil milhoes a ordem, a render zero. 115 a prazo, a render 1,55% - a subir ha cinco meses, mas ainda abaixo dos precos. A inflacao? Tres por cento. [v31-3 + fonte-bdp]\n24-32s: A ordem perde a inflacao inteira: 2,7 mil milhoes por ano. A prazo perde a diferenca: mais 1,7. [v31-4 + fonte-ine]\n32-40s: No total: perto de 4,4 mil milhoes de poder de compra a evaporar por ano. Sem ninguem roubar nada. [v31-5]\n40-48s: O extrato sobe, a riqueza desce. Poupar e o instinto certo - falta o passo seguinte. Fica para outro video. [v31-6]\n48-52s: O teu dinheiro: a ordem ou a prazo? [v31-7]`, notas:['FATOR UAU: ≈3 mil M€/ano perdidos — decomposição honesta: à ordem ~90 mil M€ × 2,2% + a prazo ~112 mil M€ × 0,8%.','Verificado (BdP): recorde desde 1979; juro ~1,4% (4.ª pior taxa da zona euro) vs. inflação atual.','Tom: o vilão é a falta de informação, não o aforrador. CTA prepara o #32.'],
+ },
+
+{id:32,t:'Nem os Certificados de Aforro te salvam',big:'1,54% vs 2,8%',pilar:'Dinheiro Parado',fase:'f2',i:3,v:3,p:1,vida:'Datado (taxas)',r:1,tags:['Guardável'],
+ hook:'"O melhor produto garantido do Estado paga 2,1%. Depois do imposto de 28% sobre os juros, sobram 1,54%. A inflação está em 2,8%. Fizeste a conta?"',
+ notas:['Reformulado (obs. do Bernardo): os CA rendem mais que os depósitos MAS ainda perdem para a inflação depois de impostos — 2,138% × 0,72 ≈ 1,54% líquido vs. ~2,8%.','A conclusão honesta: "garantido" significa a perder devagar. A saída não é um depósito melhor — é aprender a investir.','Fecha o arco: #31 (a derreter) → #32 (nem o garantido chega) → #35 (poupar ≠ investir) → #20 (juro composto).','⚠️ Reconfirmar taxa dos CA do mês e inflação no dia da gravação.']},
+
+{id:35,t:'Poupar NÃO é investir',big:'≠',pilar:'Dinheiro Parado',fase:'f2',i:3,v:2,p:1,vida:'Evergreen',r:1,tags:['Guardável','PT-BR'],
+ hook:'"Os portugueses são bons a poupar e péssimos a investir. E a diferença custa-te milhares de euros."',
+ notas:['Verificado: >metade do património financeiro das famílias em depósitos de baixa remuneração.','Poupar = proteger · investir = crescer. O erro é usar um para o trabalho do outro. Liga a #20.']},
+
+{id:36,t:'Trabalhas mais horas. Ganhas menos 1.249€.',big:'-1.249€',pilar:'Salários',fase:'f2',i:3,v:3,p:1,vida:'Evergreen',r:2,tags:['Posicionamento'],
+ hook:'"39,7 horas por semana — a 5.ª maior carga da UE. E menos 1.249€/mês que a média europeia. O problema não és tu."',
+ notas:['Verificado (Pordata/FFMS 2026): 2.068€ vs. 3.317€ UE; 39,7h vs. 37h.','Pode substituir o #9 como primeiro vídeo da tese — o contraste fala por si sem afirmação polémica.']},
+
+{id:37,t:'1 em cada 4 ganha o salário mínimo',big:'1 em 4',pilar:'Salários',fase:'f2',i:3,v:3,p:1,vida:'Evergreen',r:2,tags:[],
+ hook:'"Um em cada quatro trabalhadores ganha o salário mínimo. Nos jovens, mais de um em três. Não é falta de esforço — é o mercado."',
+ notas:['Verificado: ~23-25% no SMN; 36,1% entre jovens; SMN 2026 = 920€.','Liga ao #1: salários baixos explicam a isenção de IRS.']},
+
+{id:40,t:'Quanto ganha DE VERDADE um português em 2026',big:'1.611→980€',pilar:'Salários',fase:'f2',i:3,v:3,p:1,vida:'Datado (trimestral)',r:2,tags:['Guardável','Posicionamento'],
+ hook:'"O salário médio é 1.694€. Metade dos portugueses leva para casa menos de MIL. Como é que os dois números são verdade ao mesmo tempo?"',
+ notas:['FATOR UAU — a cascata (INE, mais recentes): 1.ºT 2026: total 1.611€ → regular 1.428€ → base 1.335€. Anual 2025: 1.694€/1.277€. Mediano LÍQUIDO ~980€ (2024 — ⚠️ verificar atualização na produção).','Bónus de literacia: 4.ºT 2025 = 1.877€ (subsídio Natal) vs 1.ºT = 1.611€ — os 14 pagamentos fazem a média oscilar; explicar isto É o vídeo.','Amplitude setorial: 1.068€ (agricultura) a 3.206€ (eletricidade) — fator 3x escondido na média.','Candidato a abrir a Fase 2. Liga a #3, #12 e #37.']},
+{id:41,t:'"40% de pouco é quase nada" (carga fiscal comparada)',big:'39% vs 53%',pilar:'Salários',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:2,tags:['Posicionamento','Guardável'],
+ hook:'"Um belga entrega 53% ao Estado. Um português, 39%. Então porque é que o belga vive melhor? A resposta está na base, não na percentagem."',
+ notas:['Versão corrigida da tese: PT ACIMA da média OCDE (39,3% vs 35,1%, Taxing Wages 2026) mas ABAIXO dos ricos europeus (Bélgica 53%, Alemanha 47,8%, França 47%).','O problema: percentagens na zona europeia sobre salários que não são — 39% de 1.694€ deixa muito menos que 47% de 4.000€.','Detalhe OCDE: a cunha sobe mais entre 50-100% do salário médio — morde a classe média cedo.','Rigor: NUNCA dizer "pagamos como os outros" (falso vs. OCDE).']},
+{id:42,t:'Ricos não vendem. Pedem emprestado.',big:'28% vs 3%',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:1,vida:'Evergreen',r:2,tags:['Guardável','Posicionamento'],
+ hook:'"Porque é que um milionário com 10 milhões em ações pede um crédito para comprar casa? Vender custava-lhe 28% — pedir emprestado custa 3."',
+ notas:['Buy-borrow-die adaptado: não vender = não realizar mais-valia = não pagar 28%. Banco empresta barato contra colateral (crédito lombard).','⚠️ Adaptação PT obrigatória: verificar acesso real a crédito lombard e regras de mais-valias em herança — a versão americana (step-up) NÃO se importa diretamente.','Tom: literacia, não receita — "percebe o jogo".']},
+{id:43,t:'O preço do dinheiro: a Apple paga 3%, tu pagas 13%',big:'3% vs 13%',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:1,vida:'Evergreen',r:1,tags:['Guardável','PT-BR'],
+ hook:'"A Apple tem mais dinheiro em caixa do que o PIB de muitos países. E mesmo assim endivida-se de propósito. Porquê?"',
+ notas:['Custo de capital: dívida a 3-5% < capital próprio a 8-12%. Empresas sofisticadas usam dívida como ferramenta.','Ponte pessoal: dívida boa (financia ativos que rendem mais que o juro) vs. má (financia consumo que deprecia).','FUNDIDO com o antigo #45: juro = preço do risco — quem tem colateral (ativos) paga barato; sem colateral, crédito pessoal 8-13% e cartão 15%+. Lição: construir colateral baixa o preço de TODO o crédito futuro.','⚠️ Confirmar exemplos de emissões de dívida corporativa e taxas de crédito pessoal do momento.']},
+{id:44,t:'O trabalho paga até 48%. O capital paga 28.',big:'48 vs 28',pilar:'Mentalidade',fase:'g',i:3,v:3,p:1,vida:'Evergreen',r:3,tags:['Posicionamento','Guardável'],
+ hook:'"Um salário alto pode entregar quase metade ao Estado. Um dividendo entrega sempre 28. O sistema recompensa quem possui — não quem trabalha."',
+ notas:['IRS progressivo até 48% (+solidariedade) + 11% SS vs. taxa liberatória de 28% em dividendos/mais-valias.','Contar como LITERACIA ("o jogo está desenhado assim — joga em conformidade"), nunca como revolta nem conselho de evasão.','Guardar para depois da credibilidade — gera debate político.']},
+{id:46,t:'Inflação: o imposto que paga dívidas',big:'quem ganha?',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:2,tags:['Guardável'],
+ hook:'"A inflação tirou-te poder de compra. Mas a alguém... pagou-lhe as dívidas. E o maior beneficiado é o Estado."',
+ notas:['Afinado (obs. Bernardo): a inflação transfere de quem tem ativos NOMINAIS (dinheiro, depósitos, obrigações) para quem tem dívida — ativos REAIS (imóveis, ações) ficam protegidos no meio.','Três camadas de aha: devedores ganham · aforradores pagam (#31) · os ricos estão dos dois lados vencedores (dívida barata + ativos reais).','O Estado, maior devedor do país, é o maior beneficiário silencioso. ⚠️ Confirmar dívida pública e efeito no rácio.','Referência conceptual: Housel/Galloway (DOAC) — reverificar e adaptar a PT.']},
+{id:47,t:'Sócio-gerente: salário mínimo + dividendos',big:'SMN + 28%',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:2,tags:['Guardável'],
+ hook:'"Conheces empresários que \'ganham o salário mínimo\'? É a otimização legal mais comum em Portugal. E tem custos que ninguém menciona."',
+ notas:['A conta honesta dos dois caminhos: salário (IRS+SS) vs. IRC+28% na distribuição — a vantagem é menor do que parece e há custos escondidos (proteção social mínima, reforma baixa).','Ilumina a causa 2/3 do vídeo de estreia (#1). Literacia dos dois lados.','⚠️ Fazer a conta completa com as taxas do ano antes de gravar.']},
+{id:48,t:'Riqueza é o que não vês',big:'-80.000€',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:1,vida:'Evergreen',r:1,tags:['Guardável','PT-BR','Posicionamento'],
+ hook:'"O carro de 80 mil euros diz-te que alguém GASTOU 80 mil euros. Não te diz que os tem."',
+ notas:['Base: Stanley & Danko (The Millionaire Next Door) + Morgan Housel — a maioria dos milionários não ostenta; ostentação é frequentemente anti-sinal.','⚠️ Citar os estudos pelo nome, não inventar estatísticas.','Riqueza = o dinheiro que NÃO gastaste. Alinha com o registo sóbrio do canal.']},
+{prod:{sb:'producao/video-49/storyboard.html',dir:'producao/video-49/overlays/',files:["v49-9-capa.png","v49-1-hook.png","v49-2-exemplo.png","v49-3-porque.png","v49-4-revisao.png","v49-5-reframe.png","v49-6-cta.png"]}, agenda:'ter 25/ago · 19h00', ord:11, intencao:'melhor ideia do Banco no melhor slot provado (ter 19h) · a conta pessoal', ideia:{resumo:'A regra dos 25x: gastos anuais vezes 25 = o numero de liberdade financeira.',porque:'Hook pratico e imediato — cada espectador faz a conta de cabeca, autoconta instantanea.',alinha:'Mentalidade; formato guardavel/referencia.',risco:'Simplificacao excessiva — resolvido com a nota de rigor completa no comentario fixado.'}, hookNum:true, dep:false, tema:'eu', dur:45, id:49,t:'A regra dos 25x: o teu número de liberdade',big:'25×',pilar:'Mentalidade',fase:'s3',i:3,v:3,p:1,vida:'Evergreen',r:2,tags:['Guardável','PT-BR'],
+ hook:'"O valor de que precisas para parar de trabalhar cabe numa conta de cabeça: os teus gastos anuais, vezes vinte e cinco."',
+ script:`~90 palavras = ~45s - FINAL 24/ago, aprovado apos 2 rondas de feedback\n0-6s: O valor de que precisas para parar de trabalhar cabe numa conta de cabeca: os teus gastos anuais, vezes vinte e cinco. [v49-1-hook + fonte-trinity]\n6-14s: Gastas mil e quinhentos por mes? Sao dezoito mil por ano. Vezes vinte e cinco: quatrocentos e cinquenta mil euros. Esse e o teu numero. [v49-2-exemplo]\n14-25s: A logica vem de um estudo americano dos anos noventa - a regra dos quatro por cento: com esse valor investido, levantas quatro por cento ao ano, e historicamente o dinheiro sobreviveu a trinta anos de reforma. Mesmo para quem se reformou na pior altura possivel. [v49-3-porque]\n25-33s: E o proprio autor reviu a regra o ano passado. Historicamente, o vinte e cinco vezes ate pecou por cauteloso. [v49-4-revisao]\n33-40s: Nao e uma promessa - e uma bussola. E muda a pergunta: deixas de perguntar quanto ganhas, e passas a perguntar quanto te falta. [v49-5-reframe]\n40-45s: Faz a tua conta. Assustou, ou motivou? [v49-6-cta]`,
+ notas:['Regra dos 4% (Bengen 1994 / Trinity Study 1998) invertida: despesas anuais × 25.','Rigor completo no comentário fixado: Bengen reviu para 4,7% em 2024-25; Morningstar 3,7-3,9%; fora dos EUA só válida em 4/14 países (Wade Pfau); FIRE longo prazo → 3,25-3,5% (≈29-30×).']},
+{id:50,t:'O carro: o maior destruidor de riqueza da classe média',big:'-30%/2 anos',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:2,tags:['Guardável','PT-BR'],
+ hook:'"Não é a casa, não são os impostos, não é o café. A decisão financeira que mais riqueza destrói na classe média anda de rodas."',
+ notas:['A conta completa: depreciação (-20-30% nos primeiros anos) + juros + seguro + manutenção + combustível.','⚠️ Construir o exemplo com números portugueses verificáveis.','Tom sem culpa: o vídeo é sobre a DIMENSÃO e o financiamento, não sobre ter carro — "o problema é o carro que o teu rendimento não sustenta".']},
+{id:51,t:'Milionários fazem-se em negócios aborrecidos',big:'🔧',pilar:'Mentalidade',fase:'f2',i:3,v:2,p:1,vida:'Evergreen',r:1,tags:['PT-BR'],
+ hook:'"Canalizações. Lavandarias. Distribuição de material de construção. Os negócios que criam mais milionários são os que ninguém posta no Instagram."',
+ notas:['Margens estáveis + pouca concorrência sofisticada + procura permanente > ideias sexy com mortalidade altíssima.','⚠️ Ancorar com dados de sobrevivência de empresas por setor (INE).','Liga ao #48 — os donos destes negócios são os milionários que não vês.']},
+{id:52,t:'Lotaria: o imposto voluntário sobre a esperança',big:'EV < 0',pilar:'Mentalidade',fase:'f2',i:3,v:2,p:1,vida:'Evergreen',r:2,tags:[],
+ hook:'"O Euromilhões devolve em prémios uma fração do que arrecada. Matematicamente, cada aposta destrói valor. E mesmo assim jogamos. Porquê?"',
+ notas:['Valor esperado negativo explicado com exemplo concreto. ⚠️ Verificar % de retorno em prémios (Santa Casa).','TOM SEM CULPA CRÍTICO: quem joga compra esperança, e a esperança tem valor emocional real. Nunca ridicularizar.','Fechar com o contraste construtivo: os mesmos 10€/semana em juro composto 30 anos (#20).']},
+{id:53,t:'"Chamam-lhe esquema Ponzi. A verdade é pior — para ti."',big:'67%→37%',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:2,vida:'Evergreen (rever projeções)',r:2,tags:['Guardável','Posicionamento'],
+ hook:'"Dizem que a Segurança Social é um esquema Ponzi. Fui ler o relatório oficial de 73 páginas. A resposta é não... e o que lá está é pior para quem tem 30 anos."',
+ notas:['Arbitragem honesta: a semelhança existe (repartição = os teus descontos pagam as pensões de HOJE, o mito do mealheiro) mas a analogia é coxa — transparente, ancorado no poder de tributar, ajustável. CE: sustentável até 2070, défice máx 0,6% PIB (2045).','O verdadeiro uau: não vai falir — vai pagar MENOS. Taxa de substituição ~67% hoje → ~37% na década de 2050, quando quem tem 30-40 anos hoje se reforma. 191→131 contribuintes/100 pensionistas (2019→2070).','Reframe: "não é um esquema — é um haircut anunciado num relatório que ninguém leu". Conclusão construtiva: planear como se a pensão fosse 1/3 → liga #49 e #20.','Rigor: citar CE/Ageing Report e Tribunal de Contas; projeção ≠ certeza; ZERO política de reforma. Pode desdobrar: (a) mito do mealheiro, (b) os 37%.']},
+{id:54,t:'O custo de 1%: a comissão que come um quarto do teu património',big:'1% = -25%',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:1,vida:'Evergreen',r:1,tags:['Guardável','PT-BR'],
+ hook:'"Uma comissão de 1% ao ano parece nada. Em 30 anos de investimento, come cerca de um quarto de tudo o que construíste. Faz a conta comigo."',
+ notas:['O juro composto ao contrário aplicado a comissões — porta de entrada para ETFs low-cost (TER 0,1-0,2% vs fundos bancários 1,5-2%).','⚠️ Calcular o exemplo exato com taxa assumida dita no vídeo.','Liga #20 e #35. Candidato a top do ranking.']},
+{id:55,t:'Pagar com cartão dói menos — e gastas mais',big:'💳 anestesia',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:1,vida:'Evergreen',r:1,tags:['Guardável','PT-BR'],
+ hook:'"O teu cérebro sente dor quando pagas em dinheiro. Com cartão e MB Way... não sente quase nada. E há estudos que medem quanto isso te custa."',
+ notas:['Psicologia do "pagamento invisível" — série #19 material.','⚠️ Citar os estudos pelo nome (pesquisa de pain of paying; leilões com cartão vs cash) — verificar antes de gravar.','FUNDIDO com o antigo #56: o fecho útil é a auditoria de subscrições em 3 passos (extrato → lista → cancelar/negociar) — o mecanismo desagua na ação. ⚠️ dados de subscrições esquecidas para o exemplo.','Truques de fricção: notificações, orçamento semanal em dinheiro.']},
+{id:57,t:'Shrinkflation — e a arma que está na etiqueta',big:'-10% gramas',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:1,tags:['Guardável','PT-BR'],
+ hook:'"Este pacote custa o mesmo que há dois anos. Mas repara no canto: tem menos 50 gramas. Chama-se shrinkflation e está em todo o lado."',
+ notas:['Filmável no supermercado com produtos reais — visual fortíssimo.','⚠️ Exemplos concretos verificáveis (Deco Proteste publica casos).','FUNDIDO com o antigo #63: o preço por kg (unit pricing) é a defesa — problema e arma no mesmo vídeo. Fecho: exemplos de embalagem maior mais cara por kg.']},
+{id:58,t:'Os impostos escondidos de comprar casa',big:'+8-10%',pilar:'Casa & Dívida',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:2,tags:['Guardável'],
+ hook:'"Compraste casa por 250 mil? Prepara mais uns milhares que ninguém te pôs no orçamento: IMT, imposto de selo, registos, avaliação."',
+ notas:['A fatura completa: IMT (progressivo) + selo (0,8% + 0,6% do crédito) + registos + comissões — pode passar de 8-10% em certos escalões.','⚠️ Simular 2-3 exemplos com as tabelas do ano.','Guardável máximo: quem está a comprar casa envia isto ao par.']},
+{id:59,t:'A penalização da lealdade: quem fica, ganha menos',big:'ficar = -X%',pilar:'Salários',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:2,tags:['Posicionamento'],
+ hook:'"Os aumentos internos raramente acompanham o mercado. Quem muda de emprego negoceia o salário inteiro; quem fica negoceia uma percentagem. A matemática é cruel."',
+ notas:['⚠️ CRÍTICO: procurar dados PT/europeus de crescimento salarial de quem muda vs. quem fica antes de afirmar números.','Tom: não é "despede-te" — é conhecer o teu valor de mercado e usar a informação (benchmark anual).','Liga #60 (negociar) e #36.']},
+{id:60,t:'Negociar salário: os 15 minutos mais bem pagos da tua vida',big:'100€→30k€',pilar:'Salários',fase:'f2',i:3,v:3,p:1,vida:'Evergreen',r:1,tags:['Guardável','PT-BR'],
+ hook:'"Um aumento de 100€ hoje não são 100€. Capitalizado ao longo de uma carreira — porque os aumentos seguintes se aplicam em cima — são dezenas de milhares."',
+ notas:['O juro composto aplicado ao salário: cada aumento é a base do próximo.','⚠️ Calcular o exemplo com premissas ditas (carreira de 30 anos, aumentos %).','Utilidade: 3 princípios de negociação com base em benchmark, não em necessidade.']},
+{id:61,t:'Portugal (quase) não tributa heranças',big:'0% diretos',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:2,tags:['Guardável'],
+ hook:'"Em França, herdar pode custar até 45%. Em Espanha, depende da região. Em Portugal? Se és filho ou cônjuge... zero. E quase ninguém sabe."',
+ notas:['Herdeiros diretos (cônjuge, descendentes, ascendentes) isentos; restantes pagam imposto de selo de 10%.','⚠️ Verificar regras exatas e comparação internacional (França, Espanha, Reino Unido) antes de gravar.','Série milionários: relevante para planeamento intergeracional. ZERO conselho fiscal específico — só a mecânica.']},
+{id:62,t:'Quanto custa um filho em Portugal',big:'X€ até aos 18',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:2,tags:['Guardável'],
+ hook:'"Já viste o número de quanto custa criar um filho até aos 18 anos em Portugal? Senta-te primeiro."',
+ notas:['⚠️ Procurar estudos PT recentes (estimativas variam muito — apresentar intervalo com fontes, como no #39).','TOM CRÍTICO: informativo para planeamento, NUNCA "filhos são um mau investimento" — o valor de um filho não é financeiro e isso diz-se em voz alta.','Liga ao #22 (orçamento familiar).']},
+{id:64,t:'Quanto do teu IRS vai para juros da dívida',big:'X mil M€/ano',pilar:'Impostos',fase:'f2',i:3,v:2,p:2,vida:'Datado',r:2,tags:[],
+ hook:'"Antes de o Estado gastar um euro em escolas ou hospitais, há uma fatura que paga primeiro: os juros da dívida. E tu financia-la todos os meses."',
+ notas:['⚠️ OE do ano: despesa com juros da dívida pública (mil M€/ano e % da despesa/receita de IRS).','Liga ao #46 (o Estado como maior devedor) — a outra face da mesma moeda.','ZERO política: só a mecânica orçamental e os números.']},
+{id:24,t:'Suplementos: análise custo-benefício',big:'só 3 valem',pilar:'Treino×Finanças',fase:'f2',i:3,v:2,p:1,vida:'Evergreen',r:1,tags:['Guardável'],
+ hook:'"Gastei X€ em suplementos em 2025. Só estes 3 valeram a pena."',
+ notas:['Análise custo-benefício aplicada ao treino — a tua especialidade em ação.']},
+
+{id:9,t:'"O problema não é o custo de vida. São os salários."',big:'90% vs 60%',pilar:'Salários',fase:'g',i:3,v:3,p:2,vida:'Evergreen',r:3,tags:['Posicionamento','PT-BR'],
+ hook:'"Lisboa não é cara. Tu é que ganhas pouco. E os dados provam."',
+ notas:['A tese central — e a mais arriscada.','Blindagem: preços PT ~90% da média UE vs. salários ~60% ⚠️ confirmar Eurostat.','É o vídeo MAIS empático: "não estás louco, não é culpa tua". Publicar após 8-12 vídeos.']},
+
+{id:21,t:'"A pobreza é o estado inicial"',big:'90%→10%',pilar:'Mentalidade',fase:'g',i:2,v:2,p:1,vida:'Evergreen',r:3,tags:['Posicionamento'],
+ hook:'"Ninguém \'ficou\' pobre. A pobreza é o ponto de partida da humanidade. A pergunta certa é: como se GERA riqueza?"',
+ notas:['Anti-fatalismo: o vilão é a ideia "quem nasce pobre morre pobre", nunca as pessoas.','Soma positiva: gerar riqueza cria valor para todos.','Dado de suporte ⚠️: pobreza extrema ~80-90% da humanidade em 1820 vs. <10% hoje (Our World in Data).']},
+
+{id:38,t:'Trabalhadores mais qualificados que os patrões',big:'42% vs 16%',pilar:'Salários',fase:'g',i:3,v:3,p:1,vida:'Evergreen',r:3,tags:['Posicionamento','Guardável'],
+ hook:'"42% dos empregadores têm no máximo o ensino básico — o pior da UE. Os trabalhadores são mais qualificados que os patrões."',
+ notas:['Verificado (Público/FFMS): 42% empregadores c/ ensino básico (média UE 16%) vs. 34% trabalhadores c/ superior.','Explica salários baixos SEM culpar quem trabalha — o gargalo está na gestão.','Tom cirúrgico: padrão estrutural, nunca ataque a empresários individuais.']},
+
+{id:27,t:'POV: o único da família que percebe de IRS no Natal',big:'🎄',pilar:'Humor',fase:'saz',i:3,v:3,p:1,vida:'Sazonal (dez.)',r:1,tags:[],
+ hook:'Sketch de jantar de Natal — perguntas fiscais entre o bacalhau e as rabanadas.',
+ notas:['Publicar na primeira quinzena de dezembro.']},
+
+{id:70,t:'Quanto ganha um professor? E um enfermeiro? E um polícia?',big:'tabela pública',pilar:'Salários',fase:'f2',i:3,v:3,p:1,vida:'Evergreen',r:1,tags:['Série','Guardável'],
+ hook:'"Os salários da função pública são tabela pública. Vamos ver quanto ganha, ao euro, quem cuida de ti."',
+ notas:['Herdeiro direto do #67 (breakout) — mesma mecânica (tabela verificável, série).','Mais próximo do público que os CEOs: toda a gente conhece um professor/enfermeiro/polícia.','Candidato a série de 3 episódios se o #68 confirmar o formato fofoca 2×.']},
+{id:71,t:'Público vs privado: quem ganha mais, com dados',big:'a comparar',pilar:'Salários',fase:'f2',i:2,v:3,p:2,vida:'Evergreen',r:2,tags:['Posicionamento'],
+ hook:'"O debate eterno português — função pública vs privado. Desta vez, com números do INE/DGAEP em vez de opinião."',
+ notas:['Tema polarizador — tratamento neutro obrigatório, à moda da casa (apresentar os dois lados, sem tomar posição).','Score i mais baixo por ser mais arriscado/sensível; avaliar depois de mais 2-3 vídeos de salários no Banco.']},
+{id:72,t:'O Estado gasta quanto contigo, por dia?',big:'€/dia',pilar:'Impostos',fase:'f2',i:3,v:2,p:2,vida:'Evergreen',r:2,tags:['Posicionamento'],
+ hook:'"Sabes quanto pagas ao Estado. Mas sabes quanto o Estado gasta contigo, por dia?"',
+ notas:['Inverte o ângulo dos impostos: não o que pagas, o que recebes — ninguém do nicho faz isto.','Precisa de OE/Conta Geral do Estado para orçamento per capita em saúde/educação/segurança social — QC a fazer antes de escrever guião.']},
+];
+
+const PILARES = ['Todos','Impostos','Salários','Casa & Dívida','Mentalidade','Dinheiro Parado','Treino×Finanças','Humor'];
+const TAGS = ['Série','Guardável','Posicionamento','PT-BR'];
+let fPilar='Todos', fTags=new Set(), sortBy='plan', view='cockpit', profile='cresc', fEstado='Todos';
+
+function riscoPill(r){ return `<span class="pill ${r===3?'bad':r===2?'warn':''}">Risco ${RISCO[r]}</span>`; }
+function pills(d){
+  return `<span class="pill">Interesse ${LVL[d.i]}</span>
+  <span class="pill">Viralidade ${LVLF[d.v]}</span>
+  <span class="pill neutral">Produção ${PROD[d.p]}</span>
+  <span class="pill neutral">${d.vida}</span>
+  ${riscoPill(d.r)}`;
+}
+function card(d){
+  const est = estadoOf(d);
+  const m = perf[d.id] && perf[d.id].metricas || {};
+  const publine = est==='publicado' && (m.saves!=null||m.retMedia!=null) ? `<div class="cardmet">${m.retMedia!=null?`ret ${m.retMedia}%`:''} ${m.saves!=null?`· ${m.saves} saves`:''} ${m.partilhas!=null?`· ${m.partilhas} shares`:''}</div>` : '';
+  return `<div class="vcard" tabindex="0" role="button" aria-label="Abrir vídeo ${d.id}" onclick="openModal(${d.id})" onkeydown="if(event.key==='Enter')openModal(${d.id})">
+    <span class="stateflag st-${est}">${ESTADOS[est].toUpperCase()}${d.script&&est==='guiao'?' ✓':''}</span>
+    <div class="pilar">${d.ord&&d.ord<50?`PUB #${String(d.ord).padStart(2,'0')} · `:''}#${String(d.id).padStart(2,'0')} · ${d.pilar}</div>
+    <div class="bignum"><span>${d.big}</span></div>
+    <div class="vtitle">${d.t}</div>
+    ${d.agenda?`<span class="agenda ${d.agenda.startsWith('✓')?'done':''}">📅 ${d.agenda}</span>`:''}
+    ${d.intencao?`<div class="intent">🎯 ${d.intencao}</div>`:''}
+    ${d.tags.length?`<div class="tags">${d.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>`:''}
+    <div class="ratings"><span class="pill scorepill">★ ${scoreOf(d)}</span>${v2Pill(d)}${realPill(d)}${ritmoPill(d)}${objPill(d)}${pills(d)}</div>${publine}${spark(d.id)}
+  </div>`;
+}
+function filtered(){
+  return V.filter(d => (fPilar==='Todos'||d.pilar===fPilar) && [...fTags].every(t=>d.tags.includes(t)) && (fEstado==='Todos'||estadoOf(d)===fEstado));
+}
+function sorted(list){
+  const l=[...list];
+  if(sortBy==='score') l.sort((a,b)=>scoreOf(b)-scoreOf(a));
+  else if(sortBy==='i') l.sort((a,b)=>b.i-a.i||b.v-a.v);
+  else if(sortBy==='v') l.sort((a,b)=>b.v-a.v||b.i-a.i);
+  else if(sortBy==='p') l.sort((a,b)=>a.p-b.p||b.v-a.v);
+  else if(sortBy==='r') l.sort((a,b)=>a.r-b.r||b.v-a.v);
+  else if(sortBy==='rdesc') l.sort((a,b)=>b.r-a.r||b.v-a.v);
+  return l;
+}
+function fmtN(n){return (n===null||n===undefined)?'—':Number(n).toLocaleString('pt-PT');}
+let chartAxis='rel', chartMetric='views';
+function setChartAxis(a){chartAxis=a;render();}
+function setChartMetric(m){chartMetric=m;render();}
+function fmtK(n){return n>=1000?((n/1000).toFixed(n>=10000?0:1)+'k'):String(Math.round(n));}
+const CHART_COLORS=['#2AA971','#101714','#D98E32','#C6564F','#5B7FBF','#8A63B8','#3E9AA0','#B5652F'];
+function lineChart(series,mode){
+  series=series.filter(sr=>sr.pts.length>=2);
+  if(!series.length) return '<div class="chartbox"><div class="empty" style="padding:26px 0">O histórico horário começou agora — volta daqui a umas horas e as curvas aparecem aqui sozinhas.</div></div>';
+  let x0=Infinity,x1=-Infinity,y1=0;
+  series.forEach(sr=>sr.pts.forEach(p=>{x0=Math.min(x0,p.x);x1=Math.max(x1,p.x);y1=Math.max(y1,p.y);}));
+  if(x1===x0)x1=x0+1; if(!y1)y1=1;
+  const W=720,H=250,L=52,R=14,T=12,B=26;
+  const xs=v=>L+(v-x0)/(x1-x0)*(W-L-R), ys=v=>T+(1-v/y1)*(H-T-B);
+  let g='';
+  for(let i=0;i<=3;i++){const yv=y1*i/3, y=ys(yv);
+    g+=`<line x1="${L}" y1="${y}" x2="${W-R}" y2="${y}" stroke="#E9E6DC" stroke-width="1"/><text x="${L-8}" y="${y+3.5}" text-anchor="end" font-size="10" fill="#8A9088" font-family="IBM Plex Mono">${fmtK(yv)}</text>`;}
+  for(let i=0;i<=3;i++){const xv=x0+(x1-x0)*i/3, x=xs(xv);
+    const lbl=mode==='rel'?Math.round(xv)+'h':new Date(xv).toLocaleDateString('pt-PT',{day:'2-digit',month:'2-digit'});
+    g+=`<text x="${x}" y="${H-8}" text-anchor="middle" font-size="10" fill="#8A9088" font-family="IBM Plex Mono">${lbl}</text>`;}
+  const lines=series.map((sr,i)=>{
+    const c=sr.color||CHART_COLORS[i%CHART_COLORS.length];
+    const path=sr.pts.map(p=>xs(p.x).toFixed(1)+','+ys(p.y).toFixed(1)).join(' ');
+    const last=sr.pts[sr.pts.length-1];
+    return `<polyline points="${path}" fill="none" stroke="${c}" stroke-width="2.2"/><circle cx="${xs(last.x).toFixed(1)}" cy="${ys(last.y).toFixed(1)}" r="3.4" fill="${c}"/>`;
+  }).join('');
+  const legend=series.map((sr,i)=>{const c=sr.color||CHART_COLORS[i%CHART_COLORS.length];const last=sr.pts[sr.pts.length-1];
+    return `<span class="lgd"><span class="ldot" style="background:${c}"></span>${sr.label} <b>${fmtK(last.y)}</b></span>`;}).join('');
+  return `<div class="chartbox"><svg viewBox="0 0 ${W} ${H}" style="width:100%;height:auto">${g}${lines}</svg><div class="legend">${legend}</div></div>`;
+}
+function videoSeries(metric,mode){
+  const pubs=V.filter(d=>perf[d.id]&&perf[d.id].historico&&perf[d.id].historico.length>=2).sort((a,b)=>(a.ord??999)-(b.ord??999));
+  return pubs.map((d,i)=>{
+    const h=perf[d.id].historico.filter(p=>p[metric]!=null);
+    if(h.length<2) return {label:'',pts:[]};
+    const t0=Date.parse(perf[d.id].publicado_em||h[0].t);
+    const pts=h.map(p=>({x:mode==='rel'?(Date.parse(p.t)-t0)/3600000:Date.parse(p.t), y:p[metric]||0})).filter(p=>p.x>=0||mode!=='rel');
+    return {label:`PUB #${String(d.ord??0).padStart(2,'0')} ${d.t.length>26?d.t.slice(0,26)+'…':d.t}`, pts, color:CHART_COLORS[i%CHART_COLORS.length]};
+  });
+}
+function evolutionSection(){
+  const mets=[['views','views'],['alcance','alcance'],['partilhas','partilhas'],['seguidores','seguidores']];
+  const ctl=`<div class="chartctl">
+    <span class="ctlg">${[['rel','horas desde publicação'],['abs','datas reais']].map(x=>`<button class="cbt ${chartAxis===x[0]?'on':''}" onclick="setChartAxis('${x[0]}')">${x[1]}</button>`).join('')}</span>
+    <span class="ctlg">${mets.map(x=>`<button class="cbt ${chartMetric===x[0]?'on':''}" onclick="setChartMetric('${x[0]}')">${x[1]}</button>`).join('')}</span>
+  </div>`;
+  return `<div class="phase-head" style="margin-top:30px"><h2>📈 Evolução por vídeo</h2><span class="meta">histórico horário · ${chartAxis==='rel'?'alinhado ao minuto zero de cada vídeo':'no calendário'}</span></div>${ctl}${lineChart(videoSeries(chartMetric,chartAxis),chartAxis)}`;
+}
+function canalSection(){
+  const CM={seguidores:'seguidores',alcance_dia:'alcance/dia',visitas_perfil:'visitas perfil',interacoes:'interações',contas_interagiram:'contas c/ interação',seguidores_tt:'seguidores TT',seguidores_ambos:'seguidores IG+TT'};
+  const hTT=((perfTT.canal||{}).historico||[]).filter(p=>p.seguidores!=null);
+  if(canalMetric==='seguidores_tt'){
+    const chart=hTT.length>=2?lineChart([{label:'seguidores TikTok',pts:hTT.map(p=>({x:Date.parse(p.t),y:p.seguidores})),color:'#101714'}],'abs'):'<div class="empty">Sem série TikTok ainda — o robô começa a escrevê-la de hora a hora.</div>';
+    const ctl=`<div class="chartctl"><span class="ctlg">${Object.keys(CM).map(k=>`<button class="cbt ${canalMetric===k?'on':''}" onclick="setCanalMetric('${k}')">${CM[k]}</button>`).join('')}</span></div>`;
+    return `<div class="phase-head" style="margin-top:30px"><h2>📈 Canal</h2><span class="meta">histórico da conta TikTok</span></div>${ctl}${chart}`;
+  }
+  if(canalMetric==='seguidores_ambos'){
+    const hIG=((perfMeta.canal||{}).historico||[]).filter(p=>p.seguidores!=null);
+    const series=[];
+    if(hIG.length>=2) series.push({label:'Instagram',pts:hIG.map(p=>({x:Date.parse(p.t),y:p.seguidores})),color:'#2AA971'});
+    if(hTT.length>=2) series.push({label:'TikTok',pts:hTT.map(p=>({x:Date.parse(p.t),y:p.seguidores})),color:'#101714'});
+    const chart=series.length?lineChart(series,'abs'):'<div class="empty">A acumular séries…</div>';
+    const ctl=`<div class="chartctl"><span class="ctlg">${Object.keys(CM).map(k=>`<button class="cbt ${canalMetric===k?'on':''}" onclick="setCanalMetric('${k}')">${CM[k]}</button>`).join('')}</span></div>`;
+    return `<div class="phase-head" style="margin-top:30px"><h2>📈 Canal</h2><span class="meta">seguidores por plataforma, lado a lado</span></div>${ctl}${chart}`;
+  }
+  const h=((perfMeta.canal||{}).historico||[]).filter(p=>p[canalMetric]!=null);
+  const extra=h.length?Object.keys(h[h.length-1]).filter(k=>!['t','seguidores','a_seguir','publicacoes'].includes(k)):[];
+  const ctl=`<div class="chartctl"><span class="ctlg">${Object.keys(CM).map(k=>`<button class="cbt ${canalMetric===k?'on':''}" onclick="setCanalMetric('${k}')">${CM[k]}</button>`).join('')}</span></div>`;
+  const chart=h.length>=2?lineChart([{label:CM[canalMetric],pts:h.map(p=>({x:Date.parse(p.t),y:p[canalMetric]})),color:'#2AA971'}],'abs')
+    :'<div class="chartbox"><div class="empty" style="padding:26px 0">A curva do canal nasce quando o robô v3 fizer as primeiras leituras dos seguidores totais.</div></div>';
+  return `<div class="phase-head" style="margin-top:30px"><h2>📈 Canal</h2><span class="meta">histórico horário da conta${extra.length?' · também capturado: '+extra.join(', '):''}</span></div>${ctl}${chart}`;
+}
+function glossario(){
+  const T=[["views","reproduções do vídeo — a mesma pessoa a rever conta outra vez"],["alcance","contas únicas que viram — pessoas, não reproduções"],["partilhas","envios por DM ou stories — O MOTOR: é o sinal que mais faz o Instagram distribuir"],["saves","guardados para ver depois — sinal de valor de referência"],["tempo médio","segundos médios de visualização; ÷ duração = retenção relativa (alvo ≥35%)"],["interações","likes + comentários + partilhas + saves somados"],["visitas perfil","quantos foram do vídeo ao teu perfil — o topo do funil de conversão"],["tx partilha","partilhas ÷ alcance — o indicador de outlier (alvo >1,5%)"],["conversão","seguidores ganhos ÷ alcance — mede o funil (alvo >0,5%)"],["score real","0-100 dos dados: velocidade 25 · partilhas 30 · retenção 20 · interação 15 · conversão 10"],["★ / ★v2","expectativa original (nunca se reescreve) / expectativa com as Lições 1-6"],["🔴 % ritmo","views vs o MELHOR vídeo do canal à mesma idade — o farol das primeiras 72h"],["% completo (TT)","percentagem que viu o vídeo até ao fim — só TikTok fornece isto"],["ER (TT)","engagement rate: (likes+coment.+partilhas+saves)/views — as marcas olham para ≥5%"],["dominância","em que plataforma o vídeo rendeu mais (≥1,5× declara vencedor) — IG premeia dinheiro-pessoal, TT premeia curiosidade"]];
+  return `<button class="cbt" style="margin-top:10px" onclick="document.getElementById('gloss').classList.toggle('open')">ⓘ o que significam as métricas</button>
+  <div id="gloss" class="gloss">${T.map(x=>`<div class="grow"><b>${x[0]}</b><span>${x[1]}</span></div>`).join('')}</div>`;
+}
+let canalMetric='seguidores';
+function setCanalMetric(m){canalMetric=m;render();}
+function trendVerdict(rows){
+  const full=rows.slice(1,-1);
+  if(full.length<6) return '➡️ a acumular dias…';
+  const a=full.slice(-3), b=full.slice(-6,-3);
+  const avg=(arr,k)=>arr.reduce((sm,r)=>sm+(r[k]||0),0)/arr.length;
+  const ra=avg(a,'alc'), rb=avg(b,'alc')||1, va=avg(a,'views'), vb=avg(b,'views')||1;
+  const sa=a.reduce((sm,r)=>sm+(r.segDelta||0),0);
+  const ratio=ra/rb;
+  const emo=ratio>1.15?'📈 A SUBIR':(ratio<0.85?'📉 A DESCER':'➡️ ESTÁVEL');
+  return `${emo} — alcance/dia ×${ratio.toFixed(1)} vs os 3 dias anteriores · views ${va>=vb?'+':''}${Math.round(100*(va-vb)/vb)}% · seguidores ${sa>=0?'+':''}${sa} em 3 dias`;
+}
+function sortTable(th){const table=th.closest('table');const idx=Array.prototype.indexOf.call(th.parentNode.children,th);const tb=table.tBodies[0];const rows=Array.prototype.slice.call(tb.rows);const dir=th.dataset.d=(th.dataset.d==='a'?'d':'a');
+  const val=r=>{const raw=r.cells[idx].innerText;const cl=raw.replace(/[^0-9,.\-]/g,'').replace(/\./g,'').replace(',','.');const n=parseFloat(cl);return isNaN(n)?raw.toLowerCase():n;};
+  rows.sort((r1,r2)=>{const a=val(r1),b=val(r2);return (a<b?-1:a>b?1:0)*(dir==='a'?1:-1);});
+  rows.forEach(r=>tb.appendChild(r));}
+function ttDailyViews(){
+  const days={};
+  const dk=t=>{const d=new Date(Date.parse(t)+3600000);return d.toISOString().slice(0,10);};
+  Object.values(perfTT.videos||{}).forEach(v=>{let prev=null;
+    (v.historico||[]).forEach(pt=>{const k=dk(pt.t);
+      if(prev&&pt.views!=null&&prev.views!=null){days[k]=(days[k]||0)+Math.max(0,pt.views-prev.views);}
+      prev=pt;});});
+  return days;
+}
+function dailyRows(){
+  const dk=t=>{const d=new Date(Date.parse(t)+3600000);return d.toISOString().slice(0,10);};
+  const days={};
+  V.forEach(v=>{const p=perf[v.id];if(!p||!p.historico)return;let prev=null;
+    p.historico.forEach(pt=>{const k=dk(pt.t);days[k]=days[k]||{views:0,part:0,saves:0};
+      if(prev){days[k].views+=Math.max(0,(pt.views||0)-(prev.views||0));days[k].part+=Math.max(0,(pt.partilhas||0)-(prev.partilhas||0));days[k].saves+=Math.max(0,(pt.saves||0)-(prev.saves||0));}
+      prev=pt;});});
+  const ch=(perfMeta.canal||{}).historico||[];let prevSeg=null;
+  ch.forEach(pt=>{const k=dk(pt.t);days[k]=days[k]||{views:0,part:0,saves:0};const d=days[k];
+    d.alc=Math.max(d.alc||0,pt.alcance_dia||0);d.vis=Math.max(d.vis||0,pt.visitas_perfil||0);d.inter=Math.max(d.inter||0,pt.interacoes||0);
+    if(d.segStart===undefined)d.segStart=(prevSeg!==null?prevSeg:pt.seguidores);d.segEnd=pt.seguidores;prevSeg=pt.seguidores;});
+  V.forEach(v=>{const p=perf[v.id];if(p&&p.publicado_em){const k=dk(p.publicado_em);if(days[k])days[k].lanc=(days[k].lanc||[]).concat('#'+String(v.ord||0).padStart(2,'0'));}});
+  return Object.keys(days).sort().map(k=>{const d=days[k];return Object.assign({dia:k,segDelta:(d.segEnd!=null&&d.segStart!=null)?d.segEnd-d.segStart:null},d);});
+}
+function dailySection(){
+  const rows=dailyRows();
+  if(rows.length<2) return '';
+  const WD=['dom','seg','ter','qua','qui','sex','sáb'];
+  const trs=rows.map(r=>{
+    const dt=new Date(r.dia+'T12:00:00');
+    const lbl=WD[dt.getDay()]+' '+r.dia.slice(8,10)+'/'+r.dia.slice(5,7);
+    const seg=r.segDelta==null?'—':(r.segDelta>0?'+'+r.segDelta:String(r.segDelta));
+    const ttd=ttDailyViews()[r.dia];return `<tr><td class="tl" style="font-family:'IBM Plex Mono',monospace">${lbl} ${r.lanc?`<span class="pill" style="background:#101714;color:#2AA971;font-size:10px;padding:2px 7px">🎬 ${r.lanc.join(' ')}</span>`:''}</td><td>${fmtN(r.views)}</td><td>${ttd!=null?fmtN(ttd):'—'}</td><td>${fmtN(r.alc)}</td><td>${fmtN(r.inter)}</td><td>${fmtN(r.part)}</td><td>${fmtN(r.vis)}</td><td>${seg}</td></tr>`;
+  }).join('');
+  return `<div class="phase-head" style="margin-top:30px"><h2>📅 O canal, dia a dia</h2><span class="meta">${trendVerdict(rows)}</span></div>
+  <div class="stattablewrap"><table class="stattable"><thead><tr><th class="tl">dia</th><th onclick="sortTable(this)">views IG</th><th onclick="sortTable(this)">views TT</th><th onclick="sortTable(this)">alcance IG</th><th onclick="sortTable(this)">interações</th><th onclick="sortTable(this)">partilhas</th><th onclick="sortTable(this)">visitas perfil</th><th onclick="sortTable(this)">+seg</th></tr></thead><tbody>${trs}</tbody></table></div>
+  <div class="statnotes">views/partilhas = soma dos ganhos diários dos vídeos monitorizados · alcance/interações/visitas = contadores diários do Instagram (o "dia" da API vira ~8h de Lisboa) · primeiro e último dia podem estar incompletos</div>`;
+}
+let statPlat='ig';
+function setStatPlat(p){statPlat=p;render();}
+function ttM(id){const v=(perfTT.videos||{})[String(id)];return v?(v.metricas||{}):null;}
+function ttDur(id){const v=(perfTT.videos||{})[String(id)];return v?(v.duracao_s||null):null;}
+function platSelector(){
+ const B=(k,l)=>`<button class="cbt ${statPlat===k?'on':''}" onclick="setStatPlat('${k}')">${l}</button>`;
+ return `<div class="chartctl" style="margin:14px 0 4px"><span class="ctlg">${B('ig','Instagram')}${B('tt','TikTok')}${B('cmp','IG vs TT')}</span></div>`;
+}
+function statTableIG(pubs){
+  const rows=pubs.map(d=>{const m=perf[d.id].metricas;
+    const tp=m.alcance?100*(m.partilhas||0)/m.alcance:null;
+    const cv=m.alcance?100*(m.seguidores||0)/m.alcance:null;
+    return `<tr onclick="openModal(${d.id})"><td>PUB #${String(d.ord??0).padStart(2,'0')}</td><td class="tl">${d.t}</td><td>${scoreOf(d)}</td><td>${score2Of(d)??'—'}</td><td>${scoreReal(d)??'—'}</td><td>${fmtN(m.views)}</td><td>${fmtN(m.alcance)}</td><td>${fmtN(m.likes)}</td><td>${fmtN(m.comentarios)}</td><td>${fmtN(m.partilhas)}</td><td>${fmtN(m.saves)}</td><td>${fmtN(m.seguidores)}</td><td>${m.tempo_medio_s!=null?m.tempo_medio_s+'s':'—'}</td><td>${tp!=null?tp.toFixed(1)+'%':'—'}</td><td>${cv!=null?cv.toFixed(1)+'%':'—'}</td></tr>`;
+  }).join('');
+  return `<div class="stattablewrap"><table class="stattable"><thead><tr><th onclick="sortTable(this)"></th><th class="tl">vídeo</th><th onclick="sortTable(this)">★ orig</th><th onclick="sortTable(this)">★ v2</th><th onclick="sortTable(this)">real</th><th onclick="sortTable(this)">views</th><th onclick="sortTable(this)">alcance</th><th onclick="sortTable(this)">likes</th><th onclick="sortTable(this)">coment.</th><th onclick="sortTable(this)">partilhas</th><th onclick="sortTable(this)">saves</th><th onclick="sortTable(this)">seguid.</th><th onclick="sortTable(this)">t. médio</th><th onclick="sortTable(this)">tx partilha</th><th onclick="sortTable(this)">conversão</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+function statTableTT(){
+  const ids=Object.keys(perfTT.videos||{});
+  if(!ids.length) return '<div class="empty">Sem dados TikTok ainda — o robô (ou a carga manual) escreve aqui.</div>';
+  const items=ids.map(id=>({id,v:V.find(x=>String(x.id)===id),m:(perfTT.videos[id].metricas||{}),pub:perfTT.videos[id].publicado_em||''})).filter(x=>x.v).sort((a,b)=>(a.pub<b.pub?-1:1));
+  const rows=items.map(x=>{
+    const dur=ttDur(x.id); const ret=(x.m.tempo_medio_s&&dur)?Math.round(100*x.m.tempo_medio_s/dur):null;
+    const inter=(x.m.likes||0)+(x.m.comentarios||0)+(x.m.partilhas||0)+(x.m.saves||0);
+    const er=x.m.views?100*inter/x.m.views:null;
+    return `<tr onclick="openModal(${x.v.id})"><td class="tl">${x.v.t}</td><td>${fmtN(x.m.views)}</td><td>${fmtN(x.m.likes)}</td><td>${fmtN(x.m.comentarios)}</td><td>${fmtN(x.m.partilhas)}</td><td>${fmtN(x.m.saves)}</td><td>${x.m.tempo_medio_s!=null?x.m.tempo_medio_s+'s':'—'}</td><td>${x.m.pct_completo!=null?x.m.pct_completo+'%':'—'}</td><td>${ret!=null?ret+'%':'—'}</td><td>${er!=null?er.toFixed(1)+'%':'—'}</td><td>${x.m.novos_seguidores!=null?'+'+x.m.novos_seguidores:'—'}</td></tr>`;
+  }).join('');
+  return `<div class="stattablewrap"><table class="stattable"><thead><tr><th class="tl">vídeo</th><th onclick="sortTable(this)">views</th><th onclick="sortTable(this)">likes</th><th onclick="sortTable(this)">coment.</th><th onclick="sortTable(this)">partilhas</th><th onclick="sortTable(this)">saves</th><th onclick="sortTable(this)">t. médio</th><th onclick="sortTable(this)">% completo</th><th onclick="sortTable(this)">retenção</th><th onclick="sortTable(this)">ER</th><th onclick="sortTable(this)">+seg</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <div class="statnotes">ER = (likes+coment.+partilhas+saves)/views · retenção = t.médio/duração · % completo e t.médio vêm do TikTok Studio (manual) ou ficam por preencher</div>`;
+}
+function statTableCMP(){
+  const items=V.filter(d=>(perf[d.id]&&perf[d.id].metricas&&perf[d.id].metricas.views)||ttM(d.id)).map(d=>{
+    const ig=(perf[d.id]&&perf[d.id].metricas)||{}; const tt=ttM(d.id)||{};
+    const vi=ig.views||0, vt=tt.views||0;
+    const ii=(ig.likes||0)+(ig.comentarios||0)+(ig.partilhas||0)+(ig.saves||0);
+    const it=(tt.likes||0)+(tt.comentarios||0)+(tt.partilhas||0)+(tt.saves||0);
+    let dom='—';
+    if(vi&&vt){const r=vt/vi; dom=r>=1.5?('TT '+r.toFixed(1)+'×'):(r<=0.67?('IG '+(1/r).toFixed(1)+'×'):'equilibrado');}
+    else if(vt&&!vi) dom='só TT'; else if(vi&&!vt) dom='só IG';
+    return {d,vi,vt,ii,it,dom,pub:(perf[d.id]&&perf[d.id].publicado_em)||''};
+  }).sort((a,b)=>(b.vi+b.vt)-(a.vi+a.vt));
+  if(!items.length) return '<div class="empty">Sem dados ainda.</div>';
+  const rows=items.map(x=>`<tr onclick="openModal(${x.d.id})"><td class="tl">${x.d.t}</td><td>${fmtN(x.vi)}</td><td>${fmtN(x.vt)}</td><td><b>${fmtN(x.vi+x.vt)}</b></td><td>${fmtN(x.ii)}</td><td>${fmtN(x.it)}</td><td>${x.dom}</td></tr>`).join('');
+  return `<div class="stattablewrap"><table class="stattable"><thead><tr><th class="tl">vídeo</th><th onclick="sortTable(this)">views IG</th><th onclick="sortTable(this)">views TT</th><th onclick="sortTable(this)">TOTAL</th><th onclick="sortTable(this)">inter. IG</th><th onclick="sortTable(this)">inter. TT</th><th onclick="sortTable(this)">dominância</th></tr></thead><tbody>${rows}</tbody></table></div>
+  <div class="statnotes">dominância = onde o vídeo rendeu mais views (≥1,5× para declarar vencedor) · a leitura estratégica: IG premeia dinheiro-pessoal, TT premeia curiosidade/debate — confirma-o aqui vídeo a vídeo</div>`;
+}
+function renderStats(){
+  const pubs=V.filter(d=>perf[d.id]&&perf[d.id].metricas&&Object.keys(perf[d.id].metricas).length).sort((a,b)=>(a.ord??999)-(b.ord??999));
+  if(!pubs.length) return '<div class="empty">Sem métricas ainda — o robô escreve aqui todas as noites às 22h00.</div>';
+  const T=k=>pubs.reduce((sm,d)=>sm+(perf[d.id].metricas[k]||0),0);
+  const tot={views:T('views'),alc:T('alcance'),likes:T('likes'),com:T('comentarios'),part:T('partilhas'),saves:T('saves'),seg:T('seguidores')};
+  const best=k=>pubs.reduce((a,b)=>((perf[b.id].metricas[k]||0)>(perf[a.id].metricas[k]||0)?b:a),pubs[0]);
+  const rows=pubs.map(d=>{const m=perf[d.id].metricas;
+    const tp=m.alcance?100*(m.partilhas||0)/m.alcance:null;
+    const cv=m.alcance?100*(m.seguidores||0)/m.alcance:null;
+    return `<tr onclick="openModal(${d.id})"><td>PUB #${String(d.ord??0).padStart(2,'0')}</td><td class="tl">${d.t}</td><td>${scoreOf(d)}</td><td>${score2Of(d)??'—'}</td><td>${scoreReal(d)??'—'}</td><td>${fmtN(m.views)}</td><td>${fmtN(m.alcance)}</td><td>${fmtN(m.likes)}</td><td>${fmtN(m.comentarios)}</td><td>${fmtN(m.partilhas)}</td><td>${fmtN(m.saves)}</td><td>${fmtN(m.seguidores)}</td><td>${m.tempo_medio_s!=null?m.tempo_medio_s+'s':'—'}</td><td>${tp!=null?tp.toFixed(1)+'%':'—'}</td><td>${cv!=null?cv.toFixed(1)+'%':'—'}</td></tr>`;
+  }).join('');
+  const sync=perfMeta.ultima_sincronizacao?('última sincronização: '+perfMeta.ultima_sincronizacao.replace('T',' · ')):'sincronização automática às 22h00';
+  return `<section class="phase"><div class="phase-head"><h2>📊 Stats do canal</h2><span class="meta">${pubs.length} vídeos com métricas · ${sync}</span></div>
+  ${glossario()}
+  <div class="statgrid">
+    <div class="stat"><span class="k">VIEWS</span><span class="v">${fmtN(tot.views)}</span></div>
+    <div class="stat"><span class="k">CONTAS ALCANÇADAS</span><span class="v">${fmtN(tot.alc)}</span></div>
+    <div class="stat"><span class="k">PARTILHAS</span><span class="v mint">${fmtN(tot.part)}</span></div>
+    <div class="stat"><span class="k">SAVES</span><span class="v">${fmtN(tot.saves)}</span></div>
+    <div class="stat"><span class="k">LIKES</span><span class="v">${fmtN(tot.likes)}</span></div>
+    <div class="stat"><span class="k">SEGUIDORES GANHOS</span><span class="v mint">${fmtN(tot.seg)}</span></div>
+  </div>
+  ${evolutionSection()}
+  ${canalSection()}
+  ${dailySection()}
+  <div class="phase-head" style="margin-top:30px"><h2>Tabela</h2><span class="meta">acumulados por vídeo · escolhe a plataforma</span></div>
+  ${platSelector()}
+  ${statPlat==='ig'?statTableIG(pubs):(statPlat==='tt'?statTableTT():statTableCMP())}
+  <div class="statnotes" style="${statPlat!=='ig'?'display:none':''}">🏆 mais views: <b>${best('views').t}</b> · 📤 mais partilhado: <b>${best('partilhas').t}</b> · clica numa linha para abrir o cartão · tx partilha = partilhas/alcance · conversão = seguidores/alcance</div></section>`;
+}
+const DUR={1:72,39:58,31:52,65:49,6:52,19:53,66:52,11:34,67:46,30:45,49:45,17:48,68:50,10:50};
+function scoreReal(d){
+  const p=perf[d.id]; if(!p||!p.metricas||!p.metricas.views) return null;
+  const m=p.metricas;
+  const cands=V.filter(x=>perf[x.id]&&perf[x.id].metricas&&perf[x.id].metricas.views).map(x=>perf[x.id].metricas.views);
+  const best=Math.max(...cands);
+  const vel=Math.min((m.views||0)/(best||1),1)*25;
+  const part=Math.min(((m.partilhas||0)/(m.alcance||1))/0.015,1)*30;
+  const durv=DUR[d.id]||50;
+  const ret=Math.min(((m.tempo_medio_s||0)/durv)/0.35,1)*20;
+  const inter=Math.min((((m.likes||0)+3*(m.comentarios||0)+2*(m.saves||0))/(m.alcance||1))/0.06,1)*15;
+  const conv=Math.min(((m.seguidores||0)/(m.alcance||1))/0.005,1)*10;
+  return Math.round(vel+part+ret+inter+conv);
+}
+function score2Of(d){
+  if(d.hookNum===undefined) return null;
+  let sc=scoreOf(d);
+  if(d.hookNum) sc+=8;
+  if(d.dep) sc-=12;
+  if(d.tema==='eu') sc+=6;
+  if(d.tema==='soc') sc-=8;
+  if(d.tema==='cur') sc-=5;
+  if(d.tags&&d.tags.includes('PT-BR')) sc+=4;
+  if((d.dur||50)>65) sc-=5;
+  return Math.max(0,Math.min(100,Math.round(sc)));
+}
+function v2Pill(d){const r=score2Of(d);return r==null?'':`<span class="pill v2pill" title="Expectativa v2 — modelo revisto c/ Lições 1-5 (hook número +8 · dependente −12 · tema EU+6/soc−8/cur−5 · PT-BR +4 · >65s −5)">★v2 ${r}</span>`;}
+function realPill(d){const r=scoreReal(d);return r==null?'':`<span class="pill realpill" title="Score REAL (velocidade 25 · partilhas 30 · retenção 20 · interação 15 · conversão 10)">${r} real</span>`;}
+function spark(id){
+  const h=(perf[id]&&perf[id].historico)||[];
+  if(h.length<2) return '';
+  const pts=h.slice(-48).map(p=>p.views||0);
+  const mx=Math.max(...pts), mn=Math.min(...pts);
+  const W=92,Hh=26;
+  const path=pts.map((v,i)=>((i/(pts.length-1))*W).toFixed(1)+','+(Hh-3-(mx>mn?(v-mn)/(mx-mn):0.5)*(Hh-6)).toFixed(1)).join(' ');
+  return `<div class="spark"><svg width="${W}" height="${Hh}" viewBox="0 0 ${W} ${Hh}"><polyline points="${path}" fill="none" stroke="#2AA971" stroke-width="2"/></svg><span>${pts[pts.length-1].toLocaleString('pt-PT')} views</span></div>`;
+}
+function viewsAtAge(id,hours){const p=perf[id];if(!p||!p.publicado_em||!p.historico)return null;const t0=Date.parse(p.publicado_em);let best=null;p.historico.forEach(pt=>{if(Date.parse(pt.t)-t0<=hours*3600000&&pt.views!=null)best=pt.views;});return best;}
+function ritmo(id){const p=perf[id];if(!p||!p.publicado_em)return null;const age=(Date.now()-Date.parse(p.publicado_em))/3600000;if(age>72||age<0.5)return null;const mine=(p.metricas||{}).views;if(!mine)return null;let ref=0;V.forEach(v=>{if(v.id===id)return;const b=viewsAtAge(v.id,age);if(b&&b>ref)ref=b;});if(!ref)return null;return Math.round(100*mine/ref);}
+function ritmoPill(d){const r=ritmo(d.id);return r==null?'':`<span class="pill livepill" title="views vs o melhor vídeo do canal à mesma idade">🔴 ${r}% ritmo</span>`;}
+function nextAction(){
+  const nowt=Date.now();
+  const live=V.filter(d=>{const p=perf[d.id];return p&&p.publicado_em&&(nowt-Date.parse(p.publicado_em))<24*3600000;}).sort((a,b)=>Date.parse(perf[b.id].publicado_em)-Date.parse(perf[a.id].publicado_em))[0];
+  if(live){const p=perf[live.id];const age=(nowt-Date.parse(p.publicado_em))/3600000;const m=p.metricas||{};const r=ritmo(live.id);
+    return `<div class="nextbar"><span class="nk">🔴 AO VIVO</span><span class="nt"><b>PUB #${String(live.ord||0).padStart(2,'0')} · ${live.t}</b> — ${age.toFixed(1)}h de vida · ${fmtN(m.views||0)} views · ${fmtN(m.partilhas||0)} partilhas${r!=null?` · ${r}% do ritmo do melhor à mesma idade`:''}</span></div>`;}
+  const nx=V.filter(d=>d.ord&&d.ord<50&&estadoOf(d)!=='publicado').sort((a,b)=>a.ord-b.ord)[0];
+  if(!nx) return '';
+  return `<div class="nextbar"><span class="nk">⏭ PRÓXIMA AÇÃO</span><span class="nt"><b>PUB #${String(nx.ord).padStart(2,'0')} · ${nx.t}</b> — ${nx.agenda||''} · abre o cartão para guião, capa e nota fixada</span></div>`;
+}
+function renderCal(){
+  const evs={};
+  V.forEach(d=>{
+    if(!d.agenda||d.agenda.startsWith('banco')) return;
+    const m=d.agenda.match(/(\d{1,2})\/ago/);
+    if(!m) return;
+    (evs[+m[1]]=evs[+m[1]]||[]).push({t:`PUB #${String(d.ord||0).padStart(2,'0')} ${d.agenda.includes('h')?d.agenda.split('·')[1]||'':''}`.trim(),full:d.t,id:d.id,done:d.agenda.startsWith('✓')});
+  });
+  (evs[12]=evs[12]||[]).push({t:'B4 Wire · INE ~11h30',full:'Inflação definitiva de julho — formato-evento',id:null,wire:true});
+  const first=(new Date(2026,7,1).getDay()+6)%7;
+  let cells='';
+  for(let i=0;i<first;i++) cells+='<div class="calcell off"></div>';
+  for(let day=1;day<=31;day++){
+    const e=(evs[day]||[]).map(x=>`<span class="calev ${x.done?'done':''} ${x.wire?'wire':''}" ${x.id?`onclick="openModal(${x.id})"`:''} title="${x.full}">${x.done?'✓ ':''}${x.t}</span>`).join('');
+    cells+=`<div class="calcell"><span class="dnum">${day}</span>${e}</div>`;
+  }
+  const heads=['seg','ter','qua','qui','sex','sáb','dom'].map(h=>`<div class="calhead">${h}</div>`).join('');
+  return `<section class="phase"><div class="phase-head"><h2>📅 Agosto 2026</h2><span class="meta">calendário de publicação · clica num evento</span></div><div class="calgrid">${heads}${cells}</div></section>`;
+}
+function renderDocs(){
+  const items=[
+    ['ESTRATÉGIA','Estratégia do canal','Posicionamento, pilares, rituais, parking lot de ideias','docs/estrategia-instagram-financas.md'],
+    ['GUIÕES','Guiões semanas 1-2','Falas magras com timecodes, rigor por vídeo, calendário','docs/guioes-semanas-1-2.md'],
+    ['LEARNINGS','Diário de aprendizagens','As lições de cada vídeo publicado — o QC do próprio canal','docs/learnings.md'],
+    ['CONTEXTO','Contexto do projeto','O documento-mestre: decisões, identidade, regras de produção','contexto.md'],
+    ['DADOS','performance.json','Métricas + histórico horário escrito pelo robô (sync automático)','performance.json'],
+    ['PRODUÇÃO','Pacote CapCut B3','Overlays 4K, etiquetas, capas e fontes — sempre a versão mais recente','producao/capcut-pack-b3-4k.zip'],
+  ].map(x=>`<a class="docitem" href="${x[3]}" target="_blank"><span class="dk">${x[0]}</span><h3>${x[1]}</h3><p>${x[2]}</p></a>`).join('');
+  return `<section class="phase"><div class="phase-head"><h2>📁 Docs</h2><span class="meta">a biblioteca do canal</span></div><div class="docsgrid">${items}</div></section>`;
+}
+const META={seguidores:1000, ate:'2026-12-31'};
+const OBJ={
+ 1:[{m:'tx_partilha',v:1.0,label:'partilhas ≥1,0% do alcance'},{m:'retencao',v:30,label:'retenção ≥30%'}],
+ 39:[{m:'tx_partilha',v:1.0,label:'tema-sociedade: partilhas ≥1,0%'}],
+ 31:[{m:'tx_partilha',v:1.9,label:'tema-EU: partilhas ≥1,9%'}],
+ 65:[{m:'ritmo_ref',v:100,label:'herança da série: ritmo ≥100% do anterior'},{m:'tx_partilha',v:1.5,label:'partilhas ≥1,5%'}],
+ 6:[{m:'alc_recorde',v:1,label:'janela sazonal: dia recorde de alcance do canal'},{m:'comentarios',v:3,label:'debate nos comentários (≥3, inclui o fixado)'}],
+ 19:[{m:'br_delta',v:2,label:'ponte BR: quota BR no engagement +2pp'},{m:'tx_partilha',v:1.0,label:'partilhas ≥1,0%'},{m:'comentarios',v:3,label:'confissões nos comentários (≥3)'}],
+ 66:[{m:'saves',v:5,label:'tabela de referência: ≥5 saves'},{m:'tx_partilha',v:1.5,label:'partilhas ≥1,5%'}],
+ 30:[{m:'conv_dia',v:5,label:'manifesto: +5 seguidores no dia do lançamento'}],
+ 67:[{m:'tx_partilha',v:1.5,label:'fofoca boa: partilhas ≥1,5%'}],
+ 11:[{m:'retencao',v:35,label:'formato curto 34s: retenção ≥35%'}],
+ 49:[{m:'saves',v:8,label:'referência guardável: ≥8 saves'},{m:'comentarios',v:5,label:'comentários ≥5'}],
+ 17:[{m:'tx_partilha',v:1.0,label:'tema habitação: partilhas ≥1,0%'},{m:'saves',v:8,label:'saves ≥8'}],
+ 68:[{m:'tx_partilha',v:1.5,label:'2.ª fofoca: partilhas TT ≥1,5%'},{m:'comentarios',v:8,label:'palpites nos comentários ≥8'}],
+ 10:[{m:'comentarios',v:5,label:'série de conversão: comentários ≥5'},{m:'saves',v:5,label:'saves ≥5'}],
+};
+function demoBR(){
+ const dh=((perfMeta.canal||{}).demografia_historico)||[];
+ const cur=(perfMeta.canal||{}).demografia;
+ const share=snap=>{const c=(snap.engaged_audience_demographics_country)||{};const tot=Object.values(c).reduce((a,b)=>a+b,0);return tot?100*(c.BR||0)/tot:null;};
+ const now=cur?share(cur):(dh.length?share(dh[dh.length-1]):null);
+ const first=dh.length?share(dh[0]):now;
+ return {now,first,delta:(now!=null&&first!=null)?now-first:null,since:dh.length?dh[0].t.slice(5,10):''};
+}
+function brAt(t0){
+ const dh=((perfMeta.canal||{}).demografia_historico)||[];
+ const share=snap=>{const c=(snap.engaged_audience_demographics_country)||{};const tot=Object.values(c).reduce((a,b)=>a+b,0);return tot?100*(c.BR||0)/tot:null;};
+ let base=null; dh.forEach(sn=>{if(Date.parse(sn.t)<=t0) base=share(sn);});
+ if(base==null&&dh.length) base=share(dh[0]);
+ return base;
+}
+function getM(d,key){
+ const p=perf[d.id]; if(!p||!p.publicado_em) return null;
+ const m=p.metricas||{}; const alc=m.alcance||0;
+ if(key==='tx_partilha') return alc?+(100*(m.partilhas||0)/alc).toFixed(2):null;
+ if(key==='retencao'){const dur=DUR[d.id]||50;return m.tempo_medio_s?Math.round(100*m.tempo_medio_s/dur):null;}
+ if(key==='comentarios') return m.comentarios??null;
+ if(key==='saves') return m.saves??null;
+ if(key==='ritmo_ref') return ritmo(d.id);
+ if(key==='conv_dia'){const rows=dailyRows();const dk2=dkey(p.publicado_em);const r=rows.find(x=>x.dia===dk2);return r?r.segDelta:null;}
+ if(key==='alc_recorde'){const rows=dailyRows();const dk2=dkey(p.publicado_em);let rec=0,val=null;rows.forEach(x=>{if(x.dia<dk2)rec=Math.max(rec,x.alc||0);if(x.dia===dk2)val=x.alc||0;});return val==null?null:(val>rec?1:0);}
+ if(key==='br_delta'){const now=demoBR().now;const base=brAt(Date.parse(p.publicado_em));return (now!=null&&base!=null)?+(now-base).toFixed(1):null;}
+ return null;
+}
+function fmtM(key,val){
+ if(val==null) return '—';
+ if(key==='tx_partilha') return val.toFixed(2).replace('.',',')+'%';
+ if(key==='retencao') return val+'%';
+ if(key==='ritmo_ref') return val+'%';
+ if(key==='br_delta') return (val>=0?'+':'')+String(val).replace('.',',')+'pp';
+ if(key==='alc_recorde') return val?'sim 🏆':'não';
+ if(key==='conv_dia') return (val>=0?'+':'')+val+' seg';
+ return String(val);
+}
+function evalObj(d){
+ const crit=OBJ[d.id]; const p=perf[d.id];
+ if(!crit||!p||!p.publicado_em) return null;
+ const age=(Date.now()-Date.parse(p.publicado_em))/3600000;
+ const items=crit.map(c=>{const real=getM(d,c.m);const ok=real==null?null:(real>=c.v);return {label:c.label,key:c.m,real,ok};});
+ const pend=items.some(i=>i.ok===null);
+ const oks=items.filter(i=>i.ok===true).length;
+ let verdict, cls;
+ if(age<48&&(pend||true)&&age<48){verdict='⏱ EM MEDIÇÃO';cls='mid';}
+ if(age>=48||!pend){
+   if(oks===items.length){verdict='✓ CUMPRIDO';cls='ok';}
+   else if(oks>0){verdict='~ PARCIAL';cls='mid';}
+   else {verdict='✗ FALHOU';cls='bad';}
+   if(age<48){verdict='⏱ '+verdict.slice(2)+' (parcial, <48h)';cls='mid';}
+ }
+ return {items,verdict,cls,age};
+}
+function objPill(d){
+ const e=evalObj(d); if(!e) return '';
+ const sym=e.cls==='ok'?'🎯✓':(e.cls==='bad'?'🎯✗':'🎯⏱');
+ return `<span class="pill objpill o-${e.cls}" title="objetivo vs realidade — abre o cartão › Gestão">${sym}</span>`;
+}
+function objPanel(d){
+ const e=evalObj(d);
+ if(!e){const crit=OBJ[d.id];if(!crit)return '';return `<div class="objbox"><div class="objh">🎯 OBJETIVO (por medir — ainda não publicado)</div>${crit.map(c=>`<div class="objrow"><span>${c.label}</span><b>—</b></div>`).join('')}</div>`;}
+ return `<div class="objbox"><div class="objh">🎯 OBJETIVO vs REALIDADE <span class="objv o-${e.cls}">${e.verdict}</span></div>
+ ${e.items.map(i=>`<div class="objrow"><span>${i.label}</span><b class="${i.ok===true?'t-ok':(i.ok===false?'t-bad':'')}">${fmtM(i.key,i.real)} ${i.ok===true?'✓':(i.ok===false?'✗':'')}</b></div>`).join('')}
+ </div>`;
+}
+function weekDays(){const now=new Date(Date.now()+3600000);const dow=(now.getUTCDay()+6)%7;const mon=new Date(now);mon.setUTCDate(now.getUTCDate()-dow);const arr=[];for(let i=0;i<7;i++){const dd=new Date(mon);dd.setUTCDate(mon.getUTCDate()+i);arr.push(dd.toISOString().slice(0,10));}return arr;}
+function dkey(t){const dd=new Date(Date.parse(t)+3600000);return dd.toISOString().slice(0,10);}
+function heroSpark(mine,ref){const W=520,Hh=170,P=8;const mx=Math.max(1,...mine.map(p=>p.x),...ref.map(p=>p.x));const my=Math.max(1,...mine.map(p=>p.y),...ref.map(p=>p.y));const path=a=>a.map(p=>((P+(p.x/mx)*(W-2*P))).toFixed(1)+','+((Hh-P-(p.y/my)*(Hh-2*P))).toFixed(1)).join(' ');
+ return `<svg viewBox="0 0 ${W} ${Hh}" style="width:100%;height:auto">${ref.length>1?`<polyline points="${path(ref)}" fill="none" stroke="#3D5247" stroke-width="2.5"/>`:''}${mine.length>1?`<polyline points="${path(mine)}" fill="none" stroke="#2AA971" stroke-width="3"/><circle cx="${(P+(mine[mine.length-1].x/mx)*(W-2*P)).toFixed(1)}" cy="${(Hh-P-(mine[mine.length-1].y/my)*(Hh-2*P)).toFixed(1)}" r="4" fill="#2AA971"/>`:''}</svg>`;}
+function heroAgora(){
+ const nowt=Date.now();
+ const pubs=V.filter(d=>perf[d.id]&&perf[d.id].publicado_em).sort((a,b)=>Date.parse(perf[b.id].publicado_em)-Date.parse(perf[a.id].publicado_em));
+ if(!pubs.length) return '';
+ const live=pubs.find(d=>(nowt-Date.parse(perf[d.id].publicado_em))<24*3600000)||pubs[0];
+ const p=perf[live.id], m=p.metricas||{};
+ const age=(nowt-Date.parse(p.publicado_em))/3600000;
+ const isLive=age<24;
+ const r=ritmo(live.id);
+ const durv=DUR[live.id]||50; const ret=m.tempo_medio_s?Math.round(100*m.tempo_medio_s/durv):null;
+ const txp=(m.alcance? +(100*(m.partilhas||0)/m.alcance).toFixed(2):null);
+ const t0=Date.parse(p.publicado_em);
+ const mine=(p.historico||[]).map(pt=>({x:(Date.parse(pt.t)-t0)/3600000,y:pt.views||0})).filter(q=>q.x>=0);
+ let refId=null,refV=0;V.forEach(v=>{const q=perf[v.id];if(v.id===live.id||!q||!q.publicado_em||!q.historico||!q.historico.length)return;const f=(Date.parse(q.historico[0].t)-Date.parse(q.publicado_em))/3600000;if(f>3)return;if((q.metricas&&q.metricas.views||0)>refV){refV=q.metricas.views;refId=v.id;}});
+ let ref=[];const lim=Math.max(6, mine.length?mine[mine.length-1].x:6);
+ if(refId&&perf[refId].historico){const rt0=Date.parse(perf[refId].publicado_em);ref=perf[refId].historico.map(pt=>({x:(Date.parse(pt.t)-rt0)/3600000,y:pt.views||0})).filter(q=>q.x>=0&&q.x<=lim);}
+ // projeção dia 4 pela curva de referência
+ let proj=null, projPlace=null;
+ if(refId&&age>2&&age<96){const refNow=viewsAtAge(refId,age), ref96=viewsAtAge(refId,96)||refV;
+   if(refNow&&(m.views||0)>0){proj=Math.round((m.views||0)*ref96/refNow/10)*10;
+     projPlace=1+pubs.filter(d=>d.id!==live.id&&((perf[d.id].metricas||{}).views||0)>proj).length;}}
+ // marco: ultrapassar o vídeo imediatamente acima
+ let marco='';
+ if(isLive||age<72){const above=pubs.map(d=>({id:d.id,v:(perf[d.id].metricas||{}).views||0})).filter(x=>x.id!==live.id&&x.v>(m.views||0)).sort((a,b)=>a.v-b.v)[0];
+   const h=p.historico||[];
+   if(above&&h.length>=3){const a=h[h.length-3],b=h[h.length-1];const vel=((b.views||0)-(a.views||0))/Math.max(0.5,(Date.parse(b.t)-Date.parse(a.t))/3600000);
+     if(vel>1){const eta=(above.v-(m.views||0))/vel; if(eta>0&&eta<200) marco=`ultrapassa o #${above.id} em ~${Math.round(eta)}h`;}}}
+ // diagnóstico automático
+ let diag='';
+ if(ret!=null&&txp!=null&&age>3){const rOK=ret>=28, sOK=txp>=1.0;
+   diag=rOK&&sOK?'✅ prende e move — tema a escalar':(rOK&&!sOK?'🟡 prende mas não move — trabalhar CTA/partilhável':(!rOK&&sOK?'🟠 tema-míssil com hook partido — refazer gancho':'🔴 não prende nem move — hook/tema errados'));}
+ // objetivo em direto
+ const e=evalObj(live);
+ const objLine=e?`<div class="h-obj">🎯 ${e.items.slice(0,2).map(i=>`${i.label.split(':')[0]}: <b class="${i.ok===true?'t-ok':(i.ok===false?'t-bad':'')}">${fmtM(i.key,i.real)}${i.ok===true?' ✓':(i.ok===false?' ✗':'')}</b>`).join(' · ')}</div>`:'';
+ const nx=V.filter(dd=>dd.ord&&dd.ord<50&&estadoOf(dd)!=='publicado').sort((a,b)=>a.ord-b.ord)[0];
+ const acao=isLive?'Responder aos comentários — janela de ouro das primeiras 24h':'Preparar o próximo lançamento';
+ return `<div class="hero"><div class="h-l">
+   <div class="h-tag ${isLive?'live':''}">${isLive?'🔴 AO VIVO':'ÚLTIMO LANÇAMENTO'} · PUB #${String(live.ord||0).padStart(2,'0')} · ${(live.t||'').toUpperCase().slice(0,40)}</div>
+   <div class="h-big">${fmtN(m.views||0)}<span> views · ${age<48?age.toFixed(1)+'h':Math.round(age/24)+'d'} de vida</span></div>
+   <div class="h-sub">${r!=null?r+'% do ritmo do melhor · ':''}${txp!=null?('partilhas '+String(txp).replace('.',',')+'% · '):''}${ret!=null?`retenção ${ret}%${ret<28?' ⚠':''}`:''}</div>
+   ${(()=>{const t=ttM(live.id);return t&&t.views?`<div class="h-sub" style="margin-top:4px">TikTok: ${fmtN(t.views)} views · ${fmtN((t.likes||0)+(t.comentarios||0)+(t.partilhas||0)+(t.saves||0))} interações</div>`:'';})()}
+   ${proj?`<div class="h-proj">projeção dia 4: <b>~${fmtN(proj)}</b>${projPlace?` · ${projPlace}.º do canal`:''}${marco?` · ${marco}`:''}</div>`:(marco?`<div class="h-proj">${marco}</div>`:'')}
+   ${diag?`<div class="h-diag">${diag}</div>`:''}
+   ${objLine}
+ </div>
+ <div class="h-c"><div class="h-k">ARRANQUE vs O MELHOR À MESMA IDADE</div>${heroSpark(mine,ref)}<div class="h-leg"><span style="color:#2AA971">— este</span>&nbsp;&nbsp;<span style="color:#6B7F73">— ${refId?'#'+refId:'melhor'}</span></div></div>
+ <div class="h-r"><div class="h-k">⏭ A SEGUIR</div><div class="h-t">${acao}</div>
+   ${nx?`<div class="h-k" style="margin-top:16px">PRÓXIMO LANÇAMENTO</div><div class="h-t">${nx.agenda||''}<br>${nx.t}</div><button class="h-btn" onclick="openModal(${nx.id})">abrir guião + capa →</button>`:''}
+ </div></div>`;
+}
+function kpiRuler(){
+ const ch=(perfMeta.canal||{}).historico||[]; if(!ch.length) return '';
+ const today=dkey(new Date().toISOString());
+ const refDay=dkey(ch[ch.length-1].t);
+ const tp=ch.filter(p=>dkey(p.t)===refDay);
+ const seg=ch[ch.length-1].seguidores;
+ const alcHoje=tp.reduce((mx,p)=>Math.max(mx,p.alcance_dia||0),0);
+ const visHoje=tp.reduce((mx,p)=>Math.max(mx,p.visitas_perfil||0),0);
+ const segIni=tp.length?tp[0].seguidores:seg;
+ const rows=dailyRows(); const full=rows.slice(1,-1);
+ const dLbl=refDay===today?'hoje':'ontem';
+ // META & RITMO
+ const alvo=META.seguidores;
+ const diasRest=Math.max(1,Math.round((Date.parse(META.ate)-Date.now())/86400000));
+ const precisa=(alvo-seg)/diasRest;
+ const j=full.slice(-7); const corrente=j.length?j.reduce((s2,r)=>s2+(r.segDelta||0),0)/j.length:0;
+ let ritmoTxt, ritmoCls;
+ if(corrente<=0){ritmoTxt='📉 parado';ritmoCls='t-bad';}
+ else{const ratio=corrente/precisa;
+   ritmoTxt=ratio>=1?('🚀 '+(ratio>=1.5?'acima do ritmo':'no ritmo')):('📉 '+(precisa/corrente).toFixed(1).replace('.',',')+'× abaixo');
+   ritmoCls=ratio>=1?'t-ok':'t-bad';}
+ // FUNIL do dia (vs média 7d)
+ const prev=full.slice(-8,-1);
+ const avg=(arr,f)=>{const xs=arr.map(f).filter(x=>x!=null&&isFinite(x));return xs.length?xs.reduce((a,b)=>a+b,0)/xs.length:null;};
+ const visRateAvg=avg(prev,r=>r.alc?100*(r.vis||0)/r.alc:null);
+ const convAvg=avg(prev,r=>r.vis?100*(r.segDelta||0)/r.vis:null);
+ const visRate=alcHoje?100*visHoje/alcHoje:null;
+ const conv=visHoje?100*(seg-segIni)/visHoje:null;
+ const cmp=(v,a)=>v==null||a==null?'':(v>a*1.15?' 📈':(v<a*0.85?' 📉':''));
+ // veredito 3 dias
+ const tv=trendVerdict(rows); const short=tv.split('—')[0].trim(); const det=tv.indexOf('—')>-1?tv.split('—')[1].split('·')[0].trim():'';
+ // BR
+ const br=demoBR();
+ return `<div class="kpis">
+  <div class="kpi"><span class="kk">META · ${fmtN(alvo)} SEGUIDORES</span><span class="kv">${fmtN(seg)}<span class="kvs">/${fmtN(alvo)}</span></span><span class="ks">precisa +${precisa.toFixed(1).replace('.',',')}/dia · corrente +${corrente.toFixed(1).replace('.',',')}/dia · <b class="${ritmoCls}">${ritmoTxt}</b></span></div>
+  <div class="kpi"><span class="kk">FUNIL · ${dLbl.toUpperCase()}</span><span class="kv kfun">${fmtN(alcHoje)} → ${fmtN(visHoje)} → ${seg-segIni>=0?'+':''}${seg-segIni}</span><span class="ks">visitas ${visRate!=null?visRate.toFixed(1).replace('.',',')+'%':'—'}${visRateAvg!=null?' (méd '+visRateAvg.toFixed(1).replace('.',',')+'%)':''}${cmp(visRate,visRateAvg)} · conv ${conv!=null?conv.toFixed(1).replace('.',',')+'%':'—'}${convAvg!=null?' (méd '+convAvg.toFixed(1).replace('.',',')+'%)':''}${cmp(conv,convAvg)}</span></div>
+  <div class="kpi"><span class="kk">CANAL · 3 DIAS</span><span class="kv kgreen">${short}</span><span class="ks">${det}</span></div>
+  <div class="kpi"><span class="kk">BR NO ENGAGEMENT</span><span class="kv">${br.now!=null?br.now.toFixed(0)+'%':'—'}</span><span class="ks">${br.delta!=null?((br.delta>=0?'+':'')+br.delta.toFixed(1).replace('.',',')+'pp desde '+br.since):'a acumular série'}</span></div>
+ </div>`;
+}
+function trendStrip(){
+ const pubs=V.filter(d=>perf[d.id]&&perf[d.id].publicado_em).sort((a,b)=>Date.parse(perf[a.id].publicado_em)-Date.parse(perf[b.id].publicado_em));
+ if(pubs.length<2) return '';
+ const rets=pubs.map(d=>({id:d.id,v:getM(d,'retencao')})).filter(x=>x.v!=null);
+ const shs=pubs.map(d=>({id:d.id,v:getM(d,'tx_partilha')})).filter(x=>x.v!=null);
+ const spark=(arr,unit)=>{if(arr.length<2)return '';const W=160,H=36,P=4;const mx=Math.max(...arr.map(x=>x.v)),mn=Math.min(...arr.map(x=>x.v));
+   const pts=arr.map((x,i)=>((P+i*(W-2*P)/(arr.length-1))).toFixed(1)+','+((H-P-((x.v-mn)/Math.max(0.001,mx-mn))*(H-2*P))).toFixed(1)).join(' ');
+   return `<svg viewBox="0 0 ${W} ${H}" class="tspark"><polyline points="${pts}" fill="none" stroke="#2AA971" stroke-width="2"/></svg>`;};
+ const fmt=(arr,dec)=>arr.map(x=>`<span title="#${x.id}">${dec?String(x.v.toFixed(1)).replace('.',','):x.v}</span>`).join('·');
+ return `<div class="tstrip">
+  <div class="titem"><span class="kk">RETENÇÃO POR LANÇAMENTO (prioridade nº1)</span>${spark(rets)}<span class="tvals">${fmt(rets,false)}%</span></div>
+  <div class="titem"><span class="kk">TAXA DE PARTILHA POR LANÇAMENTO (o motor)</span>${spark(shs)}<span class="tvals">${fmt(shs,true)}%</span></div>
+ </div>`;
+}
+let weekMode='linha';
+function setWeekMode(mm){weekMode=mm;render();}
+function weekRibbon(){
+ const wk=weekDays(); const WD=['seg','ter','qua','qui','sex','sáb','dom'];
+ const today=dkey(new Date().toISOString());
+ const cells=wk.map((day,i)=>{
+   let evs='';
+   V.forEach(v=>{const p=perf[v.id];
+     if(p&&p.publicado_em&&dkey(p.publicado_em)===day){const r=ritmo(v.id);evs+=`<div class="wcard done" onclick="openModal(${v.id})"><b>#${v.id} ✓</b><span>${fmtN((p.metricas||{}).views||0)}v${r!=null?' · 🔴'+r+'%':''}</span></div>`;return;}
+     if(v.agenda&&v.agenda.indexOf('✓')!==0&&v.agenda.indexOf('banco')!==0&&!(p&&p.publicado_em)){const m2=v.agenda.match(/(\d{1,2})\/ago/);if(m2&&('2026-08-'+String(m2[1]).padStart(2,'0'))===day){const hh=(v.agenda.split('·')[1]||'').trim();evs+=`<div class="wcard" onclick="openModal(${v.id})"><b>#${v.id}</b><span>${hh||'agendado'}</span></div>`;}}
+   });
+   return `<div class="wday ${day===today?'today':''}"><div class="wdot ${evs?'on':''}"></div><div class="wlbl">${WD[i]} ${day.slice(8,10)}</div>${evs}</div>`;
+ }).join('');
+ return `<div class="wrib">${cells}</div>`;
+}
+function kanbanView(){
+ const plan=V.filter(d=>d.ord&&d.ord<50);
+ return `<div class="kan">${Object.keys(ESTADOS).map(k=>{const items=plan.filter(d=>estadoOf(d)===k);return `<div class="kcol"><div class="kh">${ESTADOS[k]} · ${items.length}</div>${items.map(d=>`<div class="kcard" onclick="openModal(${d.id})">PUB #${String(d.ord).padStart(2,'0')} · ${d.t.length>26?d.t.slice(0,26)+'…':d.t}</div>`).join('')}</div>`;}).join('')}</div>`;
+}
+function depthPanels(){
+ const rows=dailyRows(); const last=rows.slice(1,-1).slice(-3);
+ const WD=['dom','seg','ter','qua','qui','sex','sáb'];
+ const daily=last.map(r=>{const dt=new Date(r.dia+'T12:00:00');return `<tr><td class="tl" style="font-family:'IBM Plex Mono',monospace">${WD[dt.getDay()]} ${r.dia.slice(8,10)}${r.lanc?' 🎬':''}</td><td>${fmtN(r.views)}</td><td>${fmtN(r.alc)}</td><td>${r.segDelta==null?'—':(r.segDelta>=0?'+':'')+r.segDelta}</td></tr>`;}).join('');
+ const bank=V.filter(d=>!(d.ord&&d.ord<50)).map(d=>({d,s:(score2Of(d)!=null?score2Of(d):scoreOf(d))})).sort((a,b)=>b.s-a.s).slice(0,3);
+ return `<div class="depth">
+  <div class="dpanel"><div class="dh">📊 O CANAL, DIA A DIA</div><table class="stattable"><thead><tr><th class="tl">dia</th><th>views</th><th>alcance</th><th>+seg</th></tr></thead><tbody>${daily}</tbody></table><a class="dlink" href="#" onclick="view='stats';tog();render();return false;">ver stats completos →</a></div>
+  <div class="dpanel"><div class="dh">🗄 BANCO · TOPO ★</div>${bank.map(b=>`<div class="brow" onclick="openModal(${b.d.id})"><span class="bsc">★ ${b.s}</span><span>${b.d.t}</span></div>`).join('')}<a class="dlink" href="#" onclick="view='banco';tog();render();return false;">escolher o próximo batch →</a></div>
+ </div>`;
+}
+const METAS={
+ exposicao:{crescimento_sem:0.15, label:'+15%/semana'},
+ conversa:{crescimento_sem:0.15, er_min:0.05, label:'+15%/semana · ER≥5%'},
+ audiencia:{por_semana:20, alvo:1000, ate:'2026-12-31', label:'+20/semana (alvo 1.000, revisão v15)'}
+};
+let perfTT={videos:{}};
+function ttWeekKey(t){const dd=new Date(Date.parse(t)+3600000);const dow=(dd.getUTCDay()+6)%7;dd.setUTCDate(dd.getUTCDate()-dow);return dd.toISOString().slice(0,10);}
+function igWeeklyAgg(){
+ const rows=dailyRows(); const wk={};
+ rows.forEach(r=>{const k=ttWeekKey(r.dia+'T12:00:00');const w=wk[k]=wk[k]||{views:0,inter:0,seg:0,alc:0};
+  w.views+=r.views||0; w.inter+=(r.part||0); w.seg+=(r.segDelta||0); w.alc=Math.max(w.alc,r.alc||0);});
+ // interações IG mais completas: usar máximos diários de 'inter' do canal via rows (r.inter é contador diário)
+ const rows2=dailyRows(); Object.keys(wk).forEach(k=>{wk[k].interDia=0;});
+ rows2.forEach(r=>{const k=ttWeekKey(r.dia+'T12:00:00'); if(wk[k]) wk[k].interDia+=(r.inter||0);});
+ return wk;
+}
+function ttWeeklyAgg(){
+ const wk={};
+ Object.keys(perfTT.videos||{}).forEach(id=>{
+  const v=perfTT.videos[id]; if(!v.publicado_em) return;
+  const k=ttWeekKey(v.publicado_em); const m=v.metricas||{};
+  const w=wk[k]=wk[k]||{views:0,inter:0,seg:0};
+  w.views+=m.views||0;
+  w.inter+=(m.comentarios||0)+(m.partilhas||0)+(m.saves||0)+(m.likes||0);
+  w.seg+=m.novos_seguidores||0;
+ });
+ return wk;
+}
+function fmtPct(x){return (x>=0?'+':'')+Math.round(100*x)+'%';}
+function metaCard(titulo,emoji,glob,ig,tt,delta,alvoTxt,ok){
+ const v=ok==null?'—':(ok?'✅ na meta':'📉 abaixo');
+ return `<div class="rcard"><div class="rk">${emoji} ${titulo}</div>
+ <div class="rv">${glob}</div>
+ <div class="rplat">IG ${ig} · TT ${tt}</div>
+ <div class="rd">${delta!=null?('vs semana anterior: <b>'+fmtPct(delta)+'</b>'):'a acumular semanas'} · <span class="${ok?'t-ok':'t-bad'}">${v}</span></div>
+ <div class="rt">meta: ${alvoTxt}</div></div>`;
+}
+function rumoRegua(){
+ const ig=igWeeklyAgg(), tt=ttWeeklyAgg();
+ const keys=[...new Set([...Object.keys(ig),...Object.keys(tt)])].sort();
+ if(!keys.length) return '';
+ const cur=keys[keys.length-1], prev=keys[keys.length-2];
+ const g=k=>({views:(ig[k]?ig[k].views:0)+(tt[k]?tt[k].views:0),
+   inter:(ig[k]?(ig[k].interDia||0):0)+(tt[k]?tt[k].inter:0),
+   seg:(ig[k]?ig[k].seg:0)+(tt[k]?tt[k].seg:0)});
+ const c=g(cur), p=prev?g(prev):null;
+ const dv=p&&p.views?c.views/p.views-1:null;
+ const di=p&&p.inter?c.inter/p.inter-1:null;
+ const igc=ig[cur]||{views:0,interDia:0,seg:0}, ttc=tt[cur]||{views:0,inter:0,seg:0};
+ // audiência: ritmo vs meta semanal
+ const okA=c.seg>=METAS.audiencia.por_semana;
+ return `<div class="phase-head" style="margin-top:6px"><h2>🧭 Rumo</h2><span class="meta">semana atual (seg-dom) · global = IG + TikTok</span></div>
+ <div class="rgrid">
+ ${metaCard('EXPOSIÇÃO','🔊',fmtN(c.views)+' views',fmtN(igc.views),fmtN(ttc.views),dv,METAS.exposicao.label,dv==null?null:dv>=METAS.exposicao.crescimento_sem)}
+ ${metaCard('CONVERSA','💬',fmtN(c.inter)+' interações',fmtN(igc.interDia||0),fmtN(ttc.inter),di,METAS.conversa.label,di==null?null:di>=METAS.conversa.crescimento_sem)}
+ ${metaCard('AUDIÊNCIA','👥',(c.seg>=0?'+':'')+c.seg+' seguidores',(igc.seg>=0?'+':'')+igc.seg,(ttc.seg>=0?'+':'')+ttc.seg,null,METAS.audiencia.label,okA)}
+ </div>`;
+}
+function rumoSemanas(){
+ const ig=igWeeklyAgg(), tt=ttWeeklyAgg();
+ const keys=[...new Set([...Object.keys(ig),...Object.keys(tt)])].sort();
+ if(keys.length<1) return '';
+ const rowsH=keys.map((k,i)=>{
+  const igw=ig[k]||{views:0,interDia:0,seg:0}, ttw=tt[k]||{views:0,inter:0,seg:0};
+  const tot=igw.views+ttw.views, inter=(igw.interDia||0)+ttw.inter, seg=igw.seg+ttw.seg;
+  const dd=new Date(k+'T12:00:00');
+  const lbl='S'+(i+1)+' · '+k.slice(8,10)+'/'+k.slice(5,7);
+  return `<tr><td class="tl" style="font-family:'IBM Plex Mono',monospace">${lbl}</td><td>${fmtN(igw.views)}</td><td>${fmtN(ttw.views)}</td><td><b>${fmtN(tot)}</b></td><td>${fmtN(inter)}</td><td>${seg>=0?'+':''}${seg}</td></tr>`;
+ }).join('');
+ return `<div class="phase-head" style="margin-top:22px"><h2>📆 Semana a semana</h2><span class="meta">TikTok atribuído à semana de publicação (atualização manual)</span></div>
+ <div class="stattablewrap"><table class="stattable"><thead><tr><th class="tl">semana</th><th>views IG</th><th>views TT</th><th>views TOTAL</th><th>interações</th><th>+seg</th></tr></thead><tbody>${rowsH}</tbody></table></div>`;
+}
+function rumoAcao(){
+ // melhor e pior da semana + ação recomendada por regras simples
+ const pubs=V.filter(d=>perf[d.id]&&perf[d.id].publicado_em);
+ if(!pubs.length) return '';
+ const wkNow=ttWeekKey(new Date().toISOString());
+ const daSemana=pubs.filter(d=>ttWeekKey(perf[d.id].publicado_em)===wkNow);
+ let melhor=null,pior=null;
+ daSemana.forEach(d=>{
+  const ttv=(perfTT.videos[String(d.id)]||{}).metricas||{};
+  const igv=(perf[d.id].metricas||{});
+  const tot=(igv.views||0)+(ttv.views||0);
+  if(!melhor||tot>melhor.tot) melhor={d,tot};
+  if(!pior||tot<pior.tot) pior={d,tot};
+ });
+ let acao='Manter a cadência e a grelha de horários.';
+ const e67=perfTT.videos['67'];
+ if(e67&&(e67.metricas||{}).views>5000) acao='A fofoca validou em grande no TikTok — gravar a sequela («Quanto ganha um CEO do PSI?») esta semana.';
+ return `<div class="rumoacao"><span class="rk">⚡ AGORA</span>
+ ${melhor?`<span>melhor da semana: <b>#${melhor.d.id}</b> (${fmtN(melhor.tot)} views IG+TT)</span> · `:''}
+ ${pior&&daSemana.length>1?`<span>mais fraco: #${pior.d.id} (${fmtN(pior.tot)})</span> · `:''}
+ <b>${acao}</b></div>`;
+}
+function renderRumo(){ return rumoRegua()+rumoAcao()+rumoSemanas(); }
+function renderCockpit(){
+ return renderRumo()+heroAgora()+trendStrip()+`
+ <div class="phase-head" style="margin-top:28px"><h2>Esta semana</h2><span class="meta"><span class="wtog ${weekMode==='linha'?'on':''}" onclick="setWeekMode('linha')">linha</span> · <span class="wtog ${weekMode==='kanban'?'on':''}" onclick="setWeekMode('kanban')">kanban</span> &nbsp;·&nbsp; <a class="mlink" href="#" onclick="view='cal';tog();render();return false;">mês →</a> · <a class="mlink" href="#" onclick="view='crono';tog();render();return false;">plano completo →</a></span></div>
+ ${weekMode==='linha'?weekRibbon():kanbanView()}
+ ${depthPanels()}`;
+}
+function render(){
+  tog();
+  const app=document.getElementById('app');
+  if(view==='cockpit'){app.innerHTML=renderCockpit();document.getElementById('count').textContent='';return;}
+  if(view==='stats'){app.innerHTML=renderStats();document.getElementById('count').textContent='';return;}
+  if(view==='cal'){app.innerHTML=renderCal();document.getElementById('count').textContent='';return;}
+  if(view==='docs'){app.innerHTML=renderDocs();document.getElementById('count').textContent='';return;}
+  if(view==='banco'){
+    const lb=sorted(filtered().filter(d=>!(d.ord&&d.ord<50)));
+    document.getElementById('count').textContent=`${lb.length} ideias no banco`;
+    app.innerHTML=`<section class="phase"><div class="phase-head"><h2>🗄 Banco de ideias</h2><span class="meta">${lb.length} ideias por agendar — ordena por score para escolher o próximo batch</span></div><div class="grid">${lb.map(card).join('')}</div></section>`;
+    return;
+  }
+  const list=filtered().filter(d=>d.ord&&d.ord<50);
+  document.getElementById('count').textContent=`${list.length}/${V.length} vídeos`;
+  if(!list.length){app.innerHTML='<div class="empty">Nenhum vídeo com estes filtros. Limpa uma etiqueta para veres mais.</div>';return;}
+  if(view==='crono' && sortBy==='plan'){
+    app.innerHTML=nextAction()+FASES.map(f=>{
+      const vids=list.filter(d=>d.fase===f.id).sort((a,b)=>(a.ord??999)-(b.ord??999));
+      if(!vids.length) return '';
+      const done=vids.every(d=>estadoOf(d)==='publicado');
+      return `<section class="phase ${done?'closed':''}"><div class="phase-head clickable" onclick="this.parentElement.classList.toggle('closed')"><h2>${f.nome} <span class="chev">▾</span></h2><span class="meta">${f.meta}${done?' · ✓ concluída':''}</span></div><div class="phase-body"><div class="grid">${vids.map(card).join('')}</div></div></section>`;
+    }).join('');
+  } else {
+    const l=sorted(list);
+    app.innerHTML=`<section class="phase"><div class="phase-head"><h2>${view==='crono'?'Ordenado (a ordenação substitui o cronograma)':'Lista completa'}</h2><span class="meta">${l.length} vídeos</span></div><div class="grid">${l.map(card).join('')}</div></section>`;
+  }
+}
+function openModal(id){
+  const d=V.find(x=>x.id===id);
+  const m=document.getElementById('modal');
+  const hasSb = d.prod && d.prod.sb;
+  const hasAssets = d.prod && d.prod.files && d.prod.files.length;
+  m.innerHTML=`<button class="close" onclick="closeModal()" aria-label="Fechar">✕</button>
+    <div class="pilar">${d.ord&&d.ord<50?`PUB #${String(d.ord).padStart(2,'0')} · `:''}#${String(d.id).padStart(2,'0')} · ${d.pilar} · ${FASES.find(f=>f.id===d.fase).nome}${d.agenda?` · 📅 ${d.agenda}`:''}</div>
+    <h3>${d.t}</h3>
+    <div class="mtabs" role="tablist">
+      <button class="on" onclick="mtab(this,'p-ideia')">💡 Ideia</button>
+      <button onclick="mtab(this,'p-sb')">🎬 Produção</button>
+      <button onclick="mtab(this,'p-assets')">Assets</button>
+      <button onclick="mtab(this,'p-gest')">Gestão</button>
+    </div>
+    <div class="tabpane on" id="p-ideia">${objPanel(d)}
+      <div class="hook">${d.hook}</div>
+      <div class="mratings"><span class="pill scorepill">★ ${scoreOf(d)}/100 esperado</span>${v2Pill(d)}${realPill(d)}${ritmoPill(d)}${objPill(d)}${pills(d)}${d.tags.map(t=>`<span class="pill neutral">${t}</span>`).join('')}</div>
+      <div class="mono" style="font-size:11px;color:var(--ink-soft);margin:-4px 0 8px">Score no perfil ativo (${profile==='cresc'?'Crescimento':'Marca'}) · Crescimento: ${scoreOf(d,'cresc')} · Marca: ${scoreOf(d,'marca')}</div>
+      ${d.ideia?`<div class="ideia">
+        <div class="irow"><h4>A ideia</h4><p>${d.ideia.resumo}</p></div>
+        <div class="irow"><h4>Porque funciona</h4><p>${d.ideia.porque}</p></div>
+        <div class="irow"><h4>O que testa · métrica-juiz</h4><p>${d.intencao||'—'}</p></div>
+        <div class="irow"><h4>Alinhamento com o canal</h4><p>${d.ideia.alinha}</p></div>
+        <div class="irow"><h4>Risco & rigor</h4><p>${d.ideia.risco}</p></div>
+      </div>`:`<div class="mnotes"><h4>Notas</h4><ul>${d.notas.map(n=>`<li>${n}</li>`).join('')}</ul></div>`}
+    </div>
+    <div class="tabpane" id="p-sb">
+      ${d.script?`<div class="mscript" style="margin-top:0"><h4>Guião com tempos</h4><pre>${d.script}</pre></div>`:`<div class="noscript">Guião por escrever — faz-se na semana de produção, com QC às fontes.</div>`}
+      ${d.ideia&&d.notas&&d.notas.length?`<div class="mnotes"><h4>Notas de produção</h4><ul>${d.notas.map(n=>`<li>${n}</li>`).join('')}</ul></div>`:''}
+      ${hasSb?`<iframe class="sbframe" src="${d.prod.sb}" title="Storyboard"></iframe>
+      <div class="mono" style="font-size:11px;color:var(--ink-soft);margin-top:8px"><a href="${d.prod.sb}" target="_blank" style="color:var(--green)">Abrir o storyboard em ecrã inteiro ↗</a></div>`
+      :`<div class="noprod">Storyboard por criar — faz-se na semana de produção deste vídeo, no mesmo formato do vídeo #1 (frames bloco a bloco, tempos de overlays, descrição e 1.º comentário).</div>`}
+    </div>
+    <div class="tabpane" id="p-assets">
+      ${hasAssets?`<div class="assetgrid">${[...d.prod.files].sort((a,b)=>(b.includes('-capa')?1:0)-(a.includes('-capa')?1:0)).map(f=>`<div class="asset${f.includes('-capa')?' capa':''}">${f.includes('-capa')?`<span class="capatag">CAPA</span>`:``}<img loading="lazy" src="${d.prod.dir}${f}" alt="${f}"><a href="${d.prod.dir}${f}" download>${f}</a></div>`).join('')}</div>`
+      :`<div class="noprod">Overlays por gerar — criam-se com o guião, na semana de produção.</div>`}
+      <div class="acommon"><b>Assets comuns a todos os vídeos:</b> <a href="producao/assets/etiquetas-fonte/" target="_blank">etiquetas de fonte</a> · <a href="producao/capcut-pack-b3-4k.zip" download>pacote CapCut completo (.zip)</a> · <a href="producao/README-capcut.md" target="_blank">guia do projeto-molde</a></div>
+    </div>
+    <div class="tabpane" id="p-gest">
+      <div class="gest" style="margin-top:0;border-top:0;padding-top:0"><h4>Gestão · estado e métricas</h4>
+        <div class="estbtns">${Object.keys(ESTADOS).map(k=>`<button class="${estadoOf(d)===k?'on':''}" onclick="setEstado(${d.id},'${k}')">${ESTADOS[k]}</button>`).join('')}</div>
+        <div class="metgrid">
+          <label>Data de publicação<input type="date" id="pub-${d.id}" value="${perfOf(d.id).publicado||''}"></label>
+          ${METRICAS.map(([k,lab])=>`<label>${lab}<input type="number" step="0.1" id="met-${k}-${d.id}" value="${perfOf(d.id).metricas[k]!=null?perfOf(d.id).metricas[k]:''}"></label>`).join('')}
+        </div>
+        <textarea id="nota-${d.id}" placeholder="Aprendizagem deste vídeo (o que funcionou / não funcionou / hipótese para o próximo)">${perfOf(d.id).nota||''}</textarea>
+        <br><button class="apply" onclick="applyPerf(${d.id})">Aplicar (em memória)</button>
+        <div class="hint">As alterações vivem nesta sessão. Para persistir: ⬇ performance.json na barra de topo → substituir o ficheiro no repo → commit.</div>
+      </div>
+    </div>`;
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function mtab(btn, paneId){
+  const m=document.getElementById('modal');
+  m.querySelectorAll('.mtabs button').forEach(b=>b.classList.toggle('on',b===btn));
+  m.querySelectorAll('.tabpane').forEach(p=>p.classList.toggle('on',p.id===paneId));
+  if(paneId==='p-sb'){ const fr=m.querySelector('.sbframe'); if(fr && !fr.src) fr.src=fr.dataset.src; }
+}
+function closeModal(){
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('overlay').addEventListener('click',e=>{if(e.target.id==='overlay')closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+// chips
+const pc=document.getElementById('pilarChips');
+pc.innerHTML=PILARES.map(p=>`<button class="chip ${p==='Todos'?'on':''}" data-p="${p}">${p}</button>`).join('');
+pc.addEventListener('click',e=>{
+  const b=e.target.closest('.chip'); if(!b)return;
+  fPilar=b.dataset.p;
+  pc.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c===b));
+  render();
+});
+const tc=document.getElementById('tagChips');
+tc.innerHTML=TAGS.map(t=>`<button class="chip tagchip" data-t="${t}">${t}</button>`).join('');
+tc.addEventListener('click',e=>{
+  const b=e.target.closest('.chip'); if(!b)return;
+  const t=b.dataset.t;
+  fTags.has(t)?fTags.delete(t):fTags.add(t);
+  b.classList.toggle('on');
+  render();
+});
+document.getElementById('sortSel').addEventListener('change',e=>{sortBy=e.target.value;render();});
+function ptog(){
+  document.getElementById('profCresc').classList.toggle('on',profile==='cresc');
+  document.getElementById('profMarca').classList.toggle('on',profile==='marca');
+}
+document.getElementById('profCresc').addEventListener('click',()=>{profile='cresc';ptog();render();});
+document.getElementById('profMarca').addEventListener('click',()=>{profile='marca';ptog();render();});
+document.getElementById('btnCrono').addEventListener('click',()=>{view='crono';sortBy='plan';document.getElementById('sortSel').value='plan';tog();render();});
+document.getElementById('btnLista').addEventListener('click',()=>{view='lista';tog();render();});
+document.getElementById('btnStats').addEventListener('click',()=>{view='stats';tog();render();});
+document.querySelectorAll('.nv').forEach(b=>b.addEventListener('click',()=>{const v=b.dataset.v; view=v; tog(); render();}));
+function tog(){
+  document.getElementById('btnCrono').classList.toggle('on',view==='crono');
+  document.getElementById('btnLista').classList.toggle('on',view==='lista');
+  document.getElementById('btnStats').classList.toggle('on',view==='stats');
+  const navmap={cockpit:'cockpit',crono:'crono',lista:'crono',cal:'crono',stats:'stats',docs:'docs',banco:'banco'};
+  document.querySelectorAll('.nv').forEach(b=>b.classList.toggle('on',b.dataset.v===navmap[view]));
+  const tb=document.querySelector('.toolbar'); if(tb) tb.style.display=(view==='banco')?'':'none';
+}
+function setEstado(id, est){ perfOf(id).estado = est; openModal(id); render();
+  const m=document.getElementById('modal');
+  mtab(m.querySelectorAll('.mtabs button')[3], 'p-gest'); }
+function applyPerf(id){
+  const pr = perfOf(id);
+  const pub = document.getElementById('pub-'+id); if(pub) pr.publicado = pub.value;
+  METRICAS.forEach(([k])=>{ const el=document.getElementById('met-'+k+'-'+id); if(el) pr.metricas[k] = el.value===''?null:parseFloat(el.value); });
+  const nt = document.getElementById('nota-'+id); if(nt) pr.nota = nt.value;
+  render(); closeModal();
+}
+document.getElementById('btnExport').addEventListener('click', ()=>{
+  const out = {updated:new Date().toISOString().slice(0,10), videos:{}};
+  V.forEach(d=>{ out.videos[d.id] = {estado:estadoOf(d), publicado:perfOf(d.id).publicado||'', metricas:perfOf(d.id).metricas||{}, nota:perfOf(d.id).nota||''}; });
+  const blob = new Blob([JSON.stringify(out,null,2)],{type:'application/json'});
+  const a = document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='performance.json'; a.click();
+});
+const ec = document.getElementById('estadoChips');
+ec.innerHTML = ['Todos',...Object.keys(ESTADOS)].map(k=>`<button class="chip tagchip ${k==='Todos'?'on':''}" data-e="${k}">${k==='Todos'?'Estado: todos':ESTADOS[k]}</button>`).join('');
+ec.addEventListener('click', e=>{
+  const b=e.target.closest('.chip'); if(!b) return;
+  fEstado=b.dataset.e;
+  ec.querySelectorAll('.chip').forEach(c=>c.classList.toggle('on',c===b));
+  render();
+});
+fetch('performance.json?t='+Date.now()).then(r=>r.ok?r.json():null).then(j=>{ if(j&&j.videos){perf=j.videos; perfMeta=j; const sd=document.getElementById('syncDot'); if(sd&&j.ultima_sincronizacao) sd.textContent='● sync '+j.ultima_sincronizacao.slice(11,16);} fetch('performance_tiktok.json?t='+Date.now()).then(r=>r.ok?r.json():null).then(t=>{if(t&&t.videos)perfTT=t;render();}).catch(()=>render()); }).catch(()=>render());
+render();
+</script>
+</body>
+</html>
