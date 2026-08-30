@@ -2,7 +2,7 @@
  "plataforma": "tiktok",
  "modo": "api+manual",
  "ultima_atualizacao": "2026-08-30T14:48",
- "nota": "Atualização manual semanal via TikTok Studio (screenshots). Views/likes/etc são acumulados de vida. tempo_medio_s e pct_completo do Analytics nativo.",
+ "nota": "Atualização manual semanal via TikTok Studio (screenshots). Views/likes/etc são acumulados de vida. tempo_medio_s e pct_completo do Analytics nativo. | novos_seguidores por vídeo DESCONTINUADO a 30/ago (ficou estático desde 23/ago): a fonte de verdade de seguidores é canal.historico (API, horário). Valores antigos mantidos só como registo histórico.",
  "videos": {
   "39": {
    "publicado_em": "2026-08-09T19:29",

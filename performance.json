@@ -1,9 +1,9 @@
 {
- "updated": "2026-08-06",
+ "updated": "2026-08-30",
  "videos": {
   "1": {
    "estado": "publicado",
-   "publicado": "",
+   "publicado": "2026-08-07",
    "metricas": {
     "views": 3203,
     "alcance": 2325,
@@ -3552,8 +3552,8 @@
    "nota": ""
   },
   "6": {
-   "estado": "guiao",
-   "publicado": "",
+   "estado": "publicado",
+   "publicado": "2026-08-15",
    "metricas": {
     "views": 1669,
     "alcance": 1299,
@@ -6090,8 +6090,8 @@
    "nota": ""
   },
   "10": {
-   "estado": "ideia",
-   "publicado": "",
+   "estado": "publicado",
+   "publicado": "2026-08-30",
    "metricas": {
     "views": 1799,
     "alcance": 1368,
@@ -6144,8 +6144,8 @@
    ]
   },
   "11": {
-   "estado": "guiao",
-   "publicado": "",
+   "estado": "publicado",
+   "publicado": "2026-08-23",
    "metricas": {
     "views": 2227,
     "alcance": 1610,
@@ -7047,8 +7047,8 @@
    "nota": ""
   },
   "17": {
-   "estado": "ideia",
-   "publicado": "",
+   "estado": "publicado",
+   "publicado": "2026-08-27",
    "metricas": {
     "views": 779,
     "alcance": 600,
@@ -7209,8 +7209,8 @@
    ]
   },
   "19": {
-   "estado": "guiao",
-   "publicado": "",
+   "estado": "publicado",
+   "publicado": "2026-08-16",
    "metricas": {
     "views": 1502,
     "alcance": 1073,
@@ -9495,8 +9495,8 @@
    "nota": ""
   },
   "30": {
-   "estado": "guiao",
-   "publicado": "",
+   "estado": "publicado",
+   "publicado": "2026-08-20",
    "metricas": {
     "views": 474,
     "alcance": 278,
@@ -10917,8 +10917,8 @@
    ]
   },
   "31": {
-   "estado": "guiao",
-   "publicado": "",
+   "estado": "publicado",
+   "publicado": "2026-08-11",
    "metricas": {
     "views": 1380,
     "alcance": 942,
@@ -14089,7 +14089,7 @@
   },
   "39": {
    "estado": "publicado",
-   "publicado": "",
+   "publicado": "2026-08-09",
    "metricas": {
     "views": 1592,
     "alcance": 1038,
@@ -17674,8 +17674,8 @@
    "nota": ""
   },
   "49": {
-   "estado": "ideia",
-   "publicado": "",
+   "estado": "publicado",
+   "publicado": "2026-08-25",
    "metricas": {
     "views": 2080,
     "alcance": 1643,
@@ -20968,7 +20968,9 @@
      "partilhas": 12,
      "saves": 1
     }
-   ]
+   ],
+   "estado": "publicado",
+   "publicado": "2026-08-13"
   },
   "66": {
    "metricas": {
@@ -22801,7 +22803,9 @@
      "partilhas": 8,
      "saves": 6
     }
-   ]
+   ],
+   "estado": "publicado",
+   "publicado": "2026-08-18"
   },
   "67": {
    "metricas": {
@@ -23878,7 +23882,9 @@
      "partilhas": 12,
      "saves": 4
     }
-   ]
+   ],
+   "estado": "publicado",
+   "publicado": "2026-08-22"
   },
   "68": {
    "metricas": {
@@ -23983,7 +23989,9 @@
      "partilhas": 8,
      "saves": 6
     }
-   ]
+   ],
+   "estado": "publicado",
+   "publicado": "2026-08-29"
   }
  },
  "_leia-me": "Editado via dashboard (botão Exportar) ou à mão. IAs: este ficheiro é o estado operacional do pipeline — estados, datas de publicação, métricas e aprendizagens por vídeo.",
@@ -28456,5 +28464,6 @@
     "engaged_audience_demographics_age": {}
    }
   ]
- }
+ },
+ "_nota_updated": "'updated' = data desta limpeza manual; a frescura real dos dados é 'ultima_sincronizacao' (escrita pelo bot a cada run)."
 }
