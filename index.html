@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Finanças com Dados — Declaração de Desempenho</title>
+<title>Finanças com Dados — Modelo FCD</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -17,37 +17,42 @@
 *{box-sizing:border-box}
 html{background:var(--papel)}
 body{margin:0;color:var(--tinta);font-family:'IBM Plex Sans',sans-serif;font-size:14px;line-height:1.45;
-  background:
-    radial-gradient(circle at 1px 1px, rgba(22,36,29,.045) 1px, transparent 1.6px) 0 0/22px 22px,
-    var(--papel);}
+  background:radial-gradient(circle at 1px 1px, rgba(22,36,29,.045) 1px, transparent 1.6px) 0 0/22px 22px, var(--papel);}
 a{color:var(--azul)}
 .mono{font-family:'IBM Plex Mono',monospace}
 .wrap{max-width:1180px;margin:0 auto;padding:0 20px 80px}
 
-/* ---------- masthead ---------- */
+/* masthead */
 .masthead{border:2px solid var(--linha);background:var(--caixa);margin-top:26px;display:grid;grid-template-columns:1fr auto;position:relative}
-.mh-l{padding:22px 26px 20px}
+.mh-l{padding:22px 26px 18px}
 .mh-min{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--azul);margin-bottom:8px}
 .mh-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(26px,4.4vw,44px);line-height:.98;letter-spacing:-.01em;margin:0}
 .mh-title em{font-style:normal;color:var(--verde)}
 .mh-sub{margin-top:10px;font-size:12.5px;color:var(--tinta-suave);max-width:520px}
-.mh-r{border-left:2px solid var(--linha);padding:18px 22px;display:flex;flex-direction:column;justify-content:space-between;min-width:230px;background:var(--azul-fundo)}
-.mh-field{margin-bottom:10px}
+.mh-r{border-left:2px solid var(--linha);padding:18px 22px;display:flex;flex-direction:column;justify-content:center;gap:10px;min-width:230px;background:var(--azul-fundo)}
 .mh-field .k{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--azul);font-weight:600}
 .mh-field .v{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600}
 .stamp{position:absolute;right:16px;top:-18px;transform:rotate(-11deg);pointer-events:none;opacity:.92}
 @media(max-width:820px){.masthead{grid-template-columns:1fr}.mh-r{border-left:none;border-top:2px solid var(--linha)}.stamp{display:none}}
 
-/* ---------- quadros ---------- */
+/* tabs = modelos */
+.tabs{display:flex;gap:0;margin-top:26px;border:2px solid var(--linha);background:var(--caixa);width:max-content;max-width:100%}
+.tabs button{all:unset;cursor:pointer;padding:10px 22px;font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:14px;letter-spacing:.02em;border-right:2px solid var(--linha)}
+.tabs button:last-child{border-right:none}
+.tabs button[aria-selected="true"]{background:var(--tinta);color:#fff}
+.tabs button .m{font-family:'IBM Plex Mono',monospace;font-weight:400;font-size:9.5px;letter-spacing:.14em;display:block;color:var(--azul)}
+.tabs button[aria-selected="true"] .m{color:var(--menta)}
+.tabs button:focus-visible{outline:2px solid var(--azul);outline-offset:-4px}
+
+/* quadros */
 .quadro{border:2px solid var(--linha);background:var(--caixa);margin-top:26px}
-.q-head{background:var(--tinta);color:#fff;display:flex;align-items:baseline;gap:14px;padding:9px 16px}
+.q-head{background:var(--tinta);color:#fff;display:flex;align-items:baseline;gap:14px;padding:9px 16px;flex-wrap:wrap}
 .q-num{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;color:var(--menta)}
 .q-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:16px;letter-spacing:.02em}
 .q-note{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#BFD0C6;letter-spacing:.06em}
 .q-body{padding:18px}
 @media(max-width:640px){.q-note{display:none}}
 
-/* field boxes */
 .fields{display:grid;gap:0;border:1.5px solid var(--linha)}
 .f{padding:12px 14px 10px;border-right:1.5px solid var(--linha)}
 .f:last-child{border-right:none}
@@ -64,18 +69,18 @@ a{color:var(--azul)}
 .chartbox .ct .k{font-size:10px;letter-spacing:.13em;text-transform:uppercase;font-weight:600}
 .chartbox .ct .kv{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600}
 
-/* table */
+/* tables */
 .tblwrap{overflow-x:auto}
 table{border-collapse:collapse;width:100%;font-size:12.5px}
 th,td{border:1px solid var(--linha-suave);padding:7px 9px;text-align:right;white-space:nowrap}
-th{background:var(--azul-fundo);color:var(--tinta);font-size:10px;letter-spacing:.09em;text-transform:uppercase;position:sticky;top:0}
+th{background:var(--azul-fundo);color:var(--tinta);font-size:10px;letter-spacing:.09em;text-transform:uppercase}
 th button{all:unset;cursor:pointer;font:inherit;letter-spacing:inherit}
 th button:focus-visible{outline:2px solid var(--azul);outline-offset:2px}
 th .arr{color:var(--azul)}
 td.l,th.l{text-align:left}
 td .tt{color:var(--tinta-suave);font-size:11px}
 tr.best td{background:#F0FAF4}
-td .mono,th{font-family:'IBM Plex Mono',monospace}
+tr.wtotal td{background:var(--azul-fundo);font-weight:600}
 .num{font-family:'IBM Plex Mono',monospace}
 .thin{color:var(--tinta-suave)}
 .grpIG{border-left:2.5px solid var(--verde)!important}
@@ -99,13 +104,52 @@ td .mono,th{font-family:'IBM Plex Mono',monospace}
 .cb .bar em{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--vermelho)}
 .cb .pv{font-family:'IBM Plex Mono',monospace;font-size:11.5px;text-align:right}
 
-/* leituras */
 .leituras{list-style:none;margin:0;padding:0}
 .leituras li{padding:10px 4px;border-bottom:1px dashed var(--linha-suave);display:flex;gap:12px;align-items:baseline}
 .leituras li:last-child{border-bottom:none}
 .leituras .tag{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.12em;color:#fff;background:var(--azul);padding:2px 7px;flex:none}
 .leituras .tag.ok{background:var(--verde)} .leituras .tag.warn{background:var(--carimbo)}
 
+/* ===== produção (FCD-2) ===== */
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.chip{all:unset;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.06em;padding:4px 10px;border:1.5px solid var(--linha-suave);background:#fff}
+.chip[aria-pressed="true"]{background:var(--tinta);color:#fff;border-color:var(--tinta)}
+.chip:focus-visible{outline:2px solid var(--azul);outline-offset:1px}
+.ctrl{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:4px 0 14px}
+.ctrl select{font-family:'IBM Plex Mono',monospace;font-size:11px;padding:5px 8px;border:1.5px solid var(--linha-suave);background:#fff}
+.count{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--tinta-suave);margin-left:auto}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:14px}
+.vcard{border:1.5px solid var(--linha);background:#fff;padding:14px;cursor:pointer;position:relative;display:flex;flex-direction:column;gap:6px}
+.vcard:hover{background:#FBFCF9}
+.vcard:focus-visible{outline:2.5px solid var(--azul);outline-offset:2px}
+.vcard .top{display:flex;justify-content:space-between;align-items:baseline;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--azul)}
+.vcard .big{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:24px;line-height:1;color:var(--verde)}
+.vcard .vt{font-weight:600;font-size:13.5px;line-height:1.3}
+.vcard .met{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--tinta-suave)}
+.pillrow{display:flex;flex-wrap:wrap;gap:5px;margin-top:auto;padding-top:6px}
+.pill{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.06em;padding:2px 7px;border:1px solid var(--linha-suave);color:var(--tinta-suave)}
+.pill.score{border-color:var(--tinta);color:var(--tinta);font-weight:600}
+.pill.est{color:#fff;border:none}
+.est-publicado{background:var(--verde)} .est-guiao{background:var(--azul)} .est-gravado{background:#7A5FBF} .est-editado{background:#B3702F} .est-ideia{background:#7d8a82}
+.phase{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:15px;margin:22px 0 10px;display:flex;gap:10px;align-items:baseline}
+.phase .m{font-family:'IBM Plex Mono',monospace;font-weight:400;font-size:10px;color:var(--tinta-suave);letter-spacing:.08em;text-transform:uppercase}
+
+/* modal */
+.overlay{position:fixed;inset:0;background:rgba(22,36,29,.55);display:none;align-items:flex-start;justify-content:center;padding:36px 16px;overflow:auto;z-index:50}
+.overlay.on{display:flex}
+.modal{background:var(--caixa);border:2px solid var(--linha);max-width:760px;width:100%;position:relative}
+.m-head{background:var(--tinta);color:#fff;padding:12px 18px;display:flex;gap:12px;align-items:baseline}
+.m-head .id{font-family:'IBM Plex Mono',monospace;color:var(--menta);font-size:11px;letter-spacing:.14em}
+.m-head h3{margin:0;font-family:'Bricolage Grotesque',sans-serif;font-size:18px}
+.m-close{all:unset;cursor:pointer;margin-left:auto;font-size:20px;line-height:1;padding:0 4px}
+.m-close:focus-visible{outline:2px solid var(--menta)}
+.m-body{padding:18px;display:grid;gap:14px}
+.m-sec .k{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--azul);font-weight:600;margin-bottom:4px}
+.m-sec pre{white-space:pre-wrap;font-family:'IBM Plex Mono',monospace;font-size:12px;background:#FBFCF9;border:1px solid var(--linha-suave);padding:12px;margin:0;max-height:340px;overflow:auto}
+.m-sec ul{margin:0;padding-left:18px;font-size:12.5px}
+
+.rawlist{margin:0;padding-left:18px;font-size:12.5px;color:var(--tinta-suave)}
+.rawlist li{margin:4px 0}
 footer{margin-top:34px;border-top:2px solid var(--linha);padding-top:14px;font-size:12px;color:var(--tinta-suave);display:flex;flex-wrap:wrap;gap:8px 22px}
 .loading{padding:60px;text-align:center;font-family:'IBM Plex Mono',monospace;color:var(--tinta-suave)}
 :focus-visible{outline:2px solid var(--azul);outline-offset:2px}
@@ -123,183 +167,507 @@ footer{margin-top:34px;border-top:2px solid var(--linha);padding-top:14px;font-s
     <circle cx="64" cy="64" r="58" fill="none" stroke="var(--carimbo)" stroke-width="3" opacity=".85"/>
     <circle cx="64" cy="64" r="44" fill="none" stroke="var(--carimbo)" stroke-width="1.5" opacity=".7"/>
     <path id="stc" d="M64 16a48 48 0 1 1 0 96a48 48 0 1 1 0-96" fill="none"/>
-    <text font-family="IBM Plex Mono" font-size="10.5" letter-spacing="2.5" fill="var(--carimbo)" opacity=".9">
-      <textPath href="#stc">FINANÇAS COM DADOS · REGISTO VALIDADO ·</textPath>
-    </text>
+    <text font-family="IBM Plex Mono" font-size="10.5" letter-spacing="2.5" fill="var(--carimbo)" opacity=".9"><textPath href="#stc">FINANÇAS COM DADOS · REGISTO VALIDADO ·</textPath></text>
     <text x="64" y="61" text-anchor="middle" font-family="IBM Plex Mono" font-size="11" font-weight="600" fill="var(--carimbo)" id="stampDate">—</text>
     <text x="64" y="76" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="var(--carimbo)" opacity=".85" id="stampHour"></text>
   </svg>
   <div class="mh-l">
-    <div class="mh-min">Modelo FCD-1 · uso interno · dados: Instagram Graph API + TikTok Display API</div>
-    <h1 class="mh-title">Declaração de <em>Desempenho</em></h1>
-    <div class="mh-sub">Cada número abaixo tem fonte e hora. A missão do canal aplicada ao próprio canal: números oficiais contra intuições.</div>
+    <div class="mh-min">Uso interno · dados: Instagram Graph API + TikTok Display API · sync horário</div>
+    <h1 class="mh-title">Finanças com <em>Dados</em></h1>
+    <div class="mh-sub">A missão do canal aplicada ao próprio canal: cada número abaixo tem fonte e hora. Números oficiais contra intuições.</div>
   </div>
   <div class="mh-r">
     <div class="mh-field"><div class="k">Última sincronização</div><div class="v" id="mhSync">—</div></div>
     <div class="mh-field"><div class="k">Vídeos publicados</div><div class="v" id="mhPubs">—</div></div>
-    <div class="mh-field"><div class="k">Produção &amp; guiões</div><div class="v"><a href="producao.html">abrir Modelo FCD-2 →</a></div></div>
   </div>
 </header>
 
+<nav class="tabs" role="tablist" aria-label="Modelos">
+  <button role="tab" aria-selected="true" id="tabPerf"><span class="m">MODELO FCD-1</span>Desempenho</button>
+  <button role="tab" aria-selected="false" id="tabProd"><span class="m">MODELO FCD-2</span>Produção &amp; ideias</button>
+</nav>
+
 <main id="app"><div class="loading">a carregar performance.json…</div></main>
+<main id="prod" hidden></main>
 
 <footer>
   <span>Fontes: <a href="performance.json">performance.json</a> · <a href="performance_tiktok.json">performance_tiktok.json</a> (robôs horários)</span>
   <span><a href="docs/learnings.md">diário de aprendizagens</a></span>
-  <span><a href="producao.html">dashboard de produção</a></span>
-  <span class="mono" style="font-size:10.5px">nota p/ IAs: histórico horário tem buraco 26–30/ago (scheduler GitHub); reposto via cron externo a 30/ago</span>
+  <span class="mono" style="font-size:10.5px">nota p/ IAs: histórico tem buraco 26–30/ago (scheduler GitHub); reposto via cron externo. Métricas manuais TT (saves, tempo, pct) editam-se no JSON.</span>
 </footer>
 </div>
 
+<div class="overlay" id="overlay"><div class="modal" role="dialog" aria-modal="true" id="modal"></div></div>
+
 <script>
-/* ======== metadados dos vídeos (extraídos do plano de produção) ======== */
-const VMETA = {"1":{"t":"Quase metade de Portugal não paga IRS","pilar":"Impostos","dur":72,"ord":1},"4":{"t":"A cunha fiscal completa (fundido com #5)","pilar":"Impostos","dur":null,"ord":null},"28":{"t":"Tipos de pessoas quando chega o reembolso","pilar":"Humor","dur":null,"ord":null},"6":{"t":"O reembolso do IRS não é um presente","pilar":"Impostos","dur":52,"ord":5},"66":{"t":"Metade de Portugal ganha menos do que isto","pilar":"Salários","dur":61,"ord":7},"67":{"t":"Quanto ganha um deputado?","pilar":"Salários","dur":46,"ord":9},"68":{"t":"Quanto ganha um CEO do PSI?","pilar":"Salários","dur":50,"ord":13},"19":{"t":"Psicologia do investimento (piloto)","pilar":"Mentalidade","dur":59,"ord":6},"23":{"t":"Proteína por euro: ranking do supermercado","pilar":"Treino×Finanças","dur":null,"ord":91},"11":{"t":"O Índice Big Mac explicado","pilar":"Salários","dur":34,"ord":10},"30":{"t":"Manifesto: \"Não é preguiça. É falta de quem explique.\"","pilar":"Mentalidade","dur":45,"ord":8},"2":{"t":"O mapa do IRS: quem paga — e onde estás tu","pilar":"Impostos","dur":null,"ord":null},"39":{"t":"Economia paralela: o número que ninguém sabe","pilar":"Impostos","dur":58,"ord":2},"7":{"t":"A conta que quase ninguém fez (escalões de IRS)","pilar":"Impostos","dur":50,"ord":90},"8":{"t":"IRS Jovem e benefícios que ninguém usa","pilar":"Impostos","dur":null,"ord":null},"10":{"t":"Quantos MINUTOS trabalhas para pagar isto?","pilar":"Salários","dur":50,"ord":14},"12":{"t":"Quanto sobra: a única métrica que importa","pilar":"Salários","dur":null,"ord":null},"13":{"t":"Lisboa vs. Braga vs. Castelo Branco","pilar":"Salários","dur":null,"ord":null},"14":{"t":"Lisboa vs. Salvador vs. São Paulo","pilar":"Salários","dur":null,"ord":null},"15":{"t":"Trabalhar remoto para empresa estrangeira","pilar":"Salários","dur":null,"ord":null},"16":{"t":"Para onde foi o aumento da tua prestação","pilar":"Casa & Dívida","dur":null,"ord":null},"17":{"t":"Quantos ANOS de salário custa uma casa","pilar":"Casa & Dívida","dur":48,"ord":12},"20":{"t":"Juro composto: a força que torna as pessoas ricas","pilar":"Mentalidade","dur":null,"ord":null},"65":{"t":"Alguém encontrou os 4,4 mil milhões?","pilar":"Dinheiro Parado","dur":49,"ord":4},"31":{"t":"200 mil milhões a derreter","pilar":"Dinheiro Parado","dur":52,"ord":3},"32":{"t":"Nem os Certificados de Aforro te salvam","pilar":"Dinheiro Parado","dur":null,"ord":null},"35":{"t":"Poupar NÃO é investir","pilar":"Dinheiro Parado","dur":null,"ord":null},"36":{"t":"Trabalhas mais horas. Ganhas menos 1.249€.","pilar":"Salários","dur":null,"ord":null},"37":{"t":"1 em cada 4 ganha o salário mínimo","pilar":"Salários","dur":null,"ord":null},"40":{"t":"Quanto ganha DE VERDADE um português em 2026","pilar":"Salários","dur":null,"ord":null},"41":{"t":"\"40% de pouco é quase nada\" (carga fiscal comparada)","pilar":"Salários","dur":null,"ord":null},"42":{"t":"Ricos não vendem. Pedem emprestado.","pilar":"Mentalidade","dur":null,"ord":null},"43":{"t":"O preço do dinheiro: a Apple paga 3%, tu pagas 13%","pilar":"Mentalidade","dur":null,"ord":null},"44":{"t":"O trabalho paga até 48%. O capital paga 28.","pilar":"Mentalidade","dur":null,"ord":null},"46":{"t":"Inflação: o imposto que paga dívidas","pilar":"Mentalidade","dur":null,"ord":null},"47":{"t":"Sócio-gerente: salário mínimo + dividendos","pilar":"Mentalidade","dur":null,"ord":null},"48":{"t":"Riqueza é o que não vês","pilar":"Mentalidade","dur":null,"ord":null},"49":{"t":"A regra dos 25x: o teu número de liberdade","pilar":"Mentalidade","dur":45,"ord":11},"50":{"t":"O carro: o maior destruidor de riqueza da classe média","pilar":"Mentalidade","dur":null,"ord":null},"51":{"t":"Milionários fazem-se em negócios aborrecidos","pilar":"Mentalidade","dur":null,"ord":null},"52":{"t":"Lotaria: o imposto voluntário sobre a esperança","pilar":"Mentalidade","dur":null,"ord":null},"53":{"t":"\"Chamam-lhe esquema Ponzi. A verdade é pior — para ti.\"","pilar":"Mentalidade","dur":null,"ord":null},"54":{"t":"O custo de 1%: a comissão que come um quarto do teu património","pilar":"Mentalidade","dur":null,"ord":null},"55":{"t":"Pagar com cartão dói menos — e gastas mais","pilar":"Mentalidade","dur":null,"ord":null},"57":{"t":"Shrinkflation — e a arma que está na etiqueta","pilar":"Mentalidade","dur":null,"ord":null},"58":{"t":"Os impostos escondidos de comprar casa","pilar":"Casa & Dívida","dur":null,"ord":null},"59":{"t":"A penalização da lealdade: quem fica, ganha menos","pilar":"Salários","dur":null,"ord":null},"60":{"t":"Negociar salário: os 15 minutos mais bem pagos da tua vida","pilar":"Salários","dur":null,"ord":null},"61":{"t":"Portugal (quase) não tributa heranças","pilar":"Mentalidade","dur":null,"ord":null},"62":{"t":"Quanto custa um filho em Portugal","pilar":"Mentalidade","dur":null,"ord":null},"64":{"t":"Quanto do teu IRS vai para juros da dívida","pilar":"Impostos","dur":null,"ord":null},"24":{"t":"Suplementos: análise custo-benefício","pilar":"Treino×Finanças","dur":null,"ord":null},"9":{"t":"\"O problema não é o custo de vida. São os salários.\"","pilar":"Salários","dur":null,"ord":null},"21":{"t":"\"A pobreza é o estado inicial\"","pilar":"Mentalidade","dur":null,"ord":null},"38":{"t":"Trabalhadores mais qualificados que os patrões","pilar":"Salários","dur":null,"ord":null},"27":{"t":"POV: o único da família que percebe de IRS no Natal","pilar":"Humor","dur":null,"ord":null},"70":{"t":"Quanto ganha um professor? E um enfermeiro? E um polícia?","pilar":"Salários","dur":null,"ord":null},"71":{"t":"Público vs privado: quem ganha mais, com dados","pilar":"Salários","dur":null,"ord":null},"72":{"t":"O Estado gasta quanto contigo, por dia?","pilar":"Impostos","dur":null,"ord":null}};
-const DUR = {1:72,39:58,31:52,65:49,6:52,19:53,66:52,11:34,67:46,30:45,49:45,17:48,68:50,10:50};
-const META_SEG = {alvo:1000, ate:'2026-12-31'};
-const PUB_FALLBACK = {'1':'2026-08-07T21:30:00Z'};
-const KPI_CONV = 0.30; // % seguidores TT por views 48h — limiar da Lição 9
+/* ================= dados de produção (portados do plano original) ================= */
+const V = [
+{prod:{sb:'producao/video-01/storyboard.html',dir:'producao/video-01/overlays/',files:["v01-1-hook.png", "v01-2-tensao.png", "v01-3-funil.png", "v01-4-causa1.png", "v01-5-causa2.png", "v01-6-causa3.png", "v01-7-reframe.png", "v01-8-cta.png", "v01-9-capa.png"]}, agenda:'✓ publicado sex 7/ago 22h30', ord:1, intencao:'testou hook número-choque · partilhas = motor (validado: 1,9% Superior)', ideia:{resumo:'Quase metade dos agregados nao pagou IRS em 2024 — o numero oficial que ninguem espera.',porque:'Choque + identidade: quem paga sente injustica, quem nao paga sente surpresa — ambos partilham para se posicionar.',alinha:'Pilar Impostos e video-fundacao da tese «numeros oficiais contra intuicoes».',risco:'Leitura politica — neutralizado com fonte AT no ecra e tom estritamente factual.'}, hookNum:true, dep:false, tema:'eu', dur:72, id:1,t:'Quase metade de Portugal não paga IRS',big:'44,7%',pilar:'Impostos',fase:'s1',i:3,v:3,p:1,vida:'Datado (2026)',r:2,tags:['Série'],
+ hook:'"44,7% dos agregados que entregaram declaração não pagaram IRS em 2024. E não é bem o que parece."',
+ script:`PUBLICADO 7/ago - referencia do plano calmo: ~52s (real gravado: 72s - licao da regra do ritmo)\n0-7s: Quase metade dos agregados que entregaram IRS nao pagou um centimo em 2024. [v01-1-hook + fonte-at]\n7-16s: E nao e boa noticia - alias, e o valor mais alto dos ultimos tres anos. Tambem nao e o que parece. [v01-2]\n16-23s: 6,2 milhoes de declaracoes. So 3,4 milhoes pagaram. Os outros 2,8 milhoes em tres grupos. [v01-3-funil + fonte-at]\n23-31s: Um: rendimentos baixos - 1 em cada 5 no salario minimo, 1 em 3 ate 920 euros. [v01-4 + fonte-segsocial]\n31-37s: Dois: deducoes e beneficios anulam o imposto. E o sistema a zerar a conta. [v01-5]\n37-43s: Tres: rendimento que nao chega a declaracao. O minimo na folha, o resto por fora. [v01-6]\n43-48s: E a AT nao publica quanto pesa cada grupo. Ninguem sabe. [v01-7 entra aos 45s]\n48-52s: Qual pesa mais? No proximo video: o terceiro. [v01-8]`, notas:['Dados verificados (AT): 6,2M declarações, 3,4M pagaram.','Versão honesta em duas partes: rendimentos baixos + rendimento não declarado. Nunca afirmar que "ninguém foge".','CTA-debate: "salários baixos ou dinheiro por fora?" — teaser do vídeo #39.'],
+ },
 
-/* ======== helpers ======== */
-const ts = t => { if(!t) return null; return Date.parse(/[zZ]|[+\-]\d\d:?\d\d$/.test(t) ? t : t + 'Z'); };
-const H = 3600000;
-const fmtN = n => n==null?'—':n.toLocaleString('pt-PT');
-const fmtP = (n,d=2) => n==null?'—':n.toFixed(d).replace('.',',')+'%';
-const fmtDT = ms => new Date(ms).toLocaleString('pt-PT',{timeZone:'Europe/Lisbon',day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'});
-const fmtD  = ms => new Date(ms).toLocaleDateString('pt-PT',{timeZone:'Europe/Lisbon',day:'2-digit',month:'short'});
-const esc = s => String(s).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+{id:4,t:'A cunha fiscal completa (fundido com #5)',big:'1.900→1.100€',pilar:'Impostos',fase:'f2',i:3,v:3,p:1,vida:'Evergreen',r:2,tags:['Guardável','PT-BR','Datado (OE2027)'],
+ hook:'"A tua empresa gasta 1.900€ contigo. Tu recebes 1.100€. Vou mostrar-te para onde vão os outros 800."',
+ notas:['Versão elevada do bruto vs. líquido: o conceito isolado é básico demais — a conta de ponta a ponta (custo empresa → conta bancária) surpreende até quem domina o básico.','REGRESSA na época do OE2027/IRS (set-out) — saiu do plano 24/ago a favor do #17 (habitação). Substitui os antigos #4 e #5. ⚠️ Confirmar cunha fiscal na OCDE (Taxing Wages).','Visual físico: bolo/notas fatiado em direto.']},
 
-function seriesAt(hist, key, ms){ // valor interpolado do histórico no instante ms
-  if(!hist||!hist.length) return null;
-  let prev=null;
-  for(const p of hist){ const t=ts(p.t); if(p[key]==null) continue;
-    if(t<=ms) prev={t,v:p[key]}; else { if(!prev) return null; return prev.v + (p[key]-prev.v)*(ms-prev.t)/Math.max(1,t-prev.t); } }
-  return prev?prev.v:null;
-}
-function viewsAtAge(rec, pubMs, hours){
-  if(!rec.historico||!pubMs) return null;
-  const target=pubMs+hours*H;
-  const first=ts(rec.historico[0].t);
-  if(first==null || first-pubMs > 6*H) return null; // sem cobertura do arranque
-  const v=seriesAt(rec.historico,'views',target);
-  return v==null?null:Math.round(v);
-}
+{id:28,t:'Tipos de pessoas quando chega o reembolso',big:'😂',pilar:'Humor',fase:'f2',i:3,v:3,p:1,vida:'Sazonal (abr-ago)',r:1,tags:[],
+ hook:'Sketch: os arquétipos quando cai o reembolso do IRS — o que gasta tudo, o que nem repara, o que faz folha de Excel...',
+ notas:['Adiado: sketches exigem confiança de câmara e audiência — entra quando houver ritmo (Fase 2+) e dentro da janela sazonal (abr.-ago.).','Até lá, humor = tempero dentro dos vídeos de dados (uma frase seca por vídeo).','Par estratégico com o #6: humor primeiro, dados a seguir, na mesma semana.']},
 
-/* ======== gráfico SVG genérico ======== */
-function lineChart(pts, {w=520,h=150,color='#0E8A5F',fill=null,yLabel=v=>fmtN(Math.round(v)),thr=null}={}){
-  if(!pts||pts.length<2) return '<div class="thin mono" style="padding:30px 0;text-align:center">sem série suficiente</div>';
-  const P={l:8,r:8,t:10,b:20};
-  const xs=pts.map(p=>p.x), ys=pts.map(p=>p.y);
-  const x0=Math.min(...xs), x1=Math.max(...xs);
-  let y0=Math.min(...ys), y1=Math.max(...ys);
-  if(thr!=null){y0=Math.min(y0,thr);y1=Math.max(y1,thr);}
-  if(y1===y0) y1=y0+1;
-  const X=x=>P.l+(x-x0)/(x1-x0)*(w-P.l-P.r), Y=y=>h-P.b-(y-y0)/(y1-y0)*(h-P.t-P.b);
+{prod:{sb:'producao/video-06/storyboard.html',dir:'producao/video-06/overlays/',files:["v06-1-hook.png", "v06-2-tensao.png", "v06-3-mecanica.png", "v06-4-payload.png", "v06-5-reframe.png", "v06-6-cta.png", "v06-7-duodecimos.png", "v06-8-decisao.png", "v06-9-capa.png"]}, agenda:'sáb 15/ago · 11h00', ord:5, intencao:'TESTOU janela sazonal → Lição 6: o TEMA puxou a distribuição (2.º melhor arranque; dia recorde de alcance do canal) mas a ressonância falhou — likes 2,2%, partilhas 0,25%, score real ~38. Hook sem número custou a conversão da atenção', ideia:{resumo:'O reembolso do IRS e um emprestimo sem juros ao Estado — e os subsidios ao bolo sao o mesmo mecanismo.',porque:'Inverte um prazer nacional (receber reembolso): dissonancia cognitiva prende ate ao fim.',alinha:'Impostos + honestidade comportamental — instruir sem culpar e a voz da casa.',risco:'Janela sazonal: so faz sentido em agosto, com os reembolsos frescos na memoria.'}, hookNum:false, dep:false, tema:'eu', dur:52, id:6,t:'O reembolso do IRS não é um presente',big:'0% juros',pilar:'Impostos',fase:'s1',i:3,v:3,p:1,vida:'Evergreen',r:2,tags:['Guardável'],
+ hook:'"Recebeste reembolso? Parabéns: emprestaste dinheiro ao Estado durante um ano, a juro zero, enquanto a inflação o comia."',
+ script:`~120 palavras = ~52s reais - PONTE com duodecimos adicionada (8/ago) - JANELA SAZONAL: publicar em agosto\n0-5s: Recebeste reembolso do IRS? Emprestaste dinheiro ao Estado. A juro zero. [v06-1-hook + fonte-at]\n5-7s: E nao e um presente. [v06-2]\n7-17s: Todos os meses retem-te por tabelas gerais. Se retem a mais, o Estado usa o teu dinheiro o ano inteiro - e devolve sem juros. [v06-3 + fonte-at]\n17-21s: E devolve mais magro: a inflacao comeu no caminho. [v06-4 + fonte-ine]\n21-33s: E nos fazemos o mesmo a nos proprios: subsidios de ferias e de Natal. Receber em duodecimos ou ao bolo? E o mesmo dinheiro - so muda quem o guarda por ti. [v06-7-duodecimos NOVO]\n33-43s: A matematica prefere receber antes. Mas se o bolo e a unica poupanca que consegues fazer... ele tem valor. So decide isso conscientemente - nao por defeito. [v06-8-decisao NOVO]\n43-49s: Reembolso grande e retencao desajustada. Confirma na empresa: dependentes, estado civil, titularidade. [v06-5]\n49-52s: Este ano: grande ou pequeno? E os subsidios - bolo ou duodecimos? [v06-6]`, notas:['Versão rigorosa da ideia dos 14 meses — a retenção na fonte excessiva é o mecanismo real e factualmente blindado.','Bónus prático no fim: como ajustar a retenção para receber mais todos os meses.']},
+
+{prod:{sb:'producao/video-66/storyboard.html',dir:'producao/video-66/overlays/',files:["v66-1-hook.png", "v66-2-mente.png", "v66-3-medias.png", "v66-4-porque.png", "v66-5-reframe.png", "v66-6-cta.png"]}, agenda:'ter 18/ago · 19h00', ord:7, intencao:'estreia pilar Salários (fofoca c/ dados) · vigiar comentários acima/abaixo + saves', ideia:{resumo:'INE 2024, em liquido: metade leva para casa menos de 980€/mes (media liquida 1.142) — e a media bruta das noticias (1.611) esconde-o.',porque:'Auto-posicionamento instantaneo: toda a gente se compara sem precisar de revelar o salario.',alinha:'Estreia do pilar Salarios — a «fofoca com dados» pedida pela estrategia.',risco:'Universos diferentes (privado vs total): datas e fontes declaradas NO eixo e na nota fixada.'}, hookNum:true, dep:false, tema:'eu', dur:61, id:66,t:'Metade de Portugal ganha menos do que isto',big:'~980€',pilar:'Salários',fase:'s2',i:3,v:3,p:1,vida:'Datado',r:2,tags:['Guardável'],
+ hook:'"Metade dos trabalhadores em Portugal levava para casa menos de 980€/mês. E a média das notícias esconde-o."',
+ script:`~140 palavras = ~61s - v11 CORRIGIDA 18/ago (erro factual resolvido: 1.298 media liquida trimestral NAO EXISTE - substituido por 1.835 bruto jun/26 rotulado corretamente; aposta recalculada ~1.040; hook REVERTIDO ao declarativo puro - apanhado do Bernardo: nenhum video do canal abre com pergunta, e o tema salario ja e auto-relevante sem precisar de convite)
+0-7s: Metade dos trabalhadores em Portugal levava para casa menos de novecentos e oitenta euros por mes. [v66-8-hero + fonte-ine]
+8-15s: Mas a media nao e bem mais alta? E - mil cento e quarenta e dois nesse ano, em liquido. E mesmo essa... mente. [v66-2]
+15-25s: A media, puxada para cima pelos salarios altos. A mediana - a linha que divide os trabalhadores ao meio - 980. E nos jovens? Metade ganhava o minimo. Ou menos. [v66-7-eixo]
+25-37s: Poe dez trabalhadores em fila, do que leva menos ao que leva mais: o do meio leva novecentos e oitenta. E um em cada cinco... ganha o salario minimo. [v66-10-pessoas]
+37-53s: Estes numeros sao de 2024. Sabemos a media - mas so a bruta, e so trimestral: em junho ja ia nos mil oitocentos e trinta e cinco, e sobe todos os trimestres. A mediana liquida? Essa so sai uma vez por ano. E ainda nao saiu. Nas minhas contas: deve andar a volta dos mil e quarenta. [v66-11 -> v66-12-aposta CORRIGIDO aos ~46s]
+53-63s: Quando o INE a publicar, volto aqui - e vemos se acertei. Ate la: acima ou abaixo da linha do meio? Nao precisas de dizer o numero. [v66-6-cta]`, notas:['Fofoca com dados: auto-posicionamento instantâneo — o CTA não pede o número, pede acima/abaixo','Média vs mediana = literacia estatística disfarçada de voyeurismo salarial','⚠️ bruto vs líquido: dizer os qualificativos em voz alta; nota fixada explica','Estreia do pilar Salários — se funcionar, é série (por profissão, por setor, por idade)']}, {prod:{sb:'producao/video-67/storyboard.html',dir:'producao/video-67/overlays/',files:["v67-1-hook.png", "v67-2-escada.png", "v67-3-minimos.png", "v67-4b-eurodeputado.png", "v67-4-twist.png", "v67-5-cta.png"]}, agenda:'sáb 22/ago · 11h00', ord:9, intencao:'fofoca c/ tabela pública · vigiar partilhas + alcance não-seguidores', ideia:{resumo:'Quanto ganha um deputado: a escada oficial ate ao Presidente, e o twist do eurodeputado.',porque:'Fofoca maxima com tabela publica — verificavel ao centimo, impossivel de desmentir.',alinha:'Serie Salarios; sabado de manha e horario de curiosidade partilhavel.',risco:'Leitura partidaria — o twist europeu desarma os dois lados; zero adjetivos.'}, hookNum:true, dep:false, tema:'eu', dur:46, id:67,t:'Quanto ganha um deputado?',big:'4.600€',pilar:'Salários',fase:'s2',i:3,v:3,p:1,vida:'Datado',r:2,tags:['Guardável'],
+ hook:'"Quanto ganha um deputado? A tabela é pública — e o twist não é o que esperas."',
+ script:`~128 palavras = ~50s - v2 CORRIGIDA 19/ago (QC total feito): hook revertido a declarativo (sem pergunta) + numeros nacionais confirmados na fonte (rotulados 2025) + TWIST CORRIGIDO (eurodeputado 11.255 bruto - o \"20 mil\" era mito ja desmentido pelo Poligrafo) + confirmado 14 meses + porta aberta sobre regalias (sem numeros nao verificaveis)\n0-5s: Isto e o que um deputado ganha, ao centimo. A tabela e publica. [v67-1-hook + fonte-parlamento]\n5-19s: Deputado em exclusividade: uns 4.600 brutos, com despesas de representacao - a 14 meses, como o resto do pais. Ministro: 7.600. Primeiro-ministro: 8.800. Presidente da Republica: 11.700 - o salario de referencia de todos os outros. [v67-2-escada]\n19-26s: Comparando com quem trabalha: um deputado ganha cinco salarios minimos. O Presidente, quase treze. [v67-3-minimos]\n26-38s: E o twist: um eurodeputado ganha mais do dobro de um deputado portugues - onze mil e duzentos e cinquenta e cinco brutos. Mas nem chega ao que o nosso Presidente ganha. [v67-4b-eurodeputado NOVO + fonte-europarl]\n38-42s: O debate certo nao e o valor: e o que recebemos em troca. [v67-4-twist]\n42-46s: E isto e so o vencimento base - ha ajudas de custo e abonos por cima, que nao vou tentar somar aqui. [v67-5-cta]\n46-50s: Achas justo? Diz-me porque - com numeros, claro.`, notas:['A fofoca máxima: salários públicos por lei — verificável ao cêntimo','Neutralidade blindada: o vídeo não julga; o twist europeu (eurodeputado 21,4 mil€) desarma os dois lados','Comparação limpa bruto-bruto: 5 salários mínimos (4.600/920) · PR quase 13','⚠️ confirmar tabela 2026 no Parlamento.pt (valores atuais: compilação +Liberdade 2025)']},
+{prod:{sb:'producao/video-68/storyboard.html',dir:'producao/video-68/overlays/',files:["v68-9-capa.png","v68-1-hook.png","v68-2-escada.png","v68-3-global.png","v68-4-pacote.png","v68-5-reframe.png","v68-6-cta.png"]}, agenda:'sáb 29/ago · 11h00', ord:13, intencao:'2.ª experiencia da serie fofoca (o #67 validou c/ 7,2k views TT) · comparar para cima, nao para baixo', ideia:{resumo:'Quanto ganha o CEO mais bem pago do PSI — e comparacao com o CEO mediano do S&P 500 (EUA).',porque:'Sequela direta do breakout do #67; angulo motivacional (compara com os melhores, nao com os piores) em vez de indignacao.',alinha:'Serie Salarios/fofoca; sabado 11h = a janela do breakout.',risco:'Podia ler-se como ataque a gananciosos — resolvido: zero comparacao com trabalhadores/minimos, so comparacao para cima (EUA) + pergunta neutra sobre desempenho.'}, hookNum:true, dep:false, tema:'eu', dur:50, id:68,t:'Quanto ganha um CEO do PSI?',big:'416 mil€/mês',pilar:'Salários',fase:'s3',i:3,v:3,p:1,vida:'Datado (2026)',r:1,tags:['Série','PT-BR'],
+ hook:'"O CEO mais bem pago da bolsa portuguesa ganha 416 mil euros. Por mês."',
+ script:`~130 palavras = ~50s - NOVO 24/ago, v2 apos feedback (comparar para cima, nao para baixo; CTA vira palpite p/ serie)\n0-6s: O CEO mais bem pago da bolsa portuguesa ganha quatrocentos e dezasseis mil euros. Por mes. [v68-1-hook + fonte-cmvm]\n6-15s: Pedro Soares dos Santos, Jeronimo Martins - a dona do Pingo Doce: cinco milhoes brutos num ano. A escada: EDP, dois virgula um milhoes. Galp, um virgula quatro - a dobrar, porque tem dois CEOs. [v68-2-escada]\n15-26s: E o twist: a escala global, isto ate e pouco. O CEO mediano das quinhentas maiores empresas americanas ganhou dezassete virgula sete milhoes de dolares no ano passado - mais do triplo do nosso numero um. [v68-3-global + fonte-equilar]\n26-36s: Como se constroi um pacote destes? Fixo - pago a catorze meses, como o resto do pais. Variavel, ligado a resultados. Acoes da empresa. E regalias: carro, seguros, plano de reforma. [v68-4-pacote]\n36-44s: Quem decide estes valores? Nao e o Estado - sao os acionistas. E o debate certo nao e o numero: e se o desempenho o justifica. [v68-5-reframe]\n44-50s: E para a semana: quanto ganha o CEO de um banco? Deixa o teu palpite nos comentarios - eu revelo no proximo video. [v68-6-cta]`,
+ notas:['Pedro Soares dos Santos 5,0M€/2025 (ECO/JN, relatórios CMVM); EDP 2,1M€; Galp 1,4M€ cada co-CEO.','Twist: CEO mediano S&P 500 = $17,7M/2025 (Equilar/AP) — mais do triplo. Zero comparação com trabalhadores/mínimos por decisão editorial (evitar tom de acusação).']},
+ {prod:{sb:'producao/video-19/storyboard.html',dir:'producao/video-19/overlays/',files:["v19-1-hook.png", "v19-2-ciclo.png", "v19-3-payload.png", "v19-4-reframe.png", "v19-5-cta.png"]}, agenda:'dom 16/ago · 18h30', ord:6, intencao:'testa hook FGV + ponte BR · vigiar % público Brasil e partilhas', ideia:{resumo:'O pior inimigo do teu dinheiro es tu: 97% dos day traders perderam (FGV) e quem mais mexe fica 6,5pp atras (Barber & Odean).',porque:'Hook-numero brutal + autoridade academica; confissao no CTA abre a secao de comentarios.',alinha:'Estreia do pilar Mentalidade + primeira ponte deliberada ao publico do Brasil.',risco:'Numeros tem de estar exatos — QC feito as fontes academicas (fechado).'}, hookNum:true, dep:false, tema:'cur', dur:59, id:19,t:'Psicologia do investimento (piloto)',big:'topo↑ fundo↓',pilar:'Mentalidade',fase:'s2',i:3,v:3,p:1,vida:'Evergreen',r:1,tags:['Série','Guardável','PT-BR'],
+ hook:'"O teu cérebro está programado para te fazer perder dinheiro. Prova: compras no topo e vendes no fundo."',
+ script:`~140 palavras = ~59s - v7 APROVADA 12/ago: 3 atos (FGV -> cerebro/ciclo -> era das apps c/ VOZ DE CETICO + letra pequena) - B&O classico desce a nota fixada\n0-9s: 97% de quem tentou viver de trading - comprar e vender na bolsa todos os dias - perdeu dinheiro. Estudo gigante, feito no Brasil. [v19-7-fgv + fonte-estudos]\n9-18s: So 1% ganhou mais que um salario minimo. Nao e burrice - e o cerebro. E o teu faz o mesmo, sem nunca teres feito trading. [v19-1]\n18-25s: Sobe - medo de ficar de fora, compras no topo. Cai - o medo grita mais alto que o plano, vendes no fundo. [v19-2]\n25-40s: Mas isso era antigamente... [VOZ DE CETICO] Os cientistas voltaram a medir, na era das apps: comissoes zero, tudo mais facil - e o resultado foi mexer ainda mais. Milhares a comprar a mesma acao da moda, ao mesmo tempo. Um mes depois? Valia menos 5%. Tiraram o atrito - e o atrito era a ultima defesa contra a emocao. [v19-8-apps NOVO + fonte-estudos]\n40-50s: A prova de hoje? Por lei, as corretoras de trading rapido tem de escrever no site: 70 a 80% dos clientes perdem. Esta la. Na letra pequena. [v19-10-letra NOVO]\n50-55s: A defesa: estrategia decidida a frio, automatica. As regras defines tu - antes. [v19-4]\n55-59s: Ja te apanhaste a decidir com o medo? Eu ja. [v19-5]`, notas:['Candidata a melhor série de fundo: um viés por episódio (aversão à perda, FOMO, ancoragem, manada, custo afundado).','Dado-uau para episódios: behavior gap (Dalbar/Morningstar) ⚠️ confirmar.','Funciona PT e BR sem adaptação.']},
+
+{prod:{sb:'producao/video-23/storyboard.html',dir:'producao/video-23/overlays/',files:["v19-9-capa.png", "v19-7-fgv.png", "v19-1-hook.png", "v19-2-ciclo.png", "v19-8-apps.png", "v19-10-letra.png", "v19-4-reframe.png", "v19-5-cta.png", "v19-6-estudo.png", "v19-3-payload.png"]}, agenda:'banco · crossover a redesenhar', ord:91, id:23,t:'Proteína por euro: ranking do supermercado',big:'€/g',pilar:'Treino×Finanças',fase:'s3',i:3,v:3,p:2,vida:'Evergreen',r:1,tags:['Guardável'],
+ hook:'"O ranking de proteína mais barata do Continente. O #1 vai surpreender-te."',
+ script:`~81 palavras = ~35s reais - PNG do ranking regenera-se com precos reais do dia\n0-4s: Estas a pagar ate tres vezes mais pela mesma proteina. [v23-1-hook + fonte-precos]\n4-8s: O marketing grita na capa. A matematica esta atras. [virar o produto]\n8-20s: A conta que interessa: custo por 20 gramas de proteina. Ovos: centimos. Whey - sim, o suplemento - mais barato que muita comida. Barritas? Ate quatro vezes os ovos. [v23-2-ranking + fonte-precos]\n20-24s: Quanto mais a embalagem grita PROTEIN, mais pagas pelo grito. [v23-3]\n24-30s: Le o rotulo como les um extrato: ignora a capa, procura o numero. [v23-4]\n30-34s: Qual e a tua fonte habitual? Digo-te se pagas o justo. [v23-5]`, notas:['Cruza os dois pilares na perfeição — identidade do canal.','Formato: ranking com preços reais fotografados.']},
+
+{prod:{sb:'producao/video-11/storyboard.html',dir:'producao/video-11/overlays/',files:["v11-1-hook.png", "v11-2-minutos.png", "v11-3-payload.png", "v11-4-reframe.png", "v11-5-cta.png", "v11-6-eixo.png"]}, agenda:'dom 23/ago · 11h00', ord:10, intencao:'testa formato adereço físico · vigiar replays no corte final', ideia:{resumo:'Quantos minutos de trabalho custa um Big Mac em Portugal vs o mundo.',porque:'Unidade universal (tempo) + adereco fisico — novidade de formato que quebra o padrao da grelha.',alinha:'Humor/curiosidade: variedade de textura entre dois videos pesados de salarios.',risco:'Tema-curiosidade partilha menos (licao 2) — aceite como teste de formato, nao de viralidade.'}, hookNum:true, dep:false, tema:'cur', dur:34, id:11,t:'O Índice Big Mac explicado',big:'🍔 PPP',pilar:'Salários',fase:'s2',i:3,v:3,p:1,vida:'Evergreen',r:1,tags:['Guardável','PT-BR'],
+ hook:'"A The Economist mede a economia mundial com... um hambúrguer. E Portugal fica mal na fotografia."',
+ script:`~108 palavras = ~43s - v3 FINAL 19/ago: so dados reais da Economist (sem UBS/minutos) + Portugal dentro de \"zona euro\" honesto (Economist nao separa) + Brasil incluido (ponte PT-BR) + INDIA como wow factor (Maharaja Mac de frango, mais barato do mundo)\n0-5s: Isto e um instrumento de analise economica. A serio - desde 1986. [Big Mac fisico na mao]\n5-13s: O Indice Big Mac, da The Economist: o mesmo hamburguer, em dezenas de paises, para revelar o poder de compra real de cada moeda. [v11-1-hook + fonte-economist]\n13-24s: Nos EUA, seis dolares. Na Suica, nove. Na zona euro - a mesma moeda em todo o lado, Portugal incluido - sete. E no Brasil? Quatro e meio. [v11-6-eixo NOVO]\n24-33s: E o mais barato do mundo? Nem e feito de vaca: na India, e sagrada - o \"Big Mac\" de la e de frango, e custa dois dolares e meio. [v11-6-eixo]\n33-40s: Por isso, um euro em Lisboa nao rende o mesmo que em Zurique - mesmo sendo o mesmo euro. [v11-4-reframe]\n40-43s: Diz-me um pais nos comentarios - eu digo-te o valor. [v11-5-cta]`, notas:['Quase ninguém em PT conhece; toda a gente entende em 10 segundos.','Adereço físico: gravar de Big Mac na mão.','⚠️ Confirmar valores atuais (The Economist, 2x/ano).']},
+
+{prod:{sb:'producao/video-30/storyboard.html',dir:'producao/video-30/overlays/',files:["v30-1-hook.png", "v30-2-retrato.png", "v30-3-manifesto.png", "v30-4-reframe.png", "v30-5-cta.png"]}, agenda:'qui 20/ago · 19h00 → fixar', ord:8, intencao:'manifesto → fixar no perfil · vigiar conversão perfil→seguidor', ideia:{resumo:'O manifesto: os portugueses nao sao maus com dinheiro — ninguem lhes ensinou.',porque:'Absolvicao emocional: o video que se guarda, se envia e define o canal.',alinha:'Fixado no perfil = maquina de conversao visita→seguidor (ataca o elo partido do funil).',risco:'Score OCDE 63/100 por confirmar a fonte antes de gravar.'}, hookNum:false, dep:false, tema:'soc', dur:45, id:30,t:'Manifesto: "Não é preguiça. É falta de quem explique."',big:'13.º/39',pilar:'Mentalidade',fase:'s2',i:3,v:3,p:1,vida:'Evergreen',r:1,tags:['Posicionamento','Guardável'],
+ hook:'"A OCDE testou 39 países. Portugal ficou ACIMA da média em atitudes e comportamentos financeiros... e ABAIXO em conhecimentos. Percebes o que isto significa?"',
+ script:`~100 palavras = ~44s - v2 CORRIGIDA 19/ago: adicionado contexto numerico (media de comparacao a cada valor) + cortada frase do carater (pedido do Bernardo)\n0-5s: Os portugueses nao sao maus com dinheiro por preguica. Esta medido. [v30-1-hook + fonte-ocde]\n5-15s: A OCDE testou 39 paises num indice de literacia financeira, de zero a cem. Portugal: 63 pontos - empatado com a media da OCDE, acima da media de todos os paises testados, que foi 60. [v30-2-retrato]\n15-27s: O resultado divide-se em duas partes. Nas atitudes - a vontade de fazer bem - Portugal tem 63, acima da media de 56. No conhecimento, 61 - abaixo da media de 63. [v30-2-retrato]\n27-34s: As pessoas querem. Falta quem explique. E conhecimento ensina-se. [v30-3-manifesto]\n34-40s: E para isso que este canal existe: numeros, fontes, traducao. [v30-4-reframe]\n40-44s: Envia a quem precisa de ouvir isto. [v30-5-cta]`, notas:['Verificado: OCDE/INFE 2023 via Banco de Portugal — 13.º em 39, 63/100.','Valida a audiência ("tu não és o problema") + declara a missão.','Fixar no perfil como "começa aqui"; usar como reply-with-reel a comentários "as pessoas não querem saber".']},
+
+{id:2,t:'O mapa do IRS: quem paga — e onde estás tu',big:'22%→42%',pilar:'Impostos',fase:'f2',i:3,v:3,p:2,vida:'Datado (2026)',r:2,tags:['Série','Guardável'],
+ hook:'"22% dos contribuintes pagam 42% de todo o IRS. Deixa-me mostrar-te quem são."',
+ notas:['Verificado: classe 40k-100k€ = 22% dos pagadores, 41,67% do imposto.','É AQUI que entra o "3% mais ricos pagam 30%" — depois de confirmado nas tabelas por escalão da AT.','FUNDIDO com o antigo #3: a mesma pirâmide responde às duas perguntas — quem paga (22% pagam 42%) e onde estás tu (só ~2% das declarações >100k€). Fecho interativo: "pausa o vídeo e vê onde estás" — gera partilhas em DM.','Visual: pirâmide de escalões no quadro branco.']},
+
+{prod:{sb:'producao/video-39/storyboard.html',dir:'producao/video-39/overlays/',files:["v39-1-hook.png", "v39-2-tensao.png", "v39-3-estimativas.png", "v39-4-payload2.png", "v39-5-reframe.png", "v39-6-cta.png", "v39-7-causas.png", "v39-9-capa.png"]}, agenda:'dom 9/ago · 18h30', ord:2, intencao:'testou tema-sociedade · lição: o hook precisa de número nos 2s', ideia:{resumo:'Ninguem sabe o tamanho real da economia paralela: quatro estudos serios, quatro numeros (9% a 36%).',porque:'Misterio + honestidade cientifica — admitir «nao se sabe» constroi a credibilidade da casa.',alinha:'Assinatura de rigor: mostrar incerteza e diferenciacao num nicho de certezas baratas.',risco:'Tema-sociedade partilha menos (licao 2, confirmada nos dados) — custo aceite pela credibilidade.'}, hookNum:false, dep:false, tema:'soc', dur:58, id:39,t:'Economia paralela: o número que ninguém sabe',big:'9-36%?',pilar:'Impostos',fase:'s1',i:3,v:3,p:2,vida:'Evergreen',r:2,tags:['Guardável'],
+ hook:'"Quanto vale a economia por fora? A EY diz 9%. Schneider diz 17%. O CEPR diz 24%. A U.Porto diz 34%. E o facto de NINGUÉM saber é o dado mais interessante de todos."',
+ script:`~124 palavras = ~53s reais - definicao + causas adicionadas (8/ago)\n0-5s: Quanto vale a economia paralela em Portugal? Ninguem sabe. A serio. [v39-1-hook + fonte-estudos]\n5-17s: E nao e so crime: e o biscate pago em dinheiro, a obra sem fatura, o arrendamento por fora - tudo o que cria valor mas nunca chega ao radar do Estado. [v39-5]\n17-21s: Fui ver os estudos: quatro estudos serios, quatro respostas. [v39-2]\n21-34s: A EY diz 9%. Schneider, a referencia internacional: 17% - uns 44 mil milhoes. O CEPR: 24% - podio europeu. E a Universidade do Porto: 34% - mais de 80 mil milhoes. [v39-3-estimativas + fonte-estudos]\n34-39s: Mesmo a estimativa mais baixa sao 25 mil milhoes por ano fora do radar. [v39-4]\n39-49s: Porque? Os estudos apontam tres suspeitos: impostos pesados, muito dinheiro vivo, e setores onde a fatura e opcional - construcao, restauracao. Mas isso merece um video proprio. [v39-7-causas NOVO]\n49-53s: Qual te parece real? Diz-me nos comentarios. [v39-6]`, notas:['Vídeo 2 da SEMANA 1 — cumpre literalmente a promessa do CTA do #1.','O uau é a variância: apresentar TODAS as estimativas com fonte, nunca escolher uma como "a verdadeira".','Tom sem culpa: distinguir biscate de sobrevivência de fraude organizada.'],
+ },
+
+{prod:{sb:'producao/video-07/storyboard.html',dir:'producao/video-07/overlays/',files:["v07-1-hook.png", "v07-2-tensao.png", "v07-3-fatias.png", "v07-4-resultado.png", "v07-5-reframe.png", "v07-6-cta.png"]}, agenda:'banco · regressa na época de IRS ou com o OE2027', ord:90, hookNum:true, dep:false, tema:'eu', dur:50, id:7,t:'A conta que quase ninguém fez (escalões de IRS)',big:'35%→21%',pilar:'Impostos',fase:'s3',i:3,v:2,p:1,vida:'Evergreen',r:1,tags:['Guardável'],
+ hook:'"Se estás no escalão dos 35%... provavelmente pagas 21%. A diferença explica-se em 20 segundos, com a tabela das Finanças."',
+ script:`ATENCAO: NAO GRAVAR ate validar taxas 2026 (art. 68 CIRS) - ~81 palavras = ~35s reais\n0-4s: Se estas no escalao dos 35%... provavelmente pagas 21. [v07-1-hook + fonte-at]\n4-7s: A diferenca explica-se em vinte segundos. [v07-2]\n7-20s: O teu rendimento e cortado em fatias - nove. A primeira paga sempre a taxa mais baixa. Quando sobes de escalao, so o dinheiro acima da linha paga a taxa nova. [v07-3-fatias + fonte-at]\n20-29s: Com 30 mil euros coletaveis - depois das deducoes - o escalao assusta, mas a efetiva anda nos vinte e poucos. [numeros exatos apos validacao] [v07-4 + fonte-at]\n29-32s: Um aumento nunca reduz o teu liquido. Nunca. [v07-5]\n32-35s: Ja tinhas feito esta conta? [v07-6]`, notas:['FATOR UAU: escalão dos 34,9% → taxa efetiva ~21% (30.000€ coletável).','Reformulado: ensinar a conta, não desmontar um espantalho — a recusa de aumentos fica numa linha do reframe.','Vale para quem acredita no mito e para quem não acredita.'],
+ },
+
+{id:8,t:'IRS Jovem e benefícios que ninguém usa',big:'<35 anos',pilar:'Impostos',fase:'f2',i:3,v:2,p:1,vida:'Evergreen',r:1,tags:['Guardável'],
+ hook:'"Tens menos de 35 anos e estás a pagar IRS a mais. A sério."',
+ notas:['Público jovem = público do Instagram. ⚠️ Rever regras em vigor no ano da gravação.']},
+
+{prod:{sb:'producao/video-10/storyboard.html',dir:'producao/video-10/overlays/',files:["v10-9-capa.png","v10-1-hook.png","v10-2-conta.png","v10-3-mundo.png","v10-4-mujica.png","v10-5-cta.png"]}, agenda:'dom 30/ago · 11h00', ord:14, intencao:'formato guardavel + serie de conversao preco->tempo; CTA convida comentarios pessoais', ideia:{resumo:'Quanto tempo de trabalho custa o que compras — mediana PT + volta ao mundo do iPhone + Mujica.',porque:'Converte precos em tempo, a moeda universal; auto-relevante sem precisar de convite (L7).',alinha:'Salarios; Serie (pode repetir-se com itens diferentes).',risco:'Nenhum de maior — dados verificados de duas fontes independentes.'}, hookNum:true, dep:false, tema:'eu', dur:50, id:10,t:'Quantos MINUTOS trabalhas para pagar isto?',big:'1 iPhone = 1 mês',pilar:'Salários',fase:'s3',i:3,v:3,p:2,vida:'Evergreen',r:1,tags:['Série','Guardável','PT-BR'],
+ hook:'"Um iPhone não custa mil euros. Custa um mês inteiro da tua vida."',
+ script:`~110 palavras = ~50s - FINAL 24/ago, v3 com volta ao mundo do iPhone + citacao de Mujica\n0-6s: Um iPhone nao custa mil euros. Custa um mes inteiro da tua vida. [iPhone fisico na mao]\n6-14s: A conta: para metade dos portugueses, cada euro custa onze minutos de trabalho. Um cafe? Treze minutos. [v10-2-conta + fonte-ine]\n14-28s: E o mesmo iPhone custa tempos muito diferentes no mundo: na Suica, quatro dias de trabalho. Na Alemanha, nove. Em Portugal, vinte e dois. No Brasil? Sessenta e sete - mais de tres meses. E o pior do estudo, a Turquia: setenta e tres dias. [v10-3-mundo + fonte-picodi]\n28-39s: Ou, como dizia Jose Mujica: quando compras algo, nao pagas com dinheiro. Pagas com o tempo de vida que gastaste para ganhar esse dinheiro. [v10-4-mujica]\n39-50s: Diz-me algo que compraste esta semana - eu digo-te quantas horas de trabalho custou. E guarda isto para a proxima vez que estiveres com o cartao na mao. [v10-5-cta]`,
+ notas:['Base: mediana líquida 980€/2024 (INE), 22 dias×8h → 1€≈11min.','Comparação mundial: Picodi iPhone Index (bases diferentes — médias, não medianas — identificado na nota fixada).']},
+
+{id:12,t:'Quanto sobra: a única métrica que importa',big:'sobram 87€',pilar:'Salários',fase:'f2',i:3,v:2,p:2,vida:'Evergreen',r:2,tags:['Série','Posicionamento'],
+ hook:'"Uma família com 2.000€ líquidos gasta assim. No fim do mês sobram... 87€. E é esse número — não o preço do café — que mede tudo."',
+ notas:['FUNDIDO com o antigo #22: o caso concreto (orçamento de família tipo, ⚠️ inquérito às despesas do INE) é o hook; a taxa de poupança das famílias (⚠️ INE/BdP vs. zona euro) é o macro do reframe.','"Não interessa o que custa — interessa o que sobra": frase-assinatura do canal.']},
+
+{id:13,t:'Lisboa vs. Braga vs. Castelo Branco',big:'1.200>1.800€',pilar:'Salários',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:1,tags:['Série','Guardável'],
+ hook:'"Ganhar 1.200€ em Castelo Branco vale mais do que 1.800€ em Lisboa. As contas:"',
+ notas:['Ninguém compara DENTRO de Portugal.','Rendimento disponível após habitação = o verdadeiro salário. ⚠️ INE/Pordata.']},
+
+{id:14,t:'Lisboa vs. Salvador vs. São Paulo',big:'2.000€ =',pilar:'Salários',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:1,tags:['PT-BR'],
+ hook:'"Com 2.000€ vives assim em Lisboa. No Brasil, vives assim."',
+ notas:['Abre explicitamente a audiência brasileira.','Usar a métrica "quanto sobra" (#12) em vez de listas de preços.']},
+
+{id:15,t:'Trabalhar remoto para empresa estrangeira',big:'🌍 remoto',pilar:'Salários',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:2,tags:['Série','PT-BR'],
+ hook:'"Trabalho em Portugal para uma empresa estrangeira. Isto é o que ninguém te explica."',
+ notas:['Autoridade genuína — vives isto.','Episódios: contrato vs. contractor; segurança social; IRS; como conseguir a primeira oportunidade.']},
+
+{id:16,t:'Para onde foi o aumento da tua prestação',big:'+200€/mês',pilar:'Casa & Dívida',fase:'f2',i:3,v:3,p:2,vida:'Datado (juros)',r:2,tags:['Série','Guardável'],
+ hook:'"A tua prestação subiu 200€/mês. Deixa-me mostrar-te exatamente para onde foi esse dinheiro."',
+ notas:['O tema mais sentido no bolso agora. Visual: capital vs. juros com blocos.','Episódios: amortizar compensa?; fixa vs. variável; renegociar spread; contexto: crédito habitação 111 mil M€ (BdP 2025, maior subida desde 2005). ⚠️ Euribor/BdP.']},
+
+{prod:{sb:'producao/video-17/storyboard.html',dir:'producao/video-17/overlays/',files:["v17-9-capa.png","v17-1-hook.png","v17-2-familia.png","v17-3-fosso.png","v17-4-europa.png","v17-5-reframe.png","v17-6-cta.png"]}, agenda:'qui 27/ago · 19h00', ord:12, intencao:'tema habitacao, ansiedade financeira n.1 do pais · vigiar partilhas', ideia:{resumo:'Quantos anos de salario custa uma casa - taxa de esforco Lisboa/nacional + evolucao 2019-2025 + comparacao europeia.',porque:'Habitacao e o tema mais quente de Portugal agora; nenhum video do canal lhe tocou ainda.',alinha:'Casa & Divida; tema-EU visceral, partilhavel entre geracoes.',risco:'Pode ler-se como so queixa — resolvido: e retrato objetivo, sem culpados apontados.'}, hookNum:true, dep:false, tema:'eu', dur:48, id:17,t:'Quantos ANOS de salário custa uma casa',big:'102%',pilar:'Casa & Dívida',fase:'s3',i:3,v:3,p:2,vida:'Evergreen',r:2,tags:['Guardável','PT-BR'],
+ hook:'"Em Lisboa, a prestação de uma casa mediana custa 102% do salário mediano. Não sobra pouco — não chega."',
+ script:`~105 palavras = ~48s - FINAL 24/ago, aprovado apos 2 rondas de feedback + verificacao final multi-fonte\n0-7s: Em Lisboa, a prestacao de uma casa mediana custa cento e dois por cento do salario mediano. Nao sobra pouco - nao chega. [v17-1-hook + fonte-bdp]\n7-16s: E nao e so quem compra sozinho: para uma familia, comprar leva setenta e seis por cento do rendimento do casal. Arrendar? Oitenta e dois. [v17-2-familia]\n16-26s: E o fosso esta a abrir: desde dois mil e dezanove, as casas subiram noventa e dois por cento. Os salarios? Quarenta e tres. [v17-3-fosso]\n26-36s: E na Europa? Somos o pais da Uniao onde os precos mais sobem - dezassete virgula oito por cento num ano, primeiro lugar. Numa decada: quase o triplo. [v17-4-europa + fonte-eurostat]\n36-43s: Isto nao e um video de solucoes - e o retrato, com numeros oficiais. O que se mede, deixa de se poder negar. [v17-5-reframe]\n43-48s: Quantos anos do teu salario custa a casa que queres? Faz a conta - e diz-me a cidade nos comentarios. [v17-6-cta]`,
+ notas:['102% Lisboa = Banco de Portugal, Boletim Económico mar/2026 — fact-check Público: Verdadeiro.','76%/82% = idealista 2T2026 (família). +92% vs +43% (2019-25) = INE/Jornal Económico. +17,8%/ano = Eurostat, 1.º da UE. +180%/década = Eurostat.']},
+
+{id:20,t:'Juro composto: a força que torna as pessoas ricas',big:'8.ª maravilha',pilar:'Mentalidade',fase:'f2',i:3,v:2,p:1,vida:'Evergreen',r:1,tags:['Série','Guardável','PT-BR'],
+ hook:'"100€/mês desde os 25. Aos 60, tens mais de 100 mil — e a maior parte não foi dinheiro teu. Foi tempo."',
+ notas:['Episódios: o custo de esperar; o juro composto ao contrário (crédito); regra dos 72; "o teu maior ativo é o tempo".','⚠️ Calcular exemplos com taxa assumida DITA no vídeo — rigor.']},
+
+{prod:{sb:'producao/video-65/storyboard.html',dir:'producao/video-65/overlays/',files:["v65-1-hook.png", "v65-2-transfere.png", "v65-3-quem.png", "v65-4-imposto.png", "v65-5-reframe.png", "v65-6-cta.png", "v65-9-capa.png"]}, agenda:'qui 13/ago · 19h00', ord:4, intencao:'TESTOU a sequela encadeada → FALHOU (Lição 4): hook dependente = 19-21% retenção (pior do canal), sem 2.ª onda, 65% do ritmo do #31 às 15h · regra nova: hook autónomo sempre · PLOT TWIST dia 3: saltou para 12 partilhas (2,6% — melhor taxa do canal): tema-míssil, merece 2.ª vida com hook autónomo', ideia:{resumo:'A sequela: para onde foram os 4,4 mil milhoes — o imposto inflacionario.',porque:'Pergunta plantada no #31 + vilao surpreendente (o maior devedor ganha) = twist memoravel.',alinha:'Testa a mecanica de serie encadeada — reter audiencia de video para video.',risco:'Tom anti-Estado — blindado com mecanica aritmetica neutra e nota fixada honesta.'}, hookNum:true, dep:true, tema:'eu', dur:49, id:65,t:'Alguém encontrou os 4,4 mil milhões?',big:'4,4 mil M€',pilar:'Dinheiro Parado',fase:'s1',i:3,v:3,p:2,vida:'Datado',r:2,tags:['Guardável','Série'],
+ hook:'"Os teus depósitos perderam 4,4 mil milhões. Alguém os encontrou? Encontrou — e talvez te surpreenda quem."',
+ script:`~102 palavras = ~48s reais - SEQUELA do #31 - QC pendente: confirmar 4,4 apos inflacao definitiva (12/ago) e dados HFCS antes de afirmacoes distributivas mais fortes\n0-7s: No ultimo video mostrei 4,4 mil milhoes a evaporar dos depositos. Pergunta: alguem os encontrou? [v65-1-hook + fonte-bdp]\n7-12s: Encontrou. A inflacao nao destroi poder de compra - transfere-o. [v65-2-transfere]\n12-24s: Quem perde: quem poupa em euros parados. Quem ganha: quem deve. E o maior devedor do pais e o Estado - cada ponto de inflacao encolhe a divida real. [v65-3-quem]\n24-30s: Isto tem nome: imposto inflacionario. O unico que nao passa no Parlamento. [v65-4-imposto]\n30-36s: E a banca? Paga-te 1% e aplica acima - a margem agradece. [SEM overlay - sobrancelha]\n36-44s: O detalhe desconfortavel: quem so tem depositos paga a conta inteira. Quem tem ativos reais tende a proteger-se. [v65-5-reframe]\n44-49s: Sabias que pagavas este imposto? Diz-me nos comentarios. [v65-6]`, notas:['Sequela direta do #31 — herda a audiência e responde à pergunta plantada pelo «sem ninguém roubar nada»','Conceito-âncora: imposto inflacionário (repressão financeira) — ninguém explica isto em PT','Neutralidade: mecânica aritmética, não acusação — o Estado «ganha» por ser o maior devedor, facto, não opinião','⚠️ QC pré-gravação: 4,5 depende da inflação definitiva (12/ago); afirmações distributivas fortes (pobres→ricos) só após verificar HFCS/BCE','Parte da inflação importada sai do país — dizer na nota fixada para honestidade completa']}, {prod:{sb:'producao/video-31/storyboard.html',dir:'producao/video-31/overlays/',files:["v31-1-hook.png", "v31-2-tensao.png", "v31-3-depositos.png", "v31-4-perdas.png", "v31-5-resultado.png", "v31-6-reframe.png", "v31-7-cta.png", "v31-9-capa.png"]}, agenda:'ter 11/ago · 19h00', ord:3, intencao:'testa tema-EU + arranque 1.ª hora · vigiar partilhas >1,9%', ideia:{resumo:'205 mil milhoes parados no banco a perder ~4,4 mil milhoes de poder de compra por ano.',porque:'Tema-EU (o dinheiro de quem ve) + conta simples de refazer de cabeca — partilha-se como aviso a familia.',alinha:'Dinheiro Parado e a tese central do canal: dados que mudam decisoes reais.',risco:'Parecer conselho de investimento — resolvido com «fica para outro video» e zero produtos.'}, hookNum:true, dep:false, tema:'eu', dur:52, id:31,t:'200 mil milhões a derreter',big:'205 mil M€',pilar:'Dinheiro Parado',fase:'s1',i:3,v:3,p:1,vida:'Datado',r:1,tags:['Guardável'],
+ hook:'"As famílias portuguesas têm 205 MIL MILHÕES no banco — recorde histórico. E esse dinheiro perde valor todos os dias."',
+ script:`~121 palavras = ~52s reais - QC 8/ago com dados de JUNHO (BdP 27 e 31/jul; INE 31/jul; definitivo da inflacao sai 12/ago)\n0-6s: As familias portuguesas tem 205 mil milhoes de euros parados no banco. Recorde historico. [v31-1-hook + fonte-bdp]\n6-11s: Parece bom. Vamos fazer a conta que os bancos nao fazem. [v31-2]\n11-24s: Dados de junho, publicados pelo Banco de Portugal ha duas semanas: uns 90 mil milhoes a ordem, a render zero. 115 a prazo, a render 1,55% - a subir ha cinco meses, mas ainda abaixo dos precos. A inflacao? Tres por cento. [v31-3 + fonte-bdp]\n24-32s: A ordem perde a inflacao inteira: 2,7 mil milhoes por ano. A prazo perde a diferenca: mais 1,7. [v31-4 + fonte-ine]\n32-40s: No total: perto de 4,4 mil milhoes de poder de compra a evaporar por ano. Sem ninguem roubar nada. [v31-5]\n40-48s: O extrato sobe, a riqueza desce. Poupar e o instinto certo - falta o passo seguinte. Fica para outro video. [v31-6]\n48-52s: O teu dinheiro: a ordem ou a prazo? [v31-7]`, notas:['FATOR UAU: ≈3 mil M€/ano perdidos — decomposição honesta: à ordem ~90 mil M€ × 2,2% + a prazo ~112 mil M€ × 0,8%.','Verificado (BdP): recorde desde 1979; juro ~1,4% (4.ª pior taxa da zona euro) vs. inflação atual.','Tom: o vilão é a falta de informação, não o aforrador. CTA prepara o #32.'],
+ },
+
+{id:32,t:'Nem os Certificados de Aforro te salvam',big:'1,54% vs 2,8%',pilar:'Dinheiro Parado',fase:'f2',i:3,v:3,p:1,vida:'Datado (taxas)',r:1,tags:['Guardável'],
+ hook:'"O melhor produto garantido do Estado paga 2,1%. Depois do imposto de 28% sobre os juros, sobram 1,54%. A inflação está em 2,8%. Fizeste a conta?"',
+ notas:['Reformulado (obs. do Bernardo): os CA rendem mais que os depósitos MAS ainda perdem para a inflação depois de impostos — 2,138% × 0,72 ≈ 1,54% líquido vs. ~2,8%.','A conclusão honesta: "garantido" significa a perder devagar. A saída não é um depósito melhor — é aprender a investir.','Fecha o arco: #31 (a derreter) → #32 (nem o garantido chega) → #35 (poupar ≠ investir) → #20 (juro composto).','⚠️ Reconfirmar taxa dos CA do mês e inflação no dia da gravação.']},
+
+{id:35,t:'Poupar NÃO é investir',big:'≠',pilar:'Dinheiro Parado',fase:'f2',i:3,v:2,p:1,vida:'Evergreen',r:1,tags:['Guardável','PT-BR'],
+ hook:'"Os portugueses são bons a poupar e péssimos a investir. E a diferença custa-te milhares de euros."',
+ notas:['Verificado: >metade do património financeiro das famílias em depósitos de baixa remuneração.','Poupar = proteger · investir = crescer. O erro é usar um para o trabalho do outro. Liga a #20.']},
+
+{id:36,t:'Trabalhas mais horas. Ganhas menos 1.249€.',big:'-1.249€',pilar:'Salários',fase:'f2',i:3,v:3,p:1,vida:'Evergreen',r:2,tags:['Posicionamento'],
+ hook:'"39,7 horas por semana — a 5.ª maior carga da UE. E menos 1.249€/mês que a média europeia. O problema não és tu."',
+ notas:['Verificado (Pordata/FFMS 2026): 2.068€ vs. 3.317€ UE; 39,7h vs. 37h.','Pode substituir o #9 como primeiro vídeo da tese — o contraste fala por si sem afirmação polémica.']},
+
+{id:37,t:'1 em cada 4 ganha o salário mínimo',big:'1 em 4',pilar:'Salários',fase:'f2',i:3,v:3,p:1,vida:'Evergreen',r:2,tags:[],
+ hook:'"Um em cada quatro trabalhadores ganha o salário mínimo. Nos jovens, mais de um em três. Não é falta de esforço — é o mercado."',
+ notas:['Verificado: ~23-25% no SMN; 36,1% entre jovens; SMN 2026 = 920€.','Liga ao #1: salários baixos explicam a isenção de IRS.']},
+
+{id:40,t:'Quanto ganha DE VERDADE um português em 2026',big:'1.611→980€',pilar:'Salários',fase:'f2',i:3,v:3,p:1,vida:'Datado (trimestral)',r:2,tags:['Guardável','Posicionamento'],
+ hook:'"O salário médio é 1.694€. Metade dos portugueses leva para casa menos de MIL. Como é que os dois números são verdade ao mesmo tempo?"',
+ notas:['FATOR UAU — a cascata (INE, mais recentes): 1.ºT 2026: total 1.611€ → regular 1.428€ → base 1.335€. Anual 2025: 1.694€/1.277€. Mediano LÍQUIDO ~980€ (2024 — ⚠️ verificar atualização na produção).','Bónus de literacia: 4.ºT 2025 = 1.877€ (subsídio Natal) vs 1.ºT = 1.611€ — os 14 pagamentos fazem a média oscilar; explicar isto É o vídeo.','Amplitude setorial: 1.068€ (agricultura) a 3.206€ (eletricidade) — fator 3x escondido na média.','Candidato a abrir a Fase 2. Liga a #3, #12 e #37.']},
+{id:41,t:'"40% de pouco é quase nada" (carga fiscal comparada)',big:'39% vs 53%',pilar:'Salários',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:2,tags:['Posicionamento','Guardável'],
+ hook:'"Um belga entrega 53% ao Estado. Um português, 39%. Então porque é que o belga vive melhor? A resposta está na base, não na percentagem."',
+ notas:['Versão corrigida da tese: PT ACIMA da média OCDE (39,3% vs 35,1%, Taxing Wages 2026) mas ABAIXO dos ricos europeus (Bélgica 53%, Alemanha 47,8%, França 47%).','O problema: percentagens na zona europeia sobre salários que não são — 39% de 1.694€ deixa muito menos que 47% de 4.000€.','Detalhe OCDE: a cunha sobe mais entre 50-100% do salário médio — morde a classe média cedo.','Rigor: NUNCA dizer "pagamos como os outros" (falso vs. OCDE).']},
+{id:42,t:'Ricos não vendem. Pedem emprestado.',big:'28% vs 3%',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:1,vida:'Evergreen',r:2,tags:['Guardável','Posicionamento'],
+ hook:'"Porque é que um milionário com 10 milhões em ações pede um crédito para comprar casa? Vender custava-lhe 28% — pedir emprestado custa 3."',
+ notas:['Buy-borrow-die adaptado: não vender = não realizar mais-valia = não pagar 28%. Banco empresta barato contra colateral (crédito lombard).','⚠️ Adaptação PT obrigatória: verificar acesso real a crédito lombard e regras de mais-valias em herança — a versão americana (step-up) NÃO se importa diretamente.','Tom: literacia, não receita — "percebe o jogo".']},
+{id:43,t:'O preço do dinheiro: a Apple paga 3%, tu pagas 13%',big:'3% vs 13%',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:1,vida:'Evergreen',r:1,tags:['Guardável','PT-BR'],
+ hook:'"A Apple tem mais dinheiro em caixa do que o PIB de muitos países. E mesmo assim endivida-se de propósito. Porquê?"',
+ notas:['Custo de capital: dívida a 3-5% < capital próprio a 8-12%. Empresas sofisticadas usam dívida como ferramenta.','Ponte pessoal: dívida boa (financia ativos que rendem mais que o juro) vs. má (financia consumo que deprecia).','FUNDIDO com o antigo #45: juro = preço do risco — quem tem colateral (ativos) paga barato; sem colateral, crédito pessoal 8-13% e cartão 15%+. Lição: construir colateral baixa o preço de TODO o crédito futuro.','⚠️ Confirmar exemplos de emissões de dívida corporativa e taxas de crédito pessoal do momento.']},
+{id:44,t:'O trabalho paga até 48%. O capital paga 28.',big:'48 vs 28',pilar:'Mentalidade',fase:'g',i:3,v:3,p:1,vida:'Evergreen',r:3,tags:['Posicionamento','Guardável'],
+ hook:'"Um salário alto pode entregar quase metade ao Estado. Um dividendo entrega sempre 28. O sistema recompensa quem possui — não quem trabalha."',
+ notas:['IRS progressivo até 48% (+solidariedade) + 11% SS vs. taxa liberatória de 28% em dividendos/mais-valias.','Contar como LITERACIA ("o jogo está desenhado assim — joga em conformidade"), nunca como revolta nem conselho de evasão.','Guardar para depois da credibilidade — gera debate político.']},
+{id:46,t:'Inflação: o imposto que paga dívidas',big:'quem ganha?',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:2,tags:['Guardável'],
+ hook:'"A inflação tirou-te poder de compra. Mas a alguém... pagou-lhe as dívidas. E o maior beneficiado é o Estado."',
+ notas:['Afinado (obs. Bernardo): a inflação transfere de quem tem ativos NOMINAIS (dinheiro, depósitos, obrigações) para quem tem dívida — ativos REAIS (imóveis, ações) ficam protegidos no meio.','Três camadas de aha: devedores ganham · aforradores pagam (#31) · os ricos estão dos dois lados vencedores (dívida barata + ativos reais).','O Estado, maior devedor do país, é o maior beneficiário silencioso. ⚠️ Confirmar dívida pública e efeito no rácio.','Referência conceptual: Housel/Galloway (DOAC) — reverificar e adaptar a PT.']},
+{id:47,t:'Sócio-gerente: salário mínimo + dividendos',big:'SMN + 28%',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:2,tags:['Guardável'],
+ hook:'"Conheces empresários que \'ganham o salário mínimo\'? É a otimização legal mais comum em Portugal. E tem custos que ninguém menciona."',
+ notas:['A conta honesta dos dois caminhos: salário (IRS+SS) vs. IRC+28% na distribuição — a vantagem é menor do que parece e há custos escondidos (proteção social mínima, reforma baixa).','Ilumina a causa 2/3 do vídeo de estreia (#1). Literacia dos dois lados.','⚠️ Fazer a conta completa com as taxas do ano antes de gravar.']},
+{id:48,t:'Riqueza é o que não vês',big:'-80.000€',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:1,vida:'Evergreen',r:1,tags:['Guardável','PT-BR','Posicionamento'],
+ hook:'"O carro de 80 mil euros diz-te que alguém GASTOU 80 mil euros. Não te diz que os tem."',
+ notas:['Base: Stanley & Danko (The Millionaire Next Door) + Morgan Housel — a maioria dos milionários não ostenta; ostentação é frequentemente anti-sinal.','⚠️ Citar os estudos pelo nome, não inventar estatísticas.','Riqueza = o dinheiro que NÃO gastaste. Alinha com o registo sóbrio do canal.']},
+{prod:{sb:'producao/video-49/storyboard.html',dir:'producao/video-49/overlays/',files:["v49-9-capa.png","v49-1-hook.png","v49-2-exemplo.png","v49-3-porque.png","v49-4-revisao.png","v49-5-reframe.png","v49-6-cta.png"]}, agenda:'ter 25/ago · 19h00', ord:11, intencao:'melhor ideia do Banco no melhor slot provado (ter 19h) · a conta pessoal', ideia:{resumo:'A regra dos 25x: gastos anuais vezes 25 = o numero de liberdade financeira.',porque:'Hook pratico e imediato — cada espectador faz a conta de cabeca, autoconta instantanea.',alinha:'Mentalidade; formato guardavel/referencia.',risco:'Simplificacao excessiva — resolvido com a nota de rigor completa no comentario fixado.'}, hookNum:true, dep:false, tema:'eu', dur:45, id:49,t:'A regra dos 25x: o teu número de liberdade',big:'25×',pilar:'Mentalidade',fase:'s3',i:3,v:3,p:1,vida:'Evergreen',r:2,tags:['Guardável','PT-BR'],
+ hook:'"O valor de que precisas para parar de trabalhar cabe numa conta de cabeça: os teus gastos anuais, vezes vinte e cinco."',
+ script:`~90 palavras = ~45s - FINAL 24/ago, aprovado apos 2 rondas de feedback\n0-6s: O valor de que precisas para parar de trabalhar cabe numa conta de cabeca: os teus gastos anuais, vezes vinte e cinco. [v49-1-hook + fonte-trinity]\n6-14s: Gastas mil e quinhentos por mes? Sao dezoito mil por ano. Vezes vinte e cinco: quatrocentos e cinquenta mil euros. Esse e o teu numero. [v49-2-exemplo]\n14-25s: A logica vem de um estudo americano dos anos noventa - a regra dos quatro por cento: com esse valor investido, levantas quatro por cento ao ano, e historicamente o dinheiro sobreviveu a trinta anos de reforma. Mesmo para quem se reformou na pior altura possivel. [v49-3-porque]\n25-33s: E o proprio autor reviu a regra o ano passado. Historicamente, o vinte e cinco vezes ate pecou por cauteloso. [v49-4-revisao]\n33-40s: Nao e uma promessa - e uma bussola. E muda a pergunta: deixas de perguntar quanto ganhas, e passas a perguntar quanto te falta. [v49-5-reframe]\n40-45s: Faz a tua conta. Assustou, ou motivou? [v49-6-cta]`,
+ notas:['Regra dos 4% (Bengen 1994 / Trinity Study 1998) invertida: despesas anuais × 25.','Rigor completo no comentário fixado: Bengen reviu para 4,7% em 2024-25; Morningstar 3,7-3,9%; fora dos EUA só válida em 4/14 países (Wade Pfau); FIRE longo prazo → 3,25-3,5% (≈29-30×).']},
+{id:50,t:'O carro: o maior destruidor de riqueza da classe média',big:'-30%/2 anos',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:2,tags:['Guardável','PT-BR'],
+ hook:'"Não é a casa, não são os impostos, não é o café. A decisão financeira que mais riqueza destrói na classe média anda de rodas."',
+ notas:['A conta completa: depreciação (-20-30% nos primeiros anos) + juros + seguro + manutenção + combustível.','⚠️ Construir o exemplo com números portugueses verificáveis.','Tom sem culpa: o vídeo é sobre a DIMENSÃO e o financiamento, não sobre ter carro — "o problema é o carro que o teu rendimento não sustenta".']},
+{id:51,t:'Milionários fazem-se em negócios aborrecidos',big:'🔧',pilar:'Mentalidade',fase:'f2',i:3,v:2,p:1,vida:'Evergreen',r:1,tags:['PT-BR'],
+ hook:'"Canalizações. Lavandarias. Distribuição de material de construção. Os negócios que criam mais milionários são os que ninguém posta no Instagram."',
+ notas:['Margens estáveis + pouca concorrência sofisticada + procura permanente > ideias sexy com mortalidade altíssima.','⚠️ Ancorar com dados de sobrevivência de empresas por setor (INE).','Liga ao #48 — os donos destes negócios são os milionários que não vês.']},
+{id:52,t:'Lotaria: o imposto voluntário sobre a esperança',big:'EV < 0',pilar:'Mentalidade',fase:'f2',i:3,v:2,p:1,vida:'Evergreen',r:2,tags:[],
+ hook:'"O Euromilhões devolve em prémios uma fração do que arrecada. Matematicamente, cada aposta destrói valor. E mesmo assim jogamos. Porquê?"',
+ notas:['Valor esperado negativo explicado com exemplo concreto. ⚠️ Verificar % de retorno em prémios (Santa Casa).','TOM SEM CULPA CRÍTICO: quem joga compra esperança, e a esperança tem valor emocional real. Nunca ridicularizar.','Fechar com o contraste construtivo: os mesmos 10€/semana em juro composto 30 anos (#20).']},
+{id:53,t:'"Chamam-lhe esquema Ponzi. A verdade é pior — para ti."',big:'67%→37%',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:2,vida:'Evergreen (rever projeções)',r:2,tags:['Guardável','Posicionamento'],
+ hook:'"Dizem que a Segurança Social é um esquema Ponzi. Fui ler o relatório oficial de 73 páginas. A resposta é não... e o que lá está é pior para quem tem 30 anos."',
+ notas:['Arbitragem honesta: a semelhança existe (repartição = os teus descontos pagam as pensões de HOJE, o mito do mealheiro) mas a analogia é coxa — transparente, ancorado no poder de tributar, ajustável. CE: sustentável até 2070, défice máx 0,6% PIB (2045).','O verdadeiro uau: não vai falir — vai pagar MENOS. Taxa de substituição ~67% hoje → ~37% na década de 2050, quando quem tem 30-40 anos hoje se reforma. 191→131 contribuintes/100 pensionistas (2019→2070).','Reframe: "não é um esquema — é um haircut anunciado num relatório que ninguém leu". Conclusão construtiva: planear como se a pensão fosse 1/3 → liga #49 e #20.','Rigor: citar CE/Ageing Report e Tribunal de Contas; projeção ≠ certeza; ZERO política de reforma. Pode desdobrar: (a) mito do mealheiro, (b) os 37%.']},
+{id:54,t:'O custo de 1%: a comissão que come um quarto do teu património',big:'1% = -25%',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:1,vida:'Evergreen',r:1,tags:['Guardável','PT-BR'],
+ hook:'"Uma comissão de 1% ao ano parece nada. Em 30 anos de investimento, come cerca de um quarto de tudo o que construíste. Faz a conta comigo."',
+ notas:['O juro composto ao contrário aplicado a comissões — porta de entrada para ETFs low-cost (TER 0,1-0,2% vs fundos bancários 1,5-2%).','⚠️ Calcular o exemplo exato com taxa assumida dita no vídeo.','Liga #20 e #35. Candidato a top do ranking.']},
+{id:55,t:'Pagar com cartão dói menos — e gastas mais',big:'💳 anestesia',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:1,vida:'Evergreen',r:1,tags:['Guardável','PT-BR'],
+ hook:'"O teu cérebro sente dor quando pagas em dinheiro. Com cartão e MB Way... não sente quase nada. E há estudos que medem quanto isso te custa."',
+ notas:['Psicologia do "pagamento invisível" — série #19 material.','⚠️ Citar os estudos pelo nome (pesquisa de pain of paying; leilões com cartão vs cash) — verificar antes de gravar.','FUNDIDO com o antigo #56: o fecho útil é a auditoria de subscrições em 3 passos (extrato → lista → cancelar/negociar) — o mecanismo desagua na ação. ⚠️ dados de subscrições esquecidas para o exemplo.','Truques de fricção: notificações, orçamento semanal em dinheiro.']},
+{id:57,t:'Shrinkflation — e a arma que está na etiqueta',big:'-10% gramas',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:1,tags:['Guardável','PT-BR'],
+ hook:'"Este pacote custa o mesmo que há dois anos. Mas repara no canto: tem menos 50 gramas. Chama-se shrinkflation e está em todo o lado."',
+ notas:['Filmável no supermercado com produtos reais — visual fortíssimo.','⚠️ Exemplos concretos verificáveis (Deco Proteste publica casos).','FUNDIDO com o antigo #63: o preço por kg (unit pricing) é a defesa — problema e arma no mesmo vídeo. Fecho: exemplos de embalagem maior mais cara por kg.']},
+{id:58,t:'Os impostos escondidos de comprar casa',big:'+8-10%',pilar:'Casa & Dívida',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:2,tags:['Guardável'],
+ hook:'"Compraste casa por 250 mil? Prepara mais uns milhares que ninguém te pôs no orçamento: IMT, imposto de selo, registos, avaliação."',
+ notas:['A fatura completa: IMT (progressivo) + selo (0,8% + 0,6% do crédito) + registos + comissões — pode passar de 8-10% em certos escalões.','⚠️ Simular 2-3 exemplos com as tabelas do ano.','Guardável máximo: quem está a comprar casa envia isto ao par.']},
+{id:59,t:'A penalização da lealdade: quem fica, ganha menos',big:'ficar = -X%',pilar:'Salários',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:2,tags:['Posicionamento'],
+ hook:'"Os aumentos internos raramente acompanham o mercado. Quem muda de emprego negoceia o salário inteiro; quem fica negoceia uma percentagem. A matemática é cruel."',
+ notas:['⚠️ CRÍTICO: procurar dados PT/europeus de crescimento salarial de quem muda vs. quem fica antes de afirmar números.','Tom: não é "despede-te" — é conhecer o teu valor de mercado e usar a informação (benchmark anual).','Liga #60 (negociar) e #36.']},
+{id:60,t:'Negociar salário: os 15 minutos mais bem pagos da tua vida',big:'100€→30k€',pilar:'Salários',fase:'f2',i:3,v:3,p:1,vida:'Evergreen',r:1,tags:['Guardável','PT-BR'],
+ hook:'"Um aumento de 100€ hoje não são 100€. Capitalizado ao longo de uma carreira — porque os aumentos seguintes se aplicam em cima — são dezenas de milhares."',
+ notas:['O juro composto aplicado ao salário: cada aumento é a base do próximo.','⚠️ Calcular o exemplo com premissas ditas (carreira de 30 anos, aumentos %).','Utilidade: 3 princípios de negociação com base em benchmark, não em necessidade.']},
+{id:61,t:'Portugal (quase) não tributa heranças',big:'0% diretos',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:2,tags:['Guardável'],
+ hook:'"Em França, herdar pode custar até 45%. Em Espanha, depende da região. Em Portugal? Se és filho ou cônjuge... zero. E quase ninguém sabe."',
+ notas:['Herdeiros diretos (cônjuge, descendentes, ascendentes) isentos; restantes pagam imposto de selo de 10%.','⚠️ Verificar regras exatas e comparação internacional (França, Espanha, Reino Unido) antes de gravar.','Série milionários: relevante para planeamento intergeracional. ZERO conselho fiscal específico — só a mecânica.']},
+{id:62,t:'Quanto custa um filho em Portugal',big:'X€ até aos 18',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:2,vida:'Evergreen',r:2,tags:['Guardável'],
+ hook:'"Já viste o número de quanto custa criar um filho até aos 18 anos em Portugal? Senta-te primeiro."',
+ notas:['⚠️ Procurar estudos PT recentes (estimativas variam muito — apresentar intervalo com fontes, como no #39).','TOM CRÍTICO: informativo para planeamento, NUNCA "filhos são um mau investimento" — o valor de um filho não é financeiro e isso diz-se em voz alta.','Liga ao #22 (orçamento familiar).']},
+{id:64,t:'Quanto do teu IRS vai para juros da dívida',big:'X mil M€/ano',pilar:'Impostos',fase:'f2',i:3,v:2,p:2,vida:'Datado',r:2,tags:[],
+ hook:'"Antes de o Estado gastar um euro em escolas ou hospitais, há uma fatura que paga primeiro: os juros da dívida. E tu financia-la todos os meses."',
+ notas:['⚠️ OE do ano: despesa com juros da dívida pública (mil M€/ano e % da despesa/receita de IRS).','Liga ao #46 (o Estado como maior devedor) — a outra face da mesma moeda.','ZERO política: só a mecânica orçamental e os números.']},
+{id:24,t:'Suplementos: análise custo-benefício',big:'só 3 valem',pilar:'Treino×Finanças',fase:'f2',i:3,v:2,p:1,vida:'Evergreen',r:1,tags:['Guardável'],
+ hook:'"Gastei X€ em suplementos em 2025. Só estes 3 valeram a pena."',
+ notas:['Análise custo-benefício aplicada ao treino — a tua especialidade em ação.']},
+
+{id:9,t:'"O problema não é o custo de vida. São os salários."',big:'90% vs 60%',pilar:'Salários',fase:'g',i:3,v:3,p:2,vida:'Evergreen',r:3,tags:['Posicionamento','PT-BR'],
+ hook:'"Lisboa não é cara. Tu é que ganhas pouco. E os dados provam."',
+ notas:['A tese central — e a mais arriscada.','Blindagem: preços PT ~90% da média UE vs. salários ~60% ⚠️ confirmar Eurostat.','É o vídeo MAIS empático: "não estás louco, não é culpa tua". Publicar após 8-12 vídeos.']},
+
+{id:21,t:'"A pobreza é o estado inicial"',big:'90%→10%',pilar:'Mentalidade',fase:'g',i:2,v:2,p:1,vida:'Evergreen',r:3,tags:['Posicionamento'],
+ hook:'"Ninguém \'ficou\' pobre. A pobreza é o ponto de partida da humanidade. A pergunta certa é: como se GERA riqueza?"',
+ notas:['Anti-fatalismo: o vilão é a ideia "quem nasce pobre morre pobre", nunca as pessoas.','Soma positiva: gerar riqueza cria valor para todos.','Dado de suporte ⚠️: pobreza extrema ~80-90% da humanidade em 1820 vs. <10% hoje (Our World in Data).']},
+
+{id:38,t:'Trabalhadores mais qualificados que os patrões',big:'42% vs 16%',pilar:'Salários',fase:'g',i:3,v:3,p:1,vida:'Evergreen',r:3,tags:['Posicionamento','Guardável'],
+ hook:'"42% dos empregadores têm no máximo o ensino básico — o pior da UE. Os trabalhadores são mais qualificados que os patrões."',
+ notas:['Verificado (Público/FFMS): 42% empregadores c/ ensino básico (média UE 16%) vs. 34% trabalhadores c/ superior.','Explica salários baixos SEM culpar quem trabalha — o gargalo está na gestão.','Tom cirúrgico: padrão estrutural, nunca ataque a empresários individuais.']},
+
+{id:27,t:'POV: o único da família que percebe de IRS no Natal',big:'🎄',pilar:'Humor',fase:'saz',i:3,v:3,p:1,vida:'Sazonal (dez.)',r:1,tags:[],
+ hook:'Sketch de jantar de Natal — perguntas fiscais entre o bacalhau e as rabanadas.',
+ notas:['Publicar na primeira quinzena de dezembro.']},
+
+{id:70,t:'Quanto ganha um professor? E um enfermeiro? E um polícia?',big:'tabela pública',pilar:'Salários',fase:'f2',i:3,v:3,p:1,vida:'Evergreen',r:1,tags:['Série','Guardável'],
+ hook:'"Os salários da função pública são tabela pública. Vamos ver quanto ganha, ao euro, quem cuida de ti."',
+ notas:['Herdeiro direto do #67 (breakout) — mesma mecânica (tabela verificável, série).','Mais próximo do público que os CEOs: toda a gente conhece um professor/enfermeiro/polícia.','Candidato a série de 3 episódios se o #68 confirmar o formato fofoca 2×.']},
+{id:71,t:'Público vs privado: quem ganha mais, com dados',big:'a comparar',pilar:'Salários',fase:'f2',i:2,v:3,p:2,vida:'Evergreen',r:2,tags:['Posicionamento'],
+ hook:'"O debate eterno português — função pública vs privado. Desta vez, com números do INE/DGAEP em vez de opinião."',
+ notas:['Tema polarizador — tratamento neutro obrigatório, à moda da casa (apresentar os dois lados, sem tomar posição).','Score i mais baixo por ser mais arriscado/sensível; avaliar depois de mais 2-3 vídeos de salários no Banco.']},
+{id:72,t:'O Estado gasta quanto contigo, por dia?',big:'€/dia',pilar:'Impostos',fase:'f2',i:3,v:2,p:2,vida:'Evergreen',r:2,tags:['Posicionamento'],
+ hook:'"Sabes quanto pagas ao Estado. Mas sabes quanto o Estado gasta contigo, por dia?"',
+ notas:['Inverte o ângulo dos impostos: não o que pagas, o que recebes — ninguém do nicho faz isto.','Precisa de OE/Conta Geral do Estado para orçamento per capita em saúde/educação/segurança social — QC a fazer antes de escrever guião.']},
+];
+
+const ESTADOS={ideia:'Ideia',guiao:'Guião',gravado:'Gravado',editado:'Editado',publicado:'Publicado'};
+const PILARES=['Todos','Impostos','Salários','Casa & Dívida','Mentalidade','Dinheiro Parado','Treino×Finanças','Humor'];
+const DUR={1:72,39:58,31:52,65:49,6:52,19:53,66:52,11:34,67:46,30:45,49:45,17:48,68:50,10:50};
+const META_SEG={alvo:1000, ate:'2026-12-31'};
+const PUB_FALLBACK={'1':'2026-08-07T21:30:00Z'};
+const KPI_CONV=0.30;
+const SEMANA0=Date.parse('2026-08-03T00:00:00Z'); // segunda-feira da semana de arranque
+
+/* score (portado v1.1) */
+const VIDA_PTS=v=>v&&v.startsWith('Evergreen')?100:v&&v.startsWith('Datado')?60:35;
+const PESOS={cresc:{v:.40,i:.25,vida:.20,guard:8,serie:5,ptbr:4,pos:2,prodM:-4,prodE:-8,rM:5,rA:-12},
+             marca:{v:.20,i:.25,vida:.25,guard:5,serie:4,ptbr:2,pos:12,prodM:-4,prodE:-8,rM:3,rA:-5}};
+const MAXRAW={};for(const k in PESOS){const w=PESOS[k];MAXRAW[k]=w.v*100+w.i*100+w.vida*100+w.guard+w.serie+w.ptbr+w.pos+w.rM;}
+let profile='cresc';
+function scoreOf(d,prof){prof=prof||profile;const w=PESOS[prof];
+  let sc=w.v*((d.v-1)*50)+w.i*((d.i-1)*50)+w.vida*VIDA_PTS(d.vida||'');
+  const tg=d.tags||[];
+  if(tg.includes('Guardável'))sc+=w.guard; if(tg.includes('Série'))sc+=w.serie;
+  if(tg.includes('PT-BR'))sc+=w.ptbr; if(tg.includes('Posicionamento'))sc+=w.pos;
+  if(d.p===2)sc+=w.prodM; if(d.p===3)sc+=w.prodE;
+  if(d.r===2)sc+=w.rM; if(d.r===3)sc+=w.rA;
+  return Math.max(0,Math.round(sc/MAXRAW[prof]*100));}
+
+/* ================= helpers ================= */
+const ts=t=>{if(!t)return null;return Date.parse(/[zZ]|[+\-]\d\d:?\d\d$/.test(t)?t:t+'Z');};
+const H=3600000, DAY=24*H, WK=7*DAY;
+const fmtN=n=>n==null?'—':Math.round(n).toLocaleString('pt-PT');
+const fmtP=(n,d=2)=>n==null?'—':n.toFixed(d).replace('.',',')+'%';
+const fmtD=ms=>new Date(ms).toLocaleDateString('pt-PT',{timeZone:'Europe/Lisbon',day:'2-digit',month:'short'});
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function seriesAt(hist,key,ms){if(!hist||!hist.length)return null;let prev=null;
+  for(const p of hist){const t=ts(p.t);if(p[key]==null)continue;
+    if(t<=ms)prev={t,v:p[key]};else{if(!prev)return null;return prev.v+(p[key]-prev.v)*(ms-prev.t)/Math.max(1,t-prev.t);}}
+  return prev?prev.v:null;}
+function covDelta(hist,key,a,b){ // delta com clamp à cobertura real da série
+  if(!hist||!hist.length)return null;
+  let s=null;for(const p of hist){if(p[key]!=null){s=ts(p.t);break;}}
+  if(s==null)return null;
+  const a2=Math.max(a,s);if(a2>=b)return null;
+  let first=null;for(const p of hist){if(p[key]!=null){first=p[key];break;}}
+  const va=a2<=s?first:(seriesAt(hist,key,a2)??first);
+  const vb=seriesAt(hist,key,b);
+  return vb==null?null:vb-va;}
+function viewsAtAge(rec,pubMs,hours){if(!rec.historico||!pubMs)return null;
+  const first=ts(rec.historico[0].t);if(first==null||first-pubMs>6*H)return null;
+  const v=seriesAt(rec.historico,'views',pubMs+hours*H);return v==null?null:Math.round(v);}
+function lineChart(pts,{w=520,h=150,color='#0E8A5F',fill=null,thr=null,thrLbl=''}={}){
+  if(!pts||pts.length<2)return '<div class="thin mono" style="padding:30px 0;text-align:center">sem série suficiente</div>';
+  const P={l:8,r:8,t:12,b:20};
+  const xs=pts.map(p=>p.x),ys=pts.map(p=>p.y);
+  const x0=Math.min(...xs),x1=Math.max(...xs);let y0=Math.min(...ys,0),y1=Math.max(...ys);
+  if(thr!=null){y1=Math.max(y1,thr);}
+  if(y1===y0)y1=y0+1;
+  const X=x=>P.l+(x-x0)/(x1-x0)*(w-P.l-P.r),Y=y=>h-P.b-(y-y0)/(y1-y0)*(h-P.t-P.b);
   const path=pts.map((p,i)=>(i?'L':'M')+X(p.x).toFixed(1)+' '+Y(p.y).toFixed(1)).join('');
   const last=pts[pts.length-1];
-  const area=fill?`<path d="${path} L${X(last.x).toFixed(1)} ${h-P.b} L${X(pts[0].x).toFixed(1)} ${h-P.b} Z" fill="${fill}" opacity=".35"/>`:'';
-  const thrLine = thr!=null?`<line x1="${P.l}" x2="${w-P.r}" y1="${Y(thr)}" y2="${Y(thr)}" stroke="#C2453E" stroke-width="1.2" stroke-dasharray="4 4"/>`:'';
   return `<svg viewBox="0 0 ${w} ${h}" style="width:100%;height:auto" role="img">
     <line x1="${P.l}" x2="${w-P.r}" y1="${h-P.b}" y2="${h-P.b}" stroke="#CBD2C9"/>
-    ${thrLine}${area}
+    ${thr!=null?`<line x1="${P.l}" x2="${w-P.r}" y1="${Y(thr)}" y2="${Y(thr)}" stroke="#C2453E" stroke-width="1.2" stroke-dasharray="4 4"/><text x="${w-P.r}" y="${Y(thr)-4}" text-anchor="end" font-family="IBM Plex Mono" font-size="9.5" fill="#C2453E">${thrLbl}</text>`:''}
+    ${fill?`<path d="${path} L${X(last.x).toFixed(1)} ${h-P.b} L${X(pts[0].x).toFixed(1)} ${h-P.b} Z" fill="${fill}" opacity=".35"/>`:''}
     <path d="${path}" fill="none" stroke="${color}" stroke-width="2.4"/>
     <circle cx="${X(last.x)}" cy="${Y(last.y)}" r="4" fill="${color}"/>
     <text x="${P.l}" y="${h-6}" font-family="IBM Plex Mono" font-size="10" fill="#5B6B62">${fmtD(x0)}</text>
     <text x="${w-P.r}" y="${h-6}" text-anchor="end" font-family="IBM Plex Mono" font-size="10" fill="#5B6B62">${fmtD(x1)}</text>
-    <text x="${P.l}" y="${P.t+4}" font-family="IBM Plex Mono" font-size="10" fill="#5B6B62">máx ${yLabel(y1)}</text>
-  </svg>`;
-}
+    <text x="${P.l}" y="${P.t}" font-family="IBM Plex Mono" font-size="10" fill="#5B6B62">máx ${fmtN(y1)}</text>
+  </svg>`;}
 
-/* ======== estado global ======== */
-let IG=null, TT=null, rows=[], sortKey='pub', sortDir=-1;
+/* ================= estado ================= */
+let IG=null,TT=null,rows=[],sortKey='pub',sortDir=-1;
+let filtPilar='Todos',filtEst='todos';
 
-function ttCanalAt(ms){ const h=((TT||{}).canal||{}).historico||[]; return seriesAt(h,'seguidores',ms); }
-function ttCanalStart(){ const h=((TT||{}).canal||{}).historico||[]; return h.length?ts(h[0].t):null; }
+const VBY={};V.forEach(d=>VBY[d.id]=d);
+function estadoOf(d){const p=(IG&&IG.videos||{})[d.id];
+  if(p&&(p.estado==='publicado'||p.publicado_em))return 'publicado';
+  return (p&&p.estado)||(d.script?'guiao':'ideia');}
+
+function ttCanalAt(ms){const h=((TT||{}).canal||{}).historico||[];return seriesAt(h,'seguidores',ms);}
+function ttCanalStart(){const h=((TT||{}).canal||{}).historico||[];return h.length?ts(h[0].t):null;}
 
 function buildRows(){
-  const out=[];
-  const igv=IG.videos||{}, ttv=(TT||{}).videos||{};
+  const out=[];const igv=IG.videos||{},ttv=(TT||{}).videos||{};
   const ids=new Set([...Object.keys(igv),...Object.keys(ttv)]);
   for(const id of ids){
-    const ig=igv[id]||{}, tt=ttv[id]||{};
-    const m=ig.metricas||{}, tm=tt.metricas||{};
-    if(!m.views && !tm.views) continue;
-    const pub = ts(ig.publicado_em) || ts(tt.publicado_em) || ts(PUB_FALLBACK[id]);
-    const meta=VMETA[id]||{};
-    const dur=(tt.duracao_s)||DUR[id]||meta.dur||null;
-    const ret = m.tempo_medio_s&&dur ? 100*m.tempo_medio_s/dur : null;
-    const shr = m.alcance ? 100*(m.partilhas||0)/m.alcance : null;
-    const ttEng = tm.views ? 100*((tm.likes||0)+(tm.comentarios||0)+(tm.partilhas||0)+(tm.saves||0))/tm.views : null;
-    const v48 = pub?viewsAtAge(ig,pub,48):null;
-    const tv48 = pub?viewsAtAge(tt,pub,48):null;
-    // conversão TT: delta seguidores canal [pub, pub+48h]
-    let conv=null, seg48=null;
-    const cs=ttCanalStart();
-    if(pub && cs!=null && cs<=pub && tm.views){
-      const a=ttCanalAt(pub), b=ttCanalAt(Math.min(pub+48*H, Date.now()));
-      if(a!=null&&b!=null){ seg48=Math.round(b-a); const base=tv48||tm.views; if(base>0) conv=100*seg48/base; }
-    }
-    out.push({id:+id, t:meta.t||('#'+id), pilar:meta.pilar||'', ord:meta.ord, pub,
-      igViews:m.views||null, igV48:v48, alcance:m.alcance||null, shr, saves:m.saves??null, ret,
-      ttViews:tm.views||null, ttV48:tv48, ttEng, seg48, conv,
-      age: pub?(Date.now()-pub)/H:null, hist:ig.historico||[]});
-  }
-  out.sort((a,b)=>(b.pub||0)-(a.pub||0));
-  return out;
-}
+    const ig=igv[id]||{},tt=ttv[id]||{};
+    const m=ig.metricas||{},tm=tt.metricas||{};
+    if(!m.views&&!tm.views)continue;
+    const pub=ts(ig.publicado_em)||ts(tt.publicado_em)||ts(PUB_FALLBACK[id]);
+    const meta=VBY[id]||{};
+    const dur=tt.duracao_s||DUR[id]||meta.dur||null;
+    const ret=m.tempo_medio_s&&dur?100*m.tempo_medio_s/dur:null;
+    const shr=m.alcance?100*(m.partilhas||0)/m.alcance:null;
+    const ttEng=tm.views?100*((tm.likes||0)+(tm.comentarios||0)+(tm.partilhas||0)+(tm.saves||0))/tm.views:null;
+    const v48=pub?viewsAtAge(ig,pub,48):null;
+    const tv48=pub?viewsAtAge(tt,pub,48):null;
+    let conv=null,seg48=null;const cs=ttCanalStart();
+    if(pub&&cs!=null&&cs<=pub&&tm.views){
+      const a=ttCanalAt(pub),b=ttCanalAt(Math.min(pub+48*H,Date.now()));
+      if(a!=null&&b!=null){seg48=Math.round(b-a);const base=tv48||tm.views;if(base>0)conv=100*seg48/base;}}
+    out.push({id:+id,t:meta.t||('#'+id),pilar:meta.pilar||'',pub,
+      igViews:m.views||null,igV48:v48,alcance:m.alcance||null,shr,saves:m.saves??null,ret,
+      ttViews:tm.views||null,ttV48:tv48,ttEng,seg48,conv,
+      age:pub?(Date.now()-pub)/H:null,hist:ig.historico||[],ttHist:tt.historico||[]});}
+  out.sort((a,b)=>(b.pub||0)-(a.pub||0));return out;}
 
-/* ======== QUADRO 01 · audiência própria ======== */
+/* ===== agregação semanal (views por deltas do histórico) ===== */
+function weeklyAgg(){
+  const now=Date.now();
+  const nWeeks=Math.max(1,Math.ceil((now-SEMANA0)/WK));
+  const weeks=[];
+  for(let i=0;i<nWeeks;i++){weeks.push({i,a:SEMANA0+i*WK,b:Math.min(SEMANA0+(i+1)*WK,now),
+    igV:0,ttV:0,alc:0,inter:0,seg:0,pubs:0});}
+  for(const w of weeks){w.igV=null;w.ttV=null;}
+  for(const r of rows){
+    for(const [hist,key] of [[r.hist,'igV'],[r.ttHist,'ttV']]){
+      if(!hist.length||!r.pub)continue;
+      for(const w of weeks){
+        if(w.b<=r.pub)continue;
+        // baseline 0 no lançamento se houver cobertura do arranque; senão só delta observado
+        const first=ts(hist[0].t);
+        const launchCovered=first-r.pub<=6*H;
+        let d;
+        if(launchCovered&&r.pub>=w.a&&r.pub<w.b){const vb=seriesAt(hist,'views',w.b);d=vb==null?null:vb;}
+        else d=covDelta(hist,'views',Math.max(w.a,r.pub),w.b);
+        if(d==null)continue;
+        w[key]=(w[key]??0)+Math.max(0,d);}
+      }
+    if(r.pub){const wi=Math.floor((r.pub-SEMANA0)/WK);if(weeks[wi])weeks[wi].pubs++;}
+  }
+  // alcance IG: máx alcance_dia por dia, somado por semana; interações idem
+  const ch=((IG.canal||{}).historico||[]);
+  const byDay={};
+  for(const p of ch){const d=Math.floor(ts(p.t)/DAY);(byDay[d]??={alc:0,int:0});
+    byDay[d].alc=Math.max(byDay[d].alc,p.alcance_dia||0);byDay[d].int=Math.max(byDay[d].int,p.interacoes||0);}
+  for(const d in byDay){const ms=d*DAY;const wi=Math.floor((ms-SEMANA0)/WK);
+    if(weeks[wi]){weeks[wi].alc+=byDay[d].alc;weeks[wi].inter+=byDay[d].int;}}
+  // seguidores: delta IG + delta TT por semana
+  const igC=((IG.canal||{}).historico||[]), ttC=(((TT||{}).canal||{}).historico||[]);
+  for(const w of weeks){
+    let s=0,got=false;
+    for(const h of [igC,ttC]){const d=covDelta(h,'seguidores',w.a,w.b);
+      if(d!=null){s+=d;got=true;}}
+    w.seg=got?Math.round(s):null;}
+  return weeks;}
+
+/* ===== conversão global 14d: seguidores ganhos / views geradas ===== */
+function convGlobal(){
+  const now=Date.now(),a=now-14*DAY;
+  let segs=0,got=false;
+  for(const h of [((IG.canal||{}).historico||[]),(((TT||{}).canal||{}).historico||[])]){
+    const d=covDelta(h,'seguidores',a,now);
+    if(d!=null){segs+=d;got=true;}}
+  let views=0;
+  for(const r of rows){for(const hist of [r.hist,r.ttHist]){if(!hist.length||!r.pub)continue;
+    const first=ts(hist[0].t),launchCovered=first-r.pub<=6*H;
+    let d;
+    if(launchCovered&&r.pub>=a){const vb=seriesAt(hist,'views',now);d=vb==null?null:vb;}
+    else d=covDelta(hist,'views',Math.max(a,r.pub),now);
+    if(d!=null)views+=Math.max(0,d);}}
+  return got&&views>0?{segs:Math.round(segs),views:Math.round(views),por1k:1000*segs/views}:null;}
+
+/* ================= FCD-1 quadros ================= */
 function q01(){
   const igH=((IG.canal||{}).historico||[]).filter(p=>p.seguidores!=null).map(p=>({x:ts(p.t),y:p.seguidores}));
   const ttH=(((TT||{}).canal||{}).historico||[]).filter(p=>p.seguidores!=null).map(p=>({x:ts(p.t),y:p.seguidores}));
-  const now=Date.now(), d7=now-7*24*H;
-  const igNow=igH.length?igH[igH.length-1].y:null, ttNow=ttH.length?ttH[ttH.length-1].y:null;
+  const now=Date.now(),d7=now-7*DAY;
+  const igNow=igH.length?igH[igH.length-1].y:null,ttNow=ttH.length?ttH[ttH.length-1].y:null;
   const igD7=igH.length?Math.round(igNow-(seriesAt((IG.canal||{}).historico,'seguidores',d7)??igH[0].y)):null;
   const ttD7=ttH.length?Math.round(ttNow-(seriesAt(((TT||{}).canal||{}).historico,'seguidores',d7)??ttH[0].y)):null;
   const total=(igNow||0)+(ttNow||0);
   const diasRest=Math.max(1,Math.round((Date.parse(META_SEG.ate)-now)/86400000));
-  const ritmoNec=(META_SEG.alvo-total)/diasRest;
-  const ritmoAtual=((igD7||0)+(ttD7||0))/7;
-  const pace = ritmoAtual>=ritmoNec;
+  const nec=(META_SEG.alvo-total)/diasRest, atual=((igD7||0)+(ttD7||0))/7, pace=atual>=nec;
   return `<section class="quadro">
     <div class="q-head"><span class="q-num">QUADRO 01</span><span class="q-title">Audiência própria — o indicador norte</span><span class="q-note">meta ${fmtN(META_SEG.alvo)} seguidores até 31/dez</span></div>
     <div class="q-body">
       <div class="fields" style="grid-template-columns:repeat(5,1fr)">
-        <div class="f"><div class="k">Total (IG+TT)</div><div class="v">${fmtN(total)}</div><div class="s">de ${fmtN(META_SEG.alvo)} · ${(100*total/META_SEG.alvo).toFixed(0)}%</div></div>
+        <div class="f"><div class="k">Total (IG+TT)</div><div class="v">${fmtN(total)}</div><div class="s">${(100*total/META_SEG.alvo).toFixed(0)}% da meta</div></div>
         <div class="f"><div class="k">Instagram</div><div class="v">${fmtN(igNow)}</div><div class="s ${igD7>0?'up':''}">${igD7!=null?(igD7>=0?'+':'')+igD7+' em 7d':''}</div></div>
         <div class="f"><div class="k">TikTok</div><div class="v">${fmtN(ttNow)}</div><div class="s ${ttD7>0?'up':''}">${ttD7!=null?(ttD7>=0?'+':'')+ttD7+' em 7d':''}</div></div>
-        <div class="f"><div class="k">Ritmo atual</div><div class="v">${ritmoAtual.toFixed(1).replace('.',',')}<span style="font-size:13px">/dia</span></div><div class="s">média 7d, ambas</div></div>
-        <div class="f"><div class="k">Ritmo necessário</div><div class="v ${pace?'up':'down'}">${ritmoNec.toFixed(1).replace('.',',')}<span style="font-size:13px">/dia</span></div><div class="s ${pace?'up':'down'}">${pace?'✓ acima do necessário':'✗ abaixo do necessário'}</div></div>
+        <div class="f"><div class="k">Ritmo atual</div><div class="v">${atual.toFixed(1).replace('.',',')}<span style="font-size:13px">/dia</span></div><div class="s">média 7d, ambas</div></div>
+        <div class="f"><div class="k">Ritmo necessário</div><div class="v ${pace?'up':'down'}">${nec.toFixed(1).replace('.',',')}<span style="font-size:13px">/dia</span></div><div class="s ${pace?'up':'down'}">${pace?'✓ acima do necessário':'✗ abaixo do necessário'}</div></div>
       </div>
       <div class="grid2" style="margin-top:18px">
         <div class="chartbox"><div class="ct"><span class="k" style="color:var(--verde)">Seguidores Instagram</span><span class="kv">${fmtN(igNow)}</span></div>${lineChart(igH,{color:'#0E8A5F',fill:'#BFEFD9'})}</div>
         <div class="chartbox"><div class="ct"><span class="k" style="color:var(--azul)">Seguidores TikTok</span><span class="kv">${fmtN(ttNow)}</span></div>${lineChart(ttH,{color:'#1D5FBF',fill:'#CBDCF7'})}</div>
       </div>
-    </div>
-  </section>`;
-}
+    </div></section>`;}
 
-/* ======== QUADRO 02 · em direto ======== */
 function q02(){
-  const live=rows.find(r=>r.age!=null && r.age<72 && (r.igViews||r.ttViews));
-  if(!live) return '';
-  // referência: melhor vídeo com cobertura de arranque
-  let best=null;
-  for(const r of rows){ if(r.id===live.id||!r.pub) continue;
-    const va=viewsAtAge({historico:r.hist},r.pub,Math.min(live.age,96));
-    if(va!=null && (!best||((r.igViews||0)>(best.igViews||0)))) best=Object.assign({va},r); }
-  const ritmo = best&&best.va ? Math.round(100*(live.igViews||0)/best.va) : null;
-  const curve=(live.hist||[]).map(p=>({x:(ts(p.t)-live.pub)/H,y:p.views||0})).filter(p=>p.x>=0&&p.x<=Math.max(6,live.age));
-  const refCurve=best?(best.hist||[]).map(p=>({x:(ts(p.t)-best.pub)/H,y:p.views||0})).filter(p=>p.x>=0&&p.x<=Math.max(6,live.age)):[];
-  const chart = curve.length>1?`<svg viewBox="0 0 520 150" style="width:100%;height:auto">${(()=>{
-    const all=[...curve,...refCurve]; const mx=Math.max(...all.map(p=>p.x),6), my=Math.max(...all.map(p=>p.y),1);
-    const X=x=>8+x/mx*504, Y=y=>136-y/my*120;
-    const pth=a=>a.map((p,i)=>(i?'L':'M')+X(p.x).toFixed(1)+' '+Y(p.y).toFixed(1)).join('');
-    return (refCurve.length>1?`<path d="${pth(refCurve)}" fill="none" stroke="#9FB3A8" stroke-width="2" stroke-dasharray="5 4"/>`:'')+
-      `<path d="${pth(curve)}" fill="none" stroke="#0E8A5F" stroke-width="2.6"/><circle cx="${X(curve[curve.length-1].x)}" cy="${Y(curve[curve.length-1].y)}" r="4" fill="#0E8A5F"/>
-      <text x="8" y="148" font-family="IBM Plex Mono" font-size="10" fill="#5B6B62">0h</text>
-      <text x="512" y="148" text-anchor="end" font-family="IBM Plex Mono" font-size="10" fill="#5B6B62">${Math.round(mx)}h</text>`;})()}</svg>`:'<div class="thin mono">curva em construção…</div>';
+  const wk=weeklyAgg();
+  const cg=convGlobal();
+  const now=Date.now(),diasRest=Math.max(1,Math.round((Date.parse(META_SEG.ate)-now)/86400000));
+  const igNowSeg=(((IG.canal||{}).historico||[]).slice(-1)[0]||{}).seguidores||0;
+  const ttNowSeg=((((TT||{}).canal||{}).historico||[]).slice(-1)[0]||{}).seguidores||0;
+  const nec7=7*(META_SEG.alvo-igNowSeg-ttNowSeg)/diasRest;
+  const viewsNec=cg&&cg.por1k>0?nec7/cg.por1k*1000:null;
+  const rowsHtml=wk.map((w,i)=>{
+    const tot=(w.igV==null&&w.ttV==null)?null:(w.igV||0)+(w.ttV||0);
+    const pf=i>0?wk[i-1]:null;
+    const prev=pf&&!(pf.igV==null&&pf.ttV==null)?(pf.igV||0)+(pf.ttV||0):null;
+    const wow=prev&&tot!=null?100*(tot-prev)/prev:null;
+    const parcial=w.b-w.a<WK-1;
+    return `<tr>
+      <td class="l num">S${i+1} <span class="tt">${fmtD(w.a)}${parcial?' · parcial':''}</span></td>
+      <td class="num">${w.pubs||'—'}</td>
+      <td class="num grpIG">${fmtN(w.igV)}</td>
+      <td class="num grpTT">${fmtN(w.ttV)}</td>
+      <td class="num"><b>${tot==null?'sem registo':fmtN(tot)}</b></td>
+      <td class="num ${wow!=null?(wow>=0?'up':'down'):''}">${wow!=null?(wow>=0?'+':'')+wow.toFixed(0)+'%':'—'}</td>
+      <td class="num">${fmtN(w.alc)||'—'}</td>
+      <td class="num">${fmtN(w.inter)||'—'}</td>
+      <td class="num ${w.seg!=null&&w.seg>=nec7?'up':''}">${w.seg!=null?(w.seg>=0?'+':'')+w.seg:'—'}</td>
+    </tr>`;}).join('');
+  const wkPts=wk.filter(w=>((w.igV||0)+(w.ttV||0))>0).map(w=>({x:w.a,y:(w.igV||0)+(w.ttV||0)}));
   return `<section class="quadro">
-    <div class="q-head"><span class="q-num">QUADRO 02</span><span class="q-title">Em direto — #${live.id} · ${esc(live.t)}</span><span class="q-note">${live.age.toFixed(1).replace('.',',')}h de vida</span></div>
+    <div class="q-head"><span class="q-num">QUADRO 02</span><span class="q-title">Canal semana a semana — e o ritmo que a meta exige</span><span class="q-note">views por deltas do histórico · alcance = soma diária IG</span></div>
+    <div class="q-body">
+      <div class="fields" style="grid-template-columns:repeat(4,1fr);margin-bottom:18px">
+        <div class="f"><div class="k">Meta → seguidores/semana</div><div class="v">${nec7>0?'+'+nec7.toFixed(0):'—'}</div><div class="s">para ${fmtN(META_SEG.alvo)} até 31/dez</div></div>
+        <div class="f"><div class="k">Conversão global 14d</div><div class="v">${cg?cg.por1k.toFixed(2).replace('.',','):'—'}<span style="font-size:13px"> seg/1k views</span></div><div class="s">${cg?'+'+fmtN(cg.segs)+' seg / '+fmtN(cg.views)+' views':''}</div></div>
+        <div class="f"><div class="k">Views/semana necessárias</div><div class="v">${viewsNec?fmtN(viewsNec):'—'}</div><div class="s">à conversão atual — sobe conversão, desce este número</div></div>
+        <div class="f"><div class="k">Views esta semana</div><div class="v ${viewsNec&&wk.length&&((wk[wk.length-1].igV||0)+(wk[wk.length-1].ttV||0))>=viewsNec?'up':'down'}">${wk.length?fmtN((wk[wk.length-1].igV||0)+(wk[wk.length-1].ttV||0)):'—'}</div><div class="s">IG+TT, semana em curso</div></div>
+      </div>
+      <div class="chartbox" style="margin-bottom:18px"><div class="ct"><span class="k">Views totais por semana (IG+TT)</span><span class="kv thin">linha vermelha = necessário p/ meta</span></div>
+        ${lineChart(wkPts,{color:'#16241D',fill:'#DCE3DC',thr:viewsNec,thrLbl:viewsNec?fmtN(viewsNec):''})}</div>
+      <div class="tblwrap"><table>
+        <thead><tr><th class="l">Semana</th><th>Pubs</th><th>Views IG</th><th>Views TT</th><th>Total</th><th>Δ sem.</th><th>Alcance IG</th><th>Interações</th><th>+Seg</th></tr></thead>
+        <tbody>${rowsHtml}</tbody></table></div>
+    </div></section>`;}
+
+function q03(){
+  const live=rows.find(r=>r.age!=null&&r.age<72&&(r.igViews||r.ttViews));
+  if(!live)return '';
+  let best=null;
+  for(const r of rows){if(r.id===live.id||!r.pub)continue;
+    const va=viewsAtAge({historico:r.hist},r.pub,Math.min(live.age,96));
+    if(va!=null&&(!best||((r.igViews||0)>(best.igViews||0))))best=Object.assign({va},r);}
+  const ritmo=best&&best.va?Math.round(100*(live.igViews||0)/best.va):null;
+  const curve=(live.hist||[]).map(p=>({x:(ts(p.t)-live.pub)/H,y:p.views||0})).filter(p=>p.x>=0);
+  const refCurve=best?(best.hist||[]).map(p=>({x:(ts(p.t)-best.pub)/H,y:p.views||0})).filter(p=>p.x>=0&&p.x<=Math.max(6,live.age)):[];
+  const chart=curve.length>1?(()=>{const all=[...curve,...refCurve];const mx=Math.max(...all.map(p=>p.x),6),my=Math.max(...all.map(p=>p.y),1);
+    const X=x=>8+x/mx*504,Y=y=>136-y/my*120;
+    const pth=a=>a.map((p,i)=>(i?'L':'M')+X(p.x).toFixed(1)+' '+Y(p.y).toFixed(1)).join('');
+    return `<svg viewBox="0 0 520 150" style="width:100%;height:auto">${refCurve.length>1?`<path d="${pth(refCurve)}" fill="none" stroke="#9FB3A8" stroke-width="2" stroke-dasharray="5 4"/>`:''}<path d="${pth(curve)}" fill="none" stroke="#0E8A5F" stroke-width="2.6"/><circle cx="${X(curve[curve.length-1].x)}" cy="${Y(curve[curve.length-1].y)}" r="4" fill="#0E8A5F"/><text x="8" y="148" font-family="IBM Plex Mono" font-size="10" fill="#5B6B62">0h</text><text x="512" y="148" text-anchor="end" font-family="IBM Plex Mono" font-size="10" fill="#5B6B62">${Math.round(mx)}h</text></svg>`;})():'<div class="thin mono">curva em construção…</div>';
+  return `<section class="quadro">
+    <div class="q-head"><span class="q-num">QUADRO 03</span><span class="q-title">Em direto — #${live.id} · ${esc(live.t)}</span><span class="q-note">${live.age.toFixed(1).replace('.',',')}h de vida</span></div>
     <div class="q-body"><div class="grid2">
       <div class="fields" style="grid-template-columns:1fr 1fr 1fr">
         <div class="f"><div class="k">IG views</div><div class="v">${fmtN(live.igViews)}</div><div class="s">${ritmo!=null?ritmo+'% do ritmo do melhor':''}</div></div>
@@ -307,86 +675,64 @@ function q02(){
         <div class="f"><div class="k">Partilhas IG</div><div class="v">${fmtP(live.shr)}</div><div class="s">${live.ret!=null?'retenção '+Math.round(live.ret)+'%':''}</div></div>
       </div>
       <div class="chartbox"><div class="ct"><span class="k">Arranque vs o melhor à mesma idade</span><span class="kv thin">${best?'ref #'+best.id:''}</span></div>${chart}</div>
-    </div></div>
-  </section>`;
-}
+    </div></div></section>`;}
 
-/* ======== QUADRO 03 · tabela IG × TT ======== */
-const COLS=[
-  ['pub','Publicado','l'],['t','Vídeo','l'],
+const COLS=[['pub','Publicado','l'],['t','Vídeo','l'],
   ['igV48','IG 48h','grpIG'],['igViews','IG total',''],['shr','Part. %',''],['saves','Saves',''],['ret','Ret. %',''],
-  ['ttViews','TT total','grpTT'],['ttEng','TT eng. %',''],['seg48','+Seg 48h',''],['conv','Conv. %','']
-];
-function q03(){
+  ['ttViews','TT total','grpTT'],['ttEng','TT eng. %',''],['seg48','+Seg 48h',''],['conv','Conv. %','']];
+function q04(){
   return `<section class="quadro">
-    <div class="q-head"><span class="q-num">QUADRO 03</span><span class="q-title">Lançamentos — Instagram × TikTok</span><span class="q-note">clique nos cabeçalhos para ordenar · conv = seguidores TT ganhos / views 48h · limiar Lição 9: ${String(KPI_CONV).replace('.',',')}%</span></div>
-    <div class="q-body tblwrap"><table id="tbl" aria-label="Lançamentos por plataforma">
-      <thead><tr>${COLS.map(c=>`<th class="${c[2]}"><button data-k="${c[0]}">${c[1]} <span class="arr">${sortKey===c[0]?(sortDir>0?'▲':'▼'):''}</span></button></th>`).join('')}</tr></thead>
-      <tbody id="tbody"></tbody>
-    </table></div>
-  </section>`;
-}
+    <div class="q-head"><span class="q-num">QUADRO 04</span><span class="q-title">Lançamentos — Instagram × TikTok</span><span class="q-note">ordenar nos cabeçalhos · conv = seg TT ganhos / views 48h · limiar ${String(KPI_CONV).replace('.',',')}%</span></div>
+    <div class="q-body tblwrap"><table id="tbl"><thead><tr>${COLS.map(c=>`<th class="${c[2]}"><button data-k="${c[0]}">${c[1]} <span class="arr">${sortKey===c[0]?(sortDir>0?'▲':'▼'):''}</span></button></th>`).join('')}</tr></thead>
+    <tbody id="tbody"></tbody></table></div></section>`;}
 function renderBody(){
   const l=[...rows];
   l.sort((a,b)=>{const va=a[sortKey],vb=b[sortKey];
-    if(va==null&&vb==null)return 0; if(va==null)return 1; if(vb==null)return -1;
+    if(va==null&&vb==null)return 0;if(va==null)return 1;if(vb==null)return -1;
     return (va<vb?-1:va>vb?1:0)*sortDir*(sortKey==='t'?-1:1);});
   const bestIG=Math.max(...rows.map(r=>r.igViews||0));
   document.getElementById('tbody').innerHTML=l.map(r=>`<tr class="${r.igViews===bestIG?'best':''}">
     <td class="l num">${r.pub?fmtD(r.pub):'—'}</td>
-    <td class="l">#${r.id} ${esc(r.t).slice(0,34)}${r.t.length>34?'…':''}<div class="tt">${esc(r.pilar)}</div></td>
-    <td class="num grpIG">${fmtN(r.igV48)}</td>
-    <td class="num"><b>${fmtN(r.igViews)}</b></td>
-    <td class="num">${fmtP(r.shr)}</td>
-    <td class="num">${fmtN(r.saves)}</td>
+    <td class="l">#${r.id} ${esc(r.t).slice(0,34)}${(r.t||'').length>34?'…':''}<div class="tt">${esc(r.pilar)}</div></td>
+    <td class="num grpIG">${fmtN(r.igV48)}</td><td class="num"><b>${fmtN(r.igViews)}</b></td>
+    <td class="num">${fmtP(r.shr)}</td><td class="num">${fmtN(r.saves)}</td>
     <td class="num">${r.ret!=null?Math.round(r.ret)+'%':'—'}</td>
-    <td class="num grpTT"><b>${fmtN(r.ttViews)}</b></td>
-    <td class="num">${fmtP(r.ttEng,1)}</td>
+    <td class="num grpTT"><b>${fmtN(r.ttViews)}</b></td><td class="num">${fmtP(r.ttEng,1)}</td>
     <td class="num">${r.seg48!=null?(r.seg48>=0?'+':'')+r.seg48:'—'}</td>
-    <td class="num ${r.conv!=null?(r.conv>=KPI_CONV?'up':'down'):''}">${r.conv!=null?fmtP(r.conv):'—'}</td>
-  </tr>`).join('');
-}
+    <td class="num ${r.conv!=null?(r.conv>=KPI_CONV?'up':'down'):''}">${r.conv!=null?fmtP(r.conv):'—'}</td></tr>`).join('');}
 
-/* ======== QUADRO 04 · funil ======== */
-function q04(){
+function q05(){
   const h=((IG.canal||{}).historico||[]);
-  // por dia (últimos 14): máximo alcance_dia e visitas_perfil, delta seguidores
   const byDay={};
-  for(const p of h){ const d=new Date(ts(p.t)).toISOString().slice(0,10);
-    (byDay[d]??=({alc:0,vis:0,segA:null,segB:null}));
-    byDay[d].alc=Math.max(byDay[d].alc,p.alcance_dia||0);
-    byDay[d].vis=Math.max(byDay[d].vis,p.visitas_perfil||0);
-    if(p.seguidores!=null){ if(byDay[d].segA==null)byDay[d].segA=p.seguidores; byDay[d].segB=p.seguidores; } }
+  for(const p of h){const d=new Date(ts(p.t)).toISOString().slice(0,10);(byDay[d]??={alc:0,vis:0,segA:null,segB:null});
+    byDay[d].alc=Math.max(byDay[d].alc,p.alcance_dia||0);byDay[d].vis=Math.max(byDay[d].vis,p.visitas_perfil||0);
+    if(p.seguidores!=null){if(byDay[d].segA==null)byDay[d].segA=p.seguidores;byDay[d].segB=p.seguidores;}}
   const days=Object.keys(byDay).sort().slice(-14);
   const med=a=>{const s=[...a].sort((x,y)=>x-y);return s.length?s[Math.floor(s.length/2)]:null;};
   const alcM=med(days.map(d=>byDay[d].alc).filter(Boolean));
   const visM=med(days.map(d=>byDay[d].vis).filter(Boolean));
   const segD=med(days.map(d=>(byDay[d].segB??0)-(byDay[d].segA??0)));
-  const c1=alcM?100*visM/alcM:null, c2=visM?100*(segD||0)/visM:null;
+  const c1=alcM?100*visM/alcM:null,c2=visM?100*(segD||0)/visM:null;
   const convRows=rows.filter(r=>r.conv!=null).sort((a,b)=>(a.pub||0)-(b.pub||0));
   const mxc=Math.max(KPI_CONV*1.4,...convRows.map(r=>r.conv));
   return `<section class="quadro">
-    <div class="q-head"><span class="q-num">QUADRO 04</span><span class="q-title">Funil de conversão</span><span class="q-note">IG: medianas dos últimos 14 dias · TT: por lançamento</span></div>
+    <div class="q-head"><span class="q-num">QUADRO 05</span><span class="q-title">Funil de conversão</span><span class="q-note">IG: medianas 14d · TT: por lançamento</span></div>
     <div class="q-body">
       <div class="funil">
         <div class="fu"><div class="k">Alcance IG / dia</div><div class="v">${fmtN(alcM)}</div><div class="s">contas alcançadas (mediana)</div></div>
         <div class="fu-arrow"><span class="pct">${fmtP(c1,1)}</span><span class="lbl">→ visita perfil</span></div>
         <div class="fu"><div class="k">Visitas perfil / dia</div><div class="v">${fmtN(visM)}</div><div class="s">mediana 14d</div></div>
         <div class="fu-arrow"><span class="pct">${c2!=null?fmtP(c2,1):'—'}</span><span class="lbl">→ segue</span></div>
-        <div class="fu"><div class="k">Seguidores IG / dia</div><div class="v">${segD!=null?(segD>=0?'+':'')+segD:'—'}</div><div class="s">mediana 14d · sem link na bio: saída off-platform = 0 por definição</div></div>
+        <div class="fu"><div class="k">Seguidores IG / dia</div><div class="v">${segD!=null?(segD>=0?'+':'')+segD:'—'}</div><div class="s">sem link na bio: saída off-platform = 0 por definição</div></div>
       </div>
       <div class="convbars">
-        <div class="k" style="font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--azul);font-weight:600;margin-bottom:8px">Conversão TikTok por lançamento — seguidores ganhos por view (48h) · linha vermelha = limiar ${String(KPI_CONV).replace('.',',')}%</div>
+        <div style="font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--azul);font-weight:600;margin-bottom:8px">Conversão TikTok por lançamento · linha vermelha = limiar ${String(KPI_CONV).replace('.',',')}% (Lição 9)</div>
         ${convRows.length?convRows.map(r=>`<div class="cb"><span class="id">#${r.id} ${fmtD(r.pub)}</span>
           <span class="bar"><i style="width:${Math.min(100,100*r.conv/mxc).toFixed(1)}%"></i><em style="left:${(100*KPI_CONV/mxc).toFixed(1)}%"></em></span>
-          <span class="pv ${r.conv>=KPI_CONV?'up':''}">${fmtP(r.conv)}</span></div>`).join(''):'<div class="thin mono">só mensurável para lançamentos após 23/ago (início da série de seguidores TT)</div>'}
-      </div>
-    </div>
-  </section>`;
-}
+          <span class="pv ${r.conv>=KPI_CONV?'up':''}">${fmtP(r.conv)}</span></div>`).join(''):'<div class="thin mono">mensurável só para lançamentos após 23/ago (início da série de seguidores TT)</div>'}
+      </div></div></section>`;}
 
-/* ======== QUADRO 05 · leituras automáticas ======== */
-function q05(){
+function q06(){
   const done=rows.filter(r=>r.age!=null&&r.age>=72&&r.igViews);
   const L=[];
   if(done.length){
@@ -394,46 +740,150 @@ function q05(){
     const topSav=[...done].sort((a,b)=>(b.saves||0)-(a.saves||0))[0];
     L.push(['ok','PARTILHA',`#${topShr.id} lidera a taxa de partilha (${fmtP(topShr.shr)}) — o motor de distribuição IG`]);
     L.push(['ok','SAVES',`#${topSav.id} lidera em saves (${fmtN(topSav.saves)}) — conteúdo-referência tem comportamento próprio (Lição 8)`]);
-    const div=[...done].filter(r=>r.ttViews).map(r=>({r,d:(r.ttViews)/(r.igViews||1)})).sort((a,b)=>b.d-a.d);
-    if(div.length) L.push(['','DIVERGÊNCIA',`#${div[0].r.id} fez ${div[0].d.toFixed(1).replace('.',',')}× mais views no TT do que no IG — plataformas premeiam temas opostos (Lição 7)`]);
+    const div=[...done].filter(r=>r.ttViews).map(r=>({r,d:r.ttViews/(r.igViews||1)})).sort((a,b)=>b.d-a.d);
+    if(div.length)L.push(['','DIVERGÊNCIA',`#${div[0].r.id} fez ${div[0].d.toFixed(1).replace('.',',')}× mais views no TT do que no IG — plataformas premeiam temas opostos (Lição 7)`]);
     const p48=done.filter(r=>r.igV48&&r.igViews).map(r=>100*r.igV48/r.igViews);
     if(p48.length){const m=p48.sort((a,b)=>a-b)[Math.floor(p48.length/2)];
       L.push(['warn','48 HORAS',`${m.toFixed(0)}% das views vitalícias (mediana) chegam nas primeiras 48h — a cadência é o jogo inteiro`]);}
-    const conv=rows.filter(r=>r.conv!=null);
-    const hits=conv.filter(r=>r.conv>=KPI_CONV).length;
-    if(conv.length) L.push([hits?'ok':'warn','LIÇÃO 9',`${hits} de ${conv.length} lançamentos medidos acima do limiar de conversão ${String(KPI_CONV).replace('.',',')}% — teste da série em curso`]);
-  }
+    const conv=rows.filter(r=>r.conv!=null);const hits=conv.filter(r=>r.conv>=KPI_CONV).length;
+    if(conv.length)L.push([hits?'ok':'warn','LIÇÃO 9',`${hits} de ${conv.length} lançamentos medidos acima do limiar ${String(KPI_CONV).replace('.',',')}% — teste da série em curso`]);}
   return `<section class="quadro">
-    <div class="q-head"><span class="q-num">QUADRO 05</span><span class="q-title">Leituras automáticas</span><span class="q-note">calculadas a cada sync — não substituem o diário</span></div>
-    <div class="q-body"><ul class="leituras">${L.map(l=>`<li><span class="tag ${l[0]}">${l[1]}</span><span>${l[2]}</span></li>`).join('')||'<li>sem dados suficientes</li>'}</ul></div>
-  </section>`;
-}
+    <div class="q-head"><span class="q-num">QUADRO 06</span><span class="q-title">Leituras automáticas</span><span class="q-note">calculadas a cada sync — não substituem o diário</span></div>
+    <div class="q-body"><ul class="leituras">${L.map(l=>`<li><span class="tag ${l[0]}">${l[1]}</span><span>${l[2]}</span></li>`).join('')||'<li>sem dados suficientes</li>'}</ul></div></section>`;}
 
-/* ======== arranque ======== */
+/* ================= FCD-2 · produção & ideias ================= */
+function prodCounts(){const c={ideia:0,guiao:0,gravado:0,editado:0,publicado:0};V.forEach(d=>c[estadoOf(d)]++);return c;}
+function cardHtml(d){
+  const est=estadoOf(d);
+  const p=(IG.videos||{})[d.id]||{},m=p.metricas||{},tt=((TT||{}).videos||{})[d.id]||{},tm=tt.metricas||{};
+  const met=est==='publicado'?`<div class="met">${m.views?fmtN(m.views)+' IG':''}${tm.views?' · '+fmtN(tm.views)+' TT':''}${m.partilhas?' · '+m.partilhas+' part.':''}${m.saves?' · '+m.saves+' saves':''}</div>`:'';
+  return `<div class="vcard" tabindex="0" role="button" aria-label="Abrir #${d.id}" data-id="${d.id}">
+    <div class="top"><span>#${String(d.id).padStart(2,'0')} · ${esc(d.pilar)}</span>${d.ord&&d.ord<50?`<span>PUB ${String(d.ord).padStart(2,'0')}</span>`:''}</div>
+    <div class="big">${esc(d.big||'')}</div>
+    <div class="vt">${esc(d.t)}</div>
+    ${d.intencao?`<div class="met">🎯 ${esc(d.intencao).slice(0,80)}</div>`:''}${met}
+    <div class="pillrow"><span class="pill est est-${est}">${ESTADOS[est]}</span><span class="pill score">★ ${scoreOf(d)}</span>${(d.tags||[]).map(t=>`<span class="pill">${esc(t)}</span>`).join('')}</div>
+  </div>`;}
+function renderProd(){
+  const c=prodCounts();
+  const pubs=V.filter(d=>estadoOf(d)==='publicado');
+  let list=V.filter(d=>(filtPilar==='Todos'||d.pilar===filtPilar)&&(filtEst==='todos'||estadoOf(d)===filtEst));
+  list.sort((a,b)=>scoreOf(b)-scoreOf(a));
+  const next=V.filter(d=>d.ord&&d.ord<50&&estadoOf(d)!=='publicado').sort((a,b)=>a.ord-b.ord).slice(0,3);
+  document.getElementById('prod').innerHTML=`
+  <section class="quadro">
+    <div class="q-head"><span class="q-num">QUADRO 07</span><span class="q-title">Pipeline de produção</span><span class="q-note">estado vem do performance.json + guiões locais</span></div>
+    <div class="q-body">
+      <div class="fields" style="grid-template-columns:repeat(5,1fr)">
+        ${Object.keys(ESTADOS).map(k=>`<div class="f"><div class="k">${ESTADOS[k]}</div><div class="v">${c[k]}</div></div>`).join('')}
+      </div>
+      ${next.length?`<div style="margin-top:14px"><span class="pill" style="border-color:var(--tinta);font-weight:600">A SEGUIR NO PLANO</span> ${next.map(d=>`<button class="chip" data-open="${d.id}" style="margin-left:6px">PUB ${String(d.ord).padStart(2,'0')} · #${d.id} ${esc(d.t).slice(0,32)}</button>`).join('')}</div>`:''}
+    </div></section>
+  <section class="quadro">
+    <div class="q-head"><span class="q-num">QUADRO 08</span><span class="q-title">Banco de ideias — ${V.length} vídeos</span><span class="q-note">ordenado por score · clique no cartão para guião completo</span></div>
+    <div class="q-body">
+      <div class="ctrl">
+        <div class="chips">${PILARES.map(p=>`<button class="chip" aria-pressed="${filtPilar===p}" data-pilar="${p}">${p}</button>`).join('')}</div>
+      </div>
+      <div class="ctrl">
+        <div class="chips"><button class="chip" aria-pressed="${filtEst==='todos'}" data-est="todos">todos</button>${Object.keys(ESTADOS).map(k=>`<button class="chip" aria-pressed="${filtEst===k}" data-est="${k}">${ESTADOS[k].toLowerCase()}</button>`).join('')}</div>
+        <select id="profSel" aria-label="Perfil de score"><option value="cresc"${profile==='cresc'?' selected':''}>score: Crescimento</option><option value="marca"${profile==='marca'?' selected':''}>score: Marca</option></select>
+        <span class="count">${list.length} de ${V.length}</span>
+      </div>
+      <div class="cards">${list.map(cardHtml).join('')}</div>
+    </div></section>
+  <section class="quadro">
+    <div class="q-head"><span class="q-num">QUADRO 09</span><span class="q-title">Parking lot — ideias em bruto</span><span class="q-note">promovem-se a cartão quando avaliadas</span></div>
+    <div class="q-body"><ul style="columns:2;column-gap:28px;padding-left:18px;color:var(--ink);font-size:14px;line-height:1.9;max-width:1000px">
+    <li>Índice de miséria (inflação + desemprego) — índice pouco conhecido com efeito-uau</li>
+    <li>"Quanto ganha o Estado com um litro de gasolina" (ISP + IVA)</li>
+    <li>PPR: vale a pena ou é só benefício fiscal?</li>
+    <li>Bootstrapping radical: vender o carro para fundar a empresa (empresário PT, sem nome)</li>
+    <li>"O negócio não liberta cash suficiente": cash flow como sinal vital</li>
+    <li>O superpoder do "não sei": experimentação vs. manuais</li>
+    <li>Verticalização: porque algumas empresas produzem tudo o que vendem</li>
+    <li>Arrendar vs. comprar casa em PT — a conta completa, sem dogmas</li>
+    <li>Riqueza das famílias PT: ISFF 2024 (INE, mai. 2026) — média vs. mediana da riqueza líquida</li>
+  </ul></div></section>
+  <section class="quadro">
+    <div class="q-head"><span class="q-num">QUADRO 10</span><span class="q-title">Contexto do projeto (humanos e IAs)</span></div>
+    <div class="q-body"><ul style="padding-left:18px;font-size:14px;line-height:2">
+    <li><a href="contexto.md" style="color:var(--green);font-weight:600">contexto.md — briefing completo para IA (estado, regras, decisões)</a></li>
+    <li><a href="performance.json" style="color:var(--green);font-weight:600">performance.json — pipeline e métricas por vídeo</a></li>
+    <li><a href="docs/estrategia-instagram-financas.md" style="color:var(--green);font-weight:600">docs/estrategia-instagram-financas.md — documento-mestre</a></li>
+    <li><a href="docs/guioes-semana-1.md" style="color:var(--green);font-weight:600">docs/guioes-semana-1.md — guiões da semana 1</a></li>
+    <li><a href="docs/guioes-semanas-1-2.md" style="color:var(--green);font-weight:600">docs/guioes-semanas-1-2.md — guiões v5 dos 6 vídeos (identidade B3)</a></li>
+    <li><a href="docs/learnings.md" style="color:var(--green);font-weight:600">docs/learnings.md — diário de aprendizagens</a></li>
+    <li><a href="producao/video-01/storyboard.html" style="color:var(--green);font-weight:600">producao/video-01/storyboard.html — storyboard completo do vídeo #1 (frames, tempos, descrição, 1.º comentário)</a></li>
+    <li><a href="producao/capcut-pack-b3-4k.zip" style="color:var(--green);font-weight:600">producao/capcut-pack-b3-4k.zip — pacote CapCut B3 (37 overlays 4K dos 6 vídeos + fontes + guia)</a></li>
+    <li><a href="producao/README-capcut.md" style="color:var(--green);font-weight:600">producao/README-capcut.md — guia do projeto-molde no CapCut</a></li>
+  </ul></div></section>`;
+  // listeners
+  document.querySelectorAll('#prod .chip[data-pilar]').forEach(b=>b.addEventListener('click',()=>{filtPilar=b.dataset.pilar;renderProd();}));
+  document.querySelectorAll('#prod .chip[data-est]').forEach(b=>b.addEventListener('click',()=>{filtEst=b.dataset.est;renderProd();}));
+  document.querySelectorAll('#prod .chip[data-open]').forEach(b=>b.addEventListener('click',()=>openModal(+b.dataset.open)));
+  const ps=document.getElementById('profSel');if(ps)ps.addEventListener('change',()=>{profile=ps.value;renderProd();});
+  document.querySelectorAll('#prod .vcard').forEach(cd=>{
+    cd.addEventListener('click',()=>openModal(+cd.dataset.id));
+    cd.addEventListener('keydown',e=>{if(e.key==='Enter')openModal(+cd.dataset.id);});});
+}
+function openModal(id){
+  const d=VBY[id];if(!d)return;
+  const est=estadoOf(d);
+  const p=(IG.videos||{})[id]||{},m=p.metricas||{},tm=(((TT||{}).videos||{})[id]||{}).metricas||{};
+  const sb=d.prod&&d.prod.sb?`<a href="${esc(d.prod.sb)}">abrir storyboard →</a>`:'';
+  document.getElementById('modal').innerHTML=`
+    <div class="m-head"><span class="id">#${String(id).padStart(2,'0')} · ${esc(d.pilar)} · ${ESTADOS[est]}</span><h3>${esc(d.t)}</h3><button class="m-close" id="mClose" aria-label="Fechar">×</button></div>
+    <div class="m-body">
+      <div class="m-sec"><div class="k">Número-âncora</div><div class="mono" style="font-size:22px;font-weight:600;color:var(--verde)">${esc(d.big||'—')}</div></div>
+      ${d.hook?`<div class="m-sec"><div class="k">Hook</div><div>${esc(d.hook)}</div></div>`:''}
+      ${d.agenda?`<div class="m-sec"><div class="k">Agenda</div><div class="mono" style="font-size:12px">${esc(d.agenda)}</div></div>`:''}
+      ${d.ideia?`<div class="m-sec"><div class="k">Ideia</div><ul>${['resumo','porque','alinha','risco'].filter(k=>d.ideia[k]).map(k=>`<li><b>${k}:</b> ${esc(d.ideia[k])}</li>`).join('')}</ul></div>`:''}
+      ${d.script?`<div class="m-sec"><div class="k">Guião ${sb}</div><pre>${esc(d.script)}</pre></div>`:''}
+      ${d.notas&&d.notas.length?`<div class="m-sec"><div class="k">Notas de rigor</div><ul>${d.notas.map(n=>`<li>${esc(n)}</li>`).join('')}</ul></div>`:''}
+      ${est==='publicado'?`<div class="m-sec"><div class="k">Métricas</div><div class="mono" style="font-size:12px">IG: ${fmtN(m.views)} views · ${fmtN(m.alcance)} alcance · ${m.partilhas??'—'} part. · ${m.saves??'—'} saves${tm.views?`<br>TT: ${fmtN(tm.views)} views · ${tm.likes??'—'} likes · ${tm.partilhas??'—'} part.`:''}</div></div>`:''}
+    </div>`;
+  const ov=document.getElementById('overlay');ov.classList.add('on');
+  document.getElementById('mClose').addEventListener('click',()=>ov.classList.remove('on'));
+}
+document.getElementById('overlay').addEventListener('click',e=>{if(e.target.id==='overlay')e.target.classList.remove('on');});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.getElementById('overlay').classList.remove('on');});
+
+/* ================= tabs + arranque ================= */
+function showTab(which){
+  const perf=which==='perf';
+  document.getElementById('tabPerf').setAttribute('aria-selected',perf);
+  document.getElementById('tabProd').setAttribute('aria-selected',!perf);
+  document.getElementById('app').hidden=!perf;
+  document.getElementById('prod').hidden=perf;
+  if(!perf)renderProd();
+  location.hash=perf?'':'#producao';
+}
+document.getElementById('tabPerf').addEventListener('click',()=>showTab('perf'));
+document.getElementById('tabProd').addEventListener('click',()=>showTab('prod'));
+
 function render(){
   rows=buildRows();
-  document.getElementById('app').innerHTML=q01()+q02()+q03()+q04()+q05();
+  document.getElementById('app').innerHTML=q01()+q02()+q03()+q04()+q05()+q06();
   renderBody();
   document.querySelectorAll('#tbl th button').forEach(b=>b.addEventListener('click',()=>{
-    const k=b.dataset.k; if(sortKey===k)sortDir*=-1; else {sortKey=k;sortDir=-1;}
+    const k=b.dataset.k;if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=-1;}
     document.querySelectorAll('#tbl th .arr').forEach(a=>a.textContent='');
-    b.querySelector('.arr').textContent=sortDir>0?'▲':'▼';
-    renderBody();
-  }));
+    b.querySelector('.arr').textContent=sortDir>0?'▲':'▼';renderBody();}));
   const pubs=rows.filter(r=>r.igViews||r.ttViews).length;
-  document.getElementById('mhPubs').textContent=pubs+' / '+Object.keys(VMETA).length+' planeados';
+  document.getElementById('mhPubs').textContent=pubs+' / '+V.length+' planeados';
   const sync=IG.ultima_sincronizacao||'';
   document.getElementById('mhSync').textContent=sync?sync.replace('T',' · '):'—';
   if(sync){document.getElementById('stampDate').textContent=sync.slice(8,10)+'/'+sync.slice(5,7)+'/'+sync.slice(2,4);
     document.getElementById('stampHour').textContent=sync.slice(11,16)+' UTC';}
+  if(location.hash==='#producao')showTab('prod');
 }
 Promise.all([
   fetch('performance.json?t='+Date.now()).then(r=>r.ok?r.json():null),
   fetch('performance_tiktok.json?t='+Date.now()).then(r=>r.ok?r.json():null).catch(()=>null)
 ]).then(([ig,tt])=>{
-  if(!ig||!ig.videos){document.getElementById('app').innerHTML='<div class="loading">performance.json indisponível — abrir via servidor (GitHub Pages) e não file://</div>';return;}
-  IG=ig; TT=tt||{videos:{}};
-  render();
+  if(!ig||!ig.videos){document.getElementById('app').innerHTML='<div class="loading">performance.json indisponível — abrir via servidor (GitHub Pages), não file://</div>';return;}
+  IG=ig;TT=tt||{videos:{}};render();
 }).catch(e=>{document.getElementById('app').innerHTML='<div class="loading">erro a carregar dados: '+esc(e.message)+'</div>';});
 </script>
 </body>
