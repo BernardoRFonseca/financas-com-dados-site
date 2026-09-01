@@ -1,7 +1,7 @@
 {
  "plataforma": "tiktok",
  "modo": "api+manual",
- "ultima_atualizacao": "2026-09-01T05:00",
+ "ultima_atualizacao": "2026-09-01T05:02",
  "nota": "Atualização manual semanal via TikTok Studio (screenshots). Views/likes/etc são acumulados de vida. tempo_medio_s e pct_completo do Analytics nativo. | novos_seguidores por vídeo DESCONTINUADO a 30/ago (ficou estático desde 23/ago): a fonte de verdade de seguidores é canal.historico (API, horário). Valores antigos mantidos só como registo histórico.",
  "videos": {
   "39": {
@@ -229,7 +229,7 @@
    },
    "publicado_em": "2026-08-25T17:58",
    "duracao_s": 47,
-   "atualizado": "2026-09-01T05:00",
+   "atualizado": "2026-09-01T05:02",
    "historico": [
     {
      "t": "2026-08-25T19:09",
@@ -818,6 +818,13 @@
      "likes": 39,
      "comentarios": 0,
      "partilhas": 1
+    },
+    {
+     "t": "2026-09-01T05:02",
+     "views": 1677,
+     "likes": 39,
+     "comentarios": 0,
+     "partilhas": 1
     }
    ]
   },
@@ -830,7 +837,7 @@
    },
    "publicado_em": "2026-08-27T18:30",
    "duracao_s": 49,
-   "atualizado": "2026-09-01T05:00",
+   "atualizado": "2026-09-01T05:02",
    "historico": [
     {
      "t": "2026-08-27T19:01",
@@ -1258,6 +1265,13 @@
      "likes": 16,
      "comentarios": 0,
      "partilhas": 1
+    },
+    {
+     "t": "2026-09-01T05:02",
+     "views": 669,
+     "likes": 16,
+     "comentarios": 0,
+     "partilhas": 1
     }
    ]
   },
@@ -1270,7 +1284,7 @@
    },
    "publicado_em": "2026-08-29T10:01",
    "duracao_s": 61,
-   "atualizado": "2026-09-01T05:00",
+   "atualizado": "2026-09-01T05:02",
    "historico": [
     {
      "t": "2026-08-29T10:47",
@@ -1656,6 +1670,13 @@
      "likes": 213,
      "comentarios": 9,
      "partilhas": 33
+    },
+    {
+     "t": "2026-09-01T05:02",
+     "views": 9990,
+     "likes": 213,
+     "comentarios": 9,
+     "partilhas": 33
     }
    ]
   },
@@ -1668,7 +1689,7 @@
    },
    "publicado_em": "2026-08-30T09:57",
    "duracao_s": 45,
-   "atualizado": "2026-09-01T05:00",
+   "atualizado": "2026-09-01T05:02",
    "historico": [
     {
      "t": "2026-08-30T12:49",
@@ -2008,6 +2029,13 @@
     },
     {
      "t": "2026-09-01T05:00",
+     "views": 1235,
+     "likes": 80,
+     "comentarios": 2,
+     "partilhas": 3
+    },
+    {
+     "t": "2026-09-01T05:02",
      "views": 1235,
      "likes": 80,
      "comentarios": 2,
@@ -2660,6 +2688,11 @@
    },
    {
     "t": "2026-09-01T05:00",
+    "seguidores": 52,
+    "publicacoes": 14
+   },
+   {
+    "t": "2026-09-01T05:02",
     "seguidores": 52,
     "publicacoes": 14
    }
