@@ -1,7 +1,7 @@
 {
  "plataforma": "tiktok",
  "modo": "api+manual",
- "ultima_atualizacao": "2026-09-02T12:00",
+ "ultima_atualizacao": "2026-09-02T13:00",
  "nota": "Atualização manual semanal via TikTok Studio (screenshots). Views/likes/etc são acumulados de vida. tempo_medio_s e pct_completo do Analytics nativo. | novos_seguidores por vídeo DESCONTINUADO a 30/ago (ficou estático desde 23/ago): a fonte de verdade de seguidores é canal.historico (API, horário). Valores antigos mantidos só como registo histórico.",
  "videos": {
   "39": {
@@ -222,14 +222,14 @@
   },
   "49": {
    "metricas": {
-    "views": 1789,
+    "views": 1814,
     "likes": 41,
     "comentarios": 0,
     "partilhas": 2
    },
    "publicado_em": "2026-08-25T17:58",
    "duracao_s": 47,
-   "atualizado": "2026-09-02T12:00",
+   "atualizado": "2026-09-02T13:00",
    "historico": [
     {
      "t": "2026-08-25T19:09",
@@ -1091,19 +1091,26 @@
      "likes": 41,
      "comentarios": 0,
      "partilhas": 2
+    },
+    {
+     "t": "2026-09-02T13:00",
+     "views": 1814,
+     "likes": 41,
+     "comentarios": 0,
+     "partilhas": 2
     }
    ]
   },
   "17": {
    "metricas": {
-    "views": 706,
+    "views": 710,
     "likes": 16,
     "comentarios": 0,
     "partilhas": 1
    },
    "publicado_em": "2026-08-27T18:30",
    "duracao_s": 49,
-   "atualizado": "2026-09-02T12:00",
+   "atualizado": "2026-09-02T13:00",
    "historico": [
     {
      "t": "2026-08-27T19:01",
@@ -1804,19 +1811,26 @@
      "likes": 16,
      "comentarios": 0,
      "partilhas": 1
+    },
+    {
+     "t": "2026-09-02T13:00",
+     "views": 710,
+     "likes": 16,
+     "comentarios": 0,
+     "partilhas": 1
     }
    ]
   },
   "68": {
    "metricas": {
-    "views": 10466,
-    "likes": 219,
+    "views": 10493,
+    "likes": 220,
     "comentarios": 9,
     "partilhas": 39
    },
    "publicado_em": "2026-08-29T10:01",
    "duracao_s": 61,
-   "atualizado": "2026-09-02T12:00",
+   "atualizado": "2026-09-02T13:00",
    "historico": [
     {
      "t": "2026-08-29T10:47",
@@ -2475,19 +2489,26 @@
      "likes": 219,
      "comentarios": 9,
      "partilhas": 39
+    },
+    {
+     "t": "2026-09-02T13:00",
+     "views": 10493,
+     "likes": 220,
+     "comentarios": 9,
+     "partilhas": 39
     }
    ]
   },
   "10": {
    "metricas": {
-    "views": 1281,
+    "views": 1283,
     "likes": 80,
     "comentarios": 2,
     "partilhas": 3
    },
    "publicado_em": "2026-08-30T09:57",
    "duracao_s": 45,
-   "atualizado": "2026-09-02T12:00",
+   "atualizado": "2026-09-02T13:00",
    "historico": [
     {
      "t": "2026-08-30T12:49",
@@ -3104,19 +3125,26 @@
      "likes": 80,
      "comentarios": 2,
      "partilhas": 3
+    },
+    {
+     "t": "2026-09-02T13:00",
+     "views": 1283,
+     "likes": 80,
+     "comentarios": 2,
+     "partilhas": 3
     }
    ]
   },
   "42": {
    "metricas": {
-    "views": 2989,
-    "likes": 125,
-    "comentarios": 4,
-    "partilhas": 22
+    "views": 3416,
+    "likes": 133,
+    "comentarios": 5,
+    "partilhas": 27
    },
    "publicado_em": "2026-09-01T18:02",
    "duracao_s": 50,
-   "atualizado": "2026-09-02T12:00",
+   "atualizado": "2026-09-02T13:00",
    "historico": [
     {
      "t": "2026-09-01T18:26",
@@ -3278,6 +3306,13 @@
      "likes": 125,
      "comentarios": 4,
      "partilhas": 22
+    },
+    {
+     "t": "2026-09-02T13:00",
+     "views": 3416,
+     "likes": 133,
+     "comentarios": 5,
+     "partilhas": 27
     }
    ]
   }
@@ -4122,6 +4157,11 @@
    {
     "t": "2026-09-02T12:00",
     "seguidores": 62,
+    "publicacoes": 15
+   },
+   {
+    "t": "2026-09-02T13:00",
+    "seguidores": 63,
     "publicacoes": 15
    }
   ]
