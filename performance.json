@@ -15,7 +15,7 @@
     "tempo_medio_s": 20.8
    },
    "nota": "Publicado sex 7/ago 22h30 · 1:12 · aos 4 dias ainda a subir (2x baseline) · partilhas = motor",
-   "atualizado": "2026-09-02T11:00",
+   "atualizado": "2026-09-02T12:00",
    "historico": [
     {
      "t": "2026-08-11T17:04",
@@ -4375,6 +4375,16 @@
      "partilhas": 25,
      "saves": 9,
      "seguidores": 9
+    },
+    {
+     "t": "2026-09-02T12:00",
+     "views": 3213,
+     "alcance": 2325,
+     "likes": 81,
+     "comentarios": 1,
+     "partilhas": 25,
+     "saves": 9,
+     "seguidores": 9
     }
    ],
    "publicado_em": "2026-08-07T21:46:30+0000"
@@ -4395,7 +4405,7 @@
    "estado": "publicado",
    "publicado": "2026-08-15",
    "metricas": {
-    "views": 1676,
+    "views": 1677,
     "alcance": 1301,
     "likes": 31,
     "comentarios": 1,
@@ -4405,7 +4415,7 @@
    },
    "nota": "",
    "publicado_em": "2026-08-15T10:21:50+0000",
-   "atualizado": "2026-09-02T11:00",
+   "atualizado": "2026-09-02T12:00",
    "historico": [
     {
      "t": "2026-08-15T11:10",
@@ -7664,6 +7674,15 @@
      "comentarios": 1,
      "partilhas": 3,
      "saves": 3
+    },
+    {
+     "t": "2026-09-02T12:00",
+     "views": 1677,
+     "alcance": 1301,
+     "likes": 31,
+     "comentarios": 1,
+     "partilhas": 3,
+     "saves": 3
     }
    ]
   },
@@ -7689,7 +7708,7 @@
    "estado": "publicado",
    "publicado": "2026-08-30",
    "metricas": {
-    "views": 2861,
+    "views": 2864,
     "alcance": 2304,
     "likes": 88,
     "comentarios": 4,
@@ -7699,7 +7718,7 @@
    },
    "nota": "",
    "publicado_em": "2026-08-30T09:56:31+0000",
-   "atualizado": "2026-09-02T11:00",
+   "atualizado": "2026-09-02T12:00",
    "historico": [
     {
      "t": "2026-08-30T10:21",
@@ -8492,6 +8511,15 @@
      "comentarios": 4,
      "partilhas": 24,
      "saves": 13
+    },
+    {
+     "t": "2026-09-02T12:00",
+     "views": 2864,
+     "alcance": 2304,
+     "likes": 88,
+     "comentarios": 4,
+     "partilhas": 24,
+     "saves": 13
     }
    ]
   },
@@ -8509,7 +8537,7 @@
    },
    "nota": "",
    "publicado_em": "2026-08-23T09:51:38+0000",
-   "atualizado": "2026-09-02T11:00",
+   "atualizado": "2026-09-02T12:00",
    "historico": [
     {
      "t": "2026-08-23T10:13",
@@ -10121,6 +10149,15 @@
      "comentarios": 1,
      "partilhas": 3,
      "saves": 1
+    },
+    {
+     "t": "2026-09-02T12:00",
+     "views": 2248,
+     "alcance": 1617,
+     "likes": 56,
+     "comentarios": 1,
+     "partilhas": 3,
+     "saves": 1
     }
    ]
   },
@@ -10168,7 +10205,7 @@
    },
    "nota": "",
    "publicado_em": "2026-08-27T18:27:15+0000",
-   "atualizado": "2026-09-02T11:00",
+   "atualizado": "2026-09-02T12:00",
    "historico": [
     {
      "t": "2026-08-27T19:00",
@@ -11069,6 +11106,15 @@
      "comentarios": 0,
      "partilhas": 4,
      "saves": 0
+    },
+    {
+     "t": "2026-09-02T12:00",
+     "views": 809,
+     "alcance": 615,
+     "likes": 29,
+     "comentarios": 0,
+     "partilhas": 4,
+     "saves": 0
     }
    ]
   },
@@ -11076,17 +11122,17 @@
    "estado": "publicado",
    "publicado": "2026-08-16",
    "metricas": {
-    "views": 1507,
-    "alcance": 1074,
+    "views": 1509,
+    "alcance": 1076,
     "likes": 31,
     "comentarios": 0,
     "partilhas": 6,
     "saves": 1,
-    "tempo_medio_s": 12.6
+    "tempo_medio_s": 12.7
    },
    "nota": "",
    "publicado_em": "2026-08-16T17:35:07+0000",
-   "atualizado": "2026-09-02T11:00",
+   "atualizado": "2026-09-02T12:00",
    "historico": [
     {
      "t": "2026-08-16T18:14",
@@ -14075,6 +14121,15 @@
      "comentarios": 0,
      "partilhas": 6,
      "saves": 1
+    },
+    {
+     "t": "2026-09-02T12:00",
+     "views": 1509,
+     "alcance": 1076,
+     "likes": 31,
+     "comentarios": 0,
+     "partilhas": 6,
+     "saves": 1
     }
    ]
   },
@@ -14128,7 +14183,7 @@
    },
    "nota": "",
    "publicado_em": "2026-08-20T18:11:07+0000",
-   "atualizado": "2026-09-02T11:00",
+   "atualizado": "2026-09-02T12:00",
    "historico": [
     {
      "t": "2026-08-20T18:23",
@@ -16289,6 +16344,15 @@
      "comentarios": 0,
      "partilhas": 1,
      "saves": 1
+    },
+    {
+     "t": "2026-09-02T12:00",
+     "views": 489,
+     "alcance": 287,
+     "likes": 18,
+     "comentarios": 0,
+     "partilhas": 1,
+     "saves": 1
     }
    ]
   },
@@ -16306,7 +16370,7 @@
    },
    "nota": "",
    "publicado_em": "2026-08-11T18:00:08+0000",
-   "atualizado": "2026-09-02T11:00",
+   "atualizado": "2026-09-02T12:00",
    "historico": [
     {
      "t": "2026-08-11T21:04",
@@ -20186,6 +20250,15 @@
      "comentarios": 4,
      "partilhas": 8,
      "saves": 1
+    },
+    {
+     "t": "2026-09-02T12:00",
+     "views": 1385,
+     "alcance": 943,
+     "likes": 46,
+     "comentarios": 4,
+     "partilhas": 8,
+     "saves": 1
     }
    ]
   },
@@ -20233,7 +20306,7 @@
     "tempo_medio_s": 19.4
    },
    "nota": "Publicado dom 9/ago 18h30 · 0:58 · ~55-60% do ritmo do #1 à mesma idade; retenção RELATIVA melhor (34% vs 29%); perdeu no hook (pergunta abstrata) e na partilhabilidade (tema-sociedade)",
-   "atualizado": "2026-09-02T11:00",
+   "atualizado": "2026-09-02T12:00",
    "historico": [
     {
      "t": "2026-08-11T17:04",
@@ -24593,6 +24666,16 @@
      "partilhas": 9,
      "saves": 2,
      "seguidores": 2
+    },
+    {
+     "t": "2026-09-02T12:00",
+     "views": 1599,
+     "alcance": 1044,
+     "likes": 41,
+     "comentarios": 1,
+     "partilhas": 9,
+     "saves": 2,
+     "seguidores": 2
     }
    ],
    "publicado_em": "2026-08-09T17:30:04+0000"
@@ -24613,17 +24696,17 @@
    "estado": "ideia",
    "publicado": "",
    "metricas": {
-    "views": 1970,
-    "alcance": 1550,
-    "likes": 37,
+    "views": 2111,
+    "alcance": 1668,
+    "likes": 40,
     "comentarios": 3,
-    "partilhas": 23,
+    "partilhas": 29,
     "saves": 17,
-    "tempo_medio_s": 16.9
+    "tempo_medio_s": 17.1
    },
    "nota": "",
    "publicado_em": "2026-09-01T17:58:55+0000",
-   "atualizado": "2026-09-02T11:00",
+   "atualizado": "2026-09-02T12:00",
    "historico": [
     {
      "t": "2026-09-01T18:00",
@@ -24822,6 +24905,15 @@
      "comentarios": 3,
      "partilhas": 23,
      "saves": 17
+    },
+    {
+     "t": "2026-09-02T12:00",
+     "views": 2111,
+     "alcance": 1668,
+     "likes": 40,
+     "comentarios": 3,
+     "partilhas": 29,
+     "saves": 17
     }
    ]
   },
@@ -24859,7 +24951,7 @@
    "estado": "publicado",
    "publicado": "2026-08-25",
    "metricas": {
-    "views": 2106,
+    "views": 2107,
     "alcance": 1655,
     "likes": 32,
     "comentarios": 2,
@@ -24869,7 +24961,7 @@
    },
    "nota": "",
    "publicado_em": "2026-08-25T18:00:16+0000",
-   "atualizado": "2026-09-02T11:00",
+   "atualizado": "2026-09-02T12:00",
    "historico": [
     {
      "t": "2026-08-25T18:24",
@@ -25995,6 +26087,15 @@
      "comentarios": 2,
      "partilhas": 27,
      "saves": 17
+    },
+    {
+     "t": "2026-09-02T12:00",
+     "views": 2107,
+     "alcance": 1655,
+     "likes": 32,
+     "comentarios": 2,
+     "partilhas": 27,
+     "saves": 17
     }
    ]
   },
@@ -26087,7 +26188,7 @@
     "tempo_medio_s": 10.6
    },
    "publicado_em": "2026-08-13T18:00:05+0000",
-   "atualizado": "2026-09-02T11:00",
+   "atualizado": "2026-09-02T12:00",
    "historico": [
     {
      "t": "2026-08-13T18:48",
@@ -29661,6 +29762,15 @@
      "comentarios": 1,
      "partilhas": 12,
      "saves": 1
+    },
+    {
+     "t": "2026-09-02T12:00",
+     "views": 957,
+     "alcance": 498,
+     "likes": 24,
+     "comentarios": 1,
+     "partilhas": 12,
+     "saves": 1
     }
    ],
    "estado": "publicado",
@@ -29677,7 +29787,7 @@
     "tempo_medio_s": 16.8
    },
    "publicado_em": "2026-08-18T18:05:06+0000",
-   "atualizado": "2026-09-02T11:00",
+   "atualizado": "2026-09-02T12:00",
    "historico": [
     {
      "t": "2026-08-18T18:22",
@@ -32252,6 +32362,15 @@
      "comentarios": 2,
      "partilhas": 8,
      "saves": 6
+    },
+    {
+     "t": "2026-09-02T12:00",
+     "views": 3003,
+     "alcance": 2313,
+     "likes": 62,
+     "comentarios": 2,
+     "partilhas": 8,
+     "saves": 6
     }
    ],
    "estado": "publicado",
@@ -32259,8 +32378,8 @@
   },
   "67": {
    "metricas": {
-    "views": 3354,
-    "alcance": 2634,
+    "views": 3355,
+    "alcance": 2635,
     "likes": 62,
     "comentarios": 7,
     "partilhas": 12,
@@ -32268,7 +32387,7 @@
     "tempo_medio_s": 20.9
    },
    "publicado_em": "2026-08-22T10:00:12+0000",
-   "atualizado": "2026-09-02T11:00",
+   "atualizado": "2026-09-02T12:00",
    "historico": [
     {
      "t": "2026-08-22T10:13",
@@ -34087,6 +34206,15 @@
      "comentarios": 7,
      "partilhas": 12,
      "saves": 4
+    },
+    {
+     "t": "2026-09-02T12:00",
+     "views": 3355,
+     "alcance": 2635,
+     "likes": 62,
+     "comentarios": 7,
+     "partilhas": 12,
+     "saves": 4
     }
    ],
    "estado": "publicado",
@@ -34094,16 +34222,16 @@
   },
   "68": {
    "metricas": {
-    "views": 2867,
+    "views": 2870,
     "alcance": 2434,
     "likes": 40,
     "comentarios": 0,
     "partilhas": 8,
     "saves": 8,
-    "tempo_medio_s": 19.0
+    "tempo_medio_s": 19.1
    },
    "publicado_em": "2026-08-29T09:58:25+0000",
-   "atualizado": "2026-09-02T11:00",
+   "atualizado": "2026-09-02T12:00",
    "historico": [
     {
      "t": "2026-08-29T10:47",
@@ -34950,6 +35078,15 @@
      "comentarios": 0,
      "partilhas": 8,
      "saves": 8
+    },
+    {
+     "t": "2026-09-02T12:00",
+     "views": 2870,
+     "alcance": 2434,
+     "likes": 40,
+     "comentarios": 0,
+     "partilhas": 8,
+     "saves": 8
     }
    ],
    "estado": "publicado",
@@ -34957,7 +35094,7 @@
   }
  },
  "_leia-me": "Editado via dashboard (botão Exportar) ou à mão. IAs: este ficheiro é o estado operacional do pipeline — estados, datas de publicação, métricas e aprendizagens por vídeo.",
- "ultima_sincronizacao": "2026-09-02T11:00",
+ "ultima_sincronizacao": "2026-09-02T12:00",
  "canal": {
   "historico": [
    {
@@ -39744,6 +39881,17 @@
     "contas_interagiram": 61,
     "interacoes": 128,
     "cliques_bio": 0
+   },
+   {
+    "t": "2026-09-02T12:00",
+    "seguidores": 239,
+    "a_seguir": 233,
+    "publicacoes": 38,
+    "alcance_dia": 1686,
+    "visitas_perfil": 28,
+    "contas_interagiram": 66,
+    "interacoes": 143,
+    "cliques_bio": 0
    }
   ],
   "demografia": {
@@ -39765,7 +39913,7 @@
    },
    "engaged_audience_demographics_country": {},
    "engaged_audience_demographics_age": {},
-   "atualizado": "2026-09-02T11:00"
+   "atualizado": "2026-09-02T12:00"
   },
   "demografia_historico": [
    {
