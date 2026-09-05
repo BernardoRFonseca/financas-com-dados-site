@@ -789,6 +789,13 @@ function q06(){
     <div class="q-body"><ul class="leituras">${L.map(l=>`<li><span class="tag ${l[0]}">${l[1]}</span><span>${l[2]}</span></li>`).join('')||'<li>sem dados suficientes</li>'}</ul></div></section>`;}
 
 /* ================= FCD-2 · produção & ideias ================= */
+function q07b(){
+  const next=V.filter(d=>d.ord&&d.ord<50&&estadoOf(d)!=='publicado').sort((a,b)=>a.ord-b.ord);
+  return `<section class="quadro">
+    <div class="q-head"><span class="q-num">QUADRO 08</span><span class="q-title">Agenda — próximos vídeos</span><span class="q-note">ordem de publicação · clique numa linha para o guião completo</span></div>
+    <div class="q-body tblwrap">${next.length?`<table><thead><tr><th class="l">quando</th><th class="l">vídeo</th><th class="l">pilar</th><th class="l">estado</th></tr></thead>
+    <tbody>${next.map(d=>`<tr class="rowopen" data-open="${d.id}"><td class="l num">${esc(d.agenda||'—')}</td><td class="l">#${d.id} ${esc(d.t).slice(0,44)}${(d.t||'').length>44?'…':''}</td><td class="l">${esc(d.pilar)}</td><td class="l">${ESTADOS[estadoOf(d)]}</td></tr>`).join('')}</tbody></table>`:`<p class="empty">Sem vídeos agendados no momento — o Banco de ideias está logo abaixo.</p>`}</div></section>`;
+}
 function prodCounts(){const c={ideia:0,guiao:0,gravado:0,editado:0,publicado:0};V.forEach(d=>c[estadoOf(d)]++);return c;}
 function cardHtml(d){
   const est=estadoOf(d);
@@ -814,10 +821,10 @@ function renderProd(){
       <div class="fields" style="grid-template-columns:repeat(5,1fr)">
         ${Object.keys(ESTADOS).map(k=>`<div class="f"><div class="k">${ESTADOS[k]}</div><div class="v">${c[k]}</div></div>`).join('')}
       </div>
-      ${next.length?`<div style="margin-top:14px"><span class="pill" style="border-color:var(--tinta);font-weight:600">A SEGUIR NO PLANO</span> ${next.map(d=>`<button class="chip" data-open="${d.id}" style="margin-left:6px">PUB ${String(d.ord).padStart(2,'0')} · #${d.id} ${esc(d.t).slice(0,32)}</button>`).join('')}</div>`:''}
     </div></section>
+  ${q07b()}
   <section class="quadro">
-    <div class="q-head"><span class="q-num">QUADRO 08</span><span class="q-title">Banco de ideias — ${V.length} vídeos</span><span class="q-note">ordenado por score · clique no cartão para guião completo</span></div>
+    <div class="q-head"><span class="q-num">QUADRO 09</span><span class="q-title">Banco de ideias — ${V.length} vídeos</span><span class="q-note">ordenado por score · clique no cartão para guião completo</span></div>
     <div class="q-body">
       <div class="ctrl">
         <div class="chips">${PILARES.map(p=>`<button class="chip" aria-pressed="${filtPilar===p}" data-pilar="${p}">${p}</button>`).join('')}</div>
@@ -830,7 +837,7 @@ function renderProd(){
       <div class="cards">${list.map(cardHtml).join('')}</div>
     </div></section>
   <section class="quadro">
-    <div class="q-head"><span class="q-num">QUADRO 09</span><span class="q-title">Parking lot — ideias em bruto</span><span class="q-note">promovem-se a cartão quando avaliadas</span></div>
+    <div class="q-head"><span class="q-num">QUADRO 10</span><span class="q-title">Parking lot — ideias em bruto</span><span class="q-note">promovem-se a cartão quando avaliadas</span></div>
     <div class="q-body"><ul style="columns:2;column-gap:28px;padding-left:18px;color:var(--ink);font-size:14px;line-height:1.9;max-width:1000px">
     <li>Índice de miséria (inflação + desemprego) — índice pouco conhecido com efeito-uau</li>
     <li>"Quanto ganha o Estado com um litro de gasolina" (ISP + IVA)</li>
@@ -843,7 +850,7 @@ function renderProd(){
     <li>Riqueza das famílias PT: ISFF 2024 (INE, mai. 2026) — média vs. mediana da riqueza líquida</li>
   </ul></div></section>
   <section class="quadro">
-    <div class="q-head"><span class="q-num">QUADRO 10</span><span class="q-title">Contexto do projeto (humanos e IAs)</span></div>
+    <div class="q-head"><span class="q-num">QUADRO 11</span><span class="q-title">Contexto do projeto (humanos e IAs)</span></div>
     <div class="q-body"><ul style="padding-left:18px;font-size:14px;line-height:2">
     <li><a href="contexto.md" style="color:var(--green);font-weight:600">contexto.md — briefing completo para IA (estado, regras, decisões)</a></li>
     <li><a href="performance.json" style="color:var(--green);font-weight:600">performance.json — pipeline e métricas por vídeo</a></li>
@@ -859,6 +866,7 @@ function renderProd(){
   document.querySelectorAll('#prod .chip[data-pilar]').forEach(b=>b.addEventListener('click',()=>{filtPilar=b.dataset.pilar;renderProd();}));
   document.querySelectorAll('#prod .chip[data-est]').forEach(b=>b.addEventListener('click',()=>{filtEst=b.dataset.est;renderProd();}));
   document.querySelectorAll('#prod .chip[data-open]').forEach(b=>b.addEventListener('click',()=>openModal(+b.dataset.open)));
+  document.querySelectorAll('#prod .rowopen').forEach(r=>r.addEventListener('click',()=>openModal(+r.dataset.open)));
   const ps=document.getElementById('profSel');if(ps)ps.addEventListener('change',()=>{profile=ps.value;renderProd();});
   document.querySelectorAll('#prod .vcard').forEach(cd=>{
     cd.addEventListener('click',()=>openModal(+cd.dataset.id));
