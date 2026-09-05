@@ -1,6 +1,12 @@
 # Instagram Finanças com Dados — Centro de Contexto do Projeto
 
-> **⚠️ REDESIGN "MODELO FCD" (05/set) — ESTRUTURA OFICIAL A PARTIR DE AGORA, LER ANTES DE QUALQUER EDIÇÃO NO index.html:**
+> **BULK 05/set (parte 2) — Banco de ideias reestruturado e recalibrado:**
+- **Parking Lot (Q10 antigo) MIGRADO para o Banco real** — as 9 ideias que viviam em HTML estático (sem score, sem pilar, invisíveis aos filtros) tornaram-se entradas #85-93 no array `V`, com pilar/score/tags/hook/QC como qualquer outra ideia. Quadro estático removido; Contexto do projeto desceu de Q11 para Q10.
+- **Recalibração #44 "O trabalho paga até 48%. O capital paga 28."**: risco desceu de r:3 para r:2 (score 76→92) — o #42 ("Ricos não vendem") provou que uma assimetria fiscal explicada com neutralidade total pode ser o maior sucesso do canal (9,6k+ TT). Mantido r:2 (não r:1) porque este tema específico (trabalho vs. capital) fica mais perto de debate político do que o #42 — mesmo cuidado de tom exigido.
+- **Destaques dos 9 migrados**: #92 "Arrendar vs. comprar casa" (score 85, o mais forte — complementa o #17 sem repetir) e #93 "Riqueza das famílias PT — média vs. mediana" (score 82, ISFF 2024/INE já como fonte, mesma família de reveal que #66/#10) são os candidatos mais fortes a agendar a seguir. #86 "Quanto ganha o Estado com a gasolina" (82) também forte — mesma família do #4.
+- Todas as 9 entradas têm ⚠️ QC explícito onde falta verificar dados antes de escrever guião — nenhuma pronta a gravar sem essa passagem.
+
+**⚠️ REDESIGN "MODELO FCD" (05/set) — ESTRUTURA OFICIAL A PARTIR DE AGORA, LER ANTES DE QUALQUER EDIÇÃO NO index.html:**
 Uma sessão de Claude diferente reconstruiu a apresentação do index.html — o Bernardo confirmou (05/set) que gosta e quer manter. A camada de dados (`const V`, mesmo schema de sempre: prod/agenda/ord/ideia/hookNum/script/notas) sobreviveu 100% intacta — só a interface mudou.
 - **Dois separadores por hash:** "Modelo FCD-1: Desempenho" (`#`) e "Modelo FCD-2: Produção & ideias" (`#producao`), via `showTab()`.
 - **Paleta nova — CREME + CARIMBO, não B3 dark:** `--papel:#F6F7F4 --tinta:#16241D --tinta-suave:#5B6B62 --azul:#1D5FBF --azul-fundo:#E8EFFB --verde:#0E8A5F --menta:#BFEFD9 --vermelho:#C2453E --carimbo:#B3402F --linha:#16241D --linha-suave:#CBD2C9 --caixa:#FFFFFF`. Tem um selo/carimbo circular vermelho no masthead ("validado", com data). Qualquer asset ou secção nova deve usar ESTES tokens, não o mint/dark antigo do Cockpit.
