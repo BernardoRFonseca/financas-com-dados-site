@@ -485,6 +485,18 @@ const V = [
 {id:93,t:'Riqueza das famílias portuguesas: a média e a mediana contam histórias diferentes',big:'⚠️QC ISFF',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:1,vida:'Datado (2026)',r:1,tags:['Guardável','PT-BR'],
  hook:'"A riqueza líquida média de uma família portuguesa é um número. A mediana é outro, bem mais baixo. A diferença é a história toda."',
  notas:['Migrado do Parking Lot (05/set).','Fonte já identificada: ISFF 2024, INE, publicado maio de 2026 — confirmar valores exatos de média/mediana antes do guião.','Mesma família de reveal que os vídeos de salário (média vs. mediana) — padrão já comprovado no canal (#66, #10).']},
+{id:94,t:'Quem paga o IRS? A concentração que ninguém mostra',big:'⚠️QC AT',pilar:'Impostos',fase:'f2',i:3,v:3,p:1,vida:'Datado (2026)',r:2,tags:['Guardável','Posicionamento'],
+ hook:'"3,69% dos agregados portugueses pagam 35% de todo o IRS cobrado. Os 22% seguintes pagam mais 42%."',
+ notas:['Vinda do doc estrategia-instagram-financas.md, secção \'Pepitas do QC do vídeo #1\' — nunca convertida em cartão.','⚠️ QC: dossier AT 2024 (via ECO, abril 2026) — reconfirmar os 3 números (3,69%/35,10%/22,35%/41,67%) antes de escrever.','Mesma família de reveal do #42/#44 (assimetria fiscal) — apresentar como fotografia neutra, nunca como argumento a favor de mais/menos impostos.']},
+{id:95,t:'O maior benefício fiscal de Portugal não é para portugueses',big:'⚠️QC RNH',pilar:'Impostos',fase:'f2',i:3,v:3,p:1,vida:'Datado (2026)',r:3,tags:['Guardável'],
+ hook:'"O Regime do Residente Não Habitual consome mais de metade de todos os benefícios fiscais em Portugal."',
+ notas:['Vinda do doc estrategia-instagram-financas.md — nunca convertida em cartão.','⚠️ QC: RNH = 57,57% dos 3.379M€ de benefícios fiscais (~1,95 mil M€); IRS Jovem só 6,81% — reconfirmar valores no dossier AT/ano mais recente antes de gravar.','r:3 (risco mais alto do lote) — tema de residentes estrangeiros pode ler-se como xenófobo se mal enquadrado; potencial viral alto SE o tom for 100% factual (\'eis para onde vai o dinheiro\', nunca \'os estrangeiros roubam-nos\').']},
+{id:96,t:'Declaraste mais, o país pagou menos: a mecânica que ninguém explica',big:'⚠️QC AT',pilar:'Impostos',fase:'f2',i:3,v:3,p:1,vida:'Datado (2026)',r:1,tags:['Guardável','Posicionamento'],
+ hook:'"Em 2024, os portugueses declararam mais 9,64% de rendimento. O IRS cobrado desceu."',
+ notas:['Vinda do doc estrategia-instagram-financas.md, secção \'Pepitas do QC do vídeo #1\' — nunca convertida em cartão.','⚠️ QC: rendimento englobado +9,64%/2024, IRS liquidado −0,14%, taxa efetiva 11,65% (mínimo do triénio) — reconfirmar no dossier AT/ECO antes de gravar.','Risco baixo — é matemática do sistema (escalões, deduções), não uma escolha de grupo nenhum.']},
+{id:97,t:'O dinheiro não compra felicidade. Compra uma coisa melhor.',big:'⚠️QC ciência',pilar:'Mentalidade',fase:'f2',i:3,v:2,p:2,vida:'Evergreen',r:1,tags:['Posicionamento','Guardável'],
+ hook:'"O dinheiro não compra felicidade. Mas remove alguma coisa que pesa mais do que a felicidade traz: o medo."',
+ notas:['Ideia do Bernardo (8/ago) — vinda do doc estrategia-instagram-financas.md, nunca convertida em cartão.','⚠️ QC: Kahneman & Deaton 2010 (planalto de bem-estar) vs. Killingsworth 2021 (sem planalto) vs. colaboração adversarial dos três em 2023 (sobe para a maioria; planalto só na minoria infeliz) — a CONTRADIÇÃO entre estudos é assinatura da casa (cf. #39), citar as três fases.','Achado mais robusto: o efeito mais forte do dinheiro é remover stress/medo, não acrescentar alegria. Reframe: \'fundo de emergência não rende juros, rende sono\'.','CTA sugerido: \'o que é que o dinheiro já te comprou que não se compra?\'','Admite abertura em registo pessoal (1.ª pessoa) — humaniza o canal; único dos 4 sem reveal fiscal.']},
 ];
 
 const ESTADOS={ideia:'Ideia',guiao:'Guião',gravado:'Gravado',editado:'Editado',publicado:'Publicado'};
@@ -556,7 +568,7 @@ function lineChart(pts,{w=520,h=150,color='#0E8A5F',fill=null,thr=null,thrLbl=''
 
 /* ================= estado ================= */
 let IG=null,TT=null,rows=[],sortKey='pub',sortDir=-1;
-let filtPilar='Todos',filtEst='todos';
+let ocultarPub=true;
 
 const VBY={};V.forEach(d=>VBY[d.id]=d);
 function estadoOf(d){const p=(IG&&IG.videos||{})[d.id];
@@ -838,7 +850,7 @@ function cardHtml(d){
 function renderProd(){
   const c=prodCounts();
   const pubs=V.filter(d=>estadoOf(d)==='publicado');
-  let list=V.filter(d=>(filtPilar==='Todos'||d.pilar===filtPilar)&&(filtEst==='todos'||estadoOf(d)===filtEst));
+  let list=V.filter(d=>!ocultarPub||estadoOf(d)!=='publicado');
   list.sort((a,b)=>scoreOf(b)-scoreOf(a));
   const next=V.filter(d=>d.ord&&d.ord<50&&estadoOf(d)!=='publicado').sort((a,b)=>a.ord-b.ord).slice(0,3);
   document.getElementById('prod').innerHTML=`
@@ -854,11 +866,7 @@ function renderProd(){
     <div class="q-head"><span class="q-num">QUADRO 09</span><span class="q-title">Banco de ideias — ${V.length} vídeos</span><span class="q-note">ordenado por score · clique no cartão para guião completo</span></div>
     <div class="q-body">
       <div class="ctrl">
-        <div class="chips">${PILARES.map(p=>`<button class="chip" aria-pressed="${filtPilar===p}" data-pilar="${p}">${p}</button>`).join('')}</div>
-      </div>
-      <div class="ctrl">
-        <div class="chips"><button class="chip" aria-pressed="${filtEst==='todos'}" data-est="todos">todos</button>${Object.keys(ESTADOS).map(k=>`<button class="chip" aria-pressed="${filtEst===k}" data-est="${k}">${ESTADOS[k].toLowerCase()}</button>`).join('')}</div>
-        <select id="profSel" aria-label="Perfil de score"><option value="cresc"${profile==='cresc'?' selected':''}>score: Crescimento</option><option value="marca"${profile==='marca'?' selected':''}>score: Marca</option></select>
+        <button class="chip" aria-pressed="${ocultarPub}" id="chipOcultarPub">ocultar publicados</button>
         <span class="count">${list.length} de ${V.length}</span>
       </div>
       <div class="cards">${list.map(cardHtml).join('')}</div>
@@ -877,11 +885,9 @@ function renderProd(){
     <li><a href="producao/README-capcut.md" style="color:var(--green);font-weight:600">producao/README-capcut.md — guia do projeto-molde no CapCut</a></li>
   </ul></div></section>`;
   // listeners
-  document.querySelectorAll('#prod .chip[data-pilar]').forEach(b=>b.addEventListener('click',()=>{filtPilar=b.dataset.pilar;renderProd();}));
-  document.querySelectorAll('#prod .chip[data-est]').forEach(b=>b.addEventListener('click',()=>{filtEst=b.dataset.est;renderProd();}));
   document.querySelectorAll('#prod .chip[data-open]').forEach(b=>b.addEventListener('click',()=>openModal(+b.dataset.open)));
   document.querySelectorAll('#prod .rowopen').forEach(r=>r.addEventListener('click',()=>openModal(+r.dataset.open)));
-  const ps=document.getElementById('profSel');if(ps)ps.addEventListener('change',()=>{profile=ps.value;renderProd();});
+  const cop=document.getElementById('chipOcultarPub');if(cop)cop.addEventListener('click',()=>{ocultarPub=!ocultarPub;renderProd();});
   document.querySelectorAll('#prod .vcard').forEach(cd=>{
     cd.addEventListener('click',()=>openModal(+cd.dataset.id));
     cd.addEventListener('keydown',e=>{if(e.key==='Enter')openModal(+cd.dataset.id);});});

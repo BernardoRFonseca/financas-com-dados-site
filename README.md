@@ -1,6 +1,12 @@
 # Instagram Finanças com Dados — Centro de Contexto do Projeto
 
-> **BULK 05/set (parte 2) — Banco de ideias reestruturado e recalibrado:**
+> **BULK 05/set (parte 3) — Quadro 09 simplificado + 4 ideias resgatadas de docs/estrategia-instagram-financas.md:**
+- **Filtros do Banco de ideias reduzidos a 1 só** (pedido do Bernardo): "ocultar publicados" (toggle, default ligado). Removidos: chips de pilar, chips de estado, seletor de perfil de score (score continua a usar o perfil 'cresc' por defeito, sem UI para trocar).
+- **4 ideias novas (#94-97), encontradas ao vasculhar docs/estrategia-instagram-financas.md** — estavam escritas há semanas sob uma nota "adicionar como cartões na próxima sessão" que nunca se cumpriu: #94 "Quem paga o IRS?" (concentração 3,69%→35%, score 84), #95 "RNH consome 57% dos benefícios fiscais" (score 67, risco 3 — mais sensível do lote), #96 "Declaraste mais, o país pagou menos" (mecânica fiscal 2024, score 80), #97 "O dinheiro não compra felicidade. Compra uma coisa melhor." (Kahneman/Killingsworth, registo pessoal, score 65 — único do lote sem reveal fiscal).
+- Todas com ⚠️ QC explícito — nenhuma pronta a gravar sem reconfirmar os números no dossier AT/fonte primária.
+- **Ainda por vasculhar** (não chegámos a esta parte do doc): secção 9 "Próximos passos", secção 6 "Kit de arranque", e o resto do "Parking lot" de docs/estrategia-instagram-financas.md (linhas 923-935) — pode haver mais ideias por resgatar numa próxima sessão.
+
+**BULK 05/set (parte 2) — Banco de ideias reestruturado e recalibrado:**
 - **Parking Lot (Q10 antigo) MIGRADO para o Banco real** — as 9 ideias que viviam em HTML estático (sem score, sem pilar, invisíveis aos filtros) tornaram-se entradas #85-93 no array `V`, com pilar/score/tags/hook/QC como qualquer outra ideia. Quadro estático removido; Contexto do projeto desceu de Q11 para Q10.
 - **Recalibração #44 "O trabalho paga até 48%. O capital paga 28."**: risco desceu de r:3 para r:2 (score 76→92) — o #42 ("Ricos não vendem") provou que uma assimetria fiscal explicada com neutralidade total pode ser o maior sucesso do canal (9,6k+ TT). Mantido r:2 (não r:1) porque este tema específico (trabalho vs. capital) fica mais perto de debate político do que o #42 — mesmo cuidado de tom exigido.
 - **Destaques dos 9 migrados**: #92 "Arrendar vs. comprar casa" (score 85, o mais forte — complementa o #17 sem repetir) e #93 "Riqueza das famílias PT — média vs. mediana" (score 82, ISFF 2024/INE já como fonte, mesma família de reveal que #66/#10) são os candidatos mais fortes a agendar a seguir. #86 "Quanto ganha o Estado com a gasolina" (82) também forte — mesma família do #4.
