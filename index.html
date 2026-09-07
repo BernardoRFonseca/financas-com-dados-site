@@ -130,6 +130,8 @@ tr.wtotal td{background:var(--azul-fundo);font-weight:600}
 .pill{font-family:'IBM Plex Mono',monospace;font-size:9.5px;letter-spacing:.06em;padding:2px 7px;border:1px solid var(--linha-suave);color:var(--tinta-suave)}
 .pill.score{border-color:var(--tinta);color:var(--tinta);font-weight:600}
 .pill.est{color:#fff;border:none}
+.pill.ok{background:var(--verde);color:#fff;border:none}
+.pill.bad{background:var(--carimbo);color:#fff;border:none}
 .est-publicado{background:var(--verde)} .est-guiao{background:var(--azul)} .est-gravado{background:#7A5FBF} .est-editado{background:#B3702F} .est-ideia{background:#7d8a82}
 .phase{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:15px;margin:22px 0 10px;display:flex;gap:10px;align-items:baseline}
 .phase .m{font-family:'IBM Plex Mono',monospace;font-weight:400;font-size:10px;color:var(--tinta-suave);letter-spacing:.08em;text-transform:uppercase}
@@ -228,6 +230,7 @@ const V = [
 25-37s: Poe dez trabalhadores em fila, do que leva menos ao que leva mais: o do meio leva novecentos e oitenta. E um em cada cinco... ganha o salario minimo. [v66-10-pessoas]
 37-53s: Estes numeros sao de 2024. Sabemos a media - mas so a bruta, e so trimestral: em junho ja ia nos mil oitocentos e trinta e cinco, e sobe todos os trimestres. A mediana liquida? Essa so sai uma vez por ano. E ainda nao saiu. Nas minhas contas: deve andar a volta dos mil e quarenta. [v66-11 -> v66-12-aposta CORRIGIDO aos ~46s]
 53-63s: Quando o INE a publicar, volto aqui - e vemos se acertei. Ate la: acima ou abaixo da linha do meio? Nao precisas de dizer o numero. [v66-6-cta]`, notas:['Fofoca com dados: auto-posicionamento instantâneo — o CTA não pede o número, pede acima/abaixo','Média vs mediana = literacia estatística disfarçada de voyeurismo salarial','⚠️ bruto vs líquido: dizer os qualificativos em voz alta; nota fixada explica','Estreia do pilar Salários — se funcionar, é série (por profissão, por setor, por idade)']}, {prod:{sb:'producao/video-84/storyboard.html',dir:'producao/video-84/overlays/',files:["v84-9-capa.png","v84-1-hook.png","v84-2-bourke.png","v84-3-venda.png","v84-4-comparacao.png","v84-5-revolut.png","v84-6-quemdecide.png","v84-7-cta.png"]}, agenda:'sáb · 11h00', ord:17, intencao:'3.o episodio da serie Quanto ganha X — cumpre o palpite pedido no #68 (CEO)', ideia:{resumo:'Quanto ganha um banqueiro em Portugal — Novobanco, BCP, comparacao global (JPMorgan) e Revolut.',porque:'Serie fofoca validada 2x (#67 7,2k TT + #68 9,6k TT); 3.o teste de repetibilidade.',alinha:'Serie Salarios/fofoca; sabado 11h = janela do breakout.',risco:'Distincao publico/privado (Caixa vs bancos privados) resolvida apos QC pedido pelo Bernardo — evita generalizacao falsa.'}, hookNum:true, dep:false, tema:'eu', dur:46, id:84,t:'Quanto ganha um banqueiro?',big:'200 mil€/mês',pilar:'Salários',fase:'s3',i:3,v:3,p:1,vida:'Datado (2026)',r:1,tags:['Série','PT-BR'],
+ obj:[{plat:'tt',m:'views',v:5000,label:'3.º episódio: manter ordem de grandeza dos #67/#68 — TT views ≥5.000'}],
  hook:'"Um banqueiro em Portugal pode ganhar duzentos mil euros. Por mês."',
  script:`~105 palavras = ~46s - FINAL 04-05/set, 6 rondas de revisao com o Bernardo\n0-5s: Um banqueiro em Portugal pode ganhar duzentos mil euros. Por mes. [v84-1-hook]\n5-15s: Mark Bourke, do Novobanco: dois milhoes e quatrocentos mil em 2025. O bonus sozinho, mais de um milhao e cem mil - quase triplicou face ao ano anterior. [v84-2-bourke + fonte-cmvm]\n15-21s: Porque tanto? O banco foi vendido este ano por seis mil milhoes de euros - e e normal um bonus ligado a venda, para os gestores nao sairem a meio do processo. [v84-3-venda]\n21-29s: Miguel Maya, do BCP: um virgula sete milhoes. La fora, ainda e pouco: o CEO do JPMorgan ganhou quarenta e tres milhoes de dolares - dezoito vezes mais. [v84-4-comparacao]\n29-36s: E a Revolut, ja o terceiro maior banco do pais por clientes? O fundador teve direito a quase dezoito milhoes de libras em 2022 - quase tudo em acoes. [v84-5-revolut + fonte-revolut]\n36-44s: Quem decide os salarios dos gestores? Nos bancos privados, os acionistas - nao o Estado. Na Caixa, banco publico, o acionista e o Estado. [v84-6-quemdecide]\n44-46s: Achas justo? [v84-7-cta]`,
  notas:['Mark Bourke, Novobanco - total ~2,4M€/2025, bonus 1,13M€ (+150% vs 2024), ligado a venda do banco a BPCE por 6,4-6,5 mil milhoes€ (ECO/CM Jornal, abril 2026).','Miguel Maya, BCP ~1,7M€. Jamie Dimon, JPMorgan $43M/2025.','Revolut: 2,1 milhoes de clientes em Portugal (dez/2025, +35%), 3.o maior banco do pais por clientes (Jornal de Negocios/Hipersuper). Storonsky: £17,8M em 2022 (relatorio anual Revolut UK, Companies House) - NAO usado o alvo especulativo de $76 mil milhoes (plano futuro condicional).','CGD: 100% do Estado; Comissao de Remuneracoes da Assembleia Geral aprova salarios - nesse caso o acionista E o Estado (CNN Portugal). Distincao adicionada apos pergunta do Bernardo.','Capa em formato frase (novo padrao, substituindo hero-numero): "isto e quanto ganham os banqueiros em Portugal."']},
@@ -355,6 +358,7 @@ const V = [
  hook:'"O carro de 80 mil euros diz-te que alguém GASTOU 80 mil euros. Não te diz que os tem."',
  notas:['Base: Stanley & Danko (The Millionaire Next Door) + Morgan Housel — a maioria dos milionários não ostenta; ostentação é frequentemente anti-sinal.','⚠️ Citar os estudos pelo nome, não inventar estatísticas.','Riqueza = o dinheiro que NÃO gastaste. Alinha com o registo sóbrio do canal.']},
 {prod:{sb:'producao/video-83/storyboard.html',dir:'producao/video-83/overlays/',files:["v83-9-capa.png","v83-1-hook.png","v83-2-fatias.png","v83-3-origem.png","v83-4-euros.png","v83-5-cta.png"]}, agenda:'ter · 19h00', ord:15, intencao:'regra pratica aplicavel — categoria com melhor taxa de partilha confirmada (#65 2,42%, #49 1,58%)', ideia:{resumo:'A regra 50/30/20: orcamento em 3 fatias (necessidades/desejos/poupanca), com euros da mediana PT + callback ao #49.',porque:'Regra pratica que a pessoa aplica a propria vida — o padrao com maior taxa de partilha confirmada nos dados.',alinha:'Mentalidade; liga-se ao #49 (a poupanca de 20% constroi o numero de liberdade).',risco:'Nenhum de maior — ressalva honesta sobre nao servir perto do minimo ja incluida.'}, hookNum:true, dep:false, tema:'eu', dur:42, id:83,t:'A regra 50/30/20: o orçamento que cabe numa frase',big:'50/30/20',pilar:'Mentalidade',fase:'s3',i:3,v:3,p:1,vida:'Evergreen',r:1,tags:['Guardável','PT-BR'],
+ obj:[{plat:'ig',m:'tx_partilha',v:1.0,label:'Replicar o #49 (regra prática) — tx partilha IG ≥1,0%'}],
  hook:'"Metade do que ganhas devia ir só para o que não escolhes: renda, contas, comida."',
  script:`~90 palavras = ~42s - FINAL 31/ago (3 rondas de critica: hook fraco->corrigido p/ abrir com numero; callback ao #49 refinado p/ funcionar com audiencia fria tambem)\n0-6s: Metade do que ganhas devia ir so para o que nao escolhes: renda, contas, comida. [v83-1-hook — mostra 50/30/20 completo desde o 1.º segundo, pedido do Bernardo]\n6-14s: Trinta por cento e para o que escolhes ter. Vinte por cento constroi o teu futuro - inclui pagar dividas. [v83-2-fatias]\n14-24s: A regra e de 2005, de uma professora de Harvard que depois foi senadora. A letra pequena: assume rendimento medio para cima - perto do salario minimo, os 50% de necessidades ja nao fecham, e esta tudo bem em dize-lo. [v83-3-origem + fonte-warren]\n24-34s: Com a mediana portuguesa - 980€ - isto da 490, 294 e 196 euros. E aqueles 196? Lembras-te do numero de liberdade financeira, o vinte e cinco vezes? E esse dinheiro, mes a mes, que o constroi. [v83-4-euros]\n34-42s: Faz a conta com o teu ultimo mes. Perto do 50/30/20, ou muito longe? Diz-me nos comentarios. [v83-5-cta]`,
  notas:['Regra popularizada por Elizabeth Warren, "All Your Worth" (2005), então professora em Harvard, depois senadora dos EUA.','Ressalva honesta: perto do salário mínimo em PT, os 50% de necessidades já não fecham.','Base de cálculo: mediana líquida 980€/2024 INE (mesma base do #66/#10). Callback ao #49 (25×) — os 196€ de poupança constroem o número de liberdade financeira.']},
@@ -371,9 +375,11 @@ const V = [
 {id:52,t:'Lotaria: o imposto voluntário sobre a esperança',big:'EV < 0',pilar:'Mentalidade',fase:'f2',i:3,v:2,p:1,vida:'Evergreen',r:2,tags:[],
  hook:'"O Euromilhões devolve em prémios uma fração do que arrecada. Matematicamente, cada aposta destrói valor. E mesmo assim jogamos. Porquê?"',
  notas:['Valor esperado negativo explicado com exemplo concreto. ⚠️ Verificar % de retorno em prémios (Santa Casa).','TOM SEM CULPA CRÍTICO: quem joga compra esperança, e a esperança tem valor emocional real. Nunca ridicularizar.','Fechar com o contraste construtivo: os mesmos 10€/semana em juro composto 30 anos (#20).']},
-{id:53,t:'"Chamam-lhe esquema Ponzi. A verdade é pior — para ti."',big:'67%→37%',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:2,vida:'Evergreen (rever projeções)',r:2,tags:['Guardável','Posicionamento'],
- hook:'"Dizem que a Segurança Social é um esquema Ponzi. Fui ler o relatório oficial de 73 páginas. A resposta é não... e o que lá está é pior para quem tem 30 anos."',
- notas:['Arbitragem honesta: a semelhança existe (repartição = os teus descontos pagam as pensões de HOJE, o mito do mealheiro) mas a analogia é coxa — transparente, ancorado no poder de tributar, ajustável. CE: sustentável até 2070, défice máx 0,6% PIB (2045).','O verdadeiro uau: não vai falir — vai pagar MENOS. Taxa de substituição ~67% hoje → ~37% na década de 2050, quando quem tem 30-40 anos hoje se reforma. 191→131 contribuintes/100 pensionistas (2019→2070).','Reframe: "não é um esquema — é um haircut anunciado num relatório que ninguém leu". Conclusão construtiva: planear como se a pensão fosse 1/3 → liga #49 e #20.','Rigor: citar CE/Ageing Report e Tribunal de Contas; projeção ≠ certeza; ZERO política de reforma. Pode desdobrar: (a) mito do mealheiro, (b) os 37%.']},
+{prod:{sb:'producao/video-53/storyboard.html',dir:'producao/video-53/overlays/',files:["v53-9-capa.png","v53-1-hook.png","v53-2-racio.png","v53-3-formula.png","v53-4-fefss.png","v53-5-dividapublica.png","v53-6-conta.png","v53-7-cta.png"]}, agenda:'dom · 11h00', ord:18, intencao:'tema denso, explicativo — mais longo de proposito; conteudo pessoal (Nivel 2) fica para outra sessao', ideia:{resumo:'Como funciona o sistema de pensoes (repartição), o racio trabalhador/pensionista, a reserva FEFSS mal investida, e a conta concreta do corte esperado.',porque:'Noticia fresca (relatorio oficial 18/ago/2026) + desmistificacao pedida pelo Bernardo apos varias rondas de revisao.',alinha:'Mentalidade; liga a #49/#20 (poupanca complementar).',risco:'Tema com debate politico disputado (defice vs excedente) - resolvido apresentando so a tendencia de longo prazo, que e consensual, sem tomar posicao no ponto disputado.'}, hookNum:true, dep:false, tema:'eu', dur:65, id:53,t:'Chamam-lhe esquema Ponzi. A verdade é pior — para ti.',big:'1,7 vs 2,5',pilar:'Mentalidade',fase:'s3',i:3,v:3,p:2,vida:'Datado (2026)',r:2,tags:['Guardável','Posicionamento'],
+ obj:[{plat:'ig',m:'retencao',v:30,label:'Vídeo longo (65s): retenção aguenta a densidade? Meta ≥30%'}],
+ hook:'"Vou explicar-te, em poucas frases, como funcionam as pensões: o dinheiro de quem trabalha hoje paga a quem está reformado hoje."',
+ script:`~145 palavras = ~65s - FINAL 06/set, apos 6 rondas de revisao com o Bernardo (via ditado)\n0-8s: Vou explicar-te, em poucas frases, como funcionam as pensoes: o dinheiro de quem trabalha hoje paga a quem esta reformado hoje. Nao e o teu dinheiro a voltar - e o dinheiro de outra pessoa, agora. [v53-1-hook]\n8-18s: O problema: hoje ha um virgula sete trabalhadores por cada pensionista. Para as contas fecharem sem aperto, precisaria de dois virgula cinco. Nascem menos bebes - e a populacao vive cada vez mais anos depois de se reformar. [v53-2-racio + fonte-racio]\n18-26s: E viver mais anos significa precisar de mais anos de pensao. Por isso o Estado atrasa a idade de reforma - para pagar, no total, o mesmo ou menos, mesmo vivendo mais tempo. [v53-3-formula]\n26-40s: Ha uma reserva para amortecer isto - quase 50 mil milhoes de euros, gerida por um instituto publico, o IGFCSS. Rendeu 3,93% ao ano em termos nominais desde 1990 - mas a inflacao comeu a maior parte: sobrou so 1,64% real. Fundos parecidos na Noruega, Suecia e Irlanda renderam perto de 4% real. [v53-4-fefss + fonte-cfp]\n40-50s: Porque tao pouco? E obrigado por lei a ter metade em divida publica portuguesa - baixo risco, baixo retorno - em vez de investir mais em acoes, que rendem mais a longo prazo. O proprio presidente do instituto ja admitiu: sem essa regra, o fundo seria cerca de 14% maior hoje. [v53-5-dividapublica]\n50-58s: Um relatorio oficial de agosto ja faz a conta: se ganhas mil e quinhentos euros e te reformasses hoje, levarias uns mil duzentos e quarenta. Um jovem que comece a trabalhar hoje, com o mesmo salario, deve levar uns mil e cinquenta - daqui a 40 anos. [v53-6-conta + fonte-relatorio]\n58-65s: Por isso a pensao publica e a poupanca privada nao competem - complementam-se. Comeca o teu mealheiro agora. Ja comecaste, ou ainda nao pensaste nisso? [v53-7-cta]`,
+ notas:['Rácio 1,7 trabalhador/pensionista (atual) vs 2,5 (necessário) — estudo Prepara Portugal/INE/Pordata, fev 2026.','FEFSS: ~49,3 mil M€, retorno nominal 3,93%/real 1,64% desde 1990 (CFP/relatório Reformar as Pensões, ago 2026). Noruega/Suécia/Irlanda ~4% real.','Gerido pelo IGFCSS (presidente José Vidrago); obrigação legal 50% dívida pública PT; presidente admitiu fundo seria ~14% maior sem essa regra (ECO/Executive Digest, ago 2026).','Taxa de substituição líquida 82,8%(2025)→70,3%(2065) — mesmo relatório. Conta com 1.500€: 1.240€ hoje vs 1.050€ daqui a 40 anos.','Debate disputado (défice vs excedente, CGA+SS combinados) explicitamente FORA do vídeo — só a tendência de longo prazo, que é consensual.','6 rondas de revisão: cortada alegação de "Estado não investiu nada" (falso — FEFSS existe); corrigido "perder dinheiro" para nominal-vs-real (o fundo ganha, só que devagar); adicionado quem gere + a citação dos 14%; hook reformulado de "professor" para "parceiro" (Bernardo pediu tom colaborativo).']},
 {id:54,t:'O custo de 1%: a comissão que come um quarto do teu património',big:'1% = -25%',pilar:'Mentalidade',fase:'f2',i:3,v:3,p:1,vida:'Evergreen',r:1,tags:['Guardável','PT-BR'],
  hook:'"Uma comissão de 1% ao ano parece nada. Em 30 anos de investimento, come cerca de um quarto de tudo o que construíste. Faz a conta comigo."',
  notas:['O juro composto ao contrário aplicado a comissões — porta de entrada para ETFs low-cost (TER 0,1-0,2% vs fundos bancários 1,5-2%).','⚠️ Calcular o exemplo exato com taxa assumida dita no vídeo.','Liga #20 e #35. Candidato a top do ranking.']},
@@ -835,6 +841,38 @@ function q07b(){
     <div class="q-body tblwrap">${next.length?`<table><thead><tr><th class="l">quando</th><th class="l">vídeo</th><th class="l">pilar</th><th class="l">estado</th></tr></thead>
     <tbody>${next.map(d=>`<tr class="rowopen" data-open="${d.id}"><td class="l num">${esc(d.agenda||'—')}</td><td class="l">#${d.id} ${esc(d.t).slice(0,44)}${(d.t||'').length>44?'…':''}</td><td class="l">${esc(d.pilar)}</td><td class="l">${ESTADOS[estadoOf(d)]}</td></tr>`).join('')}</tbody></table>`:`<p class="empty">Sem vídeos agendados no momento — o Banco de ideias está logo abaixo.</p>`}</div></section>`;
 }
+function objMetric(d,o){
+  const src = o.plat==='tt' ? ((TT&&TT.videos)||{})[d.id] : ((IG&&IG.videos)||{})[d.id];
+  if(!src) return null;
+  const m = src.metricas||{};
+  if(o.m==='retencao'){ const dur=DUR[d.id]; return (m.tempo_medio_s&&dur)?100*m.tempo_medio_s/dur:null; }
+  if(o.m==='tx_partilha'){ return m.alcance?100*(m.partilhas||0)/m.alcance:null; }
+  return (m[o.m]??null);
+}
+function evalObj(d){
+  if(!d.obj||!d.obj.length) return null;
+  const idade = (()=>{const p=((IG&&IG.videos)||{})[d.id]; if(!p||!p.publicado_em) return null; return (Date.now()-Date.parse(p.publicado_em))/3600000;})();
+  return d.obj.map(o=>{
+    const real=objMetric(d,o);
+    const ok = real==null?null:(real>=o.v);
+    return {...o, real, ok};
+  }).map(r=>({...r, maduro: idade==null?false:idade>=48}));
+}
+function q08b(){
+  const cand=V.filter(d=>d.obj&&d.obj.length&&estadoOf(d)==='publicado');
+  if(!cand.length) return '';
+  const rows=cand.map(d=>{
+    const evs=evalObj(d);
+    return evs.map(e=>{
+      const realTxt = e.real==null?'—':(e.m==='retencao'||e.m==='tx_partilha'?e.real.toFixed(1)+'%':fmtN(Math.round(e.real)));
+      const veredito = e.real==null?'<span class="pill">sem dados</span>':(!e.maduro?'<span class="pill">⏱ em medição (&lt;48h)</span>':(e.ok?'<span class="pill ok">✅ cumprido</span>':'<span class="pill bad">❌ ficou aquém</span>'));
+      return `<tr class="rowopen" data-open="${d.id}"><td class="l">#${d.id} ${esc(d.t).slice(0,32)}</td><td class="l">${esc(e.label)}</td><td class="num">${realTxt}</td><td class="l">${veredito}</td></tr>`;
+    }).join('');
+  }).join('');
+  return `<section class="quadro">
+    <div class="q-head"><span class="q-num">QUADRO 09</span><span class="q-title">Objetivo vs. Realidade</span><span class="q-note">hipóteses declaradas antes de gravar, avaliadas contra o resultado real · clique numa linha para o guião</span></div>
+    <div class="q-body tblwrap"><table><thead><tr><th class="l">vídeo</th><th class="l">objetivo</th><th class="num">real</th><th class="l">veredito</th></tr></thead><tbody>${rows}</tbody></table></div></section>`;
+}
 function prodCounts(){const c={ideia:0,guiao:0,gravado:0,editado:0,publicado:0};V.forEach(d=>c[estadoOf(d)]++);return c;}
 function cardHtml(d){
   const est=estadoOf(d);
@@ -862,8 +900,9 @@ function renderProd(){
       </div>
     </div></section>
   ${q07b()}
+  ${q08b()}
   <section class="quadro">
-    <div class="q-head"><span class="q-num">QUADRO 09</span><span class="q-title">Banco de ideias — ${V.length} vídeos</span><span class="q-note">ordenado por score · clique no cartão para guião completo</span></div>
+    <div class="q-head"><span class="q-num">QUADRO 10</span><span class="q-title">Banco de ideias — ${V.length} vídeos</span><span class="q-note">ordenado por score · clique no cartão para guião completo</span></div>
     <div class="q-body">
       <div class="ctrl">
         <button class="chip" aria-pressed="${ocultarPub}" id="chipOcultarPub">ocultar publicados</button>
@@ -872,7 +911,7 @@ function renderProd(){
       <div class="cards">${list.map(cardHtml).join('')}</div>
     </div></section>
   <section class="quadro">
-    <div class="q-head"><span class="q-num">QUADRO 10</span><span class="q-title">Contexto do projeto (humanos e IAs)</span></div>
+    <div class="q-head"><span class="q-num">QUADRO 11</span><span class="q-title">Contexto do projeto (humanos e IAs)</span></div>
     <div class="q-body"><ul style="padding-left:18px;font-size:14px;line-height:2">
     <li><a href="contexto.md" style="color:var(--green);font-weight:600">contexto.md — briefing completo para IA (estado, regras, decisões)</a></li>
     <li><a href="performance.json" style="color:var(--green);font-weight:600">performance.json — pipeline e métricas por vídeo</a></li>
