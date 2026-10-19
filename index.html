@@ -906,7 +906,7 @@ function objMetric(d,o){
   const src = o.plat==='tt' ? ((TT&&TT.videos)||{})[d.id] : ((IG&&IG.videos)||{})[d.id];
   if(!src) return null;
   const m = src.metricas||{};
-  if(o.m==='retencao'){ const dur=DUR[d.id]; return (m.tempo_medio_s&&dur)?100*m.tempo_medio_s/dur:null; }
+  if(o.m==='retencao'){ const tv=((TT&&TT.videos)||{})[d.id]||{}; const dur=tv.duracao_s||DUR[d.id]||d.dur; return (m.tempo_medio_s&&dur)?100*m.tempo_medio_s/dur:null; }
   if(o.m==='tx_partilha'){ return m.alcance?100*(m.partilhas||0)/m.alcance:null; }
   return (m[o.m]??null);
 }
