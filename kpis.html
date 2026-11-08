@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="pt">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Finanças com Dados — Os 5 números</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--papel:#F6F7F4;--tinta:#16241D;--suave:#5B6B62;--azul:#1D5FBF;--azul-f:#E8EFFB;--verde:#0E8A5F;--menta:#BFEFD9;--vermelho:#C2453E;--linha:#16241D;--ls:#CBD2C9;--caixa:#FFFFFF;--ig:#C2453E;--tt:#1D5FBF}
+*{box-sizing:border-box}
+html{background:var(--papel)}
+body{margin:0;color:var(--tinta);font-family:'IBM Plex Sans',sans-serif;font-size:14px;line-height:1.45;background:radial-gradient(circle at 1px 1px,rgba(22,36,29,.045) 1px,transparent 1.6px) 0 0/22px 22px,var(--papel)}
+a{color:var(--azul)}
+.mono{font-family:'IBM Plex Mono',monospace}
+.wrap{max-width:1180px;margin:0 auto;padding:0 16px 80px}
+.mast{border:2px solid var(--linha);background:var(--caixa);margin-top:26px;display:grid;grid-template-columns:1fr auto}
+.mast .l{padding:22px 26px 18px}
+.min{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--azul);margin-bottom:8px}
+h1{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(26px,4.4vw,44px);line-height:.98;margin:0}
+h1 em{font-style:normal;color:var(--verde)}
+.sub{margin-top:10px;font-size:12.5px;color:var(--suave);max-width:560px}
+.mast .r{border-left:2px solid var(--linha);padding:18px 22px;display:flex;flex-direction:column;justify-content:center;gap:10px;min-width:230px;background:var(--azul-f)}
+.k{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--azul);font-weight:600}
+.v{font-family:'IBM Plex Mono',monospace;font-size:13px;font-weight:600}
+@media(max-width:820px){.mast{grid-template-columns:1fr}.mast .r{border-left:none;border-top:2px solid var(--linha)}}
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 14px}
+.bar a.back{font-family:'IBM Plex Mono',monospace;font-size:12px;text-decoration:none;border:2px solid var(--linha);background:var(--caixa);padding:7px 12px;color:var(--tinta)}
+.weeks{display:flex;flex-wrap:wrap;gap:6px}
+.weeks button{all:unset;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:11.5px;padding:6px 10px;border:1.5px solid var(--ls);background:var(--caixa)}
+.weeks button[aria-pressed=true]{border-color:var(--linha);background:var(--tinta);color:var(--papel)}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.grid{grid-template-columns:1fr}}
+.card{border:2px solid var(--linha);background:var(--caixa);padding:14px 16px 12px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.card .lab{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--suave)}
+.card .big{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:34px;line-height:1}
+.card .split{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--suave)}
+.card .split b{font-weight:600}
+.delta{font-family:'IBM Plex Mono',monospace;font-size:11.5px}
+.up{color:var(--verde)}.down{color:var(--vermelho)}
+.tgt{font-size:11.5px;display:flex;gap:6px;align-items:center}
+.pill{font-family:'IBM Plex Mono',monospace;font-size:10.5px;padding:2px 7px;border-radius:99px}
+.ok{background:var(--menta);color:#0a5a3e}.ko{background:#F7D9D6;color:#8a2a24}
+.card svg{width:100%;height:56px;display:block;margin-top:4px}
+h2{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:20px;margin:30px 0 10px}
+.tblw{border:2px solid var(--linha);background:var(--caixa);overflow-x:auto}
+table{border-collapse:collapse;width:100%;font-size:12.5px}
+th,td{padding:8px 10px;border-bottom:1px solid var(--ls);text-align:right;white-space:nowrap}
+th{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--suave);background:#FBFBF9}
+td:first-child,th:first-child,td:nth-child(2),th:nth-child(2){text-align:left}
+td.t{white-space:normal;min-width:220px}
+.note{font-size:12px;color:var(--suave);margin-top:12px;max-width:820px}
+.leg{display:inline-flex;gap:12px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--suave)}
+.dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px;vertical-align:-1px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="mast">
+  <div class="l">
+    <div class="min">Modelo FCD-3 · revisão semanal</div>
+    <h1>Os <em>5 números</em> da semana</h1>
+    <div class="sub">Views · seguidores por 1.000 views · partilhas no IG · saves · comentários. Tudo o que <b>aconteceu</b> na semana (segunda a domingo), em todos os vídeos, calculado a partir dos snapshots horários dos robôs.</div>
+  </div>
+  <div class="r">
+    <div><div class="k">Última sincronização</div><div class="v" id="sync">—</div></div>
+    <div><div class="k">Seguidores agora</div><div class="v" id="segs">—</div></div>
+  </div>
+</header>
+
+<div class="bar">
+  <a class="back" href="index.html">← Dashboard</a>
+  <div class="weeks" id="weeks"></div>
+  <span class="leg"><span><span class="dot" style="background:var(--ig)"></span>Instagram</span><span><span class="dot" style="background:var(--tt)"></span>TikTok</span></span>
+</div>
+
+<div class="grid" id="cards"></div>
+
+<h2>Vídeos publicados nesta semana e na anterior</h2>
+<div class="tblw"><table id="tbl"></table></div>
+<p class="note"><b>Como se calcula.</b> Cada número é a diferença entre o início e o fim da semana nos snapshots (views, partilhas, saves e comentários ganhos nesses 7 dias, por todos os vídeos). <b>Seguidores por 1.000 views</b> = seguidores ganhos na semana ÷ views ganhas na semana × 1.000, por plataforma (meta ≥ 3). <b>Partilhas IG</b> = partilhas ganhas ÷ alcance ganho no Instagram (meta ≥ 1%). Os saves só existem no Instagram. Quando há buracos nos snapshots, usa-se o último valor conhecido — semanas com buracos podem ficar ligeiramente por baixo. A tabela mostra o total vitalício de cada vídeo.</p>
+</div>
+<script>
+const $=s=>document.querySelector(s);
+const fmt=n=>n==null||isNaN(n)?'—':String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,'.');
+const pct=(n,d=1)=>n==null||isNaN(n)?'—':n.toFixed(d).replace('.',',')+'%';
+const dec=(n,d=1)=>n==null||isNaN(n)?'—':n.toFixed(d).replace('.',',');
+const P=s=>new Date(String(s).slice(0,16));
+function valAt(hist,t,key){let v=null;for(const r of hist){if(P(r.t)<=t)v=r[key]??v;else break}return v}
+function monday(d){const x=new Date(d);x.setHours(0,0,0,0);const w=(x.getDay()+6)%7;x.setDate(x.getDate()-w);return x}
+const dd=d=>String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0');
+let IG,TT,TIT={},WEEKS=[],sel=0;
+function gain(vids,a,b,key){let s=0;for(const v of Object.values(vids)){const h=(v.historico||[]).slice().sort((x,y)=>P(x.t)-P(y.t));if(!h.length)continue;const pub=P(v.publicado_em);if(pub>=b)continue;
+  const end=valAt(h,b,key)??0;let start=pub>=a?0:(valAt(h,a,key));if(start==null)start=h[0][key]??0;s+=Math.max(0,end-start)}return s}
+function segGain(hist,a,b){const h=hist.slice().sort((x,y)=>P(x.t)-P(y.t));const e=valAt(h,b,'seguidores'),s=valAt(h,a,'seguidores');return(e==null||s==null)?null:e-s}
+function week(a){const b=new Date(a);b.setDate(b.getDate()+7);const now=new Date(Math.max(...[IG.ultima_sincronizacao,TT.ultima_atualizacao].map(P)));const bb=b>now?now:b;
+  const r={a,b:bb,full:b<=now};
+  r.vIG=gain(IG.videos,a,bb,'views');r.vTT=gain(TT.videos,a,bb,'views');r.views=r.vIG+r.vTT;
+  r.sIG=segGain(IG.canal.historico,a,bb);r.sTT=segGain(TT.canal.historico,a,bb);
+  r.kIG=r.vIG&&r.sIG!=null?r.sIG/r.vIG*1000:null;r.kTT=r.vTT&&r.sTT!=null?r.sTT/r.vTT*1000:null;
+  r.k=(r.views&&r.sIG!=null&&r.sTT!=null)?(r.sIG+r.sTT)/r.views*1000:null;
+  const sh=gain(IG.videos,a,bb,'partilhas'),al=gain(IG.videos,a,bb,'alcance');r.share=al?sh/al*100:null;r.shN=sh;
+  r.saves=gain(IG.videos,a,bb,'saves');
+  r.cIG=gain(IG.videos,a,bb,'comentarios');r.cTT=gain(TT.videos,a,bb,'comentarios');r.com=r.cIG+r.cTT;return r}
+function spark(vals,target,cur){const w=200,h=56,mx=Math.max(...vals.map(v=>v||0),target||0)||1,bw=w/vals.length;
+  let s=`<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">`;
+  vals.forEach((v,i)=>{const bh=(v||0)/mx*(h-6);s+=`<rect x="${i*bw+2}" y="${h-bh}" width="${bw-4}" height="${bh}" fill="${i===cur?'#16241D':'#CBD2C9'}"/>`});
+  if(target){const y=h-target/mx*(h-6);s+=`<line x1="0" x2="${w}" y1="${y}" y2="${y}" stroke="#0E8A5F" stroke-width="1.5" stroke-dasharray="4 3"/>`}
+  return s+'</svg>'}
+function delta(c,p,isPct){if(c==null||p==null)return'';const d=c-p;if(Math.abs(d)<1e-9)return'<span class="delta">= semana anterior</span>';
+  const t=isPct?(d>0?'+':'')+dec(d,isPct===2?2:1)+(isPct===1?' p.p.':''):(p?((d>0?'+':'')+Math.round(d/p*100)+'%'):'');return`<span class="delta ${d>0?'up':'down'}">${t} vs semana anterior</span>`}
+function render(){const W=WEEKS,i=sel,c=W[i],p=W[i+1];const series=k=>W.slice(0,8).map(w=>w[k]).reverse();const cur=Math.min(7,W.length-1)-i;
+  const tg=(v,t,f)=>v==null?'':`<div class="tgt">meta ${f(t)} <span class="pill ${v>=t?'ok':'ko'}">${v>=t?'cumprida':'abaixo'}</span></div>`;
+  const cards=[
+   {lab:'Views',big:fmt(c.views),split:`<b style="color:var(--ig)">IG ${fmt(c.vIG)}</b> · <b style="color:var(--tt)">TT ${fmt(c.vTT)}</b>`,d:delta(c.views,p&&p.views),s:spark(series('views'),null,cur)},
+   {lab:'Seguidores / 1.000 views',big:dec(c.k),split:`IG ${dec(c.kIG)} (${c.sIG==null?'—':(c.sIG>0?'+':'')+c.sIG}) · TT ${dec(c.kTT)} (${c.sTT==null?'—':(c.sTT>0?'+':'')+c.sTT})`,d:delta(c.k,p&&p.k,2),t:tg(c.k,3,x=>'≥ '+x),s:spark(series('k'),3,cur)},
+   {lab:'Partilhas IG (% alcance)',big:pct(c.share,2),split:`${fmt(c.shN)} partilhas`,d:delta(c.share,p&&p.share,1),t:tg(c.share,1,x=>'≥ '+x+'%'),s:spark(series('share'),1,cur)},
+   {lab:'Saves (IG)',big:fmt(c.saves),split:'só existem no Instagram',d:delta(c.saves,p&&p.saves),s:spark(series('saves'),null,cur)},
+   {lab:'Comentários',big:fmt(c.com),split:`<b style="color:var(--ig)">IG ${fmt(c.cIG)}</b> · <b style="color:var(--tt)">TT ${fmt(c.cTT)}</b>`,d:delta(c.com,p&&p.com),s:spark(series('com'),null,cur)}];
+  $('#cards').innerHTML=cards.map(x=>`<div class="card"><div class="lab">${x.lab}</div><div class="big">${x.big}</div><div class="split">${x.split}</div>${x.d||''}${x.t||''}${x.s}</div>`).join('');
+  $('#weeks').innerHTML=W.slice(0,8).map((w,j)=>`<button aria-pressed="${j===i}" data-i="${j}">${dd(w.a)}–${dd(new Date(w.a.getTime()+6*864e5))}${w.full?'':' (em curso)'}</button>`).join('');
+  document.querySelectorAll('#weeks button').forEach(b=>b.onclick=()=>{sel=+b.dataset.i;render()});
+  const lo=p?p.a:c.a,hi=new Date(c.a.getTime()+7*864e5);const ids=new Set();
+  for(const [id,v] of Object.entries(IG.videos)){const t=P(v.publicado_em);if(t>=lo&&t<hi)ids.add(id)}
+  for(const [id,v] of Object.entries(TT.videos)){const t=P(v.publicado_em);if(t>=lo&&t<hi)ids.add(id)}
+  const rows=[...ids].map(id=>{const g=IG.videos[id],t=TT.videos[id];const gm=g?g.metricas:{},tm=t?t.metricas:{};
+    return{id,pub:P((g||t).publicado_em),vi:gm.views,vt:tm.views,sh:gm.alcance?gm.partilhas/gm.alcance*100:null,sv:gm.saves,cm:(gm.comentarios||0)+(tm.comentarios||0),tmp:gm.tempo_medio_s,dur:t&&t.duracao_s}}).sort((a,b)=>b.pub-a.pub);
+  $('#tbl').innerHTML=`<thead><tr><th>Publicado</th><th>Vídeo</th><th>Views IG</th><th>Views TT</th><th>Total</th><th>Partilhas IG</th><th>Saves</th><th>Coment.</th><th>Tempo médio IG</th><th>Duração</th></tr></thead><tbody>`+
+   (rows.length?rows.map(r=>`<tr><td class="mono">${dd(r.pub)}</td><td class="t">${TIT[r.id]?TIT[r.id]:'#'+r.id}</td><td>${fmt(r.vi)}</td><td>${fmt(r.vt)}</td><td><b>${fmt((r.vi||0)+(r.vt||0))}</b></td><td><span class="pill ${r.sh>=1?'ok':'ko'}">${pct(r.sh,2)}</span></td><td>${fmt(r.sv)}</td><td>${fmt(r.cm)}</td><td>${r.tmp?dec(r.tmp,0)+' s':'—'}</td><td>${r.dur?r.dur+' s':'—'}</td></tr>`).join(''):'<tr><td colspan="10">Sem vídeos neste período.</td></tr>')+'</tbody>'}
+Promise.all([fetch('performance.json').then(r=>r.json()),fetch('performance_tiktok.json').then(r=>r.json()),fetch('index.html').then(r=>r.text()).catch(()=> '')]).then(([a,b,html])=>{
+  IG=a;TT=b;for(const m of html.matchAll(/\bid:(\d+),t:'((?:[^'\\]|\\.)*)'/g))TIT[m[1]]=m[2].replace(/\\'/g,"'");
+  const last=new Date(Math.max(P(IG.ultima_sincronizacao),P(TT.ultima_atualizacao)));
+  $('#sync').textContent=String(IG.ultima_sincronizacao).replace('T',' ');
+  const sI=IG.canal.historico.at(-1)?.seguidores,sT=TT.canal.historico.at(-1)?.seguidores;$('#segs').textContent=`IG ${fmt(sI)} · TT ${fmt(sT)}`;
+  let m=monday(last);for(let j=0;j<9;j++){WEEKS.push(week(new Date(m)));m.setDate(m.getDate()-7)}
+  if(!WEEKS[0].full&&(new Date()-WEEKS[0].a)<2*864e5)sel=1;render()}).catch(e=>{$('#cards').innerHTML='<div class="card">Não consegui ler os dados: '+e.message+'</div>'});
+</script>
+</body>
+</html>
