@@ -1,6 +1,22 @@
 # Instagram Finanças com Dados — Centro de Contexto do Projeto
 
-**DEPLOY 7/nov:** #129 GTA 6 (sáb 7/nov, ep. 1 de 2 — parte 2 a 20-21/nov com vendas do 1.º dia; versão leve: espera de 13 anos, adiamentos, trailer recorde, GTA V 1.000 M$ em 3 dias) · #128 Inflação paga dívidas (dom 8/nov; gancho Trump/Time 1/out; dívida PT 134%→90% do PIB 2020-25 sem descer em euros; analogia do amigo; exemplo dos cafés visto dos dois lados; "pagas imposto por emprestar ao Estado"; certificados 979 vs conta à ordem 962 cafés; gráfico animado 2 barras). #126 Enfermeiros: guião v3 (país exportador + condições: turno, 1 para 8 doentes, 6 em 10 fazem horas extra sempre, 6,2 M h extra, população nova → falta ~21 mil) em revisão pela irmã do Bernardo (enfermeira). #125 Raspadinhas por agendar (falta comprar o bilhete). Ideia de série futura: "Se tivesses investido 1.000 €…" (vencedor vs perdedor: Nvidia vs Cisco, BES vs Jerónimo Martins) — falta acesso a dados históricos de preços.
+## PLANO DA SEMANA
+*(Fonte de verdade do que está decidido. A revisão automática de segunda lê esta secção e não a substitui — só sugere trocas com razão forte.)*
+
+**Semana 9–15 nov 2026**
+| Dia | Vídeo | Estado |
+|---|---|---|
+| ter 10/nov | **Quantos cafés terias? (ep. 1)** — 1.000 € há um ano em conta à ordem, certificados de aforro, ouro, PSI, S&P 500 e Bitcoin, em cafés de hoje (descontada a inflação). Abre com "muita gente me pergunta onde investir; não posso aconselhar, mas posso mostrar o que aconteceu". Responde ao comentário do Victor Oliveira. | ✅ Pacote gerado 10/nov (#fcd130) · gráfico animado de barras 20 s |
+| qui 12/nov | **Enfermeiros** (guião v3: país exportador + condições) | Só sai se a irmã do Bernardo (enfermeira) aprovar a tempo; senão passa para a semana seguinte |
+| sáb 14/nov | **Raspadinhas** (guião pronto) — ou slot livre de atualidade | Falta comprar a raspadinha |
+| dom 15/nov | **O que é uma taxa de juro?** — "o juro é a renda do dinheiro"; BCE; porque sobe com inflação; prestação vs depósitos. Gancho possível: comentários do vídeo da inflação ("os juros têm de ser maiores do que a inflação" — nem sempre). | Decidido · falta confirmar o que o BCE fez em 2026 |
+
+**Semana 16–22 nov 2026 (já marcado)**
+- 20 ou 21/nov: **GTA 6 — parte 2** (vendas do 1.º dia; Take-Two; microtransações/online).
+- Próximo episódio de "Quantos cafés terias?": ações de que toda a gente fala (Nvidia, Tesla, Apple + Galp, EDP, Jerónimo Martins, BCP) — com perdedoras.
+
+**Gaveta (guiões prontos de reserva):** Enfermeiros (à espera de aprovação) · Raspadinhas (falta bilhete).
+**Série recorrente:** "Quantos cafés terias?" (mensal) · "Quanto ganha…?" · "Não ganham dinheiro como pensas" (máx. 1/semana).
 
 **4/nov:** qua 4/nov 19h **#127 "Tetos às rendas: o problema é o preço?"** (ideia do Bernardo a partir da notícia de 2/nov; debate com dados: Barcelona renda -4,4% mas contratos -20%, anúncios -22%, €/m² +2,4% recorde, casas mais pequenas; São Francisco (Stanford/AER); lado da Generalitat: sem teto +11%, recorde de contratos em vigor — quem tem casa não sai; abertura com screenshot da manchete). Enfermeiros (#126) adiado para o próximo slot. **Lição dos números da semana 27/out:** Brasil 92 s → retenção 26%, TT 393; diamantes TT 472; contínua chegou a 47,7 mil TT. O TikTok premeia Portugal + salários + grupo que se reconhece; vídeos longos e temas de fora caem. **Atenção:** o site no GitHub não foi atualizado desde 19/out — o pacote de 4/nov é cumulativo.
 
