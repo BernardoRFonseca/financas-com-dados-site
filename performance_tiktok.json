@@ -1,7 +1,7 @@
 {
  "plataforma": "tiktok",
  "modo": "api+manual",
- "ultima_atualizacao": "2026-11-15T21:00",
+ "ultima_atualizacao": "2026-11-15T21:43",
  "nota": "Atualização manual semanal via TikTok Studio (screenshots). Views/likes/etc são acumulados de vida. tempo_medio_s e pct_completo do Analytics nativo. | novos_seguidores por vídeo DESCONTINUADO a 30/ago (ficou estático desde 23/ago): a fonte de verdade de seguidores é canal.historico (API, horário). Valores antigos mantidos só como registo histórico.",
  "videos": {
   "39": {
@@ -229,15 +229,8 @@
    },
    "publicado_em": "2026-08-25T17:58",
    "duracao_s": 47,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
-    {
-     "t": "2026-09-07T04:00",
-     "views": 2531,
-     "likes": 48,
-     "comentarios": 0,
-     "partilhas": 4
-    },
     {
      "t": "2026-09-07T04:29",
      "views": 2531,
@@ -14230,6 +14223,13 @@
      "likes": 61,
      "comentarios": 1,
      "partilhas": 8
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 3534,
+     "likes": 61,
+     "comentarios": 1,
+     "partilhas": 8
     }
    ]
   },
@@ -14242,15 +14242,8 @@
    },
    "publicado_em": "2026-08-27T18:30",
    "duracao_s": 49,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
-    {
-     "t": "2026-09-07T04:00",
-     "views": 782,
-     "likes": 17,
-     "comentarios": 0,
-     "partilhas": 1
-    },
     {
      "t": "2026-09-07T04:29",
      "views": 782,
@@ -28243,6 +28236,13 @@
      "likes": 18,
      "comentarios": 0,
      "partilhas": 1
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 843,
+     "likes": 18,
+     "comentarios": 0,
+     "partilhas": 1
     }
    ]
   },
@@ -28255,15 +28255,8 @@
    },
    "publicado_em": "2026-08-29T10:01",
    "duracao_s": 61,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
-    {
-     "t": "2026-09-07T04:00",
-     "views": 15388,
-     "likes": 302,
-     "comentarios": 10,
-     "partilhas": 53
-    },
     {
      "t": "2026-09-07T04:29",
      "views": 15401,
@@ -42256,6 +42249,13 @@
      "likes": 396,
      "comentarios": 10,
      "partilhas": 60
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 19948,
+     "likes": 396,
+     "comentarios": 10,
+     "partilhas": 60
     }
    ]
   },
@@ -42268,15 +42268,8 @@
    },
    "publicado_em": "2026-08-30T09:57",
    "duracao_s": 45,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
-    {
-     "t": "2026-09-07T04:00",
-     "views": 1390,
-     "likes": 81,
-     "comentarios": 2,
-     "partilhas": 3
-    },
     {
      "t": "2026-09-07T04:29",
      "views": 1390,
@@ -56269,27 +56262,27 @@
      "likes": 91,
      "comentarios": 2,
      "partilhas": 5
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 1601,
+     "likes": 91,
+     "comentarios": 2,
+     "partilhas": 5
     }
    ]
   },
   "42": {
    "metricas": {
-    "views": 22859,
+    "views": 22862,
     "likes": 640,
     "comentarios": 34,
     "partilhas": 162
    },
    "publicado_em": "2026-09-01T18:02",
    "duracao_s": 50,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
-    {
-     "t": "2026-09-07T04:00",
-     "views": 13937,
-     "likes": 385,
-     "comentarios": 14,
-     "partilhas": 81
-    },
     {
      "t": "2026-09-07T04:29",
      "views": 13940,
@@ -70282,6 +70275,13 @@
      "likes": 640,
      "comentarios": 34,
      "partilhas": 162
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 22862,
+     "likes": 640,
+     "comentarios": 34,
+     "partilhas": 162
     }
    ]
   },
@@ -70294,15 +70294,8 @@
    },
    "publicado_em": "2026-09-03T17:48",
    "duracao_s": 45,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
-    {
-     "t": "2026-09-07T04:00",
-     "views": 300,
-     "likes": 9,
-     "comentarios": 0,
-     "partilhas": 0
-    },
     {
      "t": "2026-09-07T04:29",
      "views": 301,
@@ -84295,6 +84288,13 @@
      "likes": 11,
      "comentarios": 0,
      "partilhas": 2
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 387,
+     "likes": 11,
+     "comentarios": 0,
+     "partilhas": 2
     }
    ]
   },
@@ -84307,15 +84307,8 @@
    },
    "publicado_em": "2026-09-05T10:15",
    "duracao_s": 54,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
-    {
-     "t": "2026-09-07T04:00",
-     "views": 707,
-     "likes": 23,
-     "comentarios": 1,
-     "partilhas": 5
-    },
     {
      "t": "2026-09-07T04:29",
      "views": 708,
@@ -98308,6 +98301,13 @@
      "likes": 26,
      "comentarios": 1,
      "partilhas": 5
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 866,
+     "likes": 26,
+     "comentarios": 1,
+     "partilhas": 5
     }
    ]
   },
@@ -98320,15 +98320,8 @@
    },
    "publicado_em": "2026-09-06T11:57",
    "duracao_s": 93,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
-    {
-     "t": "2026-09-07T04:00",
-     "views": 221,
-     "likes": 6,
-     "comentarios": 2,
-     "partilhas": 0
-    },
     {
      "t": "2026-09-07T04:29",
      "views": 222,
@@ -112321,19 +112314,26 @@
      "likes": 13,
      "comentarios": 2,
      "partilhas": 0
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 357,
+     "likes": 13,
+     "comentarios": 2,
+     "partilhas": 0
     }
    ]
   },
   "102": {
    "metricas": {
-    "views": 848,
+    "views": 849,
     "likes": 30,
     "comentarios": 0,
     "partilhas": 0
    },
    "publicado_em": "2026-09-08T17:56",
    "duracao_s": 34,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-09-08T18:01",
@@ -126005,19 +126005,26 @@
      "likes": 30,
      "comentarios": 0,
      "partilhas": 0
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 849,
+     "likes": 30,
+     "comentarios": 0,
+     "partilhas": 0
     }
    ]
   },
   "4": {
    "metricas": {
-    "views": 905,
+    "views": 906,
     "likes": 23,
     "comentarios": 6,
     "partilhas": 4
    },
    "publicado_em": "2026-09-10T17:32",
    "duracao_s": 44,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-09-10T18:00",
@@ -139269,19 +139276,26 @@
      "likes": 23,
      "comentarios": 6,
      "partilhas": 4
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 906,
+     "likes": 23,
+     "comentarios": 6,
+     "partilhas": 4
     }
    ]
   },
   "44": {
    "metricas": {
-    "views": 346,
+    "views": 347,
     "likes": 22,
     "comentarios": 4,
     "partilhas": 1
    },
    "publicado_em": "2026-09-12T09:59",
    "duracao_s": 46,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-09-12T10:00",
@@ -152176,19 +152190,26 @@
      "likes": 22,
      "comentarios": 4,
      "partilhas": 1
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 347,
+     "likes": 22,
+     "comentarios": 4,
+     "partilhas": 1
     }
    ]
   },
   "20": {
    "metricas": {
-    "views": 768,
+    "views": 769,
     "likes": 42,
     "comentarios": 2,
     "partilhas": 6
    },
    "publicado_em": "2026-09-13T09:36",
    "duracao_s": 68,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-09-13T10:00",
@@ -164880,19 +164901,26 @@
      "likes": 42,
      "comentarios": 2,
      "partilhas": 6
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 769,
+     "likes": 42,
+     "comentarios": 2,
+     "partilhas": 6
     }
    ]
   },
   "92": {
    "metricas": {
-    "views": 1878,
+    "views": 1879,
     "likes": 31,
     "comentarios": 0,
     "partilhas": 7
    },
    "publicado_em": "2026-09-18T20:02",
    "duracao_s": 49,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-09-18T21:00",
@@ -176450,19 +176478,26 @@
      "likes": 31,
      "comentarios": 0,
      "partilhas": 7
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 1879,
+     "likes": 31,
+     "comentarios": 0,
+     "partilhas": 7
     }
    ]
   },
   "43": {
    "metricas": {
-    "views": 934,
+    "views": 936,
     "likes": 24,
     "comentarios": 2,
     "partilhas": 1
    },
    "publicado_em": "2026-09-19T09:58",
    "duracao_s": 41,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-09-19T10:00",
@@ -187908,19 +187943,26 @@
      "likes": 24,
      "comentarios": 2,
      "partilhas": 1
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 936,
+     "likes": 24,
+     "comentarios": 2,
+     "partilhas": 1
     }
    ]
   },
   "60": {
    "metricas": {
-    "views": 1199,
+    "views": 1201,
     "likes": 27,
     "comentarios": 0,
     "partilhas": 0
    },
    "publicado_em": "2026-09-20T09:47",
    "duracao_s": 36,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-09-20T10:00",
@@ -199149,19 +199191,26 @@
      "likes": 27,
      "comentarios": 0,
      "partilhas": 0
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 1201,
+     "likes": 27,
+     "comentarios": 0,
+     "partilhas": 0
     }
    ]
   },
   "112": {
    "metricas": {
-    "views": 623,
+    "views": 624,
     "likes": 14,
     "comentarios": 2,
     "partilhas": 2
    },
    "publicado_em": "2026-09-25T18:55",
    "duracao_s": 73,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-09-25T19:00",
@@ -209284,19 +209333,26 @@
      "likes": 14,
      "comentarios": 2,
      "partilhas": 2
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 624,
+     "likes": 14,
+     "comentarios": 2,
+     "partilhas": 2
     }
    ]
   },
   "114": {
    "metricas": {
-    "views": 3942,
+    "views": 3943,
     "likes": 49,
     "comentarios": 19,
     "partilhas": 2
    },
    "publicado_em": "2026-10-08T17:40",
    "duracao_s": 48,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-10-08T18:00",
@@ -216871,19 +216927,26 @@
      "likes": 49,
      "comentarios": 19,
      "partilhas": 2
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 3943,
+     "likes": 49,
+     "comentarios": 19,
+     "partilhas": 2
     }
    ]
   },
   "115": {
    "metricas": {
-    "views": 1957,
+    "views": 1958,
     "likes": 53,
     "comentarios": 2,
     "partilhas": 2
    },
    "publicado_em": "2026-10-10T09:45",
    "duracao_s": 52,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-10-10T10:00",
@@ -224129,19 +224192,26 @@
      "likes": 53,
      "comentarios": 2,
      "partilhas": 2
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 1958,
+     "likes": 53,
+     "comentarios": 2,
+     "partilhas": 2
     }
    ]
   },
   "61": {
    "metricas": {
-    "views": 371,
+    "views": 372,
     "likes": 17,
     "comentarios": 1,
     "partilhas": 1
    },
    "publicado_em": "2026-10-16T17:30",
    "duracao_s": 63,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-10-16T18:00",
@@ -230127,19 +230197,26 @@
      "likes": 17,
      "comentarios": 1,
      "partilhas": 1
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 372,
+     "likes": 17,
+     "comentarios": 1,
+     "partilhas": 1
     }
    ]
   },
   "116": {
    "metricas": {
-    "views": 373,
+    "views": 374,
     "likes": 14,
     "comentarios": 0,
     "partilhas": 1
    },
    "publicado_em": "2026-10-17T09:46",
    "duracao_s": 47,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-10-17T10:00",
@@ -235985,19 +236062,26 @@
      "likes": 14,
      "comentarios": 0,
      "partilhas": 1
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 374,
+     "likes": 14,
+     "comentarios": 0,
+     "partilhas": 1
     }
    ]
   },
   "118": {
    "metricas": {
-    "views": 49208,
+    "views": 49215,
     "likes": 1874,
     "comentarios": 114,
     "partilhas": 222
    },
    "publicado_em": "2026-10-20T18:07",
    "duracao_s": 65,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-10-20T19:00",
@@ -241143,19 +241227,26 @@
      "likes": 1874,
      "comentarios": 114,
      "partilhas": 222
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 49215,
+     "likes": 1874,
+     "comentarios": 114,
+     "partilhas": 222
     }
    ]
   },
   "119": {
    "metricas": {
-    "views": 1494,
+    "views": 1495,
     "likes": 42,
     "comentarios": 0,
     "partilhas": 6
    },
    "publicado_em": "2026-10-22T18:46",
    "duracao_s": 51,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-10-22T19:00",
@@ -245888,19 +245979,26 @@
      "likes": 42,
      "comentarios": 0,
      "partilhas": 6
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 1495,
+     "likes": 42,
+     "comentarios": 0,
+     "partilhas": 6
     }
    ]
   },
   "124": {
    "metricas": {
-    "views": 473,
+    "views": 474,
     "likes": 17,
     "comentarios": 1,
     "partilhas": 1
    },
    "publicado_em": "2026-10-27T18:55",
    "duracao_s": 92,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-10-27T19:00",
@@ -249604,19 +249702,26 @@
      "likes": 17,
      "comentarios": 1,
      "partilhas": 1
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 474,
+     "likes": 17,
+     "comentarios": 1,
+     "partilhas": 1
     }
    ]
   },
   "117": {
    "metricas": {
-    "views": 557,
+    "views": 558,
     "likes": 19,
     "comentarios": 2,
     "partilhas": 0
    },
    "publicado_em": "2026-10-29T18:53",
    "duracao_s": 56,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-10-29T19:00",
@@ -252928,19 +253033,26 @@
      "likes": 19,
      "comentarios": 2,
      "partilhas": 0
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 558,
+     "likes": 19,
+     "comentarios": 2,
+     "partilhas": 0
     }
    ]
   },
   "127": {
    "metricas": {
-    "views": 695,
+    "views": 696,
     "likes": 41,
     "comentarios": 0,
     "partilhas": 1
    },
    "publicado_em": "2026-11-04T18:54",
    "duracao_s": 92,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-11-04T19:00",
@@ -255090,19 +255202,26 @@
      "likes": 41,
      "comentarios": 0,
      "partilhas": 1
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 696,
+     "likes": 41,
+     "comentarios": 0,
+     "partilhas": 1
     }
    ]
   },
   "129": {
    "metricas": {
-    "views": 34249,
-    "likes": 1764,
+    "views": 34311,
+    "likes": 1769,
     "comentarios": 62,
     "partilhas": 422
    },
    "publicado_em": "2026-11-07T13:40",
    "duracao_s": 62,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-11-07T14:00",
@@ -256713,19 +256832,26 @@
      "likes": 1764,
      "comentarios": 62,
      "partilhas": 422
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 34311,
+     "likes": 1769,
+     "comentarios": 62,
+     "partilhas": 422
     }
    ]
   },
   "128": {
    "metricas": {
-    "views": 13837,
+    "views": 13849,
     "likes": 553,
     "comentarios": 39,
     "partilhas": 83
    },
    "publicado_em": "2026-11-08T11:08",
    "duracao_s": 125,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-11-08T12:00",
@@ -258154,19 +258280,26 @@
      "likes": 553,
      "comentarios": 39,
      "partilhas": 83
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 13849,
+     "likes": 553,
+     "comentarios": 39,
+     "partilhas": 83
     }
    ]
   },
   "130": {
    "metricas": {
-    "views": 676,
+    "views": 678,
     "likes": 25,
     "comentarios": 2,
     "partilhas": 8
    },
    "publicado_em": "2026-11-10T19:32",
    "duracao_s": 89,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-11-10T20:00",
@@ -259147,19 +259280,26 @@
      "likes": 25,
      "comentarios": 2,
      "partilhas": 8
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 678,
+     "likes": 25,
+     "comentarios": 2,
+     "partilhas": 8
     }
    ]
   },
   "131": {
    "metricas": {
-    "views": 798,
+    "views": 799,
     "likes": 32,
     "comentarios": 11,
     "partilhas": 2
    },
    "publicado_em": "2026-11-11T12:40",
    "duracao_s": 90,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-11-11T13:00",
@@ -260000,19 +260140,26 @@
      "likes": 32,
      "comentarios": 11,
      "partilhas": 2
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 799,
+     "likes": 32,
+     "comentarios": 11,
+     "partilhas": 2
     }
    ]
   },
   "132": {
    "metricas": {
-    "views": 7443,
+    "views": 7476,
     "likes": 152,
     "comentarios": 31,
     "partilhas": 7
    },
    "publicado_em": "2026-11-14T10:52",
    "duracao_s": 93,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-11-14T11:00",
@@ -260293,19 +260440,26 @@
      "likes": 152,
      "comentarios": 31,
      "partilhas": 7
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 7476,
+     "likes": 152,
+     "comentarios": 31,
+     "partilhas": 7
     }
    ]
   },
   "133": {
    "metricas": {
-    "views": 324,
+    "views": 329,
     "likes": 21,
     "comentarios": 1,
     "partilhas": 0
    },
    "publicado_em": "2026-11-15T11:00",
    "duracao_s": 62,
-   "atualizado": "2026-11-15T21:00",
+   "atualizado": "2026-11-15T21:43",
    "historico": [
     {
      "t": "2026-11-15T11:00",
@@ -260390,17 +260544,19 @@
      "likes": 21,
      "comentarios": 1,
      "partilhas": 0
+    },
+    {
+     "t": "2026-11-15T21:43",
+     "views": 329,
+     "likes": 21,
+     "comentarios": 1,
+     "partilhas": 0
     }
    ]
   }
  },
  "canal": {
   "historico": [
-   {
-    "t": "2026-09-07T04:00",
-    "seguidores": 127,
-    "publicacoes": 18
-   },
    {
     "t": "2026-09-07T04:29",
     "seguidores": 128,
@@ -270394,6 +270550,11 @@
    {
     "t": "2026-11-15T21:00",
     "seguidores": 369,
+    "publicacoes": 42
+   },
+   {
+    "t": "2026-11-15T21:43",
+    "seguidores": 370,
     "publicacoes": 42
    }
   ]
